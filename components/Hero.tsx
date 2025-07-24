@@ -43,7 +43,7 @@ export default function Hero() {
             <span className="block text-white mb-4">
               Crafting <span className="text-white">Digital</span>
             </span>
-            <span className="block text-gradient relative h-20 md:h-24 lg:h-28 flex items-center justify-center overflow-hidden">
+            <span className="block relative h-20 md:h-24 lg:h-28 flex items-center justify-center overflow-hidden" style={{color: 'rgb(147, 51, 234)'}}>
               <span 
                 key={currentWordIndex}
                 className={`text-center transition-all duration-700 ease-in-out ${
