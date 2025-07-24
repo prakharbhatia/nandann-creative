@@ -99,6 +99,9 @@ export default function Navigation() {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden glass p-2 rounded-lg hover:bg-white/10 transition-all duration-300"
+            aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
           >
             <div className="w-6 h-6 flex flex-col justify-center space-y-1">
               <span className={`w-full h-0.5 bg-white transition-all duration-300 ${
@@ -115,9 +118,12 @@ export default function Navigation() {
         </div>
 
         {/* Mobile Menu */}
-        <div className={`md:hidden transition-all duration-300 overflow-hidden ${
-          isMobileMenuOpen ? 'max-h-64 mt-4' : 'max-h-0'
-        }`}>
+        <div 
+          id="mobile-menu"
+          className={`md:hidden transition-all duration-300 overflow-hidden ${
+            isMobileMenuOpen ? 'max-h-64 mt-4' : 'max-h-0'
+          }`}
+        >
           <div className="glass rounded-2xl p-4 space-y-3">
             {navItems.map((item) => (
               <Link
