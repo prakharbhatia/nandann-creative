@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+  background: linear-gradient(to bottom right, #111827, #1e3a8a, #581c87);
+  min-height: 100vh;
+}
+
 @keyframes slideInUp {
   0% {
     transform: translateY(120%);

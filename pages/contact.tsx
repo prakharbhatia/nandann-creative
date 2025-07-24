@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import Navigation from '../components/Navigation';
 import Contact from '../components/Contact';
+import Footer from '../components/Footer';
 
 export default function ContactPage() {
   return (
@@ -12,9 +13,10 @@ export default function ContactPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       
-      <div className="bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 min-h-screen">
+      <div className="min-h-screen">
         <Navigation />
         <Contact />
+        <Footer />
       </div>
     </>
   );

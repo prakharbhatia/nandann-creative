@@ -35,7 +35,7 @@ export default function Footer() {
         <p className="text-gray-400 mb-3">
           Crafting digital experiences that drive results
         </p>
-        <p className="text-gray-500 text-sm mb-8">
+                  <p className="text-gray-500 text-sm mb-4">
           © 2025 Nandann Creative Agency. All rights reserved.
         </p>
       </div>
