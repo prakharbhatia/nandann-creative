@@ -32,10 +32,10 @@ export default function Footer() {
             </div>
           )}
         </div>
-        <p className="text-gray-400 mb-6">
+        <p className="text-gray-400 mb-3">
           Crafting digital experiences that drive results
         </p>
-        <p className="text-gray-500 text-sm">
+        <p className="text-gray-500 text-sm mb-8">
           © 2025 Nandann Creative Agency. All rights reserved.
         </p>
       </div>
