@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react'
 import Image from 'next/image'
+import emailjs from '@emailjs/browser'
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -13,20 +14,40 @@ export default function Contact() {
 
   const [logoError, setLogoError] = useState(false)
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault()
-    // Handle form submission here - send to prakhar@nandann.com
-    // Form data will be processed securely
-    alert('Thank you for your message! We will get back to you soon.')
     
-    // Reset form after submission
-    setFormData({
-      name: '',
-      email: '',
-      company: '',
-      project: '',
-      message: ''
-    })
+    try {
+      // Send email using EmailJS
+      const result = await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          company: formData.company,
+          project_type: formData.project,
+          message: formData.message,
+          to_email: 'prakhar@nandann.com'
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      )
+      
+      console.log('Email sent successfully:', result.text)
+      alert('Thank you for your message! We will get back to you soon.')
+      
+      // Reset form after successful submission
+      setFormData({
+        name: '',
+        email: '',
+        company: '',
+        project: '',
+        message: ''
+      })
+    } catch (error) {
+      console.error('Email sending failed:', error)
+      alert('Sorry, there was an error sending your message. Please try again or contact us directly at prakhar@nandann.com')
+    }
   }
 
   const handleChange = (e: any) => {
