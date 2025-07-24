@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import Navigation from '../components/Navigation';
 import About from '../components/About';
+import Footer from '../components/Footer';
 
 export default function AboutPage() {
   return (
@@ -15,6 +16,7 @@ export default function AboutPage() {
       <div className="bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 min-h-screen">
         <Navigation />
         <About />
+        <Footer />
       </div>
     </>
   );
