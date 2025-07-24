@@ -48,7 +48,7 @@ export default function Navigation() {
             <div className="relative">
               {!logoError ? (
                 <Image
-                  src="/images/nandann-logo-new.png"
+                                                src="/images/Nandann-logo-new.png"
                   alt="Nandann Creative Agency"
                   width={120}
                   height={40}

@@ -209,7 +209,7 @@ export default function Contact() {
             {/* Logo */}
             {!logoError ? (
               <Image
-                src="/images/nandann-logo-new.png"
+                                            src="/images/Nandann-logo-new.png"
                 alt="Nandann Creative Agency"
                 width={150}
                 height={50}
