@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import Navigation from '../components/Navigation';
 import Hero from '../components/Hero';
+import BlogPreview from '../components/BlogPreview';
 import FAQ from '../components/FAQ';
 import StructuredData from '../components/StructuredData';
 import Footer from '../components/Footer';
@@ -39,6 +40,7 @@ export default function Home() {
         <StructuredData type="organization" />
         <Navigation />
         <Hero />
+        <BlogPreview />
         <FAQ />
         <Footer />
       </div>

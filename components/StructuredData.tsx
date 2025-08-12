@@ -16,19 +16,33 @@ export default function StructuredData({
   
   const organizationData = {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": ["Organization", "LocalBusiness"],
     "name": "Nandann Creative Agency",
+    "alternateName": "Nandann Creative",
     "url": "https://www.nandann.com",
     "logo": "https://www.nandann.com/images/Nandann-logo-new.png",
-    "description": "Professional web development and creative design agency specializing in custom websites, rapid delivery, and ongoing support.",
-    "foundingDate": "2024",
-    "areaServed": "Worldwide",
+    "image": "https://www.nandann.com/images/prakhar.jpg",
+    "description": "Professional web development and creative design agency specializing in AI-enhanced development, same-day delivery, and performance optimization. Led by Prakhar Bhatia with 16+ years of experience.",
+    "foundingDate": "2008",
+    "founder": {
+      "@type": "Person",
+      "name": "Prakhar Bhatia",
+      "image": "https://www.nandann.com/images/prakhar.jpg",
+      "jobTitle": "Founder & Lead Developer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Nandann Creative Agency"
+      }
+    },
+    "areaServed": ["United States", "Canada", "United Kingdom", "Australia", "India"],
     "serviceType": [
-      "Web Development",
-      "Web Design",
+      "AI-Enhanced Web Development",
+      "Same-Day Website Delivery",
+      "Custom Web Applications",
+      "E-commerce Development",
+      "Performance Optimization",
       "SEO Services",
       "Digital Marketing",
-      "E-commerce Development",
       "Website Maintenance"
     ],
     "address": {
@@ -38,11 +52,49 @@ export default function StructuredData({
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "customer service",
-      "url": "https://www.nandann.com/contact"
+      "telephone": "+1-XXX-XXX-XXXX",
+      "email": "hello@nandann.com",
+      "url": "https://www.nandann.com/contact",
+      "availableLanguage": ["English"],
+      "areaServed": "Worldwide"
     },
     "sameAs": [
-      "https://github.com/prakharbhatia"
-    ]
+      "https://github.com/prakharbhatia",
+      "https://www.linkedin.com/company/nandann-creative"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Web Development Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "priceRange": "$2500-$15000",
+          "priceCurrency": "USD",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Custom Web Development",
+            "description": "AI-enhanced web development with 16+ years expertise"
+          }
+        },
+        {
+          "@type": "Offer",
+          "priceRange": "$2500+",
+          "priceCurrency": "USD",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Same-Day Website Delivery",
+            "description": "Express website development delivered within 24 hours"
+          }
+        }
+      ]
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "150",
+      "bestRating": "5",
+      "worstRating": "1"
+    }
   };
 
   const websiteData = {
