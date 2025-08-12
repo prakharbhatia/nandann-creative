@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 export default function Approach() {
   const steps = [
@@ -104,18 +105,18 @@ export default function Approach() {
               Let's discuss how our approach can bring your creative vision to life.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
+              <Link
                 href="/contact"
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25"
               >
                 Start Your Project
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/portfolio"
                 className="border border-white/20 hover:border-white/40 px-8 py-4 rounded-full text-white font-medium transition-all duration-300 hover:bg-white/10"
               >
                 View Our Work
-              </a>
+              </Link>
             </div>
           </div>
         </div>

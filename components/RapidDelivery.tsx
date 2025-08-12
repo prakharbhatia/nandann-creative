@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 export default function RapidDelivery() {
   const features = [
@@ -200,18 +201,18 @@ export default function RapidDelivery() {
               Don't let slow development cycles hold back your business growth.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
+              <Link
                 href="/contact"
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25"
               >
                 Start Rapid Delivery Project
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/approach"
                 className="border border-white/20 hover:border-white/40 px-8 py-4 rounded-full text-white font-medium transition-all duration-300 hover:bg-white/10"
               >
                 Learn Our Approach
-              </a>
+              </Link>
             </div>
             <p className="text-sm text-gray-400 mt-6">
               🔒 7-day delivery guarantee • 🎯 Fixed pricing • 📞 Direct access to your team
