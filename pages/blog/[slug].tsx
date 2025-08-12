@@ -79,7 +79,21 @@ export default function BlogPostPage() {
             <p className="text-gray-400 text-sm">Published on {new Date(post.date).toLocaleDateString()}</p>
           </header>
 
-          <div className="prose prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+          <div className="prose prose-invert max-w-none prose-headings:text-white prose-p:text-gray-300 prose-strong:text-white prose-a:text-blue-300 hover:prose-a:text-blue-200 prose-li:marker:text-blue-300" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+
+          {post.faqs && post.faqs.length > 0 && (
+            <section className="mt-16">
+              <h2 className="text-3xl font-bold text-white mb-6">FAQs</h2>
+              <div className="space-y-4">
+                {post.faqs.map((f, i) => (
+                  <details key={i} className="bg-white/5 border border-white/10 rounded-xl p-5">
+                    <summary className="cursor-pointer text-blue-300 font-semibold leading-6">{f.question}</summary>
+                    <p className="text-gray-300 mt-3 leading-relaxed">{f.answer}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
+          )}
 
           <hr className="my-10 border-white/10" />
 
