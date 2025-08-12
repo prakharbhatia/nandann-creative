@@ -112,7 +112,7 @@ export default function Services() {
                   Explore Our Approach
                 </Link>
                 <Link
-                  href="/rapid-delivery"
+                  href="/rapid-same-day-website-delivery"
                   className="border border-white/20 hover:border-white/40 px-8 py-4 rounded-full text-white font-medium transition-all duration-300 hover:bg-white/10"
                 >
                   Same-Day Delivery

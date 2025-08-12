@@ -15,7 +15,7 @@ export type BlogPost = {
 const internalLinks = {
   approach: '/approach',
   services: '/services',
-  rapid: '/rapid-delivery',
+  rapid: '/rapid-same-day-website-delivery',
   contact: '/contact',
 };
 

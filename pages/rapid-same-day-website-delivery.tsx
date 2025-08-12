@@ -4,18 +4,23 @@ import Navigation from '../components/Navigation';
 import RapidDelivery from '../components/RapidDelivery';
 import Footer from '../components/Footer';
 
-export default function RapidDeliveryPage() {
+export default function RapidSameDayPage() {
   return (
     <>
       <Head>
-        <meta http-equiv="refresh" content="0; url=/rapid-same-day-website-delivery" />
-        <title>Redirecting…</title>
+        <title>Same-Day Website Delivery - Nandann Creative Agency</title>
         <meta name="description" content="Professional websites delivered within 24 hours. Same-day website delivery for brands that need to launch today, not next month." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content="same day website, 24 hour website delivery, urgent web development, express website design, same day web design" />
+        <link rel="canonical" href="https://www.nandann.com/rapid-same-day-website-delivery" />
       </Head>
       
-      <div className="min-h-screen flex items-center justify-center text-white">Redirecting…</div>
+      <div className="min-h-screen">
+        <Navigation />
+        <RapidDelivery />
+        <Footer />
+      </div>
     </>
   );
 }
+

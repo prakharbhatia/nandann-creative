@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     '/approach',
     '/portfolio',
     '/contact',
-    '/rapid-delivery'
+    '/rapid-same-day-website-delivery'
   ];
 
   // Generate sitemap XML
