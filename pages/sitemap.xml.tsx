@@ -22,20 +22,19 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   // Generate sitemap XML
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  ${staticPages
+${staticPages
     .map((page) => {
       const priority = page === '' ? '1.0' : '0.8';
       const changefreq = page === '' ? 'weekly' : 'monthly';
       
-      return `
-    <url>
-      <loc>${baseUrl}${page}</loc>
-      <lastmod>${new Date().toISOString()}</lastmod>
-      <changefreq>${changefreq}</changefreq>
-      <priority>${priority}</priority>
-    </url>`;
+      return `  <url>
+    <loc>${baseUrl}${page}</loc>
+    <lastmod>${new Date().toISOString()}</lastmod>
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>
+  </url>`;
     })
-    .join('')}
+    .join('\n')}
 </urlset>`;
 
   res.setHeader('Content-Type', 'text/xml');
