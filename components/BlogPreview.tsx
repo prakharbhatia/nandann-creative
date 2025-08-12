@@ -12,8 +12,8 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
-    slug: 'ai-web-development-2024',
-    title: 'How AI is Revolutionizing Web Development in 2024',
+    slug: 'ai-web-development-2025',
+    title: 'How AI Is Transforming Web Development in 2025',
     excerpt: 'Discover the latest AI tools and techniques that are transforming how we build websites, improving speed and quality.',
     date: 'Jan 15, 2025',
     readTime: '5 min read',

@@ -21,7 +21,7 @@ const internalLinks = {
 
 export const blogPosts: BlogPost[] = [
   {
-    slug: 'ai-web-development-2024',
+    slug: 'ai-web-development-2025',
     title: 'How AI Is Transforming Web Development in 2025',
     description:
       'Practical ways we use AI to accelerate delivery, improve quality, and ship better websites faster.',
