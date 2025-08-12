@@ -8,10 +8,10 @@ export default function RapidDeliveryPage() {
   return (
     <>
       <Head>
-        <title>Rapid Delivery Service - Nandann Creative Agency</title>
-        <meta name="description" content="Lightning-fast creative solutions delivered in days, not months. Premium design and development for brands that can't wait for excellence." />
+        <title>Same-Day Website Delivery - Nandann Creative Agency</title>
+        <meta name="description" content="Professional websites delivered within 24 hours. Same-day website delivery for brands that need to launch today, not next month." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="keywords" content="fast web development, rapid design, quick turnaround, express creative services" />
+        <meta name="keywords" content="same day website, 24 hour website delivery, urgent web development, express website design, same day web design" />
       </Head>
       
       <div className="min-h-screen">

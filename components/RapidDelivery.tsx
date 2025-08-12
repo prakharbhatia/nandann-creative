@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import FAQ from './FAQ';
 
 export default function RapidDelivery() {
   const features = [
@@ -20,12 +21,12 @@ export default function RapidDelivery() {
     {
       step: '2',
       title: 'Rapid Planning',
-      description: 'We analyze, strategize, and provide delivery timeline within 2 hours.'
+      description: 'We analyze, strategize, and provide same-day delivery timeline within 1 hour.'
     },
     {
       step: '3',
       title: 'Fast-Track Development',
-      description: 'Our dedicated team begins immediate development with daily check-ins.'
+      description: 'Our dedicated team begins immediate development with hourly progress updates.'
     },
     {
       step: '4',
@@ -34,13 +35,13 @@ export default function RapidDelivery() {
     },
     {
       step: '5',
-      title: 'Lightning Launch',
+      title: 'Same-Day Launch',
       description: 'Your project goes live with ongoing support and monitoring.'
     }
   ];
 
   const testimonial = {
-    quote: "Nandann Creative delivered our complete website redesign in just 5 days. The quality exceeded our expectations and the communication was flawless throughout the entire process.",
+    quote: "Nandann Creative delivered our complete website redesign in just 1 day. The quality exceeded our expectations and the same-day turnaround was incredible for our urgent launch.",
     author: "Sarah Chen",
     company: "TechStart Solutions",
     results: [
@@ -58,15 +59,15 @@ export default function RapidDelivery() {
           <div className="text-center mb-16">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Lightning-Fast Creative Solutions
+                Same-Day Website Delivery
               </span>
             </h1>
             <p className="text-xl sm:text-2xl text-gray-300 max-w-4xl mx-auto mb-8">
-              Premium design and development delivered in days, not months. For brands that can't wait for excellence.
+              Professional websites delivered within 24 hours. For brands that need to launch today, not next month.
             </p>
             <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-sm border border-white/10 rounded-2xl p-6 max-w-2xl mx-auto">
               <p className="text-lg text-blue-200 font-semibold">
-                ⚡ 7-day delivery guarantee • 📱 Mobile-first design • 🔧 Ongoing support included
+                ⚡ Same-day delivery guarantee • 📱 Mobile-first design • 🔧 Ongoing support included
               </p>
             </div>
           </div>
@@ -86,7 +87,7 @@ export default function RapidDelivery() {
                   <span className="text-red-400 text-2xl">⏰</span>
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">Time is Revenue</h3>
-                <p className="text-gray-300">Every day without your new website or campaign is potential revenue lost to competitors.</p>
+                <p className="text-gray-300">Every hour without your new website or campaign is potential revenue lost to competitors.</p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -100,7 +101,7 @@ export default function RapidDelivery() {
                   <span className="text-blue-400 text-2xl">🚀</span>
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">Competitive Edge</h3>
-                <p className="text-gray-300">Rapid deployment means you're first to market while others are still planning.</p>
+                <p className="text-gray-300">Same-day deployment means you're first to market while others are still planning.</p>
               </div>
             </div>
           </div>
@@ -169,7 +170,7 @@ export default function RapidDelivery() {
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold text-white text-center mb-12">
-            Our Lightning-Fast Process
+            Our Same-Day Delivery Process
           </h2>
           <div className="space-y-8">
             {workflow.map((item, index) => (
@@ -215,11 +216,50 @@ export default function RapidDelivery() {
               </Link>
             </div>
             <p className="text-sm text-gray-400 mt-6">
-              🔒 7-day delivery guarantee • 🎯 Fixed pricing • 📞 Direct access to your team
+              🔒 Same-day delivery guarantee • 🎯 Fixed pricing • 📞 Direct access to your team
             </p>
           </div>
         </div>
       </section>
+
+      {/* Same-Day Delivery FAQs */}
+      <FAQ 
+        title="Same-Day Delivery FAQs"
+        faqs={[
+          {
+            question: "How can you deliver a website in just one day?",
+            answer: "Our same-day delivery service leverages pre-built design systems, optimized workflows, and a dedicated rapid deployment team. We focus on essential features first, using proven templates and components that can be quickly customized to your brand and requirements."
+          },
+          {
+            question: "What types of websites can be delivered same-day?",
+            answer: "We can deliver business websites, landing pages, portfolios, and simple e-commerce sites within 24 hours. Complex custom applications or sites requiring extensive integrations may need additional time, but we'll provide a clear timeline upfront."
+          },
+          {
+            question: "What do I need to provide for same-day delivery?",
+            answer: "To ensure same-day delivery, please provide: your logo/brand assets, content (text and images), color preferences, 2-3 reference websites you like, and any specific functionality requirements. The more prepared materials you have, the faster we can deliver."
+          },
+          {
+            question: "Is the quality compromised with such fast delivery?",
+            answer: "Absolutely not! Our same-day delivery uses battle-tested design systems and follows the same quality standards as our regular projects. Every site is mobile-responsive, SEO-optimized, and thoroughly tested before launch."
+          },
+          {
+            question: "What happens if I need changes after same-day delivery?",
+            answer: "We include 2 rounds of revisions within the first 48 hours. After that, changes are handled through our standard support process. We also offer ongoing maintenance packages for continued updates and improvements."
+          },
+          {
+            question: "How much does same-day website delivery cost?",
+            answer: "Same-day delivery starts at $2,500 for basic business websites and landing pages. Pricing varies based on complexity and features required. We provide fixed, upfront pricing with no hidden fees."
+          },
+          {
+            question: "Do you provide hosting and domain setup?",
+            answer: "Yes! We can handle domain registration, hosting setup, SSL certificates, and email configuration as part of our same-day service. We'll have everything ready for immediate launch."
+          },
+          {
+            question: "Can you guarantee same-day delivery for any project?",
+            answer: "We guarantee same-day delivery for projects started before 10 AM EST on business days (Monday-Friday). Weekend requests may be accommodated based on availability. Complex projects will receive a realistic timeline upfront."
+          }
+        ]}
+      />
     </div>
   );
 }

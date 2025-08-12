@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
 ${staticPages
     .map((page) => {
       const priority = page === '' ? '1.0' : '0.8';
-      const changefreq = page === '' ? 'weekly' : 'monthly';
+      const changefreq = 'daily';
       
       return `  <url>
     <loc>${baseUrl}${page}</loc>
