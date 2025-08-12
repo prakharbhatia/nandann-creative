@@ -32,4 +32,7 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts 
+next-env.d.ts
+
+# GPS tracker command files
+A5E-3 SMS Command copy.csv 
