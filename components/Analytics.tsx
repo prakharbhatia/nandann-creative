@@ -18,11 +18,6 @@ export default function Analytics() {
     };
   }, [router.events]);
 
-  // Don't load analytics in development
-  if (process.env.NODE_ENV !== 'production') {
-    return null;
-  }
-
   // Defer GA loading until first interaction or 10s idle timeout
   useEffect(() => {
     if (shouldLoad) return;
