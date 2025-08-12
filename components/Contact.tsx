@@ -2,8 +2,11 @@ import React from 'react';
 import { useState } from 'react'
 import Image from 'next/image'
 import FAQ from './FAQ';
+import { useAnalytics } from '../hooks/useAnalytics';
 
 export default function Contact() {
+  const { trackForm } = useAnalytics();
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -16,6 +19,9 @@ export default function Contact() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
+    
+    // Track form submission
+    trackForm('Contact Form');
     
     try {
       // Send email using Formspree
@@ -60,7 +66,8 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 relative">
+    <>
+      <section id="contact" className="py-24 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-20">
@@ -243,5 +250,6 @@ export default function Contact() {
         }
       ]}
     />
+    </>
   )
 } 
