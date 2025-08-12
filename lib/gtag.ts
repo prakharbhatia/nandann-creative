@@ -1,5 +1,5 @@
 // Google Analytics configuration
-export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID || '';
+export const GA_TRACKING_ID = 'G-9BJFQ3F2JZ';
 
 // Check if GA_TRACKING_ID is available
 export const pageview = (url: string) => {

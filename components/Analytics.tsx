@@ -17,8 +17,8 @@ export default function Analytics() {
     };
   }, [router.events]);
 
-  // Don't load analytics in development or if no tracking ID
-  if (process.env.NODE_ENV !== 'production' || !GA_TRACKING_ID) {
+  // Don't load analytics in development
+  if (process.env.NODE_ENV !== 'production') {
     return null;
   }
 
