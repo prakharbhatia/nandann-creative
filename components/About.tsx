@@ -13,9 +13,7 @@ export default function About() {
   ];
 
   const stats = [
-    { number: "200+", label: "Projects Delivered" },
-    { number: "150+", label: "Happy Clients" },
-    { number: "8+", label: "Years Experience" },
+    { number: "16+", label: "Years Experience" },
     { number: "24/7", label: "Support Available" }
   ];
 
@@ -77,7 +75,7 @@ export default function About() {
                 </h2>
                 <div className="space-y-6 text-lg text-gray-300 leading-relaxed">
                   <p>
-                    I founded Nandann Creative Agency with a clear vision: to create digital solutions that don't just look good, but deliver real business value. With over 8 years in the industry, I've learned that the best results come from truly understanding each client's unique challenges and goals.
+                    I founded Nandann Creative Agency with a clear vision: to create digital solutions that don't just look good, but deliver real business value. With over 16 years in the industry, I've learned that the best results come from truly understanding each client's unique challenges and goals.
                   </p>
                   <p>
                     My approach combines technical expertise with creative problem-solving. Whether it's a startup needing their first website or an established business requiring complex automation, I believe in building lasting partnerships, not just completing projects.
@@ -114,9 +112,9 @@ export default function About() {
             
             <div className="space-y-8">
               <div>
-                <h4 className="text-xl font-semibold text-blue-300 mb-4">Quality Over Quantity</h4>
+                <h4 className="text-xl font-semibold text-blue-300 mb-4">AI-Enhanced Development</h4>
                 <p className="text-gray-300 leading-relaxed">
-                  We intentionally keep our client base manageable to ensure every project gets the attention and expertise it deserves. Your success is our success, and we're committed to delivering exceptional results every time.
+                  We leverage cutting-edge AI tools to accelerate development cycles, perform comprehensive performance audits, and ensure optimal code quality. This allows us to deliver faster results without compromising on excellence, giving you competitive advantages through efficient, modern development practices.
                 </p>
               </div>
 
@@ -172,11 +170,11 @@ export default function About() {
         faqs={[
           {
             question: "Who is Prakhar Bhatia and what's his background?",
-            answer: "Prakhar Bhatia is the founder of Nandann Creative Agency with over 8 years of experience in digital development and design. He specializes in creating digital solutions that combine technical expertise with creative problem-solving, focusing on building lasting partnerships with clients rather than just completing projects."
+            answer: "Prakhar Bhatia is the founder of Nandann Creative Agency with over 16 years of experience in digital development and design. He specializes in creating digital solutions that combine technical expertise with creative problem-solving, focusing on building lasting partnerships with clients rather than just completing projects."
           },
           {
             question: "What makes Nandann Creative Agency different from other agencies?",
-            answer: "We focus on quality over quantity by intentionally keeping our client base manageable. Every project receives personal attention from our founder. We believe in transparent communication, efficient delivery without unnecessary complexity, and building solutions that deliver real business value."
+            answer: "We differentiate ourselves through AI-enhanced development practices that accelerate delivery while maintaining exceptional quality. Every project receives hands-on involvement from our founder with 16+ years of experience. We leverage modern tools for performance audits and efficient development, ensuring you get cutting-edge solutions delivered faster."
           },
           {
             question: "What types of clients do you work with?",
@@ -184,7 +182,7 @@ export default function About() {
           },
           {
             question: "What is your company philosophy?",
-            answer: "Our philosophy centers on three pillars: Quality Over Quantity (manageable client base for exceptional attention), Transparent Communication (clear, honest updates without technical jargon), and Future-Focused Solutions (building adaptable technology that grows with your business)."
+            answer: "Our philosophy centers on three key pillars: AI-Enhanced Development (leveraging cutting-edge tools for faster delivery and performance optimization), Transparent Communication (clear, honest updates without technical jargon), and Future-Focused Solutions (building adaptable technology that grows with your business)."
           },
           {
             question: "How hands-on is the founder in projects?",
