@@ -33,18 +33,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* Values Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto text-center">
-          <div className="flex flex-wrap justify-center gap-6 mb-16">
-            {coreValues.map((value, index) => (
-              <div key={index} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-full px-6 py-3">
-                <span className="text-blue-300 font-medium">{value}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       {/* Founder Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
@@ -98,6 +87,19 @@ export default function About() {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Values Section (moved below Founder) */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto text-center">
+          <div className="flex flex-wrap justify-center gap-6">
+            {coreValues.map((value, index) => (
+              <div key={index} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-full px-6 py-3">
+                <span className="text-blue-300 font-medium">{value}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>

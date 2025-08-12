@@ -7,53 +7,52 @@ export default function Analytics() {
   const router = useRouter();
   const [shouldLoad, setShouldLoad] = useState(false);
 
+  // Single effect: route tracking + deferred GA loading
   useEffect(() => {
     const handleRouteChange = (url: string) => {
       pageview(url);
     };
-
     router.events.on('routeChangeComplete', handleRouteChange);
+
+    if (!shouldLoad) {
+      let loaded = false;
+      const enable = () => {
+        if (loaded) return;
+        loaded = true;
+        setShouldLoad(true);
+        removeListeners();
+      };
+
+      const removeListeners = () => {
+        window.removeEventListener('scroll', enable, { passive: true } as any);
+        window.removeEventListener('pointerdown', enable, { passive: true } as any);
+        window.removeEventListener('keydown', enable);
+        window.removeEventListener('touchstart', enable, { passive: true } as any);
+      };
+
+      window.addEventListener('scroll', enable, { passive: true });
+      window.addEventListener('pointerdown', enable, { passive: true });
+      window.addEventListener('keydown', enable);
+      window.addEventListener('touchstart', enable, { passive: true });
+
+      // Idle callback if supported, otherwise fallback timeout
+      const idleId: number | undefined = (window as any).requestIdleCallback
+        ? (window as any).requestIdleCallback(enable, { timeout: 10000 })
+        : (window.setTimeout(enable, 10000) as unknown as number);
+
+      return () => {
+        router.events.off('routeChangeComplete', handleRouteChange);
+        removeListeners();
+        if ((window as any).cancelIdleCallback && idleId) {
+          (window as any).cancelIdleCallback(idleId);
+        }
+      };
+    }
+
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
-  }, [router.events]);
-
-  // Defer GA loading until first interaction or 10s idle timeout
-  useEffect(() => {
-    if (shouldLoad) return;
-
-    let loaded = false;
-    const enable = () => {
-      if (loaded) return;
-      loaded = true;
-      setShouldLoad(true);
-      removeListeners();
-    };
-
-    const removeListeners = () => {
-      window.removeEventListener('scroll', enable, { passive: true } as any);
-      window.removeEventListener('pointerdown', enable, { passive: true } as any);
-      window.removeEventListener('keydown', enable);
-      window.removeEventListener('touchstart', enable, { passive: true } as any);
-    };
-
-    window.addEventListener('scroll', enable, { passive: true });
-    window.addEventListener('pointerdown', enable, { passive: true });
-    window.addEventListener('keydown', enable);
-    window.addEventListener('touchstart', enable, { passive: true });
-
-    // Idle callback if supported, otherwise fallback timeout
-    const idleId: number | undefined = (window as any).requestIdleCallback
-      ? (window as any).requestIdleCallback(enable, { timeout: 10000 })
-      : (window.setTimeout(enable, 10000) as unknown as number);
-
-    return () => {
-      removeListeners();
-      if ((window as any).cancelIdleCallback && idleId) {
-        (window as any).cancelIdleCallback(idleId);
-      }
-    };
-  }, [shouldLoad]);
+  }, [router.events, shouldLoad]);
 
   return (
     <>
