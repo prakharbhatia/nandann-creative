@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import FAQ from './FAQ';
 
 export default function Approach() {
   const steps = [
@@ -121,6 +122,45 @@ export default function Approach() {
           </div>
         </div>
       </section>
+
+      {/* Approach FAQs */}
+      <FAQ 
+        title="Our Methodology"
+        faqs={[
+          {
+            question: "What happens during the Discovery & Vision phase?",
+            answer: "During Discovery & Vision, we dive deep into understanding your brand, target audience, and business objectives through collaborative workshops and strategic conversations. We align on your vision and establish a clear roadmap that transforms ideas into actionable creative solutions."
+          },
+          {
+            question: "How detailed is your Creative Strategy phase?",
+            answer: "Our Creative Strategy phase is comprehensive, including detailed project blueprints, mood boards, and prototypes. We combine innovative design thinking with proven marketing principles to give you a clear preview of the final outcome before development begins."
+          },
+          {
+            question: "How involved will I be during Design & Development?",
+            answer: "You'll be highly involved throughout our iterative Design & Development process. You receive regular updates, preview builds, and opportunities for feedback. We believe in collaborative creation where your insights combined with our expertise create exceptional results."
+          },
+          {
+            question: "What support do you provide after launch?",
+            answer: "Our Launch & Growth phase includes smooth deployment, performance monitoring, and ongoing optimization. We provide post-launch support with analytics insights, performance tuning, and strategic recommendations for growth. We measure success by your success."
+          },
+          {
+            question: "How long does your 4-step approach typically take?",
+            answer: "Timeline varies based on project complexity, but our 4-step approach is designed for efficiency. Discovery & Vision (1-2 weeks), Creative Strategy (1-2 weeks), Design & Development (2-8 weeks), and Launch & Growth (ongoing). We provide detailed timelines during the strategy phase."
+          },
+          {
+            question: "Can your approach be adapted for different project sizes?",
+            answer: "Absolutely! Our 4-step methodology is scalable and adapts to projects of all sizes, from simple websites to complex enterprise solutions. We adjust the depth and duration of each phase based on your specific needs, budget, and timeline requirements."
+          },
+          {
+            question: "How do you ensure projects stay on track and on budget?",
+            answer: "Our structured approach includes regular check-ins, milestone reviews, and transparent communication throughout each phase. We establish clear expectations and budgets upfront, and our iterative process allows for adjustments while maintaining project momentum and deadlines."
+          },
+          {
+            question: "What makes your approach different from other agencies?",
+            answer: "Our approach emphasizes true collaboration rather than just client approval. Every decision serves your ultimate business goals, we provide working prototypes over static presentations, and we focus on building lasting partnerships rather than just completing projects."
+          }
+        ]}
+      />
     </div>
   );
 }

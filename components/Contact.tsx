@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react'
 import Image from 'next/image'
+import FAQ from './FAQ';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -203,5 +204,44 @@ export default function Contact() {
         </div>
       </div>
     </section>
+
+    {/* Contact FAQs */}
+    <FAQ 
+      title="Getting Started"
+      faqs={[
+        {
+          question: "What's the best way to start a project with you?",
+          answer: "The best way to start is by filling out our contact form with details about your project, or scheduling a consultation call. We'll discuss your goals, timeline, and budget to determine if we're a good fit for each other."
+        },
+        {
+          question: "How quickly do you respond to project inquiries?",
+          answer: "We typically respond to all inquiries within 24 hours during business days. For urgent projects or same-day delivery requests, we often respond within a few hours to discuss your immediate needs."
+        },
+        {
+          question: "What information should I include in my project inquiry?",
+          answer: "Please include your project goals, preferred timeline, budget range, any specific requirements or features needed, and examples of websites or applications you admire. The more details you provide, the better we can understand your vision."
+        },
+        {
+          question: "Do you offer free consultations or project estimates?",
+          answer: "Yes! We provide free initial consultations to discuss your project requirements and goals. After our consultation, we'll provide a detailed, fixed-price proposal outlining the scope, timeline, and investment required."
+        },
+        {
+          question: "What happens after I submit the contact form?",
+          answer: "After you submit the form, we'll review your project details and respond with next steps, which typically include scheduling a consultation call to discuss your requirements in detail and answer any questions you may have."
+        },
+        {
+          question: "Can you work with clients outside your local area?",
+          answer: "Absolutely! We work with clients worldwide and have experience managing projects remotely. We use modern communication tools and project management systems to ensure smooth collaboration regardless of location."
+        },
+        {
+          question: "What if I'm not sure exactly what I need?",
+          answer: "That's perfectly fine! Many clients come to us with general ideas or business challenges rather than specific technical requirements. Our Discovery & Vision phase is designed to help clarify your needs and identify the best solutions."
+        },
+        {
+          question: "How do you handle project communication and updates?",
+          answer: "We believe in transparent communication with regular updates, preview builds, and scheduled check-ins. You'll always know the current project status and what to expect next. We adapt our communication style to your preferences."
+        }
+      ]}
+    />
   )
 } 

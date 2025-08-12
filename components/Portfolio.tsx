@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import FAQ from './FAQ';
 
 export default function Portfolio() {
   const projects = [
@@ -122,6 +123,45 @@ export default function Portfolio() {
           </div>
         </div>
       </div>
+
+      {/* Portfolio FAQs */}
+      <FAQ 
+        title="Portfolio & Projects"
+        faqs={[
+          {
+            question: "Can you show examples of websites you've built for businesses like mine?",
+            answer: "Yes! Our portfolio includes diverse projects across various industries including e-commerce platforms, corporate websites, mobile applications, and custom web solutions. We'd be happy to share specific examples relevant to your industry and requirements during our consultation."
+          },
+          {
+            question: "What information do you provide about each project in your portfolio?",
+            answer: "For each portfolio project, we showcase the technologies used, key features implemented, challenges solved, and results achieved. We also highlight the specific approaches and strategies that made each project successful for our clients."
+          },
+          {
+            question: "How recent are the projects in your portfolio?",
+            answer: "Our portfolio features recent projects from the past 2-3 years, showcasing current technologies and design trends. We regularly update our portfolio to reflect our latest work and evolving expertise in modern web development and design."
+          },
+          {
+            question: "Can you provide case studies or detailed project breakdowns?",
+            answer: "Absolutely! We can provide detailed case studies including project objectives, challenges faced, solutions implemented, and measurable results achieved. These case studies offer deeper insights into our problem-solving approach and project management methodology."
+          },
+          {
+            question: "Do you have experience in my specific industry?",
+            answer: "We've worked across various industries including e-commerce, healthcare, finance, education, and technology startups. Even if we haven't worked in your exact industry, our adaptable approach allows us to quickly understand your unique requirements and market needs."
+          },
+          {
+            question: "What technologies are featured in your recent projects?",
+            answer: "Our recent projects feature modern technologies including React, Next.js, Python, AWS cloud services, mobile development with React Native, and various CMS platforms. We always choose the best technology stack for each project's specific requirements."
+          },
+          {
+            question: "Can you provide references or testimonials from past clients?",
+            answer: "Yes! We're happy to provide client references and testimonials upon request. We have strong relationships with our past clients and many are willing to share their experience working with us and the results they achieved."
+          },
+          {
+            question: "How do you ensure the projects in your portfolio represent quality work?",
+            answer: "Every project in our portfolio represents our commitment to quality, having gone through our rigorous 4-step approach: Discovery & Vision, Creative Strategy, Design & Development, and Launch & Growth. Each project demonstrates our technical expertise and attention to detail."
+          }
+        ]}
+      />
     </section>
   )
 } 
