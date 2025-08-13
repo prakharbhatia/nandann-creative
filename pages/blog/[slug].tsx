@@ -1,18 +1,13 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Navigation from '../../components/Navigation';
 import Footer from '../../components/Footer';
-import { getPostBySlug, getAllPosts } from '../../data/blogPosts';
+import { blogPosts, getPostBySlug, getAllPosts, type BlogPost } from '../../data/blogPosts';
 
-export default function BlogPostPage() {
-  const router = useRouter();
-  const { slug } = router.query as { slug: string };
-  const post = slug ? getPostBySlug(slug) : undefined;
+type Props = { post: BlogPost };
 
-  if (!post) {
-    return null;
-  }
+export default function BlogPostPage({ post }: Props) {
 
   const canonicalUrl = `https://www.nandann.com/blog/${post.slug}`;
   const toAbsolute = (path: string) => (path?.startsWith('http') ? path : `https://www.nandann.com${path}`);
@@ -27,7 +22,7 @@ export default function BlogPostPage() {
     datePublished: post.date,
     dateModified: post.date,
     description: post.description,
-    image: post.coverImage || 'https://www.nandann.com/images/Nandann-logo-new.png',
+    image: ogImageUrl,
     author: {
       '@type': 'Person',
       name: 'Prakhar Bhatia',
@@ -69,6 +64,7 @@ export default function BlogPostPage() {
         <meta property="og:description" content={post.description} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:image" content={ogImageUrl} />
+        <meta property="og:image:secure_url" content={ogImageUrl} />
         <meta property="og:image:alt" content={`${post.title} – Nandann Creative`} />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
@@ -128,4 +124,18 @@ export default function BlogPostPage() {
     </>
   );
 }
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = blogPosts.map((p) => ({ params: { slug: p.slug } }));
+  return { paths, fallback: false };
+};
+
+export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
+  const slug = params?.slug as string;
+  const post = getPostBySlug(slug);
+  if (!post) {
+    return { notFound: true };
+  }
+  return { props: { post } };
+};
 
