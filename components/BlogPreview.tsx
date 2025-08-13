@@ -15,33 +15,49 @@ const featuredPosts: BlogPost[] = [
     slug: 'gpt5-review-raising-the-floor',
     title: 'GPT‑5 Is Here: Why Raising the Floor Matters Most',
     excerpt: 'A practical review focused on GPT‑5’s biggest win: fewer hallucinations and more reliable answers.',
-    date: 'Aug 8, 2025',
-    readTime: '10 min read',
+    date: 'Aug 13, 2025',
+    readTime: '18 min read',
     category: 'AI & Tech'
   },
   {
     slug: 'ai-web-development-2025',
     title: 'How AI Is Transforming Web Development in 2025',
     excerpt: 'Discover the latest AI tools and techniques that are transforming how we build websites, improving speed and quality.',
-    date: 'Jan 15, 2025',
-    readTime: '5 min read',
+    date: 'Aug 12, 2025',
+    readTime: '18 min read',
     category: 'AI & Tech'
   },
   {
     slug: 'same-day-website-delivery',
     title: 'Same-Day Website Delivery: How We Make It Possible',
     excerpt: 'Behind the scenes of our rapid delivery process and the tools that enable 24-hour website launches.',
-    date: 'Jan 10, 2025',
-    readTime: '4 min read',
+    date: 'Aug 13, 2025',
+    readTime: '18 min read',
     category: 'Process'
   },
   {
     slug: 'web-performance-optimization-guide',
     title: 'Complete Guide to Web Performance Optimization',
     excerpt: 'Advanced techniques to make your website lightning-fast and improve search rankings.',
-    date: 'Jan 5, 2025',
-    readTime: '7 min read',
+    date: 'Aug 13, 2025',
+    readTime: '18 min read',
     category: 'Performance'
+  },
+  {
+    slug: 'nextjs-hosting-options-comparison',
+    title: 'Next.js Hosting Options Compared (2025)',
+    excerpt: 'Vercel, Netlify, Cloudflare, and the big clouds—SSR/ISR, edge support, performance, and costs in practice.',
+    date: 'Aug 13, 2025',
+    readTime: '18 min read',
+    category: 'Hosting & DevOps'
+  },
+  {
+    slug: 'python-hosting-options-comparison',
+    title: 'Python Hosting Options Compared for Django/FastAPI (2025)',
+    excerpt: 'Fly.io, Render, Railway, Heroku, and AWS/GCP/Azure—serverless vs containers, latency, and trade-offs.',
+    date: 'Aug 13, 2025',
+    readTime: '18 min read',
+    category: 'Hosting & DevOps'
   }
 ];
 
