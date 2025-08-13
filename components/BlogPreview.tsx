@@ -12,6 +12,14 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'gpt5-review-raising-the-floor',
+    title: 'GPT‑5 Is Here: Why Raising the Floor Matters Most',
+    excerpt: 'A practical review focused on GPT‑5’s biggest win: fewer hallucinations and more reliable answers.',
+    date: 'Aug 8, 2025',
+    readTime: '10 min read',
+    category: 'AI & Tech'
+  },
+  {
     slug: 'ai-web-development-2025',
     title: 'How AI Is Transforming Web Development in 2025',
     excerpt: 'Discover the latest AI tools and techniques that are transforming how we build websites, improving speed and quality.',

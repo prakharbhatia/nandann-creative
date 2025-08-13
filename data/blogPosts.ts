@@ -21,6 +21,56 @@ const internalLinks = {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'gpt5-review-raising-the-floor',
+    title: 'GPT‑5 Is Here: Why Raising the Floor Matters Most',
+    description:
+      "A practical review of GPT‑5 focused on the most transformative change: sharply lower hallucination and deception rates.",
+    date: '2025-08-08',
+    readTime: '10 min read',
+    category: 'AI & Tech',
+    tags: ['GPT‑5', 'Reliability', 'Hallucinations', 'Evaluation'],
+    coverImage: '/images/gpt5-header.svg',
+    contentHtml: `
+      <img src="/images/gpt5-header.svg" alt="GPT‑5 header" />
+      <h2>TL;DR</h2>
+      <p>GPT‑5 is faster, cheaper in many cases, and better at tools and code. But the headline improvement is reliability: substantially fewer hallucinations and fewer claims to do things it cannot. In day‑to‑day use, that matters more than a few extra benchmark points.</p>
+
+      <h2>Raising the Floor vs. Raising the Ceiling</h2>
+      <p>AI launches often emphasize new heights—bigger models, higher scores, flashier demos. GPT‑5’s real contribution is the opposite: a higher <em>floor</em> of capability. Fewer made‑up facts, clearer refusals when it cannot help, and better transparency when tools are required.</p>
+
+      <h2>Reliability in Numbers</h2>
+      <ul>
+        <li>Hallucinations: materially reduced versus GPT‑4‑class models in typical chats; markedly lower on long‑form, fact‑seeking prompts.</li>
+        <li>Deception: fewer incorrect capability claims in standard chat sessions.</li>
+        <li>Tool‑use: stronger function‑calling enables repeatable, auditable chains.</li>
+      </ul>
+
+      <h2>Why This Matters for Teams</h2>
+      <ul>
+        <li><strong>Content & research:</strong> less silent fabrication means less time spent verifying and rewriting.</li>
+        <li><strong>Engineering:</strong> better code reliability + tool‑use improves IDE, CI and agentic workflows.</li>
+        <li><strong>Support:</strong> fewer “confidently wrong” answers reduce escalations and brand risk.</li>
+      </ul>
+
+      <h2>Limits Still Apply</h2>
+      <p>Creative writing is still uneven, AGI remains distant, and long‑tail queries can still trip models. But the direction is right: fewer foot‑guns, more trustworthy output.</p>
+
+      <h2>How We Plan to Use GPT‑5</h2>
+      <ol>
+        <li>Guardrailed research workflows with citations and fact checks.</li>
+        <li>Agentic tooling for code & operations, with human approval at key gates.</li>
+        <li>Knowledge tasks backed by retrieval to keep answers grounded.</li>
+      </ol>
+
+      <p>Bottom line: GPT‑5 isn’t about spectacle; it’s about trust. If your bottleneck is “I can’t rely on the answer,” this release moves the needle.</p>
+    `,
+    faqs: [
+      { question: 'Is GPT‑5 “smarter” than previous models?', answer: 'On many benchmarks yes, but the bigger win is reliability: noticeably fewer hallucinations in normal use.' },
+      { question: 'Does this mean we can skip human review?', answer: 'No—high‑stakes decisions still need human oversight. But review time drops when fewer outputs are confidently wrong.' },
+      { question: 'How should we adopt GPT‑5 in production?', answer: 'Wrap it in tool‑use, retrieval, and audit trails; measure reliability with task‑level evals, not just benchmarks.' }
+    ],
+  },
+  {
     slug: 'ai-web-development-2025',
     title: 'How AI Is Transforming Web Development in 2025',
     description:
