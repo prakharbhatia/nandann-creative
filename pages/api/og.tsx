@@ -33,7 +33,10 @@ export default async function handler(req: Request) {
             <div style={{ fontSize: 34, marginTop: 20, color: 'rgba(255,255,255,0.9)', fontWeight: 600 }}>{subtitle}</div>
           )}
           <div style={{ marginTop: 40, display: 'flex', alignItems: 'center', color: 'white', fontSize: 28 }}>
-            <img src='https://www.nandann.com/images/Nandann-logo-new.png' width={64} height={64} style={{ marginRight: 16 }} />
+            <img
+              src='https://www.nandann.com/images/Nandann-logo-new.png'
+              style={{ width: 64, height: 'auto', marginRight: 16, objectFit: 'contain' }}
+            />
             Nandann Creative Agency
           </div>
         </div>
