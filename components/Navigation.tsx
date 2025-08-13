@@ -92,7 +92,7 @@ export default function Navigation() {
                     Blog
                     <span className="absolute -bottom-1 left-0 w-0 h-px bg-gradient-to-r from-blue-400 to-purple-400 group-hover/link:w-full transition-all duration-500 ease-out"></span>
                   </Link>
-                  <div className="absolute right-0 top-full mt-3 hidden group-hover/blog:block">
+                  <div className="absolute left-1/2 -translate-x-1/2 top-full -mt-1 hidden group-hover/blog:block z-50">
                     <div className="min-w-[320px] rounded-xl border border-white/10 bg-black/70 backdrop-blur-xl p-3 shadow-xl">
                       <ul className="space-y-1">
                         <li>
