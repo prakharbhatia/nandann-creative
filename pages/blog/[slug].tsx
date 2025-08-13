@@ -15,6 +15,10 @@ export default function BlogPostPage() {
   }
 
   const canonicalUrl = `https://www.nandann.com/blog/${post.slug}`;
+  const toAbsolute = (path: string) => (path?.startsWith('http') ? path : `https://www.nandann.com${path}`);
+  const preferredCover = post.coverImage ? toAbsolute(post.coverImage) : undefined;
+  const dynamicOg = `https://www.nandann.com/api/og?title=${encodeURIComponent(post.title)}&subtitle=${encodeURIComponent(post.description)}`;
+  const ogImageUrl = preferredCover && !preferredCover.endsWith('.svg') ? preferredCover : dynamicOg;
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
@@ -64,7 +68,15 @@ export default function BlogPostPage() {
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.description} />
         <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:image" content={post.coverImage || 'https://www.nandann.com/images/Nandann-logo-new.png'} />
+        <meta property="og:image" content={ogImageUrl} />
+        <meta property="og:image:alt" content={`${post.title} – Nandann Creative`} />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${post.title} - Nandann Creative Agency`} />
+        <meta name="twitter:description" content={post.description} />
+        <meta name="twitter:image" content={ogImageUrl} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       </Head>
