@@ -73,7 +73,8 @@ async function maybeSendEmail(to: string, result: AuditResult) {
   const from = process.env.MAIL_FROM || 'reports@nandann.com'
   if (!host || !user || !pass) return // email not configured
 
-  const nodemailer = await import('nodemailer')
+  // @ts-ignore - defer type resolution; module exists at runtime
+  const nodemailer = (await import('nodemailer')).default as any
   const transporter = nodemailer.createTransport({
     host,
     port: Number(process.env.SMTP_PORT || 587),
