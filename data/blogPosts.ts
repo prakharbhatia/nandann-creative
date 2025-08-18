@@ -29,9 +29,9 @@ export const blogPosts: BlogPost[] = [
     readTime: '18 min read',
     category: 'SEO',
     tags: ['AI‑SEO', 'Structured Data', 'JSON‑LD', 'Embeddings'],
-    coverImage: '/api/og?title=AI‑SEO%20for%20AI%20Recommendations&subtitle=Structured%20data%2C%20APIs%2C%20Embeddings',
+    coverImage: '/images/ai-seo-banner.webp',
     contentHtml: `
-      <img src="/api/og?title=AI‑SEO%20for%20AI%20Recommendations&subtitle=Structured%20data%2C%20APIs%2C%20Embeddings" alt="AI‑SEO banner" />
+      <img src="/images/ai-seo-banner.webp" alt="AI‑SEO banner" />
       <h2>Why Traditional SEO Alone Is Not Enough</h2>
       <p>Old SEO fought for <em>blue links</em>. Today, users ask assistants like ChatGPT, Gemini, Perplexity, and Grok—and receive a direct answer. If your brand is not present in the data those systems rely on, you are invisible. AI‑SEO (or Generative SEO) focuses on supplying <strong>trusted, structured, verifiable facts</strong> to the sources LLMs consult.</p>
 
