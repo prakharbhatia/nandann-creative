@@ -12,6 +12,14 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'ai-seo-optimizing-for-ai-recommendations',
+    title: 'AI‑SEO: Optimizing for AI Recommendations',
+    excerpt: 'Appear in ChatGPT, Gemini, and Perplexity answers with JSON‑LD, datasets, APIs, and embeddings.',
+    date: 'Aug 18, 2025',
+    readTime: '18 min read',
+    category: 'SEO'
+  },
+  {
     slug: 'gpt5-review-raising-the-floor',
     title: 'GPT‑5 Is Here: Why Raising the Floor Matters Most',
     excerpt: 'A practical review focused on GPT‑5’s biggest win: fewer hallucinations and more reliable answers.',

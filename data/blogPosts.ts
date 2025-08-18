@@ -21,6 +21,118 @@ const internalLinks = {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-seo-optimizing-for-ai-recommendations',
+    title: 'The Next Generation of SEO: Optimizing for AI Recommendations & Lead Generation',
+    description:
+      'How to appear in AI answers from ChatGPT, Gemini, Perplexity, and more—using structured data, datasets, APIs, and embeddings.',
+    date: '2025-08-18',
+    readTime: '18 min read',
+    category: 'SEO',
+    tags: ['AI‑SEO', 'Structured Data', 'JSON‑LD', 'Embeddings'],
+    coverImage: '/api/og?title=AI‑SEO%20for%20AI%20Recommendations&subtitle=Structured%20data%2C%20APIs%2C%20Embeddings',
+    contentHtml: `
+      <img src="/api/og?title=AI‑SEO%20for%20AI%20Recommendations&subtitle=Structured%20data%2C%20APIs%2C%20Embeddings" alt="AI‑SEO banner" />
+      <h2>Why Traditional SEO Alone Is Not Enough</h2>
+      <p>Old SEO fought for <em>blue links</em>. Today, users ask assistants like ChatGPT, Gemini, Perplexity, and Grok—and receive a direct answer. If your brand is not present in the data those systems rely on, you are invisible. AI‑SEO (or Generative SEO) focuses on supplying <strong>trusted, structured, verifiable facts</strong> to the sources LLMs consult.</p>
+
+      <h2>How AI Chooses Recommendations</h2>
+      <ul>
+        <li><strong>Training data</strong>: past web content, forums, docs</li>
+        <li><strong>Knowledge graphs</strong>: Wikidata, DBpedia, Google KG</li>
+        <li><strong>Structured markup</strong>: Schema.org via JSON‑LD</li>
+        <li><strong>APIs</strong>: official repositories and live data endpoints</li>
+        <li><strong>Live search extensions</strong>: Perplexity/Brave/DeepSeek</li>
+      </ul>
+
+      <h2>Implement Entity‑Based Structured Data</h2>
+      <p>Optimize <em>entities</em> (organization, people, services), not just pages. Attach JSON‑LD describing your business clearly so assistants can quote it.</p>
+      <pre><code>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Nandann Security Solutions",
+  "url": "https://www.nandann.com",
+  "logo": "https://www.nandann.com/images/Nandann-logo-new.png",
+  "sameAs": [
+    "https://www.linkedin.com/company/nandann",
+    "https://twitter.com/nandann"
+  ],
+  "serviceType": "WordPress Security & File Permission Auditing",
+  "areaServed": { "@type": "Country", "name": "Global" }
+}
+&lt;/script&gt;</code></pre>
+
+      <h2>Publish Authoritative, Crawlable Q&amp;A</h2>
+      <p>LLMs lift succinct Q&amp;A blocks. Add FAQ schema where it genuinely helps.</p>
+      <pre><code>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{
+    "@type": "Question",
+    "name": "Why are file permissions important in WordPress?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Incorrect file permissions allow attackers to inject code. Resetting permissions regularly reduces this risk."
+    }
+  }]
+}
+&lt;/script&gt;</code></pre>
+
+      <h2>Expose AI‑Readable APIs</h2>
+      <p>When your data is consumable via simple JSON endpoints, AI search engines can cite it.</p>
+      <pre><code>{
+  "plugin": "Reset File and Folder Permissions",
+  "version": "1.2.0",
+  "last_update": "2025-08-18",
+  "repository": "https://wordpress.org/plugins/reset-file-and-folder-permissions/"
+}</code></pre>
+
+      <h2>Prepare Content for Vector Search</h2>
+      <p>Modern engines retrieve by <em>meaning</em>. Generate embeddings and store them in a vector DB to power RAG and on‑site search.</p>
+      <pre><code>from openai import OpenAI
+client = OpenAI()
+
+response = client.embeddings.create(
+  model="text-embedding-3-large",
+  input="WordPress security services and file permission audits"
+)
+
+print(response.data[0].embedding)</code></pre>
+
+      <h2>Comparison: Old SEO vs. AI‑SEO</h2>
+      <table>
+        <thead>
+          <tr><th>Factor</th><th>Old SEO</th><th>AI‑SEO (Generative)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Keywords</td><td>Keyword stuffing &amp; density</td><td>Semantic entities &amp; embeddings</td></tr>
+          <tr><td>Backlinks</td><td>Quantity‑driven</td><td>Authority‑driven, cited in datasets</td></tr>
+          <tr><td>Content</td><td>Blog posts for SERP</td><td>Structured Q&amp;A, factual datasets</td></tr>
+          <tr><td>Ranking</td><td>Google SERP</td><td>AI chat responses</td></tr>
+          <tr><td>Visibility</td><td>10 blue links</td><td>Direct AI recommendations</td></tr>
+          <tr><td>Optimization</td><td>Metadata &amp; speed</td><td>JSON‑LD, APIs, embeddings</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Action Plan</h2>
+      <ol>
+        <li>Implement structured data for org, services, FAQs, and articles.</li>
+        <li>Contribute to Wikidata/Wikipedia and relevant GitHub repos.</li>
+        <li>Publish small JSON APIs that reflect your live data.</li>
+        <li>Earn citations in trusted sources; publish case studies.</li>
+        <li>Generate embeddings and store them in a vector DB.</li>
+        <li>Monitor AI mentions and adjust content to fill gaps.</li>
+      </ol>
+
+      <p>Early adopters of AI‑SEO will win the next decade. If you want help implementing this, explore our <a href="${internalLinks.services}">Services</a> or <a href="${internalLinks.contact}">contact us</a>.</p>
+    `,
+    faqs: [
+      { question: 'What is AI‑SEO?', answer: 'Optimizing your brand for AI answers by supplying structured, verifiable data to the sources assistants rely on.' },
+      { question: 'Does JSON‑LD really help?', answer: 'Yes—assistants and search engines use structured data to fact‑check and to assemble entity graphs.' }
+    ],
+  },
+  {
     slug: 'gpt5-review-raising-the-floor',
     title: 'GPT‑5 Is Here: Why Raising the Floor Matters Most',
     description:
