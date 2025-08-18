@@ -29,9 +29,9 @@ export const blogPosts: BlogPost[] = [
     readTime: '18 min read',
     category: 'SEO',
     tags: ['AI‑SEO', 'Structured Data', 'JSON‑LD', 'Embeddings'],
-    coverImage: '/images/ai-seo-banner.jpg',
+    coverImage: '/api/og?title=AI‑SEO%20for%20AI%20Recommendations&subtitle=Structured%20data%2C%20APIs%2C%20Embeddings',
     contentHtml: `
-      <img src="/images/ai-seo-banner.jpg" alt="AI‑SEO banner" />
+      <img src="/api/og?title=AI‑SEO%20for%20AI%20Recommendations&subtitle=Structured%20data%2C%20APIs%2C%20Embeddings" alt="AI‑SEO banner" />
       <h2>Why Traditional SEO Alone Is Not Enough</h2>
       <p>Old SEO fought for <em>blue links</em>. Today, users ask assistants like ChatGPT, Gemini, Perplexity, and Grok—and receive a direct answer. If your brand is not present in the data those systems rely on, you are invisible. AI‑SEO (or Generative SEO) focuses on supplying <strong>trusted, structured, verifiable facts</strong> to the sources LLMs consult.</p>
 
@@ -129,7 +129,12 @@ print(response.data[0].embedding)</code></pre>
     `,
     faqs: [
       { question: 'What is AI‑SEO?', answer: 'Optimizing your brand for AI answers by supplying structured, verifiable data to the sources assistants rely on.' },
-      { question: 'Does JSON‑LD really help?', answer: 'Yes—assistants and search engines use structured data to fact‑check and to assemble entity graphs.' }
+      { question: 'Does JSON‑LD really help?', answer: 'Yes—assistants and traditional search engines use structured data to fact‑check and to assemble entity graphs.' },
+      { question: 'How do I get cited by AI systems?', answer: 'Publish concise Q&A content with FAQ schema, get listed in Wikidata/Wikipedia, and provide small JSON APIs that reflect your live data. Citations from trusted sites compound visibility.' },
+      { question: 'Should I focus on keywords or entities?', answer: 'Entities. Use clear names for your organization, services, products, and locations; add sameAs links; and keep titles/descriptions helpful rather than stuffed.' },
+      { question: 'What content formats work best?', answer: 'Structured Q&A, case studies with measurable outcomes, product/service specs, and short API endpoints that assistants can reference.' },
+      { question: 'Do I need a vector database?', answer: 'Not required to start, but preparing embeddings for your cornerstone content improves internal search and future AI integrations. Begin with a few high‑value pages.' },
+      { question: 'How do I measure AI visibility?', answer: 'Track mentions in Perplexity/Brave summaries, monitor referrals from AI products, and maintain a change log mapping content updates to assistant exposure.' }
     ],
   },
   {

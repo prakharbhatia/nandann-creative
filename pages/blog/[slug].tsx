@@ -60,6 +60,8 @@ export default function BlogPostPage({ post }: Props) {
         <meta name="description" content={post.description} />
         <link rel="canonical" href={canonicalUrl} />
         <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="Nandann Creative Agency" />
+        <meta name="author" content="Prakhar Bhatia" />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.description} />
         <meta property="og:url" content={canonicalUrl} />
