@@ -89,10 +89,10 @@ export default function WordPressPlugin() {
             <div className="flex justify-center mb-8">
               <div className="glass rounded-3xl p-8 inline-block">
                 <Image
-                  src="/images/plugin-icon.webp"
+                  src="/images/plugin-banner.webp"
                   alt="Reset File and Folder Permissions Plugin"
-                  width={120}
-                  height={120}
+                  width={400}
+                  height={200}
                   className="rounded-2xl object-contain"
                 />
               </div>
