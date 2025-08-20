@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 export default function WordPressPluginPage() {
   const pageTitle = "Reset File and Folder Permissions - WordPress Plugin by Nandann";
   const pageDescription = "A powerful yet safe WordPress plugin to reset file and directory permissions to secure values. Features batch processing, real-time progress, and comprehensive safety checks.";
-  const pageUrl = "https://www.nandann.com/wordpress-plugin";
+  const pageUrl = "https://www.nandann.com/reset-file-and-folder-permissions";
   const pageImage = "https://www.nandann.com/api/og?title=WordPress%20Plugin&subtitle=Reset%20File%20and%20Folder%20Permissions";
 
   const structuredData = {
@@ -101,43 +101,7 @@ export default function WordPressPluginPage() {
           "Responsive Admin Interface"
         ]
       },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Is this plugin safe to use?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes, the plugin includes multiple safety measures: requires administrator privileges, shows confirmation dialogs before processing, validates all paths to ensure they're within WordPress, processes files in batches to prevent timeouts, and provides detailed error reporting."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Will this break my WordPress site?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "The permissions set by this plugin (0644 for files, 0755 for directories) are the WordPress recommended standards. However, some special files or custom configurations might require different permissions. Always backup your site before making changes."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can I undo the permission changes?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No, permission changes cannot be automatically undone. This is why it's important to have a backup before running the tool. However, the plugin sets standard WordPress permissions that should work for most installations."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Does this work on shared hosting?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes, as long as your hosting provider allows the PHP chmod() function and you have sufficient file system permissions. The plugin will display an error if chmod() is not available."
-            }
-          }
-        ]
-      }
+
     ]
   };
 
