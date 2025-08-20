@@ -17,6 +17,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     '/blog',
     '/approach',
     '/portfolio',
+    '/wordpress-plugin',
     '/contact',
     '/rapid-same-day-website-delivery'
   ];

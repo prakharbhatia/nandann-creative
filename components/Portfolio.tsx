@@ -5,6 +5,17 @@ import FAQ from './FAQ';
 export default function Portfolio() {
   const projects = [
     {
+      title: "Reset File and Folder Permissions",
+      description: "A powerful WordPress plugin to safely reset file and directory permissions with batch processing and real-time progress tracking.",
+      image: "/images/plugin-icon.webp",
+      tech: ["WordPress", "PHP", "JavaScript", "AJAX"],
+      category: "WordPress Plugin",
+      link: "/wordpress-plugin",
+      external: false,
+      featured: true,
+      status: "Live on WordPress.org"
+    },
+    {
       title: "E-commerce Platform",
       description: "A modern e-commerce solution with advanced features, payment integration, and admin dashboard.",
       image: "/images/project1.jpg",
@@ -55,15 +66,31 @@ export default function Portfolio() {
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 gap-8">
           {projects.map((project, index) => (
-            <div key={index} className="glass rounded-3xl overflow-hidden hover-lift group">
-              {/* Project Image Placeholder */}
+            <div key={index} className={`glass rounded-3xl overflow-hidden hover-lift group ${project.featured ? 'ring-2 ring-blue-500/30' : ''}`}>
+              {/* Project Image */}
               <div className="h-64 bg-gradient-to-br from-blue-500/20 to-purple-500/20 relative overflow-hidden">
+                {project.image && project.title === "Reset File and Folder Permissions" ? (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <img 
+                      src={project.image} 
+                      alt={project.title}
+                      className="w-32 h-32 object-contain"
+                    />
+                  </div>
+                ) : null}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 <div className="absolute bottom-4 left-4">
-                  <span className="glass px-3 py-1 rounded-full text-sm text-white">
+                  <span className={`glass px-3 py-1 rounded-full text-sm text-white ${project.featured ? 'bg-blue-500/30' : ''}`}>
                     {project.category}
                   </span>
                 </div>
+                {project.featured && (
+                  <div className="absolute top-4 right-4">
+                    <span className="bg-gradient-to-r from-blue-500 to-purple-500 px-3 py-1 rounded-full text-xs text-white font-medium">
+                      Featured
+                    </span>
+                  </div>
+                )}
               </div>
 
               <div className="p-8">
@@ -92,11 +119,11 @@ export default function Portfolio() {
                     href={project.link}
                     className="text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200"
                   >
-                    Get Quote →
+                    {project.external === false ? 'View Details →' : 'Get Quote →'}
                   </Link>
                   <div className="flex space-x-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span className="text-gray-400 text-sm">Live</span>
+                    <span className="text-gray-400 text-sm">{project.status || 'Live'}</span>
                   </div>
                 </div>
               </div>

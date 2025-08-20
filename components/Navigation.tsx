@@ -7,6 +7,7 @@ export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [logoError, setLogoError] = useState(false)
   const [showMobileBlog, setShowMobileBlog] = useState(false)
+  const [showMobilePortfolio, setShowMobilePortfolio] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,7 +75,7 @@ export default function Navigation() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              item.href !== '/blog' ? (
+              item.href !== '/blog' && item.href !== '/portfolio' ? (
                 <Link
                   key={item.href}
                   href={item.href}
@@ -83,6 +84,32 @@ export default function Navigation() {
                   {item.label}
                   <span className="absolute -bottom-1 left-0 w-0 h-px bg-gradient-to-r from-blue-400 to-purple-400 group-hover/link:w-full transition-all duration-500 ease-out"></span>
                 </Link>
+              ) : item.href === '/portfolio' ? (
+                <div key={item.href} className="relative group/portfolio">
+                  <Link
+                    href="/portfolio"
+                    className="text-gray-300 hover:text-white transition-colors duration-200 font-medium relative group/link"
+                  >
+                    Portfolio
+                    <span className="absolute -bottom-1 left-0 w-0 h-px bg-gradient-to-r from-blue-400 to-purple-400 group-hover/link:w-full transition-all duration-500 ease-out"></span>
+                  </Link>
+                  <div className="absolute left-1/2 -translate-x-1/2 top-full -mt-1 hidden group-hover/portfolio:block z-50">
+                    <div className="min-w-[280px] rounded-xl border border-white/10 bg-black/70 backdrop-blur-xl p-3 shadow-xl">
+                      <ul className="space-y-1">
+                        <li>
+                          <Link href="/wordpress-plugin" className="block px-4 py-2 rounded-lg text-gray-200 hover:text-white hover:bg-white/10 transition">
+                            WordPress Plugin
+                          </Link>
+                        </li>
+                        <li className="pt-1 mt-1 border-t border-white/10">
+                          <Link href="/portfolio" className="block px-4 py-2 rounded-lg text-blue-300 hover:text-white hover:bg-white/10 transition">
+                            View all projects →
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               ) : (
                 <div key={item.href} className="relative group/blog">
                   <Link
@@ -161,11 +188,11 @@ export default function Navigation() {
         <div 
           id="mobile-menu"
           className={`md:hidden transition-all duration-300 overflow-hidden ${
-            isMobileMenuOpen ? 'max-h-64 mt-4' : 'max-h-0'
+            isMobileMenuOpen ? 'max-h-96 mt-4' : 'max-h-0'
           }`}
         >
           <div className="glass rounded-2xl p-4 space-y-3">
-            {navItems.filter((n) => n.href !== '/blog').map((item) => (
+            {navItems.filter((n) => n.href !== '/blog' && n.href !== '/portfolio').map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -175,6 +202,29 @@ export default function Navigation() {
                 {item.label}
               </Link>
             ))}
+            <button
+              className="w-full text-left text-gray-300 hover:text-white transition-colors duration-200 font-medium py-2 flex items-center justify-between"
+              onClick={() => setShowMobilePortfolio(!showMobilePortfolio)}
+              aria-expanded={showMobilePortfolio}
+              aria-controls="mobile-portfolio-submenu"
+            >
+              <span>Portfolio</span>
+              <span className={`transform transition ${showMobilePortfolio ? 'rotate-180' : ''}`}>▾</span>
+            </button>
+            <div id="mobile-portfolio-submenu" className={`overflow-hidden transition-all ${showMobilePortfolio ? 'max-h-96' : 'max-h-0'}`}>
+              <ul className="pl-3 space-y-1">
+                <li>
+                  <Link href="/wordpress-plugin" className="block text-gray-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    WordPress Plugin
+                  </Link>
+                </li>
+                <li className="pt-1 mt-1 border-t border-white/10">
+                  <Link href="/portfolio" className="block text-blue-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    View all projects →
+                  </Link>
+                </li>
+              </ul>
+            </div>
             <button
               className="w-full text-left text-gray-300 hover:text-white transition-colors duration-200 font-medium py-2 flex items-center justify-between"
               onClick={() => setShowMobileBlog(!showMobileBlog)}
