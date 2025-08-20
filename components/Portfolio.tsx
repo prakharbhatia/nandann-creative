@@ -24,11 +24,11 @@ export default function Portfolio() {
       link: "/contact"
     },
     {
-      title: "Health & Fitness App",
-      description: "Mobile application for tracking workouts, nutrition, and connecting with fitness communities.",
-      image: "/images/project2.jpg",
-      tech: ["React Native", "Firebase", "Python", "ML"],
-      category: "Mobile App",
+      title: "Algorithmic Trading Platform",
+      description: "Advanced trading platform for a leading hedge fund featuring real-time analytics, currency pair configuration, and automated trading algorithms.",
+      image: "/images/trading-platform-1.webp",
+      tech: ["Python", "React", "WebSocket", "TradingView"],
+      category: "FinTech Solutions",
       link: "/contact"
     },
     {
@@ -69,8 +69,8 @@ export default function Portfolio() {
             <div key={index} className={`glass rounded-3xl overflow-hidden hover-lift group ${project.featured ? 'ring-2 ring-blue-500/30' : ''}`}>
               {/* Project Image */}
               <div className="h-64 bg-gradient-to-br from-blue-500/20 to-purple-500/20 relative overflow-hidden">
-                {project.image && project.title === "Reset File and Folder Permissions" ? (
-                  <div className="absolute inset-0 flex items-center justify-center p-6">
+                {project.image && (project.title === "Reset File and Folder Permissions" || project.title === "Algorithmic Trading Platform") ? (
+                  <div className="absolute inset-0 flex items-center justify-center p-4">
                     <img 
                       src={project.image} 
                       alt={project.title}
