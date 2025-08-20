@@ -10,7 +10,7 @@ export default function Portfolio() {
       image: "/images/plugin-banner.webp",
       tech: ["WordPress", "PHP", "JavaScript", "AJAX"],
       category: "WordPress Plugin",
-      link: "/wordpress-plugin",
+      link: "/reset-file-and-folder-permissions",
       external: false,
       featured: true,
       status: "Live on WordPress.org"

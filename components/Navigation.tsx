@@ -97,7 +97,7 @@ export default function Navigation() {
                     <div className="min-w-[280px] rounded-xl border border-white/10 bg-black/70 backdrop-blur-xl p-3 shadow-xl">
                       <ul className="space-y-1">
                         <li>
-                          <Link href="/wordpress-plugin" className="block px-4 py-2 rounded-lg text-gray-200 hover:text-white hover:bg-white/10 transition">
+                          <Link href="/reset-file-and-folder-permissions" className="block px-4 py-2 rounded-lg text-gray-200 hover:text-white hover:bg-white/10 transition">
                             File Permissions Plugin
                           </Link>
                         </li>
@@ -214,7 +214,7 @@ export default function Navigation() {
             <div id="mobile-portfolio-submenu" className={`overflow-hidden transition-all ${showMobilePortfolio ? 'max-h-96' : 'max-h-0'}`}>
               <ul className="pl-3 space-y-1">
                 <li>
-                  <Link href="/wordpress-plugin" className="block text-gray-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Link href="/reset-file-and-folder-permissions" className="block text-gray-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
                     File Permissions Plugin
                   </Link>
                 </li>
