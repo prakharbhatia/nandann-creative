@@ -12,6 +12,14 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'ai-powered-website-fixes-local-businesses',
+    title: '5 AI-Powered Website Fixes for Local Businesses',
+    excerpt: 'Transform your website into a lead-generating machine with AI-powered optimization, smart CTAs, and voice search.',
+    date: 'Aug 20, 2025',
+    readTime: '12 min read',
+    category: 'AI & SEO'
+  },
+  {
     slug: 'ai-seo-optimizing-for-ai-recommendations',
     title: 'AI‑SEO: Optimizing for AI Recommendations',
     excerpt: 'Appear in ChatGPT, Gemini, and Perplexity answers with JSON‑LD, datasets, APIs, and embeddings.',
