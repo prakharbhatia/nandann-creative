@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import FAQ from './FAQ';
 
@@ -16,19 +16,23 @@ export default function Portfolio() {
       status: "Live on WordPress.org"
     },
     {
+      title: "Algorithmic Trading Platform",
+      description: "Advanced trading platform for a leading hedge fund featuring real-time analytics, currency pair configuration, and automated trading algorithms.",
+      image: "/images/trading-platform-1.webp",
+      images: [
+        "/images/trading-platform-1.webp",
+        "/images/trading-platform-2.webp"
+      ],
+      tech: ["Python", "React", "WebSocket", "TradingView"],
+      category: "FinTech Solutions",
+      link: "/contact"
+    },
+    {
       title: "E-commerce Platform",
       description: "A modern e-commerce solution with advanced features, payment integration, and admin dashboard.",
       image: "/images/project1.jpg",
       tech: ["React", "Next.js", "Stripe", "MongoDB"],
       category: "Web Development",
-      link: "/contact"
-    },
-    {
-      title: "Algorithmic Trading Platform",
-      description: "Advanced trading platform for a leading hedge fund featuring real-time analytics, currency pair configuration, and automated trading algorithms.",
-      image: "/images/trading-platform-1.webp",
-      tech: ["Python", "React", "WebSocket", "TradingView"],
-      category: "FinTech Solutions",
       link: "/contact"
     },
     {
@@ -49,6 +53,105 @@ export default function Portfolio() {
     }
   ]
 
+  function ProjectCard({ project }: { project: any }) {
+    const images: string[] = project.images && project.images.length > 0 ? project.images : (project.image ? [project.image] : []);
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    const goPrev = () => setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
+    const goNext = () => setActiveIndex((prev) => (prev + 1) % images.length);
+
+    return (
+      <div className={`glass rounded-3xl overflow-hidden hover-lift group ${project.featured ? 'ring-2 ring-blue-500/30' : ''}`}>
+        {/* Image / Carousel */}
+        <div className="h-64 bg-gradient-to-br from-blue-500/20 to-purple-500/20 relative overflow-hidden">
+          {images.length > 0 && (
+            <div className="absolute inset-0 flex items-center justify-center p-4">
+              <img
+                src={images[activeIndex]}
+                alt={project.title}
+                className="w-full h-auto object-contain rounded-lg"
+              />
+            </div>
+          )}
+
+          {/* Carousel Controls */}
+          {images.length > 1 && (
+            <>
+              <button
+                aria-label="Previous screenshot"
+                onClick={goPrev}
+                className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white w-9 h-9 rounded-full grid place-items-center"
+              >
+                ‹
+              </button>
+              <button
+                aria-label="Next screenshot"
+                onClick={goNext}
+                className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white w-9 h-9 rounded-full grid place-items-center"
+              >
+                ›
+              </button>
+              <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-2">
+                {images.map((_, i) => (
+                  <span key={i} className={`w-2.5 h-2.5 rounded-full ${i === activeIndex ? 'bg-white' : 'bg-white/40'}`}></span>
+                ))}
+              </div>
+            </>
+          )}
+
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+          <div className="absolute bottom-4 left-4">
+            <span className={`glass px-3 py-1 rounded-full text-sm text-white ${project.featured ? 'bg-blue-500/30' : ''}`}>
+              {project.category}
+            </span>
+          </div>
+          {project.featured && (
+            <div className="absolute top-4 right-4">
+              <span className="bg-gradient-to-r from-blue-500 to-purple-500 px-3 py-1 rounded-full text-xs text-white font-medium">
+                Featured
+              </span>
+            </div>
+          )}
+        </div>
+
+        <div className="p-8">
+          <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-gradient transition-all duration-300">
+            {project.title}
+          </h3>
+
+          <p className="text-gray-300 mb-6 leading-relaxed">
+            {project.description}
+          </p>
+
+          {/* Tech Stack */}
+          <div className="flex flex-wrap gap-2 mb-6">
+            {project.tech.map((tech: string, techIndex: number) => (
+              <span
+                key={techIndex}
+                className="glass-dark px-3 py-1 rounded-full text-sm text-gray-300"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          <div className="flex items-center justify-between">
+            <Link
+              href={project.link}
+              className="text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200"
+            >
+              {project.external === false ? 'View Details →' : 'Get Quote →'}
+            </Link>
+            <div className="flex space-x-2">
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <span className="text-gray-400 text-sm">{project.status || 'Live'}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <section id="portfolio" className="py-24 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -66,68 +169,7 @@ export default function Portfolio() {
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 gap-8">
           {projects.map((project, index) => (
-            <div key={index} className={`glass rounded-3xl overflow-hidden hover-lift group ${project.featured ? 'ring-2 ring-blue-500/30' : ''}`}>
-              {/* Project Image */}
-              <div className="h-64 bg-gradient-to-br from-blue-500/20 to-purple-500/20 relative overflow-hidden">
-                {project.image && (project.title === "Reset File and Folder Permissions" || project.title === "Algorithmic Trading Platform") ? (
-                  <div className="absolute inset-0 flex items-center justify-center p-4">
-                    <img 
-                      src={project.image} 
-                      alt={project.title}
-                      className="w-full h-auto object-contain rounded-lg"
-                    />
-                  </div>
-                ) : null}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                <div className="absolute bottom-4 left-4">
-                  <span className={`glass px-3 py-1 rounded-full text-sm text-white ${project.featured ? 'bg-blue-500/30' : ''}`}>
-                    {project.category}
-                  </span>
-                </div>
-                {project.featured && (
-                  <div className="absolute top-4 right-4">
-                    <span className="bg-gradient-to-r from-blue-500 to-purple-500 px-3 py-1 rounded-full text-xs text-white font-medium">
-                      Featured
-                    </span>
-                  </div>
-                )}
-              </div>
-
-              <div className="p-8">
-                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-gradient transition-all duration-300">
-                  {project.title}
-                </h3>
-                
-                <p className="text-gray-300 mb-6 leading-relaxed">
-                  {project.description}
-                </p>
-
-                {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tech.map((tech, techIndex) => (
-                    <span
-                      key={techIndex}
-                      className="glass-dark px-3 py-1 rounded-full text-sm text-gray-300"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <Link
-                    href={project.link}
-                    className="text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200"
-                  >
-                    {project.external === false ? 'View Details →' : 'Get Quote →'}
-                  </Link>
-                  <div className="flex space-x-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span className="text-gray-400 text-sm">{project.status || 'Live'}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <ProjectCard key={index} project={project} />
           ))}
         </div>
 
