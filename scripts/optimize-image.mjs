@@ -9,12 +9,12 @@ if (!src || !existsSync(src)) {
   process.exit(1);
 }
 
-const width = 1200;
-const height = 630;
+// Get original dimensions and preserve them
+const metadata = await sharp(src).metadata();
+console.log(`Original dimensions: ${metadata.width}x${metadata.height}`);
 
 await sharp(src)
-  .resize(width, height, { fit: 'cover' })
-  .webp({ quality: 82 })
+  .webp({ quality: 85 })
   .toFile(dest);
 
 console.log('Optimized image written to', dest);
