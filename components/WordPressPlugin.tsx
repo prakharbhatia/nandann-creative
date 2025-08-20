@@ -81,7 +81,7 @@ export default function WordPressPlugin() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
@@ -93,7 +93,7 @@ export default function WordPressPlugin() {
                   alt="Reset File and Folder Permissions Plugin"
                   width={120}
                   height={120}
-                  className="rounded-2xl"
+                  className="rounded-2xl object-contain"
                 />
               </div>
             </div>

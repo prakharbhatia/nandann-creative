@@ -1,5 +1,7 @@
 import Head from 'next/head';
+import Navigation from '../components/Navigation';
 import WordPressPlugin from '../components/WordPressPlugin';
+import Footer from '../components/Footer';
 
 export default function WordPressPluginPage() {
   const pageTitle = "Reset File and Folder Permissions - WordPress Plugin by Nandann";
@@ -179,7 +181,11 @@ export default function WordPressPluginPage() {
         />
       </Head>
       
-      <WordPressPlugin />
+      <div className="min-h-screen">
+        <Navigation />
+        <WordPressPlugin />
+        <Footer />
+      </div>
     </>
   );
 }
