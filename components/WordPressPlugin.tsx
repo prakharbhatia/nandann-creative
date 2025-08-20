@@ -365,11 +365,15 @@ export default function WordPressPlugin() {
       {/* FAQ Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <FAQ 
-            faqs={pluginFAQs} 
-            title="Frequently Asked Questions"
-            subtitle="Everything you need to know about the Reset File and Folder Permissions plugin"
-          />
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Frequently Asked <span className="text-gradient">Questions</span>
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Everything you need to know about the Reset File and Folder Permissions plugin
+            </p>
+          </div>
+          <FAQ faqs={pluginFAQs} />
         </div>
       </section>
     </div>
