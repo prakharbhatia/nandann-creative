@@ -111,7 +111,7 @@ export default function WordPressPlugin() {
                 href="https://wordpress.org/plugins/reset-file-and-folder-permissions/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary group inline-flex items-center gap-3"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-full text-white font-medium hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 group inline-flex items-center gap-3"
               >
                 <span>Download on WordPress.org</span>
                 <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
@@ -122,8 +122,6 @@ export default function WordPressPlugin() {
                   <span className="text-yellow-500">⭐⭐⭐⭐⭐</span>
                   <span>5.0 Rating</span>
                 </div>
-                <div className="w-px h-6 bg-gray-600"></div>
-                <span>Active Installs: 10+</span>
               </div>
             </div>
           </div>
@@ -344,13 +342,16 @@ export default function WordPressPlugin() {
                 href="https://wordpress.org/plugins/reset-file-and-folder-permissions/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary group inline-flex items-center gap-3"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-full text-white font-medium hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 group inline-flex items-center gap-3"
               >
                 <span>Download Plugin</span>
                 <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
               </a>
               
-              <Link href="/contact" className="btn-secondary">
+              <Link 
+                href="/contact" 
+                className="bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 px-8 py-4 rounded-full text-white font-medium transition-all duration-300 backdrop-blur-sm"
+              >
                 Need Help? Contact Us
               </Link>
             </div>

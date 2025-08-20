@@ -98,7 +98,7 @@ export default function Navigation() {
                       <ul className="space-y-1">
                         <li>
                           <Link href="/wordpress-plugin" className="block px-4 py-2 rounded-lg text-gray-200 hover:text-white hover:bg-white/10 transition">
-                            WordPress Plugin
+                            File Permissions Plugin
                           </Link>
                         </li>
                         <li className="pt-1 mt-1 border-t border-white/10">
@@ -215,7 +215,7 @@ export default function Navigation() {
               <ul className="pl-3 space-y-1">
                 <li>
                   <Link href="/wordpress-plugin" className="block text-gray-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
-                    WordPress Plugin
+                    File Permissions Plugin
                   </Link>
                 </li>
                 <li className="pt-1 mt-1 border-t border-white/10">
