@@ -87,13 +87,13 @@ export default function WordPressPlugin() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <div className="flex justify-center mb-8">
-              <div className="glass rounded-3xl p-8 inline-block">
+              <div className="glass rounded-3xl p-8 inline-block max-w-4xl">
                 <Image
                   src="/images/plugin-banner.webp"
                   alt="Reset File and Folder Permissions Plugin"
-                  width={400}
-                  height={200}
-                  className="rounded-2xl object-contain"
+                  width={1200}
+                  height={630}
+                  className="rounded-2xl w-full h-auto"
                 />
               </div>
             </div>

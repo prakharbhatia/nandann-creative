@@ -70,11 +70,11 @@ export default function Portfolio() {
               {/* Project Image */}
               <div className="h-64 bg-gradient-to-br from-blue-500/20 to-purple-500/20 relative overflow-hidden">
                 {project.image && project.title === "Reset File and Folder Permissions" ? (
-                  <div className="absolute inset-0 flex items-center justify-center p-4">
+                  <div className="absolute inset-0 flex items-center justify-center p-6">
                     <img 
                       src={project.image} 
                       alt={project.title}
-                      className="max-w-full max-h-full object-contain"
+                      className="w-full h-auto object-contain rounded-lg"
                     />
                   </div>
                 ) : null}
