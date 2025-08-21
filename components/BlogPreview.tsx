@@ -12,6 +12,14 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'high-performance-websites-business-case',
+    title: 'The Business Case for High-Performance Websites',
+    excerpt: 'Discover why high-performance websites are crucial for business success in 2025. Speed, trust, and performance directly impact conversions.',
+    date: 'Aug 21, 2025',
+    readTime: '15 min read',
+    category: 'Performance & SEO'
+  },
+  {
     slug: 'ai-powered-website-fixes-local-businesses',
     title: '5 AI-Powered Website Fixes for Local Businesses',
     excerpt: 'Transform your website into a lead-generating machine with AI-powered optimization, smart CTAs, and voice search.',
