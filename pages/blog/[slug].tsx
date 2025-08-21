@@ -82,14 +82,18 @@ export default function BlogPostPage({ post }: Props) {
       <div className="min-h-screen">
         <Navigation />
 
-        <article className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
+        <article className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-4xl xl:max-w-5xl mx-auto">
           <header className="mb-8">
             <p className="text-blue-300 text-sm mb-2">{post.category} • {post.readTime}</p>
             <h1 className="text-4xl font-bold text-white mb-3">{post.title}</h1>
-            <p className="text-gray-400 text-sm">Published on {new Date(post.date).toLocaleDateString()}</p>
+            <div className="flex items-center gap-4 text-sm text-gray-400">
+              <span>Published on {new Date(post.date).toLocaleDateString()}</span>
+              <span>•</span>
+              <span>By Prakhar Bhatia</span>
+            </div>
           </header>
 
-          <div className="prose prose-invert max-w-none prose-headings:text-white prose-p:text-gray-300 prose-strong:text-white prose-a:text-blue-300 hover:prose-a:text-blue-200 prose-li:marker:text-blue-300" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+          <div className="prose prose-invert max-w-none prose-lg prose-headings:text-white prose-p:text-gray-300 prose-strong:text-white prose-a:text-blue-300 hover:prose-a:text-blue-200 prose-li:marker:text-blue-300 prose-img:rounded-xl prose-img:shadow-2xl prose-img:mx-auto" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
 
           {post.faqs && post.faqs.length > 0 && (
             <section className="mt-16">
