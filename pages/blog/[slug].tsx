@@ -26,16 +26,30 @@ export default function BlogPostPage({ post }: Props) {
     author: {
       '@type': 'Person',
       name: 'Prakhar Bhatia',
+      url: 'https://www.linkedin.com/in/prakharbhatia',
+      sameAs: [
+        'https://www.linkedin.com/in/prakharbhatia',
+        'https://twitter.com/prakharbhatia'
+      ]
     },
     publisher: {
       '@type': 'Organization',
       name: 'Nandann Creative Agency',
+      url: 'https://www.nandann.com',
       logo: {
         '@type': 'ImageObject',
         url: 'https://www.nandann.com/images/Nandann-logo-new.png',
       },
+      sameAs: [
+        'https://www.linkedin.com/company/nandann-creative',
+        'https://twitter.com/nandanncreative'
+      ]
     },
     mainEntityOfPage: canonicalUrl,
+    articleSection: post.category,
+    keywords: post.tags.join(', '),
+    wordCount: post.contentHtml.replace(/<[^>]*>/g, '').split(' ').length,
+    timeRequired: `PT${post.readTime.split(' ')[0]}M`,
   };
 
   const breadcrumbJsonLd = {
@@ -58,10 +72,16 @@ export default function BlogPostPage({ post }: Props) {
       <Head>
         <title>{post.title} - Nandann Creative Agency</title>
         <meta name="description" content={post.description} />
+        <meta name="keywords" content={post.tags.join(', ')} />
+        <meta name="author" content="Prakhar Bhatia" />
+        <meta name="robots" content="index, follow" />
+        
+        {/* Canonical URL */}
         <link rel="canonical" href={canonicalUrl} />
+        
+        {/* Open Graph / Facebook / LinkedIn */}
         <meta property="og:type" content="article" />
         <meta property="og:site_name" content="Nandann Creative Agency" />
-        <meta name="author" content="Prakhar Bhatia" />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.description} />
         <meta property="og:url" content={canonicalUrl} />
@@ -71,10 +91,34 @@ export default function BlogPostPage({ post }: Props) {
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:article:published_time" content={post.date} />
+        <meta property="og:article:author" content="Prakhar Bhatia" />
+        <meta property="og:article:section" content={post.category} />
+        <meta property="og:article:tag" content={post.tags.join(', ')} />
+        
+        {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${post.title} - Nandann Creative Agency`} />
+        <meta name="twitter:site" content="@nandanncreative" />
+        <meta name="twitter:creator" content="@prakharbhatia" />
+        <meta name="twitter:title" content={post.title} />
         <meta name="twitter:description" content={post.description} />
         <meta name="twitter:image" content={ogImageUrl} />
+        <meta name="twitter:image:alt" content={`${post.title} – Nandann Creative`} />
+        
+        {/* LinkedIn specific */}
+        <meta property="linkedin:owner" content="nandann-creative" />
+        <meta property="linkedin:title" content={post.title} />
+        <meta property="linkedin:description" content={post.description} />
+        <meta property="linkedin:image" content={ogImageUrl} />
+        
+        {/* Additional meta for better social sharing */}
+        <meta name="article:published_time" content={post.date} />
+        <meta name="article:author" content="Prakhar Bhatia" />
+        <meta name="article:section" content={post.category} />
+        <meta name="article:tag" content={post.tags.join(', ')} />
+        
+        {/* Structured Data */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       </Head>
