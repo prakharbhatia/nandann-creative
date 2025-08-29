@@ -139,7 +139,7 @@ export default function WebDevelopmentCalifornia() {
 
         {/* Content */}
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
             <span className="text-yellow-400">Dude!</span> Your Website is{' '}
             <span className="text-blue-400">Totally Rad</span> in California!
           </h1>
