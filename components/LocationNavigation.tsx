@@ -28,7 +28,7 @@ export default function LocationNavigation({ location, locationShort }: Location
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
+          <Link href="/" className="flex items-center">
             <Image
               src="/images/Nandann-logo-new.png"
               alt={`Nandann Creative - ${location} Web Development Agency`}
@@ -40,7 +40,6 @@ export default function LocationNavigation({ location, locationShort }: Location
                 width: 'auto'
               }}
             />
-            <span className="text-xl font-bold text-gray-700">Nandann Creative</span>
           </Link>
 
           {/* Navigation Links */}
