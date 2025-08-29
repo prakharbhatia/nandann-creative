@@ -205,7 +205,6 @@ export default function NewYorkPage() {
                   loop
                   muted
                   playsInline
-                  poster="/newyork/pexels-pixabay-40142-sm.webp"
                 >
                   <source src="/newyork/newyork-skyline-hd.mp4" type="video/mp4" />
                   <source src="/newyork/newyork-skyline.webm" type="video/webm" />
@@ -223,46 +222,7 @@ export default function NewYorkPage() {
           </div>
         </section>
 
-        {/* New York Skyline Video Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-                Experience the{' '}
-                <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                  New York Skyline
-                </span>
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Watch the city that never sleeps come alive in this stunning aerial view
-              </p>
-            </div>
-            
-            <div className="relative max-w-4xl mx-auto">
-              <video
-                className="w-full rounded-2xl shadow-2xl"
-                controls
-                preload="metadata"
-                poster="/newyork/pexels-pixabay-40142-sm.webp"
-              >
-                <source src="/newyork/newyork-skyline-hd.mp4" type="video/mp4" />
-                <source src="/newyork/newyork-skyline.webm" type="video/webm" />
-                <p className="text-gray-600 p-8 text-center">
-                  Your browser doesn't support video playback. 
-                  <a href="/newyork/newyork-skyline-hd.mp4" className="text-blue-600 hover:underline ml-2">
-                    Download the video
-                  </a>
-                </p>
-              </video>
-              
-              <div className="mt-6 text-center">
-                <p className="text-sm text-gray-500">
-                  Multiple resolutions available for optimal viewing experience
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+
 
         {/* New York Culture & Business Section */}
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
