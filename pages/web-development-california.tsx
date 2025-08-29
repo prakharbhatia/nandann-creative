@@ -120,7 +120,7 @@ export default function WebDevelopmentCalifornia() {
       <LocationNavigation location="California" locationShort="CA" />
 
       {/* Hero Section with Video */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100 pt-24">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100 mt-20">
         {/* Background Video */}
         <div className="absolute inset-0 z-0">
           <video

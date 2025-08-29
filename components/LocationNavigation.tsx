@@ -56,6 +56,12 @@ export default function LocationNavigation({ location, locationShort }: Location
             <Link href="/about" className="text-gray-700 hover:text-blue-600 transition-colors">
               About
             </Link>
+            <Link href="/approach" className="text-gray-700 hover:text-blue-600 transition-colors">
+              Approach
+            </Link>
+            <Link href="/blog" className="text-gray-700 hover:text-blue-600 transition-colors">
+              Blog
+            </Link>
             <Link href="/contact" className="text-gray-700 hover:text-blue-600 transition-colors">
               Contact
             </Link>
