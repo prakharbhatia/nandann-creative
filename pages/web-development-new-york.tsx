@@ -138,7 +138,7 @@ export default function NewYorkPage() {
         <meta property="og:url" content="https://www.nandann.com/web-development-new-york" />
         <meta property="og:title" content="Web Development Agency in New York | Nandann Creative" />
         <meta property="og:description" content="Premier web development agency in New York. Custom websites, rapid delivery, local SEO optimization, and ongoing support for NYC businesses." />
-        <meta property="og:image" content="https://www.nandann.com/images/Nandann-logo-new.png" />
+        <meta property="og:image" content="https://www.nandann.com/newyork/new-york-web-development-nandann-creative-lg.webp" />
         <meta property="og:locale" content="en_US" />
         <meta property="og:site_name" content="Nandann Creative Agency" />
 
@@ -147,7 +147,7 @@ export default function NewYorkPage() {
         <meta property="twitter:url" content="https://www.nandann.com/web-development-new-york" />
         <meta property="twitter:title" content="Web Development Agency in New York | Nandann Creative" />
         <meta property="twitter:description" content="Premier web development agency in New York. Custom websites, rapid delivery, local SEO optimization, and ongoing support for NYC businesses." />
-        <meta property="twitter:image" content="https://www.nandann.com/images/Nandann-logo-new.png" />
+        <meta property="twitter:image" content="https://www.nandann.com/newyork/new-york-web-development-nandann-creative-lg.webp" />
         
         {/* Additional SEO */}
         <meta name="robots" content="index, follow" />
@@ -228,20 +228,20 @@ export default function NewYorkPage() {
           <div className="absolute inset-0 z-0">
             <picture>
               <source
-                srcSet="/newyork/pexels-lkloeppel-466685-xl.webp"
+                srcSet="/newyork/new-york-web-development-nandann-creative-xl.webp"
                 media="(min-width: 1280px)"
               />
               <source
-                srcSet="/newyork/pexels-lkloeppel-466685-lg.webp"
+                srcSet="/newyork/new-york-web-development-nandann-creative-lg.webp"
                 media="(min-width: 1024px)"
               />
               <source
-                srcSet="/newyork/pexels-lkloeppel-466685-md.webp"
+                srcSet="/newyork/new-york-web-development-nandann-creative-md.webp"
                 media="(min-width: 768px)"
               />
               <Image
-                src="/newyork/pexels-lkloeppel-466685-sm.webp"
-                alt="New York City Culture and Business"
+                src="/newyork/new-york-web-development-nandann-creative-sm.webp"
+                alt="New York Web Development Agency - Nandann Creative - Professional Website Design Services"
                 fill
                 className="object-cover"
                 priority
@@ -256,7 +256,7 @@ export default function NewYorkPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
                 New York's{' '}
-                <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+                <span className="text-green-400">
                   #1 Rated Web Development Agency
                 </span>
               </h2>
