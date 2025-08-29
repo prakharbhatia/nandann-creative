@@ -405,20 +405,20 @@ export default function NewYorkPage() {
               <div className="relative">
                 <picture>
                   <source
-                    srcSet="/newyork/pexels-lkloeppel-466685-xl.webp"
+                    srcSet="/newyork/new-york-web-development-nandann-creative-xl.webp"
                     media="(min-width: 1280px)"
                   />
                   <source
-                    srcSet="/newyork/pexels-lkloeppel-466685-lg.webp"
+                    srcSet="/newyork/new-york-web-development-nandann-creative-lg.webp"
                     media="(min-width: 1024px)"
                   />
                   <source
-                    srcSet="/newyork/pexels-lkloeppel-466685-md.webp"
+                    srcSet="/newyork/new-york-web-development-nandann-creative-md.webp"
                     media="(min-width: 768px)"
                   />
                   <Image
-                    src="/newyork/pexels-lkloeppel-466685-sm.webp"
-                    alt="New York City Culture"
+                    src="/newyork/new-york-web-development-nandann-creative-sm.webp"
+                    alt="New York Web Development Agency - Nandann Creative - Professional Website Design Services"
                     width={600}
                     height={400}
                     className="rounded-2xl shadow-2xl w-full h-auto"
