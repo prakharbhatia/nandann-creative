@@ -1,21 +1,76 @@
+# Nandann Creative - Robots.txt
+# Optimized for SEO and search engine crawling
+
+# Allow all search engines
 User-agent: *
 Allow: /
 
-# Sitemap
+# Sitemap location
 Sitemap: https://www.nandann.com/sitemap.xml
 
-# Crawl-delay
+# Crawl delay for respectful crawling
 Crawl-delay: 1
 
-# Disallow admin areas (if any in the future)
+# Block sensitive areas
 Disallow: /admin/
 Disallow: /api/
+Disallow: /_next/
+Disallow: /scripts/
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /.env
+Disallow: /package.json
+Disallow: /package-lock.json
 
-# Allow important pages
+# Allow important pages explicitly
 Allow: /
 Allow: /about
 Allow: /services
 Allow: /approach
 Allow: /portfolio
 Allow: /contact
+Allow: /blog
 Allow: /rapid-delivery
+Allow: /rapid-same-day-website-delivery
+
+# Allow location-specific pages
+Allow: /web-development-new-york
+Allow: /web-development-california
+
+# Allow assets
+Allow: /images/
+Allow: /newyork/
+Allow: /california/
+Allow: /favicon.ico
+
+# Block unnecessary file types
+Disallow: /*.json$
+Disallow: /*.xml$
+Disallow: /*.txt$
+Disallow: /*.log$
+
+# Google-specific directives
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Bing-specific directives
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Block AI training bots (optional)
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
