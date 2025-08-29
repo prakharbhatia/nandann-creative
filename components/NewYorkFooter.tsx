@@ -5,7 +5,7 @@ export default function NewYorkFooter() {
   const [logoError, setLogoError] = useState(false);
 
   return (
-    <footer className="bg-white w-full pb-20">
+    <footer className="bg-white w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
         <div className="text-center">
         <div className="flex items-center justify-center space-x-3 mb-4">
@@ -35,7 +35,7 @@ export default function NewYorkFooter() {
         <p className="text-gray-600 mb-3">
           Crafting digital experiences that drive results
         </p>
-        <p className="text-gray-500 text-sm mb-4">
+        <p className="text-gray-500 text-sm pb-4">
           © 2025 Nandann Creative Agency. All rights reserved.
         </p>
         </div>
