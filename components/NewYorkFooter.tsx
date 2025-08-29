@@ -5,7 +5,7 @@ export default function NewYorkFooter() {
   const [logoError, setLogoError] = useState(false);
 
   return (
-    <footer className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 border-t border-gray-200">
+    <footer className="bg-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 border-t border-gray-200">
       <div className="text-center">
         <div className="flex items-center justify-center space-x-3 mb-4">
           {/* Logo */}
