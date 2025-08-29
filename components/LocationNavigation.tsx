@@ -2,7 +2,12 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function CaliforniaNavigation() {
+interface LocationNavigationProps {
+  location: string;
+  locationShort: string;
+}
+
+export default function LocationNavigation({ location, locationShort }: LocationNavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -23,13 +28,17 @@ export default function CaliforniaNavigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-3">
             <Image
               src="/images/Nandann-logo-new.png"
-              alt="Nandann Creative - California Web Development Agency"
-              width={40}
-              height={40}
-              className="w-10 h-10"
+              alt={`Nandann Creative - ${location} Web Development Agency`}
+              width={150}
+              height={50}
+              className="h-12 w-auto"
+              style={{
+                maxHeight: '48px',
+                width: 'auto'
+              }}
             />
             <span className="text-xl font-bold text-gray-700">Nandann Creative</span>
           </Link>

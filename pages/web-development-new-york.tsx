@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import NewYorkNavigation from '../components/NewYorkNavigation';
+import LocationNavigation from '../components/LocationNavigation';
 import NewYorkFooter from '../components/NewYorkFooter';
 
 export default function NewYorkPage() {
@@ -170,7 +170,7 @@ export default function NewYorkPage() {
       </Head>
       
       <div className="min-h-screen bg-white">
-        <NewYorkNavigation />
+        <LocationNavigation location="New York" locationShort="NY" />
         
         {/* Hero Section */}
         <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-indigo-100">

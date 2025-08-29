@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import CaliforniaNavigation from '../components/CaliforniaNavigation';
+import LocationNavigation from '../components/LocationNavigation';
 import NewYorkFooter from '../components/NewYorkFooter';
 
 export default function WebDevelopmentCalifornia() {
@@ -117,7 +117,7 @@ export default function WebDevelopmentCalifornia() {
         />
       </Head>
 
-      <CaliforniaNavigation />
+      <LocationNavigation location="California" locationShort="CA" />
 
       {/* Hero Section with Video */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100">
