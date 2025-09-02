@@ -140,8 +140,8 @@ export default function WebDevelopmentIllinois() {
         {/* Content */}
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
-            <span className="text-blue-400">Hey!</span> Your Website is{' '}
-            <span className="text-red-400">Absolutely Amazing</span> in Illinois!
+            <span className="text-blue-400">Need a Website?</span> Get It{' '}
+            <span className="text-red-400">Built Fast</span> in Illinois!
           </h1>
           <p className="text-xl sm:text-2xl text-gray-200 mb-8 max-w-4xl mx-auto">
             From Chicago to Springfield, Peoria to Rockford, we're the web development agency that gets Illinois's spirit. 
@@ -451,8 +451,8 @@ export default function WebDevelopmentIllinois() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-blue-600">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
-            Ready to Make Your Illinois Business{' '}
-            <span className="text-red-400">Absolutely Amazing</span> Online?
+            Ready to Get Your Website{' '}
+            <span className="text-red-400">Built Fast</span> in Illinois?
           </h2>
           <p className="text-xl text-blue-100 mb-8">
             Let's build something that captures the Illinois spirit and drives real results for your business
