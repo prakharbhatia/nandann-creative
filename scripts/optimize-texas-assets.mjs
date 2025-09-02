@@ -2,10 +2,10 @@ import sharp from 'sharp';
 import fs from 'fs';
 import path from 'path';
 
-console.log('🎨 Starting Texas image optimization...\n');
+console.log('🎨 Starting Illinois image optimization...\n');
 
 // Create output directory
-const outputDir = 'public/texas';
+const outputDir = 'public/illinois';
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
 }
@@ -13,8 +13,8 @@ if (!fs.existsSync(outputDir)) {
 // Image configurations
 const imageConfigs = [
   {
-    name: 'pexels-gajula-998065',
-    src: 'pexels-gajula-998065.jpg',
+    name: 'pexels-pixabay-161963',
+    src: 'pexels-pixabay-161963.jpg',
     sizes: [
       { suffix: 'sm', width: 640, height: 480 },
       { suffix: 'md', width: 1024, height: 768 },
@@ -34,7 +34,7 @@ for (const config of imageConfigs) {
     
     // Process each size
     for (const size of config.sizes) {
-      const outputName = `texas-web-development-nandann-creative-${size.suffix}.webp`;
+      const outputName = `illinois-web-development-nandann-creative-${size.suffix}.webp`;
       const outputPath = path.join(outputDir, outputName);
       
       await sharp(inputBuffer)
@@ -60,4 +60,4 @@ for (const config of imageConfigs) {
   }
 }
 
-console.log('🎉 Texas image optimization complete!\n'); 
+console.log('🎉 Illinois image optimization complete!\n'); 

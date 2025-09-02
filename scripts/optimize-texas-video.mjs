@@ -2,16 +2,16 @@ import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 
-console.log('🎬 Starting Texas video optimization...\n');
+console.log('🎬 Starting Illinois video optimization...\n');
 
 // Create output directory
-const outputDir = 'public/texas';
+const outputDir = 'public/illinois';
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
 }
 
-const videoSrc = '3398074-hd_1920_1080_30fps.mp4';
-const videoName = 'texas-web-development-nandann-creative';
+const videoSrc = '11960131_3840_2160_24fps.mp4';
+const videoName = 'illinois-web-development-nandann-creative';
 const resolutions = [
   { suffix: 'sd', width: 854, height: 480 },
   { suffix: 'mobile', width: 640, height: 360 },
@@ -50,4 +50,4 @@ try {
   console.error('❌ Error during video optimization:', error.message);
 }
 
-console.log('\n🎉 Texas video optimization complete!\n'); 
+console.log('\n🎉 Illinois video optimization complete!\n'); 
