@@ -347,7 +347,7 @@ export default function WebDevelopmentFlorida() {
             </div>
             <div className="relative">
               <Image
-                src="/florida/florida-web-development-nandann-creative-2-lg.webp"
+                src="/florida/florida-web-development-nandann-creative-lg.webp"
                 alt="Florida Culture and Business - Web Development Services"
                 width={600}
                 height={400}
