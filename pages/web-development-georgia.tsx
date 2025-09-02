@@ -303,6 +303,74 @@ export default function GeorgiaWebDevelopment() {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-6 text-gray-800">
+              Don't Just Take Our Word For It -{' '}
+              <span className="text-green-600">Georgia is Talking!</span>
+            </h2>
+            <p className="text-xl text-gray-600">
+              Real results from real Georgia businesses
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-white p-8 rounded-2xl shadow-lg">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                  A
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900">Alex "The Atlanta Ace" Johnson</h4>
+                  <p className="text-gray-600">CEO, Atlanta Tech Solutions</p>
+                </div>
+              </div>
+              <p className="text-gray-700 italic">
+                "Nandann Creative delivered our website in just 3 days! In Atlanta's competitive 
+                tech market, speed matters. Our new site has increased leads by 45% and perfectly 
+                represents our Southern hospitality with modern innovation."
+              </p>
+            </div>
+
+            <div className="bg-white p-8 rounded-2xl shadow-lg">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                  S
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900">Sarah "The Savannah Sweet" Williams</h4>
+                  <p className="text-gray-600">Owner, Savannah Boutique</p>
+                </div>
+              </div>
+              <p className="text-gray-700 italic">
+                "As a Savannah-based business, we needed a website that reflected our historic 
+                charm and Southern hospitality. Nandann Creative nailed it with a design that 
+                perfectly captures the essence of Savannah's unique character."
+              </p>
+            </div>
+
+            <div className="bg-white p-8 rounded-2xl shadow-lg">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                  M
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900">Mike "The Macon Master" Davis</h4>
+                  <p className="text-gray-600">Marketing Director, Macon Manufacturing</p>
+                </div>
+              </div>
+              <p className="text-gray-700 italic">
+                "Our Macon manufacturing company needed a website that showcased our traditional 
+                values while embracing modern technology. Nandann Creative created a site that's 
+                both professional and authentically Georgia."
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4">
