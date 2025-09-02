@@ -21,7 +21,8 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     '/contact',
     '/rapid-same-day-website-delivery',
     '/web-development-new-york',
-    '/web-development-california'
+    '/web-development-california',
+    '/web-development-florida'
   ];
 
   // Generate sitemap XML
