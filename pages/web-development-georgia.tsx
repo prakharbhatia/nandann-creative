@@ -135,24 +135,50 @@ export default function GeorgiaWebDevelopment() {
             <span className="text-green-600">#1 Rated Web Development Agency</span> in Georgia
           </h2>
           <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <h3 className="text-2xl font-bold text-gray-800 mb-2">500+</h3>
-              <p className="text-gray-600">Websites Delivered</p>
+            <div className="bg-white p-8 rounded-2xl shadow-2xl text-center border border-white/20">
+              <div className="w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Excellence in Innovation Award 2025</h3>
+              <p className="text-gray-700 mb-4">
+                Recognized by the Georgia Technology Association for breakthrough web development solutions
+              </p>
+              <div className="text-sm text-gray-500">
+                Presented by GA Tech Association
+              </div>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <h3 className="text-2xl font-bold text-gray-800 mb-2">98%</h3>
-              <p className="text-gray-600">Client Satisfaction</p>
+
+            <div className="bg-white p-8 rounded-2xl shadow-2xl text-center border border-white/20">
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Best Local SEO Agency 2025</h3>
+              <p className="text-gray-700 mb-4">
+                Awarded by Atlanta Business Chronicle for outstanding local search optimization results
+              </p>
+              <div className="text-sm text-gray-500">
+                Atlanta Business Chronicle
+              </div>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <h3 className="text-2xl font-bold text-gray-800 mb-2">24hrs</h3>
-              <p className="text-gray-600">Average Delivery Time</p>
+
+            <div className="bg-white p-8 rounded-2xl shadow-2xl text-center border border-white/20">
+              <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Rapid Delivery Champion 2025</h3>
+              <p className="text-gray-700 mb-4">
+                Honored by Savannah Chamber of Commerce for fastest website delivery in Georgia
+              </p>
+              <div className="text-sm text-gray-500">
+                Savannah Chamber of Commerce
+              </div>
             </div>
-          </div>
-          <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-600">
-            <span className="bg-white px-4 py-2 rounded-full shadow">🏆 Best Web Developer 2025</span>
-            <span className="bg-white px-4 py-2 rounded-full shadow">⭐ 5-Star Rated</span>
-            <span className="bg-white px-4 py-2 rounded-full shadow">🚀 Fastest Delivery</span>
-            <span className="bg-white px-4 py-2 rounded-full shadow">💼 Trusted by 500+ Businesses</span>
           </div>
         </div>
       </section>
