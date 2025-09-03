@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image';
 import Navigation from '../../components/Navigation';
 import Footer from '../../components/Footer';
 import { getAllPosts } from '../../data/blogPosts';
@@ -33,21 +34,33 @@ export default function BlogIndexPage() {
             <p className="text-gray-300 text-lg">Practical strategies to build, launch, and scale high‑performing websites.</p>
           </header>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {posts.map((post) => (
-              <article key={post.slug} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 h-full flex flex-col">
-                <p className="text-blue-300 text-sm mb-2">{post.category} • {post.readTime}</p>
-                <h2 className="text-xl font-semibold text-white mb-2">
-                  <Link href={`/blog/${post.slug}`} className="hover:text-blue-200">{post.title}</Link>
-                </h2>
-                <p className="text-gray-300 mb-4 line-clamp-3 flex-grow">{post.description}</p>
-                <div className="flex items-center justify-between text-sm mt-auto">
-                  <div className="flex items-center gap-2 text-gray-400">
-                    <span>{new Date(post.date).toLocaleDateString()}</span>
-                    <span>•</span>
-                    <span>Prakhar Bhatia</span>
+              <article key={post.slug} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-300 h-full flex flex-col">
+                {post.coverImage && (
+                  <div className="relative h-48 w-full">
+                    <Image
+                      src={post.coverImage}
+                      alt={post.title}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
-                  <Link href={`/blog/${post.slug}`} className="text-blue-400 hover:text-blue-300">Read More →</Link>
+                )}
+                <div className="p-6 flex flex-col flex-grow">
+                  <p className="text-blue-300 text-sm mb-2">{post.category} • {post.readTime}</p>
+                  <h2 className="text-xl font-semibold text-white mb-2">
+                    <Link href={`/blog/${post.slug}`} className="hover:text-blue-200">{post.title}</Link>
+                  </h2>
+                  <p className="text-gray-300 mb-4 line-clamp-3 flex-grow">{post.description}</p>
+                  <div className="flex items-center justify-between text-sm mt-auto">
+                    <div className="flex items-center gap-2 text-gray-400">
+                      <span>{new Date(post.date).toLocaleDateString()}</span>
+                      <span>•</span>
+                      <span>Prakhar Bhatia</span>
+                    </div>
+                    <Link href={`/blog/${post.slug}`} className="text-blue-400 hover:text-blue-300">Read More →</Link>
+                  </div>
                 </div>
               </article>
             ))}

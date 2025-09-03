@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface BlogPost {
   slug: string;
@@ -8,16 +9,27 @@ interface BlogPost {
   date: string;
   readTime: string;
   category: string;
+  coverImage?: string;
 }
 
 const featuredPosts: BlogPost[] = [
+  {
+    slug: 'apple-iphone-17-ios-26-event-2025',
+    title: 'Apple iPhone 17, iOS 26, and Apple Event 2025: What Developers Need to Know',
+    excerpt: 'Comprehensive guide to Apple iPhone 17, iOS 26 release date, and Apple Event 2025. Learn about new APIs, SwiftUI enhancements, Core ML updates, and developer opportunities.',
+    date: 'Sep 3, 2025',
+    readTime: '12 min read',
+    category: 'Technology & Development',
+    coverImage: '/images/apple-iphone-17-ios-26-event-2025-lg.webp'
+  },
   {
     slug: 'high-performance-websites-business-case',
     title: 'The Business Case for High-Performance Websites',
     excerpt: 'Discover why high-performance websites are crucial for business success in 2025. Speed, trust, and performance directly impact conversions.',
     date: 'Aug 21, 2025',
     readTime: '15 min read',
-    category: 'Performance & SEO'
+    category: 'Performance & SEO',
+    coverImage: '/images/high-performance-websites-banner.webp'
   },
   {
     slug: 'ai-powered-website-fixes-local-businesses',
@@ -25,7 +37,8 @@ const featuredPosts: BlogPost[] = [
     excerpt: 'Transform your website into a lead-generating machine with AI-powered optimization, smart CTAs, and voice search.',
     date: 'Aug 20, 2025',
     readTime: '12 min read',
-    category: 'AI & SEO'
+    category: 'AI & SEO',
+    coverImage: '/images/ai-powered-website-fixes.webp'
   },
   {
     slug: 'ai-seo-optimizing-for-ai-recommendations',
@@ -33,15 +46,17 @@ const featuredPosts: BlogPost[] = [
     excerpt: 'Appear in ChatGPT, Gemini, and Perplexity answers with JSON‑LD, datasets, APIs, and embeddings.',
     date: 'Aug 18, 2025',
     readTime: '18 min read',
-    category: 'SEO'
+    category: 'SEO',
+    coverImage: '/images/ai-seo-banner.webp'
   },
   {
     slug: 'gpt5-review-raising-the-floor',
     title: 'GPT‑5 Is Here: Why Raising the Floor Matters Most',
-    excerpt: 'A practical review focused on GPT‑5’s biggest win: fewer hallucinations and more reliable answers.',
+    excerpt: 'A practical review focused on GPT‑5\'s biggest win: fewer hallucinations and more reliable answers.',
     date: 'Aug 13, 2025',
     readTime: '18 min read',
-    category: 'AI & Tech'
+    category: 'AI & Tech',
+    coverImage: '/images/gpt5-header.svg'
   },
   {
     slug: 'ai-web-development-2025',
@@ -49,39 +64,8 @@ const featuredPosts: BlogPost[] = [
     excerpt: 'Discover the latest AI tools and techniques that are transforming how we build websites, improving speed and quality.',
     date: 'Aug 12, 2025',
     readTime: '18 min read',
-    category: 'AI & Tech'
-  },
-  {
-    slug: 'same-day-website-delivery',
-    title: 'Same-Day Website Delivery: How We Make It Possible',
-    excerpt: 'Behind the scenes of our rapid delivery process and the tools that enable 24-hour website launches.',
-    date: 'Aug 13, 2025',
-    readTime: '18 min read',
-    category: 'Process'
-  },
-  {
-    slug: 'web-performance-optimization-guide',
-    title: 'Complete Guide to Web Performance Optimization',
-    excerpt: 'Advanced techniques to make your website lightning-fast and improve search rankings.',
-    date: 'Aug 13, 2025',
-    readTime: '18 min read',
-    category: 'Performance'
-  },
-  {
-    slug: 'nextjs-hosting-options-comparison',
-    title: 'Next.js Hosting Options Compared (2025)',
-    excerpt: 'Vercel, Netlify, Cloudflare, and the big clouds—SSR/ISR, edge support, performance, and costs in practice.',
-    date: 'Aug 13, 2025',
-    readTime: '18 min read',
-    category: 'Hosting & DevOps'
-  },
-  {
-    slug: 'python-hosting-options-comparison',
-    title: 'Python Hosting Options Compared for Django/FastAPI (2025)',
-    excerpt: 'Fly.io, Render, Railway, Heroku, and AWS/GCP/Azure—serverless vs containers, latency, and trade-offs.',
-    date: 'Aug 13, 2025',
-    readTime: '18 min read',
-    category: 'Hosting & DevOps'
+    category: 'AI & Tech',
+    coverImage: '/images/ai-powered-website-fixes.webp'
   }
 ];
 
@@ -102,30 +86,42 @@ export default function BlogPreview() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {featuredPosts.map((post, index) => (
-            <article key={post.slug} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 hover:scale-105">
-              <div className="flex items-center justify-between mb-4">
-                <span className="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-sm font-medium">
-                  {post.category}
-                </span>
-                <span className="text-gray-400 text-sm">{post.readTime}</span>
-              </div>
-              
-              <h3 className="text-xl font-bold text-white mb-3 line-clamp-2">
-                {post.title}
-              </h3>
-              
-              <p className="text-gray-300 mb-4 line-clamp-3">
-                {post.excerpt}
-              </p>
-              
-              <div className="flex items-center justify-between">
-                <span className="text-gray-400 text-sm">{post.date}</span>
-                <Link 
-                  href={`/blog/${post.slug}`}
-                  className="text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200"
-                >
-                  Read More →
-                </Link>
+            <article key={post.slug} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-300 hover:scale-105">
+              {post.coverImage && (
+                <div className="relative h-48 w-full">
+                  <Image
+                    src={post.coverImage}
+                    alt={post.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              )}
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-sm font-medium">
+                    {post.category}
+                  </span>
+                  <span className="text-gray-400 text-sm">{post.readTime}</span>
+                </div>
+                
+                <h3 className="text-xl font-bold text-white mb-3 line-clamp-2">
+                  {post.title}
+                </h3>
+                
+                <p className="text-gray-300 mb-4 line-clamp-3">
+                  {post.excerpt}
+                </p>
+                
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-400 text-sm">{post.date}</span>
+                  <Link 
+                    href={`/blog/${post.slug}`}
+                    className="text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200"
+                  >
+                    Read More →
+                  </Link>
+                </div>
               </div>
             </article>
           ))}
