@@ -86,44 +86,47 @@ export default function BlogPreview() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {featuredPosts.map((post, index) => (
-            <article key={post.slug} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-300 hover:scale-105">
-              {post.coverImage && (
-                <div className="relative h-48 w-full">
-                  <Image
-                    src={post.coverImage}
-                    alt={post.title}
-                    fill
-                    className="object-cover"
-                  />
+            <Link 
+              key={post.slug}
+              href={`/blog/${post.slug}`}
+              className="block group"
+            >
+              <article className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-300 hover:scale-105 cursor-pointer">
+                {post.coverImage && (
+                  <div className="relative h-48 w-full">
+                    <Image
+                      src={post.coverImage}
+                      alt={post.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                )}
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-sm font-medium">
+                      {post.category}
+                    </span>
+                    <span className="text-gray-400 text-sm">{post.readTime}</span>
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-white mb-3 line-clamp-2 group-hover:text-blue-200 transition-colors duration-200">
+                    {post.title}
+                  </h3>
+                  
+                  <p className="text-gray-300 mb-4 line-clamp-3">
+                    {post.excerpt}
+                  </p>
+                  
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-400 text-sm">{post.date}</span>
+                    <span className="text-blue-400 group-hover:text-blue-300 font-medium transition-colors duration-200">
+                      Read More →
+                    </span>
+                  </div>
                 </div>
-              )}
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-sm font-medium">
-                    {post.category}
-                  </span>
-                  <span className="text-gray-400 text-sm">{post.readTime}</span>
-                </div>
-                
-                <h3 className="text-xl font-bold text-white mb-3 line-clamp-2">
-                  {post.title}
-                </h3>
-                
-                <p className="text-gray-300 mb-4 line-clamp-3">
-                  {post.excerpt}
-                </p>
-                
-                <div className="flex items-center justify-between">
-                  <span className="text-gray-400 text-sm">{post.date}</span>
-                  <Link 
-                    href={`/blog/${post.slug}`}
-                    className="text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200"
-                  >
-                    Read More →
-                  </Link>
-                </div>
-              </div>
-            </article>
+              </article>
+            </Link>
           ))}
         </div>
 

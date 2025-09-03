@@ -36,7 +36,12 @@ export default function BlogIndexPage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {posts.map((post) => (
-              <article key={post.slug} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-300 h-full flex flex-col">
+              <Link 
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="block group"
+              >
+                <article className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-300 h-full flex flex-col cursor-pointer">
                 {post.coverImage && (
                   <div className="relative h-48 w-full">
                     <Image
@@ -49,9 +54,9 @@ export default function BlogIndexPage() {
                 )}
                 <div className="p-6 flex flex-col flex-grow">
                   <p className="text-blue-300 text-sm mb-2">{post.category} • {post.readTime}</p>
-                  <h2 className="text-xl font-semibold text-white mb-2">
-                    <Link href={`/blog/${post.slug}`} className="hover:text-blue-200">{post.title}</Link>
-                  </h2>
+                                      <h2 className="text-xl font-semibold text-white mb-2 group-hover:text-blue-200 transition-colors duration-200">
+                      {post.title}
+                    </h2>
                   <p className="text-gray-300 mb-4 line-clamp-3 flex-grow">{post.description}</p>
                   <div className="flex items-center justify-between text-sm mt-auto">
                     <div className="flex items-center gap-2 text-gray-400">
@@ -59,10 +64,11 @@ export default function BlogIndexPage() {
                       <span>•</span>
                       <span>Prakhar Bhatia</span>
                     </div>
-                    <Link href={`/blog/${post.slug}`} className="text-blue-400 hover:text-blue-300">Read More →</Link>
+                      <span className="text-blue-400 group-hover:text-blue-300 transition-colors duration-200">Read More →</span>
                   </div>
-                </div>
-              </article>
+                                  </div>
+                </article>
+              </Link>
             ))}
           </div>
         </section>
