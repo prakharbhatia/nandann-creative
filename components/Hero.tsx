@@ -39,7 +39,10 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <div className="animate-slide-up">
           {/* Main Heading */}
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight text-center">
+          <h1 
+            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight text-center"
+            style={{ fontSize: 'clamp(3rem, 8vw, 6rem)' }}
+          >
             <span className="block text-white mb-4">
               Crafting <span className="text-white">Digital</span>
             </span>
