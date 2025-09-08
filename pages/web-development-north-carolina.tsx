@@ -130,7 +130,7 @@ export default function NorthCarolinaPage() {
             loop
             playsInline
             className="w-full h-full object-cover"
-            poster="/northcarolina/northcarolina-web-development-nandann-creative-lg.webp"
+            poster="/northcarolina/northcarolina-web-development-nandann-creative-poster.webp"
           >
             <source src="/northcarolina/northcarolina-web-development-nandann-creative-hd.webm" type="video/webm" />
             <source src="/northcarolina/northcarolina-web-development-nandann-creative-hd.mp4" type="video/mp4" />

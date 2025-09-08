@@ -130,7 +130,7 @@ export default function NewJerseyPage() {
             loop
             playsInline
             className="w-full h-full object-cover"
-            poster="/newjersey/newjersey-web-development-nandann-creative-lg.webp"
+            poster="/newjersey/newjersey-web-development-nandann-creative-poster.webp"
           >
             <source src="/newjersey/newjersey-web-development-nandann-creative-hd.webm" type="video/webm" />
             <source src="/newjersey/newjersey-web-development-nandann-creative-hd.mp4" type="video/mp4" />
