@@ -11,6 +11,7 @@ export default function ContactPage() {
         <title>Contact - Nandann Creative Agency</title>
         <meta name="description" content="Get in touch with Nandann Creative Agency for your next project" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="canonical" href="https://www.nandann.com/contact" />
       </Head>
       
       <div className="min-h-screen">

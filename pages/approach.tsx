@@ -11,6 +11,7 @@ export default function ApproachPage() {
         <title>Our Approach - Nandann Creative Agency</title>
         <meta name="description" content="Discover our proven methodology and collaborative approach to creating exceptional digital experiences" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="canonical" href="https://www.nandann.com/approach" />
       </Head>
       
       <div className="min-h-screen">

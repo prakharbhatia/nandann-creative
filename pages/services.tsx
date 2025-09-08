@@ -11,6 +11,7 @@ export default function ServicesPage() {
         <title>Services - Nandann Creative Agency</title>
         <meta name="description" content="Our digital services including web development, UI/UX design, and digital strategy" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="canonical" href="https://www.nandann.com/services" />
       </Head>
       
       <div className="min-h-screen">

@@ -11,6 +11,7 @@ export default function AboutPage() {
         <title>About - Nandann Creative Agency</title>
         <meta name="description" content="Learn about Nandann Creative Agency - our story, team, and mission" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="canonical" href="https://www.nandann.com/about" />
       </Head>
       
       <div className="min-h-screen">

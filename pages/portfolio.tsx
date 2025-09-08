@@ -11,6 +11,7 @@ export default function PortfolioPage() {
         <title>Portfolio - Nandann Creative Agency</title>
         <meta name="description" content="View our portfolio of successful projects and client work" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="canonical" href="https://www.nandann.com/portfolio" />
       </Head>
       
       <div className="min-h-screen">
