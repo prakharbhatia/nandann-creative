@@ -193,7 +193,36 @@ export default function NewJerseyPage() {
         </div>
       </section>
 
-      {/* Services Section */}
+      {/* State-Specific Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-4xl font-bold text-gray-900 mb-6">
+                We Get It, New Jersey! Your Vibe is One of a Kind
+              </h2>
+              <p className="text-lg text-gray-600 mb-6">
+                New Jersey is more than just the Garden State—it's a diverse economic powerhouse with everything from pharmaceutical giants to Atlantic City casinos. From Newark's urban energy to Princeton's academic excellence, each region has its own character and business needs.
+              </p>
+              <p className="text-lg text-gray-600 mb-6">
+                We understand that pharmaceutical companies in Central Jersey need sophisticated, compliance-focused designs that reflect their scientific precision. Atlantic City businesses require dynamic, entertainment-focused websites that capture the excitement of the shore. Tech startups in Hoboken benefit from modern, scalable solutions that can grow with their ambitions.
+              </p>
+              <p className="text-lg text-gray-600">
+                Our team has worked with businesses across all 21 counties, giving us unique insights into what makes each area special—from the manufacturing heritage of Camden County to the agricultural traditions of South Jersey—and how to create websites that truly connect with local audiences.
+              </p>
+            </div>
+            <div className="relative">
+              <Image
+                src="/newjersey/newjersey-web-development-nandann-creative-lg.webp"
+                alt="New Jersey web development Nandann Creative"
+                width={600}
+                height={400}
+                className="rounded-lg shadow-lg"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">

@@ -193,7 +193,36 @@ export default function NorthCarolinaPage() {
         </div>
       </section>
 
-      {/* Services Section */}
+      {/* State-Specific Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-4xl font-bold text-gray-900 mb-6">
+                We Get It, North Carolina! Your Vibe is One of a Kind
+              </h2>
+              <p className="text-lg text-gray-600 mb-6">
+                North Carolina is more than just the Tar Heel State—it's a dynamic blend of traditional Southern values and cutting-edge innovation. From Charlotte's banking powerhouses to the Research Triangle's biotech breakthroughs, each region has its own character and business needs.
+              </p>
+              <p className="text-lg text-gray-600 mb-6">
+                We understand that Charlotte's financial institutions need sophisticated, trust-building designs that reflect their stability and expertise. Research Triangle companies require innovative, science-focused websites that showcase their technological advancements. Asheville businesses benefit from creative, mountain-inspired designs that capture their unique artistic spirit.
+              </p>
+              <p className="text-lg text-gray-600">
+                Our team has worked with businesses across all 100 counties, giving us unique insights into what makes each area special—from the aerospace industry in the mountains to the agricultural heritage of the Piedmont—and how to create websites that truly connect with local audiences.
+              </p>
+            </div>
+            <div className="relative">
+              <Image
+                src="/northcarolina/northcarolina-web-development-nandann-creative-lg.webp"
+                alt="North Carolina web development Nandann Creative"
+                width={600}
+                height={400}
+                className="rounded-lg shadow-lg"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
