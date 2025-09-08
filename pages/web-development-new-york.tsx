@@ -156,7 +156,7 @@ export default function NewYorkPage() {
         <meta name="geo.placename" content="New York" />
         <meta name="geo.position" content="40.7128;-74.0060" />
         <meta name="ICBM" content="40.7128, -74.0060" />
-        <link rel="canonical" href="https://www.nandarn.com/web-development-new-york" />
+        <link rel="canonical" href="https://www.nandann.com/web-development-new-york" />
         
         {/* Structured Data */}
         <script
