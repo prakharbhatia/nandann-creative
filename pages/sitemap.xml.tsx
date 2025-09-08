@@ -32,7 +32,8 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     '/web-development-new-jersey',
     '/web-development-north-carolina',
     '/web-development-massachusetts',
-    '/web-development-virginia'
+    '/web-development-virginia',
+    '/web-development-michigan'
   ];
 
   // Generate sitemap XML
