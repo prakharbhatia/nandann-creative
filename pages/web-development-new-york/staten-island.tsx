@@ -2,8 +2,8 @@ import React from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import LocationNavigation from '../components/LocationNavigation';
-import LocationFooter from '../components/LocationFooter';
+import LocationNavigation from '../../components/LocationNavigation';
+import LocationFooter from '../../components/LocationFooter';
 
 export default function StatenIslandPage() {
   // FAQ data for Staten Island
