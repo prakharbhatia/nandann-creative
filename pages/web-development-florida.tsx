@@ -43,6 +43,10 @@ export default function WebDevelopmentFlorida() {
         <meta name="author" content="Nandann Creative" />
         <meta name="canonical" content="https://www.nandann.com/web-development-florida" />
         
+        {/* Last Modified */}
+        <meta name="last-modified" content="2025-09-09T12:00:00Z" />
+        <meta httpEquiv="last-modified" content="Mon, 09 Sep 2025 12:00:00 GMT" />
+        
         {/* Geo Tags */}
         <meta name="geo.region" content="US-FL" />
         <meta name="geo.placename" content="Florida" />

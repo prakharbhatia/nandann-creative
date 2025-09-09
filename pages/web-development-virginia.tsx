@@ -98,8 +98,8 @@ export default function VirginiaPage() {
         <link rel="canonical" href="https://www.nandann.com/web-development-virginia" />
         
         {/* Last Modified */}
-        <meta name="last-modified" content="2025-01-27T12:00:00Z" />
-        <meta httpEquiv="last-modified" content="Mon, 27 Jan 2025 12:00:00 GMT" />
+        <meta name="last-modified" content="2025-09-09T12:00:00Z" />
+        <meta httpEquiv="last-modified" content="Mon, 09 Sep 2025 12:00:00 GMT" />
         
         {/* Geo tags for Virginia */}
         <meta name="geo.region" content="US-VA" />

@@ -97,6 +97,10 @@ export default function MassachusettsPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="canonical" href="https://www.nandann.com/web-development-massachusetts" />
         
+        {/* Last Modified */}
+        <meta name="last-modified" content="2025-09-09T12:00:00Z" />
+        <meta httpEquiv="last-modified" content="Mon, 09 Sep 2025 12:00:00 GMT" />
+        
         {/* Geo tags for Massachusetts */}
         <meta name="geo.region" content="US-MA" />
         <meta name="geo.placename" content="Massachusetts" />

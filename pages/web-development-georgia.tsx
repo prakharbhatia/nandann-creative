@@ -31,6 +31,10 @@ export default function GeorgiaWebDevelopment() {
         {/* Canonical */}
         <link rel="canonical" href="https://www.nandann.com/web-development-georgia" />
         
+        {/* Last Modified */}
+        <meta name="last-modified" content="2025-09-09T12:00:00Z" />
+        <meta httpEquiv="last-modified" content="Mon, 09 Sep 2025 12:00:00 GMT" />
+        
         {/* Geo Tags */}
         <meta name="geo.region" content="US-GA" />
         <meta name="geo.placename" content="Georgia" />

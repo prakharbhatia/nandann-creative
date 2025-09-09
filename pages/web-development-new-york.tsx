@@ -158,6 +158,10 @@ export default function NewYorkPage() {
         <meta name="ICBM" content="40.7128, -74.0060" />
         <link rel="canonical" href="https://www.nandann.com/web-development-new-york" />
         
+        {/* Last Modified */}
+        <meta name="last-modified" content="2025-09-09T12:00:00Z" />
+        <meta httpEquiv="last-modified" content="Mon, 09 Sep 2025 12:00:00 GMT" />
+        
         {/* Structured Data */}
         <script
           type="application/ld+json"
