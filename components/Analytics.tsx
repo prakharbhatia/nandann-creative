@@ -70,7 +70,7 @@ export default function Analytics() {
             onLoad={() => {
               // Initialize GA immediately after script loads
               window.dataLayer = window.dataLayer || [];
-              function gtag(...args: any[]) { dataLayer.push(args); }
+              function gtag(...args: any[]) { window.dataLayer.push(args); }
               (window as any).gtag = gtag;
               
               gtag('js', new Date());
