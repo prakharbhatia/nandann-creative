@@ -477,7 +477,7 @@ export default function BronxPage() {
           <h2 className="text-4xl font-bold mb-6">
             Ready to Build Your Bronx Business Website?
           </h2>
-          <p className="text-xl mb-8 opacity-90">
+          <p className="text-xl mb-8 text-blue-100">
             Join hundreds of Bronx businesses who trust Nandann Creative with their digital presence. 
             From Yankee Stadium to Fordham, we're here to help you succeed online.
           </p>

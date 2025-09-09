@@ -385,7 +385,7 @@ export default function NorthCarolinaPage() {
           <h2 className="text-4xl font-bold mb-6">
             Ready to Build Your North Carolina Business Website?
           </h2>
-          <p className="text-xl mb-8 opacity-90">
+          <p className="text-xl mb-8 text-blue-100">
             Join hundreds of North Carolina businesses who trust Nandann Creative with their digital presence. 
             From the mountains to the coast, we're here to help you succeed online.
           </p>

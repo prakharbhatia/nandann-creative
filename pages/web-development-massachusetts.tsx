@@ -383,7 +383,7 @@ export default function MassachusettsPage() {
           <h2 className="text-4xl font-bold mb-6">
             Ready to Build Your Massachusetts Business Website?
           </h2>
-          <p className="text-xl mb-8 opacity-90">
+          <p className="text-xl mb-8 text-blue-100">
             Join hundreds of Massachusetts businesses who trust Nandann Creative with their digital presence. 
             From the Berkshires to Cape Cod, we're here to help you succeed online.
           </p>

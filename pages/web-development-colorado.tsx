@@ -383,7 +383,7 @@ export default function ColoradoPage() {
           <h2 className="text-4xl font-bold mb-6">
             Ready to Build Your Colorado Business Website?
           </h2>
-          <p className="text-xl mb-8 opacity-90">
+          <p className="text-xl mb-8 text-blue-100">
             Join hundreds of Colorado businesses who trust Nandann Creative with their digital presence. 
             From the Front Range to the Western Slope, we're here to help you succeed online.
           </p>
