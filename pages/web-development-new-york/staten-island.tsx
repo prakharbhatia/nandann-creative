@@ -130,7 +130,7 @@ export default function StatenIslandPage() {
             loop
             playsInline
             className="w-full h-full object-cover"
-            poster="/staten-island/staten-island.jpg"
+            poster="/staten-island/staten-island-poster.webp"
           >
             <source src="/staten-island/staten-island.mp4" type="video/mp4" />
           </video>

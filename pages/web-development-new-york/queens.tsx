@@ -130,7 +130,7 @@ export default function QueensPage() {
             loop
             playsInline
             className="w-full h-full object-cover"
-            poster="/queens/queens.jpg"
+            poster="/queens/queens-poster.webp"
           >
             <source src="/queens/queens.mp4" type="video/mp4" />
           </video>

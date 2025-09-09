@@ -130,7 +130,7 @@ export default function ManhattanPage() {
             loop
             playsInline
             className="w-full h-full object-cover"
-            poster="/manhattan/manhattan.jpg"
+            poster="/manhattan/manhattan-poster.webp"
           >
             <source src="/manhattan/manhattan.mp4" type="video/mp4" />
           </video>

@@ -130,7 +130,7 @@ export default function BrooklynPage() {
             loop
             playsInline
             className="w-full h-full object-cover"
-            poster="/brooklyn/brooklyn.jpg"
+            poster="/brooklyn/brooklyn-poster.webp"
           >
             <source src="/brooklyn/brooklyn.mp4" type="video/mp4" />
           </video>

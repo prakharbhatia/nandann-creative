@@ -130,7 +130,7 @@ export default function BronxPage() {
             loop
             playsInline
             className="w-full h-full object-cover"
-            poster="/bronx/bronx.jpg"
+            poster="/bronx/bronx-poster.webp"
           >
             <source src="/bronx/bronx.mp4" type="video/mp4" />
           </video>
