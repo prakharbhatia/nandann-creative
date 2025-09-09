@@ -1686,13 +1686,13 @@ print(response.data[0].embedding)</code></pre>
     title: 'Mobile‑First Design Principles That Convert',
     description:
       'Design for the smallest screen first to create faster, more focused experiences that convert.',
-    date: '2025-08-13',
+    date: '2025-09-09',
     readTime: '16 min read',
     category: 'Design',
     tags: ['Design', 'UX', 'Mobile'],
-    coverImage: '/api/og?title=Mobile‑First%20Design%20Principles&subtitle=Design%20that%20converts%20on%20every%20device',
+    coverImage: '/images/pexels-divinetechygirl-1181244.jpg',
     contentHtml: `
-      <img src="/api/og?title=Mobile‑First%20Design%20Principles&subtitle=Design%20that%20converts%20on%20every%20device" alt="Mobile‑first design banner" />
+      <img src="/images/pexels-divinetechygirl-1181244.jpg" alt="Mobile‑first design banner" />
       <h2>Why Mobile‑First Still Matters</h2>
       <p>Most of the world experiences your brand on a pocket‑sized screen, in motion, with imperfect networks and brief attention. Mobile‑first is not a slogan; it is a constraint that forces clarity. When you design for the smallest screen first, you are compelled to choose: one primary action, one message, one path. That discipline eliminates bloat, simplifies decisions, and creates interfaces that convert on all devices—not just phones.</p>
       
