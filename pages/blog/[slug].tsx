@@ -80,6 +80,40 @@ export default function BlogPostPage({ post }: Props) {
         {/* Canonical URL */}
         <link rel="canonical" href={canonicalUrl} />
         
+        {/* Preload LCP image for mobile-first design post */}
+        {post.slug === 'mobile-first-design-principles' && (
+          <>
+            <link 
+              rel="preload" 
+              as="image" 
+              href="/images/optimized/mobile-first-design-principles-nandann-creative-mobile.avif"
+              media="(max-width: 640px)"
+              fetchPriority="high"
+            />
+            <link 
+              rel="preload" 
+              as="image" 
+              href="/images/optimized/mobile-first-design-principles-nandann-creative-tablet.avif"
+              media="(min-width: 641px) and (max-width: 1024px)"
+              fetchPriority="high"
+            />
+            <link 
+              rel="preload" 
+              as="image" 
+              href="/images/optimized/mobile-first-design-principles-nandann-creative-desktop.avif"
+              media="(min-width: 1025px) and (max-width: 1440px)"
+              fetchPriority="high"
+            />
+            <link 
+              rel="preload" 
+              as="image" 
+              href="/images/optimized/mobile-first-design-principles-nandann-creative-large.avif"
+              media="(min-width: 1441px)"
+              fetchPriority="high"
+            />
+          </>
+        )}
+        
         {/* Open Graph / Facebook / LinkedIn */}
         <meta property="og:type" content="article" />
         <meta property="og:site_name" content="Nandann Creative Agency" />

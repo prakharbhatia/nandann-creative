@@ -1736,7 +1736,8 @@ print(response.data[0].embedding)</code></pre>
           alt="Mobile-first design principles banner - Nandann Creative"
           width="760"
           height="507"
-          loading="lazy"
+          loading="eager"
+          fetchpriority="high"
           style="width: 100%; height: auto; border-radius: 0.75rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);"
         />
       </picture>
