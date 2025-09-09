@@ -52,9 +52,10 @@ export const trackPageScroll = (percentage: number) => {
   });
 };
 
-// Declare gtag for TypeScript
+// Declare gtag and dataLayer for TypeScript
 declare global {
   interface Window {
     gtag: (...args: any[]) => void;
+    dataLayer: any[];
   }
 }
