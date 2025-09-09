@@ -13,6 +13,12 @@
     "node": "22.x",
     "npm": "10.x"
   },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ],
   "dependencies": {
     "@vercel/og": "0.6.2",
     "framer-motion": "11.11.17",

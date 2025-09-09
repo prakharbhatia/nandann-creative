@@ -7,11 +7,13 @@ export default function Analytics() {
   const router = useRouter();
   const [shouldLoad, setShouldLoad] = useState(false);
 
-  // Single effect: route tracking + deferred GA loading
   useEffect(() => {
     const handleRouteChange = (url: string) => {
-      pageview(url);
+      if (shouldLoad) {
+        pageview(url);
+      }
     };
+    
     router.events.on('routeChangeComplete', handleRouteChange);
 
     if (!shouldLoad) {
@@ -28,17 +30,20 @@ export default function Analytics() {
         window.removeEventListener('pointerdown', enable, { passive: true } as any);
         window.removeEventListener('keydown', enable);
         window.removeEventListener('touchstart', enable, { passive: true } as any);
+        window.removeEventListener('mousemove', enable, { passive: true } as any);
       };
 
+      // More aggressive loading triggers for better performance
       window.addEventListener('scroll', enable, { passive: true });
       window.addEventListener('pointerdown', enable, { passive: true });
       window.addEventListener('keydown', enable);
       window.addEventListener('touchstart', enable, { passive: true });
+      window.addEventListener('mousemove', enable, { passive: true });
 
-      // Idle callback if supported, otherwise fallback timeout
+      // Faster timeout for better UX
       const idleId: number | undefined = (window as any).requestIdleCallback
-        ? (window as any).requestIdleCallback(enable, { timeout: 10000 })
-        : (window.setTimeout(enable, 10000) as unknown as number);
+        ? (window as any).requestIdleCallback(enable, { timeout: 5000 })
+        : (window.setTimeout(enable, 5000) as unknown as number);
 
       return () => {
         router.events.off('routeChangeComplete', handleRouteChange);
@@ -58,35 +63,36 @@ export default function Analytics() {
     <>
       {shouldLoad && (
         <>
-          {/* Load Google Analytics after user interaction/idle */}
+          {/* Optimized Google Analytics loading */}
           <Script
-            strategy="afterInteractive"
+            strategy="lazyOnload"
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-          />
-          <Script
-            id="google-analytics"
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);} 
-                gtag('js', new Date());
-                gtag('config', '${GA_TRACKING_ID}', {
-                  page_path: window.location.pathname,
-                  // Performance optimizations
-                  send_page_view: false, // We'll handle this manually
-                  cookie_flags: 'SameSite=None;Secure',
-                  // Privacy-friendly settings
-                  anonymize_ip: true,
-                  allow_google_signals: false,
-                  allow_ad_personalization_signals: false,
-                });
-                // Initial page view
-                gtag('event', 'page_view', {
-                  page_path: window.location.pathname,
-                  page_title: document.title,
-                });
-              `,
+            onLoad={() => {
+              // Initialize GA immediately after script loads
+              window.dataLayer = window.dataLayer || [];
+              function gtag(...args: any[]) { dataLayer.push(args); }
+              (window as any).gtag = gtag;
+              
+              gtag('js', new Date());
+              gtag('config', GA_TRACKING_ID, {
+                page_path: window.location.pathname,
+                send_page_view: false,
+                cookie_flags: 'SameSite=None;Secure',
+                anonymize_ip: true,
+                allow_google_signals: false,
+                allow_ad_personalization_signals: false,
+                // Performance optimizations
+                transport_type: 'beacon',
+                custom_map: {
+                  'custom_parameter': 'value'
+                }
+              });
+              
+              // Initial page view
+              gtag('event', 'page_view', {
+                page_path: window.location.pathname,
+                page_title: document.title,
+              });
             }}
           />
         </>

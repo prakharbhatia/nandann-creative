@@ -7,6 +7,32 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   
+  // Modern JavaScript optimizations
+  experimental: {
+    esmExternals: true,
+    optimizeCss: true,
+  },
+  
+  // Compiler optimizations for modern browsers
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  
+  // Webpack optimizations
+  webpack: (config, { dev, isServer }) => {
+    // Modern JavaScript target
+    if (!isServer) {
+      config.target = 'web';
+    }
+    
+    // Optimize for modern browsers
+    config.resolve.alias = {
+      ...config.resolve.alias,
+    };
+    
+    return config;
+  },
+  
   // SEO optimizations
   async headers() {
     return [
