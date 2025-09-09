@@ -33,24 +33,22 @@ export default function Analytics() {
         window.removeEventListener('mousemove', enable, { passive: true } as any);
       };
 
-      // More aggressive loading triggers for better performance
+      // Delay GTM loading by 7 seconds after page load
+      const delayTimer = setTimeout(() => {
+        enable();
+      }, 7000);
+
+      // Also enable on user interaction for better UX
       window.addEventListener('scroll', enable, { passive: true });
       window.addEventListener('pointerdown', enable, { passive: true });
       window.addEventListener('keydown', enable);
       window.addEventListener('touchstart', enable, { passive: true });
       window.addEventListener('mousemove', enable, { passive: true });
 
-      // Faster timeout for better UX
-      const idleId: number | undefined = (window as any).requestIdleCallback
-        ? (window as any).requestIdleCallback(enable, { timeout: 5000 })
-        : (window.setTimeout(enable, 5000) as unknown as number);
-
       return () => {
         router.events.off('routeChangeComplete', handleRouteChange);
         removeListeners();
-        if ((window as any).cancelIdleCallback && idleId) {
-          (window as any).cancelIdleCallback(idleId);
-        }
+        clearTimeout(delayTimer);
       };
     }
 
