@@ -130,10 +130,9 @@ export default function BronxPage() {
             loop
             playsInline
             className="w-full h-full object-cover"
-            poster="/bronx/bronx-web-development-nandann-creative-poster.webp"
+            poster="/bronx/bronx.jpg"
           >
-            <source src="/bronx/bronx-web-development-nandann-creative-hd.webm" type="video/webm" />
-            <source src="/bronx/bronx-web-development-nandann-creative-hd.mp4" type="video/mp4" />
+            <source src="/bronx/bronx.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-black bg-opacity-40"></div>
         </div>
@@ -161,7 +160,7 @@ export default function BronxPage() {
       <section className="relative py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/bronx/bronx-web-development-nandann-creative-lg.webp"
+            src="/bronx/bronx.jpg"
             alt="Bronx web development Nandann Creative"
             fill
             className="object-cover opacity-20"
@@ -213,7 +212,7 @@ export default function BronxPage() {
             </div>
             <div className="relative">
               <Image
-                src="/bronx/bronx-web-development-nandann-creative-lg.webp"
+                src="/bronx/bronx.jpg"
                 alt="Bronx web development Nandann Creative"
                 width={600}
                 height={400}

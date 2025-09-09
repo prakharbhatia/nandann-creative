@@ -374,6 +374,101 @@ export default function NewYorkPage() {
           </div>
         </section>
 
+        {/* NYC Boroughs Navigation */}
+        <section className="py-20 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-gray-900 mb-6">
+                Serving All NYC Boroughs
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                From Manhattan to Staten Island, we provide web development services across all five boroughs. 
+                Each area has its unique business culture, and we understand them all.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <Link href="/web-development-new-york/manhattan" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+                  <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold mb-4">Manhattan</h3>
+                <p className="text-gray-600">
+                  Financial District, Wall Street, Times Square, SoHo, Midtown. 
+                  Corporate headquarters and luxury brands.
+                </p>
+              </Link>
+              
+              <Link href="/web-development-new-york/brooklyn" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                <div className="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mb-6">
+                  <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold mb-4">Brooklyn</h3>
+                <p className="text-gray-600">
+                  DUMBO, Williamsburg, Park Slope, Brooklyn Heights. 
+                  Creative agencies and innovative startups.
+                </p>
+              </Link>
+              
+              <Link href="/web-development-new-york/queens" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                <div className="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
+                  <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold mb-4">Queens</h3>
+                <p className="text-gray-600">
+                  Flushing, Astoria, Long Island City, JFK Airport. 
+                  Diverse communities and multilingual businesses.
+                </p>
+              </Link>
+              
+              <Link href="/web-development-new-york/bronx" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                <div className="w-16 h-16 bg-orange-100 rounded-lg flex items-center justify-center mb-6">
+                  <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold mb-4">The Bronx</h3>
+                <p className="text-gray-600">
+                  Yankee Stadium, Bronx Zoo, Fordham, local neighborhoods. 
+                  Community organizations and healthcare services.
+                </p>
+              </Link>
+              
+              <Link href="/web-development-new-york/staten-island" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                <div className="w-16 h-16 bg-red-100 rounded-lg flex items-center justify-center mb-6">
+                  <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold mb-4">Staten Island</h3>
+                <p className="text-gray-600">
+                  Staten Island Ferry, local communities, suburban businesses. 
+                  Family-owned businesses and local services.
+                </p>
+              </Link>
+              
+              <Link href="/web-development-new-york" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mb-6">
+                  <svg className="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold mb-4">All NYC</h3>
+                <p className="text-gray-600">
+                  Complete New York City coverage. 
+                  From Manhattan skyscrapers to Staten Island suburbs.
+                </p>
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* New York Culture & Specialties */}
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
           <div className="max-w-7xl mx-auto">

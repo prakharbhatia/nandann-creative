@@ -130,10 +130,9 @@ export default function StatenIslandPage() {
             loop
             playsInline
             className="w-full h-full object-cover"
-            poster="/staten-island/staten-island-web-development-nandann-creative-poster.webp"
+            poster="/staten-island/staten-island.jpg"
           >
-            <source src="/staten-island/staten-island-web-development-nandann-creative-hd.webm" type="video/webm" />
-            <source src="/staten-island/staten-island-web-development-nandann-creative-hd.mp4" type="video/mp4" />
+            <source src="/staten-island/staten-island.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-black bg-opacity-40"></div>
         </div>
@@ -161,7 +160,7 @@ export default function StatenIslandPage() {
       <section className="relative py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/staten-island/staten-island-web-development-nandann-creative-lg.webp"
+            src="/staten-island/staten-island.jpg"
             alt="Staten Island web development Nandann Creative"
             fill
             className="object-cover opacity-20"
@@ -213,7 +212,7 @@ export default function StatenIslandPage() {
             </div>
             <div className="relative">
               <Image
-                src="/staten-island/staten-island-web-development-nandann-creative-lg.webp"
+                src="/staten-island/staten-island.jpg"
                 alt="Staten Island web development Nandann Creative"
                 width={600}
                 height={400}
