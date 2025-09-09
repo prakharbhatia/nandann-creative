@@ -1690,9 +1690,56 @@ print(response.data[0].embedding)</code></pre>
     readTime: '16 min read',
     category: 'Design',
     tags: ['Design', 'UX', 'Mobile'],
-    coverImage: '/images/mobile-first-design-principles-nandann-creative.jpg',
+    coverImage: '/images/optimized/mobile-first-design-principles-nandann-creative-tablet.webp',
     contentHtml: `
-      <img src="/images/mobile-first-design-principles-nandann-creative.jpg" alt="Mobile-first design principles banner - Nandann Creative" />
+      <picture>
+        <source 
+          media="(max-width: 640px)" 
+          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-mobile.avif" 
+          type="image/avif"
+        />
+        <source 
+          media="(max-width: 640px)" 
+          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-mobile.webp" 
+          type="image/webp"
+        />
+        <source 
+          media="(max-width: 1024px)" 
+          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-tablet.avif" 
+          type="image/avif"
+        />
+        <source 
+          media="(max-width: 1024px)" 
+          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-tablet.webp" 
+          type="image/webp"
+        />
+        <source 
+          media="(max-width: 1440px)" 
+          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-desktop.avif" 
+          type="image/avif"
+        />
+        <source 
+          media="(max-width: 1440px)" 
+          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-desktop.webp" 
+          type="image/webp"
+        />
+        <source 
+          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-large.avif" 
+          type="image/avif"
+        />
+        <source 
+          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-large.webp" 
+          type="image/webp"
+        />
+        <img 
+          src="/images/optimized/mobile-first-design-principles-nandann-creative-tablet.jpg" 
+          alt="Mobile-first design principles banner - Nandann Creative"
+          width="760"
+          height="507"
+          loading="lazy"
+          style="width: 100%; height: auto; border-radius: 0.75rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);"
+        />
+      </picture>
       <h2>Why Mobile‑First Still Matters</h2>
       <p>Most of the world experiences your brand on a pocket‑sized screen, in motion, with imperfect networks and brief attention. Mobile‑first is not a slogan; it is a constraint that forces clarity. When you design for the smallest screen first, you are compelled to choose: one primary action, one message, one path. That discipline eliminates bloat, simplifies decisions, and creates interfaces that convert on all devices—not just phones.</p>
       
