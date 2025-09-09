@@ -168,7 +168,7 @@ export default function WordPressPlugin() {
                     <span className="text-red-400 text-sm">✗</span>
                   </div>
                   <div>
-                    <h4 className="text-white font-semibold mb-2">Hours of Manual Work</h4>
+                    <h3 className="text-white font-semibold mb-2">Hours of Manual Work</h3>
                     <p className="text-gray-400">Spending hours fixing permissions file by file through FTP or cPanel</p>
                   </div>
                 </div>
@@ -178,7 +178,7 @@ export default function WordPressPlugin() {
                     <span className="text-red-400 text-sm">✗</span>
                   </div>
                   <div>
-                    <h4 className="text-white font-semibold mb-2">Site Breaking Errors</h4>
+                    <h3 className="text-white font-semibold mb-2">Site Breaking Errors</h3>
                     <p className="text-gray-400">White screen of death, plugin failures, upload errors ruining your site</p>
                   </div>
                 </div>
@@ -188,7 +188,7 @@ export default function WordPressPlugin() {
                     <span className="text-red-400 text-sm">✗</span>
                   </div>
                   <div>
-                    <h4 className="text-white font-semibold mb-2">Security Vulnerabilities</h4>
+                    <h3 className="text-white font-semibold mb-2">Security Vulnerabilities</h3>
                     <p className="text-gray-400">Wrong permissions expose your site to hackers and malware attacks</p>
                   </div>
                 </div>
@@ -283,7 +283,7 @@ export default function WordPressPlugin() {
                     <span className="text-blue-400 text-sm">🔧</span>
                   </div>
                   <div>
-                    <h4 className="text-white font-semibold mb-2">WordPress Native Functions</h4>
+                    <h3 className="text-white font-semibold mb-2">WordPress Native Functions</h3>
                     <p className="text-gray-400">Uses WordPress core functions and follows coding standards</p>
                   </div>
                 </div>
@@ -293,7 +293,7 @@ export default function WordPressPlugin() {
                     <span className="text-blue-400 text-sm">🔒</span>
                   </div>
                   <div>
-                    <h4 className="text-white font-semibold mb-2">Secure AJAX Handling</h4>
+                    <h3 className="text-white font-semibold mb-2">Secure AJAX Handling</h3>
                     <p className="text-gray-400">Proper nonce verification and input sanitization</p>
                   </div>
                 </div>
@@ -303,7 +303,7 @@ export default function WordPressPlugin() {
                     <span className="text-blue-400 text-sm">📱</span>
                   </div>
                   <div>
-                    <h4 className="text-white font-semibold mb-2">Responsive Design</h4>
+                    <h3 className="text-white font-semibold mb-2">Responsive Design</h3>
                     <p className="text-gray-400">Modern interface using WordPress admin styles</p>
                   </div>
                 </div>
@@ -313,7 +313,7 @@ export default function WordPressPlugin() {
                     <span className="text-blue-400 text-sm">🛡️</span>
                   </div>
                   <div>
-                    <h4 className="text-white font-semibold mb-2">Privacy Focused</h4>
+                    <h3 className="text-white font-semibold mb-2">Privacy Focused</h3>
                     <p className="text-gray-400">No data collection or external service connections</p>
                   </div>
                 </div>
