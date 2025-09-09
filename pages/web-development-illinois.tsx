@@ -140,8 +140,8 @@ export default function WebDevelopmentIllinois() {
         {/* Content */}
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
-            <span className="text-blue-400">Need a Website?</span> Get It{' '}
-            <span className="text-red-400">Built Fast</span> in Illinois!
+            <span className="text-blue-400">Need a Website?</span> We'll Build It{' '}
+            <span className="text-red-400">Chicago-Style Fast</span> in Illinois!
           </h1>
           <p className="text-xl sm:text-2xl text-gray-200 mb-8 max-w-4xl mx-auto">
             From Chicago to Springfield, Peoria to Rockford, we're the web development agency that gets Illinois's spirit. 
@@ -199,7 +199,7 @@ export default function WebDevelopmentIllinois() {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
               Illinois's{' '}
               <span className="text-blue-400">
-                #1 Rated Web Development Agency
+                Windy City Web Development Champions
               </span>
             </h2>
             <p className="text-xl text-gray-200 max-w-3xl mx-auto">
@@ -315,8 +315,8 @@ export default function WebDevelopmentIllinois() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-                Understanding Illinois's{' '}
-                <span className="text-blue-600">Unique Spirit</span>
+                Illinois's{' '}
+                <span className="text-blue-600">Prairie State</span> Digital Powerhouse
               </h2>
               <p className="text-lg text-gray-600 mb-6">
                 Illinois isn't just a state - it's a way of life! From the Windy City's financial power to Springfield's government influence, we get the local flavor that makes your business authentic.

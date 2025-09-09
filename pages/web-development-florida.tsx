@@ -141,7 +141,7 @@ export default function WebDevelopmentFlorida() {
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
             <span className="text-yellow-400">Hey!</span> Your Website is{' '}
-            <span className="text-blue-400">Totally Awesome</span> in Florida!
+            <span className="text-blue-400">Sunshine Perfect</span> in Florida!
           </h1>
           <p className="text-xl sm:text-2xl text-gray-200 mb-8 max-w-4xl mx-auto">
             From Miami to Orlando, Tampa to Jacksonville, we're the web development agency that gets Florida's vibe. 
@@ -199,7 +199,7 @@ export default function WebDevelopmentFlorida() {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
               Florida's{' '}
               <span className="text-yellow-400">
-                #1 Rated Web Development Agency
+                Most Sunshine-Bright Web Development Crew
               </span>
             </h2>
             <p className="text-xl text-gray-200 max-w-3xl mx-auto">
@@ -315,8 +315,8 @@ export default function WebDevelopmentFlorida() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-                Understanding Florida's{' '}
-                <span className="text-blue-600">Unique Vibe</span>
+                Florida's{' '}
+                <span className="text-blue-600">Sunshine State</span> Digital Magic
               </h2>
               <p className="text-lg text-gray-600 mb-6">
                 Florida isn't just a state - it's a lifestyle! From the laid-back beach culture of the Gulf Coast to the vibrant international scene of Miami, we get the local flavor that makes your business authentic.

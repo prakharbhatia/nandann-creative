@@ -140,7 +140,7 @@ export default function ColoradoPage() {
         
         <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold mb-6" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
-            Web Development That Gets It Done Right Here in Colorado
+            Web Development That Climbs Higher Than Colorado's Peaks
           </h1>
           <p className="text-xl md:text-2xl mb-8 leading-relaxed">
             From the Rocky Mountains to the Mile High City, we build websites that work for Colorado businesses. 
@@ -170,7 +170,7 @@ export default function ColoradoPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
           <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-8 border border-white border-opacity-20">
             <h2 className="text-4xl font-bold mb-6 text-green-400">
-              #1 Rated Web Development Agency in Colorado
+              Colorado's Peak-Performance Web Development Team
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center">
@@ -199,7 +199,7 @@ export default function ColoradoPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                We Get It, Colorado! Your Vibe is One of a Kind
+                Colorado's Mountain Spirit Powers Our Digital Innovation
               </h2>
               <p className="text-lg text-gray-600 mb-6">
                 Colorado is more than just the Centennial State—it's a perfect blend of outdoor adventure and cutting-edge innovation. From Denver's tech boom to Boulder's startup culture, each region has its own character and business needs.

@@ -140,7 +140,7 @@ export default function MassachusettsPage() {
         
         <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold mb-6" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
-            Web Development That Gets It Done Right Here in Massachusetts
+            Web Development That's Wicked Good in Massachusetts
           </h1>
           <p className="text-xl md:text-2xl mb-8 leading-relaxed">
             From the Charles River to the Berkshires, we build websites that work for Massachusetts businesses. 
@@ -170,7 +170,7 @@ export default function MassachusettsPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
           <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-8 border border-white border-opacity-20">
             <h2 className="text-4xl font-bold mb-6 text-green-400">
-              #1 Rated Web Development Agency in Massachusetts
+              Massachusetts's Wicked Smart Web Development Squad
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center">
@@ -199,7 +199,7 @@ export default function MassachusettsPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                We Get It, Massachusetts! Your Vibe is One of a Kind
+                Massachusetts's Wicked Smart Digital Innovation
               </h2>
               <p className="text-lg text-gray-600 mb-6">
                 Massachusetts is more than just the Bay State—it's a powerhouse of innovation with everything from world-class universities to cutting-edge biotech companies. From Boston's financial district to Cambridge's tech corridor, each region has its own character and business needs.

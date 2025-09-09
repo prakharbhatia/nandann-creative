@@ -104,7 +104,7 @@ export default function GeorgiaWebDevelopment() {
             className="text-4xl md:text-6xl font-bold mb-6"
             style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}
           >
-            Need a Website? Get It Built Fast in Georgia!
+            Y'all Need a Website? We'll Build It Right Quick in Georgia!
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-gray-200">
             From Atlanta to Savannah, we're Georgia's go-to web development team. 
@@ -132,7 +132,8 @@ export default function GeorgiaWebDevelopment() {
         <div className="absolute inset-0 bg-cover bg-center opacity-10" style={{ backgroundImage: 'url(/georgia/georgia-web-development-nandann-creative-lg.webp)' }}></div>
         <div className="relative z-10 max-w-6xl mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-8 text-gray-800">
-            <span className="text-green-600">#1 Rated Web Development Agency</span> in Georgia
+            Georgia's{' '}
+            <span className="text-green-600">Most Southern Hospitality</span> Web Development Team
           </h2>
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             <div className="bg-white p-8 rounded-2xl shadow-2xl text-center border border-white/20">
@@ -189,7 +190,7 @@ export default function GeorgiaWebDevelopment() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl font-bold mb-6 text-gray-800">
-                Understanding Georgia's Unique Culture
+                Georgia's Sweet Tea & Southern Code Culture
               </h2>
               <p className="text-lg text-gray-600 mb-6">
                 Georgia isn't just about peaches and peanuts anymore. From Atlanta's booming tech scene to Savannah's historic charm, 

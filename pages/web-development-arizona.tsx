@@ -140,7 +140,7 @@ export default function ArizonaPage() {
         
         <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold mb-6" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
-            Web Development That Gets It Done Right Here in Arizona
+            Web Development That Rises Like the Phoenix in Arizona
           </h1>
           <p className="text-xl md:text-2xl mb-8 leading-relaxed">
             From the Valley of the Sun to the Grand Canyon State, we build websites that work for Arizona businesses. 
@@ -170,7 +170,7 @@ export default function ArizonaPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
           <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-8 border border-white border-opacity-20">
             <h2 className="text-4xl font-bold mb-6 text-green-400">
-              #1 Rated Web Development Agency in Arizona
+              Arizona's Premier Desert-Tech Web Development Partner
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center">
@@ -199,7 +199,7 @@ export default function ArizonaPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                We Get It, Arizona! Your Vibe is One of a Kind
+                Arizona's Desert Innovation Drives Our Digital Solutions
               </h2>
               <p className="text-lg text-gray-600 mb-6">
                 Arizona is more than just the Grand Canyon State—it's a perfect blend of desert innovation and Southwest tradition. From Phoenix's booming tech scene to Tucson's aerospace industry, each region has its own character and business needs.
