@@ -1714,55 +1714,55 @@ print(response.data[0].embedding)</code></pre>
       <h2>Start With Real Content</h2>
       <p>Wireframes without copy invite decoration. Mobile‑first begins with real words: the 8–12 word headline that earns a scroll, the two‑sentence value proposition, the three bullets that answer "why this, why now," and the label on the primary button. With content in hand, structure falls out: sections are short, modules are single‑purpose, and the primary action is obvious.</p>
       
-      <pre><code class="language-html"><!-- Content-first HTML structure -->
-<section class="hero">
-  <h1>Build Websites That Convert</h1>
-  <p>Professional web development that drives real business results. Fast delivery, modern design, proven results.</p>
-  <button class="cta-primary">Start Your Project</button>
-</section>
+      <pre><code class="language-html">&lt;!-- Content-first HTML structure --&gt;
+&lt;section class="hero"&gt;
+  &lt;h1&gt;Build Websites That Convert&lt;/h1&gt;
+  &lt;p&gt;Professional web development that drives real business results. Fast delivery, modern design, proven results.&lt;/p&gt;
+  &lt;button class="cta-primary"&gt;Start Your Project&lt;/button&gt;
+&lt;/section&gt;
 
-<section class="benefits">
-  <h2>Why Choose Us</h2>
-  <ul>
-    <li>7-day delivery guarantee</li>
-    <li>Mobile-first responsive design</li>
-    <li>SEO optimized from day one</li>
-  </ul>
-</section></code></pre>
+&lt;section class="benefits"&gt;
+  &lt;h2&gt;Why Choose Us&lt;/h2&gt;
+  &lt;ul&gt;
+    &lt;li&gt;7-day delivery guarantee&lt;/li&gt;
+    &lt;li&gt;Mobile-first responsive design&lt;/li&gt;
+    &lt;li&gt;SEO optimized from day one&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/section&gt;</code></pre>
       
       <h2>Information Architecture Under Constraint</h2>
       <p>Small screens surface organizational problems. We recommend a "one screen, one job" approach: each section should do one thing well—introduce, prove, explain, ask. If a section requires multiple taps to understand, it is probably two sections. Navigation should reflect this hierarchy: keep it shallow, predictable, and scannable. Avoid hamburger menus on landing pages; favor inline navigation or a short sticky header when appropriate.</p>
       
-      <pre><code class="language-html"><!-- Mobile navigation structure -->
-<nav class="mobile-nav">
-  <div class="nav-brand">Logo</div>
-  <div class="nav-links">
-    <a href="/services">Services</a>
-    <a href="/portfolio">Portfolio</a>
-    <a href="/contact">Contact</a>
-  </div>
-</nav>
+      <pre><code class="language-html">&lt;!-- Mobile navigation structure --&gt;
+&lt;nav class="mobile-nav"&gt;
+  &lt;div class="nav-brand"&gt;Logo&lt;/div&gt;
+  &lt;div class="nav-links"&gt;
+    &lt;a href="/services"&gt;Services&lt;/a&gt;
+    &lt;a href="/portfolio"&gt;Portfolio&lt;/a&gt;
+    &lt;a href="/contact"&gt;Contact&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;
 
-<!-- One screen, one job sections -->
-<section class="intro">
-  <h1>What We Do</h1>
-  <p>We build fast, beautiful websites.</p>
-</section>
+&lt;!-- One screen, one job sections --&gt;
+&lt;section class="intro"&gt;
+  &lt;h1&gt;What We Do&lt;/h1&gt;
+  &lt;p&gt;We build fast, beautiful websites.&lt;/p&gt;
+&lt;/section&gt;
 
-<section class="proof">
-  <h2>Our Results</h2>
-  <div class="stats">...</div>
-</section>
+&lt;section class="proof"&gt;
+  &lt;h2&gt;Our Results&lt;/h2&gt;
+  &lt;div class="stats"&gt;...&lt;/div&gt;
+&lt;/section&gt;
 
-<section class="explain">
-  <h2>How It Works</h2>
-  <div class="process">...</div>
-</section>
+&lt;section class="explain"&gt;
+  &lt;h2&gt;How It Works&lt;/h2&gt;
+  &lt;div class="process"&gt;...&lt;/div&gt;
+&lt;/section&gt;
 
-<section class="ask">
-  <h2>Ready to Start?</h2>
-  <button>Get Quote</button>
-</section></code></pre>
+&lt;section class="ask"&gt;
+  &lt;h2&gt;Ready to Start?&lt;/h2&gt;
+  &lt;button&gt;Get Quote&lt;/button&gt;
+&lt;/section&gt;</code></pre>
       
       <h2>Typography That Breathes</h2>
       <p>Readable typography is the fastest performance win. Favor a single, well‑hinted variable font or a system stack; keep sizes legible (16–18px base), maintain comfortable line‑height (1.5–1.7), and use spacing to create rhythm. Resist the temptation to shrink text to fit content; edit content to fit text. Accessibility settings (text size, contrast) must never break layout—test them early.</p>
@@ -1875,84 +1875,84 @@ p {
       <h2>Imagery and Media</h2>
       <p>On mobile, imagery either clarifies or clutters. Use media to communicate concrete value: product in context, before/after states, social proof. Technically, load only what is needed: responsive sources, AVIF/WEBP, and lazy‑load below‑the‑fold. Avoid background images for critical hero content so the browser can prioritize decoding and layout. Always provide concise alt text; it improves both accessibility and SEO.</p>
       
-      <pre><code class="language-html"><!-- Responsive images with proper optimization -->
-<picture>
-  <source 
+      <pre><code class="language-html">&lt;!-- Responsive images with proper optimization --&gt;
+&lt;picture&gt;
+  &lt;source 
     srcset="/images/hero-mobile.webp" 
     media="(max-width: 767px)"
-    type="image/webp">
-  <source 
+    type="image/webp"&gt;
+  &lt;source 
     srcset="/images/hero-desktop.webp" 
     media="(min-width: 768px)"
-    type="image/webp">
-  <img 
+    type="image/webp"&gt;
+  &lt;img 
     src="/images/hero-fallback.jpg" 
     alt="Professional web development services - Nandann Creative"
     loading="eager"
     width="800"
-    height="400">
-</picture>
+    height="400"&gt;
+&lt;/picture&gt;
 
-<!-- Lazy-loaded images below the fold -->
-<img 
+&lt;!-- Lazy-loaded images below the fold --&gt;
+&lt;img 
   src="/images/feature-1.webp" 
   alt="Fast website delivery in 7 days"
   loading="lazy"
   width="400"
-  height="300">
+  height="300"&gt;
 
-<!-- Social proof images -->
-<img 
+&lt;!-- Social proof images --&gt;
+&lt;img 
   src="/images/client-logo.webp" 
   alt="Trusted by leading businesses"
   loading="lazy"
   width="200"
-  height="100"></code></pre>
+  height="100"&gt;</code></pre>
       
       <h2>Forms That Don't Fight the Thumb</h2>
       <p>Short forms convert. Group related fields, enable autofill, and choose the right virtual keyboard (email, phone, number). Validate inline with plain language and preserve user input when errors occur. For multi‑step flows, show progress and allow back navigation without losing state. Captchas should be invisible or very gentle; challenging captchas on mobile kill conversions.</p>
       
-      <pre><code class="language-html"><!-- Mobile-optimized form -->
-<form class="contact-form">
-  <div class="form-group">
-    <label for="name">Full Name</label>
-    <input 
+      <pre><code class="language-html">&lt;!-- Mobile-optimized form --&gt;
+&lt;form class="contact-form"&gt;
+  &lt;div class="form-group"&gt;
+    &lt;label for="name"&gt;Full Name&lt;/label&gt;
+    &lt;input 
       type="text" 
       id="name" 
       name="name" 
       autocomplete="name"
       required
-      aria-describedby="name-error">
-    <div id="name-error" class="error-message" role="alert"></div>
-  </div>
+      aria-describedby="name-error"&gt;
+    &lt;div id="name-error" class="error-message" role="alert"&gt;&lt;/div&gt;
+  &lt;/div&gt;
   
-  <div class="form-group">
-    <label for="email">Email Address</label>
-    <input 
+  &lt;div class="form-group"&gt;
+    &lt;label for="email"&gt;Email Address&lt;/label&gt;
+    &lt;input 
       type="email" 
       id="email" 
       name="email" 
       autocomplete="email"
       required
-      aria-describedby="email-error">
-    <div id="email-error" class="error-message" role="alert"></div>
-  </div>
+      aria-describedby="email-error"&gt;
+    &lt;div id="email-error" class="error-message" role="alert"&gt;&lt;/div&gt;
+  &lt;/div&gt;
   
-  <div class="form-group">
-    <label for="phone">Phone Number</label>
-    <input 
+  &lt;div class="form-group"&gt;
+    &lt;label for="phone"&gt;Phone Number&lt;/label&gt;
+    &lt;input 
       type="tel" 
       id="phone" 
       name="phone" 
       autocomplete="tel"
-      aria-describedby="phone-error">
-    <div id="phone-error" class="error-message" role="alert"></div>
-  </div>
+      aria-describedby="phone-error"&gt;
+    &lt;div id="phone-error" class="error-message" role="alert"&gt;&lt;/div&gt;
+  &lt;/div&gt;
   
-  <button type="submit" class="button-primary">
+  &lt;button type="submit" class="button-primary"&gt;
     Get Free Quote
-  </button>
-</form></code></pre>
+  &lt;/button&gt;
+&lt;/form&gt;</code></pre>
       
       <pre><code class="language-css">/* Mobile form styling */
 .form-group {
@@ -2104,33 +2104,33 @@ function loadNonCriticalResources() {
   }
 }</code></pre>
       
-      <pre><code class="language-html"><!-- Accessible HTML structure -->
-<main>
-  <h1>Page Title</h1>
+      <pre><code class="language-html">&lt;!-- Accessible HTML structure --&gt;
+&lt;main&gt;
+  &lt;h1&gt;Page Title&lt;/h1&gt;
   
-  <section aria-labelledby="services-heading">
-    <h2 id="services-heading">Our Services</h2>
-    <div role="list" aria-label="Service offerings">
-      <div role="listitem">
-        <h3>Web Development</h3>
-        <p>Custom websites built for performance.</p>
-      </div>
-    </div>
-  </section>
+  &lt;section aria-labelledby="services-heading"&gt;
+    &lt;h2 id="services-heading"&gt;Our Services&lt;/h2&gt;
+    &lt;div role="list" aria-label="Service offerings"&gt;
+      &lt;div role="listitem"&gt;
+        &lt;h3&gt;Web Development&lt;/h3&gt;
+        &lt;p&gt;Custom websites built for performance.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
   
-  <form aria-label="Contact form">
-    <fieldset>
-      <legend>Contact Information</legend>
-      <label for="contact-name">Name (required)</label>
-      <input 
+  &lt;form aria-label="Contact form"&gt;
+    &lt;fieldset&gt;
+      &lt;legend&gt;Contact Information&lt;/legend&gt;
+      &lt;label for="contact-name"&gt;Name (required)&lt;/label&gt;
+      &lt;input 
         id="contact-name" 
         type="text" 
         required 
-        aria-describedby="name-help">
-      <div id="name-help">Enter your full name</div>
-    </fieldset>
-  </form>
-</main></code></pre>
+        aria-describedby="name-help"&gt;
+      &lt;div id="name-help"&gt;Enter your full name&lt;/div&gt;
+    &lt;/fieldset&gt;
+  &lt;/form&gt;
+&lt;/main&gt;</code></pre>
       
       <h2>Progressive Enhancement Over Polyfills</h2>
       <p>Design the minimal usable experience first; enhance when capabilities exist. For example: render content and forms server‑side, then add client‑side hydration for richer interactions. Fail gracefully when features are unavailable. This approach improves reliability on flaky networks and aging devices without special‑casing them in code.</p>
@@ -2188,26 +2188,26 @@ if ('fetch' in window) {
       <h2>SEO and Content Strategy</h2>
       <p>Google's mobile‑first indexing means your phone experience <em>is</em> your SEO. Use clear headings, concise copy, and FAQ sections where they genuinely help. Include alt text, structured data, canonical links, and Open Graph images so shares look great. Internal links should be descriptive and finger‑friendly—no tiny tap targets buried in body copy.</p>
       
-      <pre><code class="language-html"><!-- SEO-optimized HTML structure -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mobile-First Web Development | Nandann Creative</title>
-  <meta name="description" content="Professional mobile-first web development services. Fast, responsive websites that convert on every device.">
+      <pre><code class="language-html">&lt;!-- SEO-optimized HTML structure --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Mobile-First Web Development | Nandann Creative&lt;/title&gt;
+  &lt;meta name="description" content="Professional mobile-first web development services. Fast, responsive websites that convert on every device."&gt;
   
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://www.nandann.com/services">
+  &lt;!-- Canonical URL --&gt;
+  &lt;link rel="canonical" href="https://www.nandann.com/services"&gt;
   
-  <!-- Open Graph -->
-  <meta property="og:title" content="Mobile-First Web Development | Nandann Creative">
-  <meta property="og:description" content="Professional mobile-first web development services.">
-  <meta property="og:image" content="https://www.nandann.com/images/services-og.jpg">
-  <meta property="og:url" content="https://www.nandann.com/services">
+  &lt;!-- Open Graph --&gt;
+  &lt;meta property="og:title" content="Mobile-First Web Development | Nandann Creative"&gt;
+  &lt;meta property="og:description" content="Professional mobile-first web development services."&gt;
+  &lt;meta property="og:image" content="https://www.nandann.com/images/services-og.jpg"&gt;
+  &lt;meta property="og:url" content="https://www.nandann.com/services"&gt;
   
-  <!-- Structured Data -->
-  <script type="application/ld+json">
+  &lt;!-- Structured Data --&gt;
+  &lt;script type="application/ld+json"&gt;
   {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -2220,41 +2220,41 @@ if ('fetch' in window) {
       "addressCountry": "US"
     }
   }
-  </script>
-</head>
-<body>
-  <main>
-    <h1>Mobile-First Web Development</h1>
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;main&gt;
+    &lt;h1&gt;Mobile-First Web Development&lt;/h1&gt;
     
-    <section>
-      <h2>Why Mobile-First Matters</h2>
-      <p>Most users browse on mobile devices...</p>
-    </section>
+    &lt;section&gt;
+      &lt;h2&gt;Why Mobile-First Matters&lt;/h2&gt;
+      &lt;p&gt;Most users browse on mobile devices...&lt;/p&gt;
+    &lt;/section&gt;
     
-    <section>
-      <h2>Our Process</h2>
-      <ol>
-        <li>Mobile-first design</li>
-        <li>Performance optimization</li>
-        <li>SEO implementation</li>
-      </ol>
-    </section>
+    &lt;section&gt;
+      &lt;h2&gt;Our Process&lt;/h2&gt;
+      &lt;ol&gt;
+        &lt;li&gt;Mobile-first design&lt;/li&gt;
+        &lt;li&gt;Performance optimization&lt;/li&gt;
+        &lt;li&gt;SEO implementation&lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/section&gt;
     
-    <!-- FAQ Section for SEO -->
-    <section>
-      <h2>Frequently Asked Questions</h2>
-      <div itemscope itemtype="https://schema.org/FAQPage">
-        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-          <h3 itemprop="name">How long does development take?</h3>
-          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-            <div itemprop="text">Most projects are completed within 7 days.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-</body>
-</html></code></pre>
+    &lt;!-- FAQ Section for SEO --&gt;
+    &lt;section&gt;
+      &lt;h2&gt;Frequently Asked Questions&lt;/h2&gt;
+      &lt;div itemscope itemtype="https://schema.org/FAQPage"&gt;
+        &lt;div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"&gt;
+          &lt;h3 itemprop="name"&gt;How long does development take?&lt;/h3&gt;
+          &lt;div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"&gt;
+            &lt;div itemprop="text"&gt;Most projects are completed within 7 days.&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
       
       <h2>Design System Hand‑Off</h2>
       <p>Mobile‑first shines when paired with a design system. Provide tokens, components, and usage guidance, not just mockups. Developers should be able to assemble pages using standard parts with predictable behavior on small screens. Document component dos and don'ts (e.g., when a card becomes a list) and performance notes (e.g., image sizes, lazy‑loading rules).</p>
