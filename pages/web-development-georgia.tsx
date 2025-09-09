@@ -433,7 +433,7 @@ export default function GeorgiaWebDevelopment() {
           <h2 className="text-4xl font-bold mb-6 text-white">
             Ready to Get Your Georgia Business Online?
           </h2>
-          <p className="text-xl mb-8 text-blue-100">
+          <p className="text-xl mb-8 text-white">
             Join hundreds of Georgia businesses that trust Nandann Creative for their web development needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

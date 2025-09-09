@@ -385,7 +385,7 @@ export default function NewJerseyPage() {
           <h2 className="text-4xl font-bold mb-6">
             Ready to Build Your New Jersey Business Website?
           </h2>
-          <p className="text-xl mb-8 text-blue-100">
+          <p className="text-xl mb-8 text-white">
             Join hundreds of New Jersey businesses who trust Nandann Creative with their digital presence. 
             From Trenton to Toms River, we're here to help you succeed online.
           </p>

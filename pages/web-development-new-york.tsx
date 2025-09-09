@@ -634,7 +634,7 @@ export default function NewYorkPage() {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
               Ready to Make New York Your Digital Playground?
             </h2>
-            <p className="text-xl text-blue-100 mb-8">
+            <p className="text-xl text-white mb-8">
               Join hundreds of New York businesses that trust Nandann Creative with their digital success
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

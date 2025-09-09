@@ -458,7 +458,7 @@ export default function WebDevelopmentFlorida() {
             Ready to Make Your Florida Business{' '}
             <span className="text-yellow-400">Totally Awesome</span> Online?
           </h2>
-          <p className="text-xl text-blue-100 mb-8">
+          <p className="text-xl text-white mb-8">
             Let's build something that captures the Florida spirit and drives real results for your business
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

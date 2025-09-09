@@ -432,7 +432,7 @@ export default function WashingtonWebDevelopment() {
           <h2 className="text-4xl font-bold mb-6 text-white">
             Ready to Get Your Washington Business Online?
           </h2>
-          <p className="text-xl mb-8 text-blue-100">
+          <p className="text-xl mb-8 text-white">
             Join hundreds of Washington businesses that trust Nandann Creative for their web development needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

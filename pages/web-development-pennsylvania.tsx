@@ -456,7 +456,7 @@ export default function WebDevelopmentPennsylvania() {
             Ready to Get Your Website{' '}
             <span className="text-red-400">Built Fast</span> in Pennsylvania?
           </h2>
-          <p className="text-xl text-blue-100 mb-8">
+          <p className="text-xl text-white mb-8">
             Let's build something that captures the Pennsylvania spirit and drives real results for your business
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

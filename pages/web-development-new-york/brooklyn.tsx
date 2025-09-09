@@ -481,7 +481,7 @@ export default function BrooklynPage() {
           <h2 className="text-4xl font-bold mb-6">
             Ready to Build Your Brooklyn Business Website?
           </h2>
-          <p className="text-xl mb-8 text-blue-100">
+          <p className="text-xl mb-8 text-white">
             Join hundreds of Brooklyn businesses who trust Nandann Creative with their digital presence. 
             From DUMBO to Park Slope, we're here to help you succeed online.
           </p>
