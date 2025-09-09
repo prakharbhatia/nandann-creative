@@ -55,7 +55,7 @@ export default function StatenIslandPage() {
     },
     "openingHours": "Mo-Fr 09:00-18:00",
     "priceRange": "$$",
-    "image": "https://www.nandann.com/staten-island/staten-island-web-development-nandann-creative-lg.webp"
+    "image": "https://www.nandann.com/staten-island/staten-island.jpg"
   };
 
   const faqJsonLd = {
@@ -81,7 +81,7 @@ export default function StatenIslandPage() {
         {/* Open Graph tags */}
         <meta property="og:title" content="Best Staten Island Website Development | Nandann Creative" />
         <meta property="og:description" content="Professional web development services in Staten Island. Custom websites, e-commerce solutions, and digital marketing for Staten Island businesses from the Ferry to local communities." />
-        <meta property="og:image" content="https://www.nandann.com/staten-island/staten-island-web-development-nandann-creative-lg.webp" />
+        <meta property="og:image" content="https://www.nandann.com/staten-island/staten-island.jpg" />
         <meta property="og:url" content="https://www.nandann.com/web-development-new-york/staten-island" />
         <meta property="og:type" content="website" />
         
@@ -89,7 +89,7 @@ export default function StatenIslandPage() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Best Staten Island Website Development | Nandann Creative" />
         <meta name="twitter:description" content="Professional web development services in Staten Island. Custom websites, e-commerce solutions, and digital marketing for Staten Island businesses from the Ferry to local communities." />
-        <meta name="twitter:image" content="https://www.nandann.com/staten-island/staten-island-web-development-nandann-creative-lg.webp" />
+        <meta name="twitter:image" content="https://www.nandann.com/staten-island/staten-island.jpg" />
         
         {/* Additional SEO meta tags */}
         <meta name="robots" content="index, follow" />

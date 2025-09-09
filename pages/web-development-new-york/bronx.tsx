@@ -55,7 +55,7 @@ export default function BronxPage() {
     },
     "openingHours": "Mo-Fr 09:00-18:00",
     "priceRange": "$$",
-    "image": "https://www.nandann.com/bronx/bronx-web-development-nandann-creative-lg.webp"
+    "image": "https://www.nandann.com/bronx/bronx.jpg"
   };
 
   const faqJsonLd = {
@@ -81,7 +81,7 @@ export default function BronxPage() {
         {/* Open Graph tags */}
         <meta property="og:title" content="Best Bronx Website Development | Nandann Creative" />
         <meta property="og:description" content="Professional web development services in the Bronx. Custom websites, e-commerce solutions, and digital marketing for Bronx businesses from Yankee Stadium to Fordham." />
-        <meta property="og:image" content="https://www.nandann.com/bronx/bronx-web-development-nandann-creative-lg.webp" />
+        <meta property="og:image" content="https://www.nandann.com/bronx/bronx.jpg" />
         <meta property="og:url" content="https://www.nandann.com/web-development-new-york/bronx" />
         <meta property="og:type" content="website" />
         
@@ -89,7 +89,7 @@ export default function BronxPage() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Best Bronx Website Development | Nandann Creative" />
         <meta name="twitter:description" content="Professional web development services in the Bronx. Custom websites, e-commerce solutions, and digital marketing for Bronx businesses from Yankee Stadium to Fordham." />
-        <meta name="twitter:image" content="https://www.nandann.com/bronx/bronx-web-development-nandann-creative-lg.webp" />
+        <meta name="twitter:image" content="https://www.nandann.com/bronx/bronx.jpg" />
         
         {/* Additional SEO meta tags */}
         <meta name="robots" content="index, follow" />

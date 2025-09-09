@@ -55,7 +55,7 @@ export default function QueensPage() {
     },
     "openingHours": "Mo-Fr 09:00-18:00",
     "priceRange": "$$",
-    "image": "https://www.nandann.com/queens/queens-web-development-nandann-creative-lg.webp"
+    "image": "https://www.nandann.com/queens/queens.jpg"
   };
 
   const faqJsonLd = {
@@ -81,7 +81,7 @@ export default function QueensPage() {
         {/* Open Graph tags */}
         <meta property="og:title" content="Best Queens Website Development | Nandann Creative" />
         <meta property="og:description" content="Professional web development services in Queens. Custom websites, e-commerce solutions, and digital marketing for Queens businesses from Flushing to Astoria." />
-        <meta property="og:image" content="https://www.nandann.com/queens/queens-web-development-nandann-creative-lg.webp" />
+        <meta property="og:image" content="https://www.nandann.com/queens/queens.jpg" />
         <meta property="og:url" content="https://www.nandann.com/web-development-new-york/queens" />
         <meta property="og:type" content="website" />
         
@@ -89,7 +89,7 @@ export default function QueensPage() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Best Queens Website Development | Nandann Creative" />
         <meta name="twitter:description" content="Professional web development services in Queens. Custom websites, e-commerce solutions, and digital marketing for Queens businesses from Flushing to Astoria." />
-        <meta name="twitter:image" content="https://www.nandann.com/queens/queens-web-development-nandann-creative-lg.webp" />
+        <meta name="twitter:image" content="https://www.nandann.com/queens/queens.jpg" />
         
         {/* Additional SEO meta tags */}
         <meta name="robots" content="index, follow" />
