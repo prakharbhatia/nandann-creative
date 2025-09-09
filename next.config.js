@@ -12,11 +12,20 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   
-  // Webpack optimizations
+  // Webpack optimizations for modern browsers
   webpack: (config, { dev, isServer }) => {
-    // Modern JavaScript target
+    // Modern JavaScript target - no polyfills needed
     if (!isServer) {
-      config.target = 'web';
+      config.target = ['web', 'es2020'];
+      
+      // Disable polyfills for modern browsers
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+        crypto: false,
+      };
     }
     
     return config;
