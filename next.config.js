@@ -12,6 +12,11 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   
+  // SWC configuration for modern browsers only
+  experimental: {
+    swcPlugins: [],
+  },
+  
   // Webpack optimizations for modern browsers
   webpack: (config, { dev, isServer }) => {
     // Modern JavaScript target - no polyfills needed
@@ -25,6 +30,19 @@ const nextConfig = {
         net: false,
         tls: false,
         crypto: false,
+      };
+      
+      // Disable specific polyfills that are causing issues
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        // Disable polyfills for modern JavaScript features
+        'core-js/modules/es.array.at': false,
+        'core-js/modules/es.array.flat': false,
+        'core-js/modules/es.array.flat-map': false,
+        'core-js/modules/es.object.from-entries': false,
+        'core-js/modules/es.object.has-own': false,
+        'core-js/modules/es.string.trim-end': false,
+        'core-js/modules/es.string.trim-start': false,
       };
     }
     

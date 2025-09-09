@@ -14,8 +14,6 @@
     "npm": "10.x"
   },
   "browserslist": [
-    "> 0.5%",
-    "last 2 versions",
     "Chrome >= 90",
     "Firefox >= 88",
     "Safari >= 14",
