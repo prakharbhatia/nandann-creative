@@ -5,32 +5,32 @@ import Link from 'next/link';
 import LocationNavigation from '../components/LocationNavigation';
 import LocationFooter from '../components/LocationFooter';
 
-export default function BrooklynPage() {
-  // FAQ data for Brooklyn
+export default function ManhattanPage() {
+  // FAQ data for Manhattan
   const faqs = [
     {
-      question: "Why is Nandann Creative the best web development agency in Brooklyn?",
-      answer: "Nandann Creative stands out in Brooklyn's vibrant creative landscape through our deep understanding of the borough's innovative spirit. We combine technical excellence with Brooklyn's creative culture to deliver websites that drive real results for Brooklyn businesses from DUMBO to Park Slope."
+      question: "Why is Nandann Creative the best web development agency in Manhattan?",
+      answer: "Nandann Creative stands out in Manhattan's competitive business landscape through our deep understanding of NYC's fast-paced environment. We combine technical excellence with Manhattan's business culture to deliver websites that drive real results for Manhattan businesses from Wall Street to Times Square."
     },
     {
-      question: "How quickly can you deliver a website for my Brooklyn business?",
-      answer: "Our Rapid Delivery service guarantees completion within 7 days, perfect for Brooklyn's fast-moving creative environment. Whether you're in Williamsburg, DUMBO, or Park Slope, we understand that speed to market drives success in Brooklyn's competitive landscape."
+      question: "How quickly can you deliver a website for my Manhattan business?",
+      answer: "Our Rapid Delivery service guarantees completion within 7 days, perfect for Manhattan's fast-paced business environment. Whether you're in the Financial District, Midtown, or SoHo, we understand that speed to market drives success in the city that never sleeps."
     },
     {
-      question: "Do you understand Brooklyn's unique business landscape?",
-      answer: "Absolutely! We've worked with businesses across all Brooklyn neighborhoods and understand the unique challenges Brooklyn businesses face - from DUMBO's tech startups and Williamsburg's creative agencies to Park Slope's local businesses and Brooklyn Heights' professional services."
+      question: "Do you understand Manhattan's unique business landscape?",
+      answer: "Absolutely! We've worked with businesses across all Manhattan neighborhoods and understand the unique challenges NYC businesses face - from Wall Street financial firms and Midtown corporate headquarters to SoHo startups, Chelsea galleries, and Upper East Side luxury brands."
     },
     {
-      question: "Can you help with local SEO for Brooklyn businesses?",
-      answer: "Yes! We specialize in local SEO strategies that work for Brooklyn businesses, including Google My Business optimization, local keyword targeting, neighborhood-specific content, and strategies to rank in Brooklyn's competitive local search results."
+      question: "Can you help with local SEO for Manhattan businesses?",
+      answer: "Yes! We specialize in local SEO strategies that work for Manhattan businesses, including Google My Business optimization, local keyword targeting, neighborhood-specific content, and strategies to rank in NYC's competitive local search results."
     },
     {
-      question: "What makes your approach different for Brooklyn clients?",
-      answer: "We bring Silicon Valley innovation combined with Brooklyn's creative energy and business expertise. Our rapid iteration process, data-driven design, and focus on conversion optimization are tailored to Brooklyn's diverse economy where businesses need to compete effectively."
+      question: "What makes your approach different for Manhattan clients?",
+      answer: "We bring Silicon Valley innovation combined with NYC hustle and business expertise. Our rapid iteration process, data-driven design, and focus on conversion optimization are tailored to Manhattan's diverse economy where businesses need to compete effectively."
     },
     {
-      question: "Do you offer ongoing support for Brooklyn businesses?",
-      answer: "Yes! We provide comprehensive maintenance packages including 24/7 monitoring, security updates, content updates, and performance optimization. We understand that Brooklyn businesses need reliable partners who understand the local market dynamics."
+      question: "Do you offer ongoing support for Manhattan businesses?",
+      answer: "Yes! We provide comprehensive maintenance packages including 24/7 monitoring, security updates, content updates, and performance optimization. We understand that Manhattan businesses need reliable partners who understand the local market dynamics."
     }
   ];
 
@@ -39,23 +39,23 @@ export default function BrooklynPage() {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Nandann Creative Agency",
-    "description": "Premier web development and design agency serving Brooklyn businesses with custom websites, rapid delivery, and local SEO optimization.",
-    "url": "https://www.nandann.com/web-development-brooklyn",
+    "description": "Premier web development and design agency serving Manhattan businesses with custom websites, rapid delivery, and local SEO optimization.",
+    "url": "https://www.nandann.com/web-development-new-york/manhattan",
     "telephone": "+1-XXX-XXX-XXXX",
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": "Brooklyn",
+      "addressLocality": "Manhattan",
       "addressRegion": "NY",
       "addressCountry": "US"
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": 40.6782,
-      "longitude": -73.9442
+      "latitude": 40.7589,
+      "longitude": -73.9851
     },
     "openingHours": "Mo-Fr 09:00-18:00",
     "priceRange": "$$",
-    "image": "https://www.nandann.com/brooklyn/brooklyn-web-development-nandann-creative-lg.webp"
+    "image": "https://www.nandann.com/manhattan/manhattan-web-development-nandann-creative-lg.webp"
   };
 
   const faqJsonLd = {
@@ -74,34 +74,34 @@ export default function BrooklynPage() {
   return (
     <>
       <Head>
-        <title>Web Development Brooklyn | Nandann Creative</title>
-        <meta name="description" content="Professional web development services in Brooklyn. Custom websites, e-commerce solutions, and digital marketing for Brooklyn businesses from DUMBO to Park Slope." />
-        <meta name="keywords" content="web development Brooklyn, Brooklyn web design, custom websites Brooklyn, e-commerce development Brooklyn, digital marketing Brooklyn, DUMBO web development, Williamsburg web design" />
+        <title>Best Manhattan Website Development | Nandann Creative</title>
+        <meta name="description" content="Professional web development services in Manhattan. Custom websites, e-commerce solutions, and digital marketing for Manhattan businesses from Wall Street to Times Square." />
+        <meta name="keywords" content="web development Manhattan, Manhattan web design, custom websites Manhattan, e-commerce development Manhattan, digital marketing Manhattan, Wall Street web development, Times Square web design" />
         
         {/* Open Graph tags */}
-        <meta property="og:title" content="Web Development Brooklyn | Nandann Creative" />
-        <meta property="og:description" content="Professional web development services in Brooklyn. Custom websites, e-commerce solutions, and digital marketing for Brooklyn businesses from DUMBO to Park Slope." />
-        <meta property="og:image" content="https://www.nandann.com/brooklyn/brooklyn-web-development-nandann-creative-lg.webp" />
-        <meta property="og:url" content="https://www.nandann.com/web-development-brooklyn" />
+        <meta property="og:title" content="Best Manhattan Website Development | Nandann Creative" />
+        <meta property="og:description" content="Professional web development services in Manhattan. Custom websites, e-commerce solutions, and digital marketing for Manhattan businesses from Wall Street to Times Square." />
+        <meta property="og:image" content="https://www.nandann.com/manhattan/manhattan-web-development-nandann-creative-lg.webp" />
+        <meta property="og:url" content="https://www.nandann.com/web-development-new-york/manhattan" />
         <meta property="og:type" content="website" />
         
         {/* Twitter Card tags */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Web Development Brooklyn | Nandann Creative" />
-        <meta name="twitter:description" content="Professional web development services in Brooklyn. Custom websites, e-commerce solutions, and digital marketing for Brooklyn businesses from DUMBO to Park Slope." />
-        <meta name="twitter:image" content="https://www.nandann.com/brooklyn/brooklyn-web-development-nandann-creative-lg.webp" />
+        <meta name="twitter:title" content="Best Manhattan Website Development | Nandann Creative" />
+        <meta name="twitter:description" content="Professional web development services in Manhattan. Custom websites, e-commerce solutions, and digital marketing for Manhattan businesses from Wall Street to Times Square." />
+        <meta name="twitter:image" content="https://www.nandann.com/manhattan/manhattan-web-development-nandann-creative-lg.webp" />
         
         {/* Additional SEO meta tags */}
         <meta name="robots" content="index, follow" />
         <meta name="author" content="Nandann Creative" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="canonical" href="https://www.nandann.com/web-development-brooklyn" />
+        <link rel="canonical" href="https://www.nandann.com/web-development-new-york/manhattan" />
         
-        {/* Geo tags for Brooklyn */}
+        {/* Geo tags for Manhattan */}
         <meta name="geo.region" content="US-NY" />
-        <meta name="geo.placename" content="Brooklyn" />
-        <meta name="geo.position" content="40.6782;-73.9442" />
-        <meta name="ICBM" content="40.6782, -73.9442" />
+        <meta name="geo.placename" content="Manhattan" />
+        <meta name="geo.position" content="40.7589;-73.9851" />
+        <meta name="ICBM" content="40.7589, -73.9851" />
         
         {/* Structured Data */}
         <script
@@ -118,7 +118,7 @@ export default function BrooklynPage() {
         />
       </Head>
 
-      <LocationNavigation location="Brooklyn" locationShort="NYC" />
+      <LocationNavigation location="Manhattan" locationShort="NYC" />
       
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -130,21 +130,21 @@ export default function BrooklynPage() {
             loop
             playsInline
             className="w-full h-full object-cover"
-            poster="/brooklyn/brooklyn-web-development-nandann-creative-poster.webp"
+            poster="/manhattan/manhattan-web-development-nandann-creative-poster.webp"
           >
-            <source src="/brooklyn/brooklyn-web-development-nandann-creative-hd.webm" type="video/webm" />
-            <source src="/brooklyn/brooklyn-web-development-nandann-creative-hd.mp4" type="video/mp4" />
+            <source src="/manhattan/manhattan-web-development-nandann-creative-hd.webm" type="video/webm" />
+            <source src="/manhattan/manhattan-web-development-nandann-creative-hd.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-black bg-opacity-40"></div>
         </div>
         
         <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold mb-6" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
-            Web Development That Gets It Done Right Here in Brooklyn
+            Web Development That Gets It Done Right Here in Manhattan
           </h1>
           <p className="text-xl md:text-2xl mb-8 leading-relaxed">
-            From DUMBO to Park Slope, we build websites that work for Brooklyn businesses. 
-            No nonsense, just results that matter to your bottom line in the borough of creativity.
+            From Wall Street to Times Square, we build websites that work for Manhattan businesses. 
+            No nonsense, just results that matter to your bottom line in the city that never sleeps.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
@@ -161,8 +161,8 @@ export default function BrooklynPage() {
       <section className="relative py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/brooklyn/brooklyn-web-development-nandann-creative-lg.webp"
-            alt="Brooklyn web development Nandann Creative"
+            src="/manhattan/manhattan-web-development-nandann-creative-lg.webp"
+            alt="Manhattan web development Nandann Creative"
             fill
             className="object-cover opacity-20"
           />
@@ -170,18 +170,18 @@ export default function BrooklynPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
           <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-8 border border-white border-opacity-20">
             <h2 className="text-4xl font-bold mb-6 text-green-400">
-              #1 Rated Web Development Agency in Brooklyn
+              #1 Rated Web Development Agency in Manhattan
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center">
                 <div className="text-3xl font-bold text-green-400 mb-2">2025</div>
                 <div className="text-lg">Best Web Design Agency</div>
-                <div className="text-sm opacity-80">Brooklyn Business Awards</div>
+                <div className="text-sm opacity-80">Manhattan Business Awards</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-green-400 mb-2">2025</div>
                 <div className="text-lg">Excellence in Digital Innovation</div>
-                <div className="text-sm opacity-80">Brooklyn Tech Council</div>
+                <div className="text-sm opacity-80">NYC Tech Council</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-green-400 mb-2">2025</div>
@@ -199,22 +199,22 @@ export default function BrooklynPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                We Get It, Brooklyn! Your Vibe is One of a Kind
+                We Get It, Manhattan! Your Vibe is One of a Kind
               </h2>
               <p className="text-lg text-gray-600 mb-6">
-                Brooklyn is more than just a borough—it's a perfect blend of creative energy and innovative spirit. From DUMBO's tech startups to Williamsburg's creative agencies, each neighborhood has its own character and business needs.
+                Manhattan is more than just the heart of New York City—it's a perfect blend of Wall Street power and Broadway creativity. From the Financial District's corporate giants to SoHo's creative startups, each neighborhood has its own character and business needs.
               </p>
               <p className="text-lg text-gray-600 mb-6">
-                We understand that DUMBO tech companies need scalable, growth-focused designs that reflect their ambitious spirit. Williamsburg creative agencies require innovative, artistic websites that showcase their potential. Park Slope local businesses benefit from community-focused solutions that highlight their neighborhood connections.
+                We understand that Wall Street firms need sophisticated, high-end designs that reflect their premium positioning. SoHo startups require innovative, creative websites that showcase their potential. Midtown corporate headquarters benefit from enterprise-level solutions that handle complex business requirements.
               </p>
               <p className="text-lg text-gray-600">
-                Our team has worked with businesses across all Brooklyn neighborhoods, giving us unique insights into what makes each area special—from Brooklyn Heights' professional services to Bushwick's art scene—and how to create websites that truly connect with local audiences.
+                Our team has worked with businesses across all Manhattan neighborhoods, giving us unique insights into what makes each area special—from the Upper East Side's luxury brands to Chelsea's art galleries—and how to create websites that truly connect with local audiences.
               </p>
             </div>
             <div className="relative">
               <Image
-                src="/brooklyn/brooklyn-web-development-nandann-creative-lg.webp"
-                alt="Brooklyn web development Nandann Creative"
+                src="/manhattan/manhattan-web-development-nandann-creative-lg.webp"
+                alt="Manhattan web development Nandann Creative"
                 width={600}
                 height={400}
                 className="rounded-lg shadow-lg"
@@ -232,13 +232,13 @@ export default function BrooklynPage() {
               Serving All NYC Boroughs
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              From Brooklyn to Staten Island, we provide web development services across all five boroughs. 
+              From Manhattan to Staten Island, we provide web development services across all five boroughs. 
               Each area has its unique business culture, and we understand them all.
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Link href="/web-development-manhattan" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            <Link href="/web-development-new-york/manhattan" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
               <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
                 <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -251,7 +251,7 @@ export default function BrooklynPage() {
               </p>
             </Link>
             
-            <Link href="/web-development-brooklyn" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            <Link href="/web-development-new-york/brooklyn" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
               <div className="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mb-6">
                 <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -264,7 +264,7 @@ export default function BrooklynPage() {
               </p>
             </Link>
             
-            <Link href="/web-development-queens" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            <Link href="/web-development-new-york/queens" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
               <div className="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
                 <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -277,7 +277,7 @@ export default function BrooklynPage() {
               </p>
             </Link>
             
-            <Link href="/web-development-bronx" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            <Link href="/web-development-new-york/bronx" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
               <div className="w-16 h-16 bg-orange-100 rounded-lg flex items-center justify-center mb-6">
                 <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -290,7 +290,7 @@ export default function BrooklynPage() {
               </p>
             </Link>
             
-            <Link href="/web-development-staten-island" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            <Link href="/web-development-new-york/staten-island" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
               <div className="w-16 h-16 bg-red-100 rounded-lg flex items-center justify-center mb-6">
                 <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -324,10 +324,10 @@ export default function BrooklynPage() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-6">
-              Web Development Services That Work for Brooklyn Businesses
+              Web Development Services That Work for Manhattan Businesses
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Whether you're running a DUMBO startup, a Williamsburg creative agency, or a Park Slope local business, 
+              Whether you're running a Wall Street firm, a SoHo startup, or a Midtown corporate headquarters, 
               we've got the expertise to build your digital presence.
             </p>
           </div>
@@ -341,8 +341,8 @@ export default function BrooklynPage() {
               </div>
               <h3 className="text-xl font-semibold mb-4">Custom Website Development</h3>
               <p className="text-gray-600">
-                Tailored websites that reflect your Brooklyn business values and drive conversions. 
-                From DUMBO to Park Slope, we understand what works in the borough of creativity.
+                Tailored websites that reflect your Manhattan business values and drive conversions. 
+                From Wall Street to Times Square, we understand what works in the city that never sleeps.
               </p>
             </div>
             
@@ -354,7 +354,7 @@ export default function BrooklynPage() {
               </div>
               <h3 className="text-xl font-semibold mb-4">E-commerce Solutions</h3>
               <p className="text-gray-600">
-                Online stores that convert visitors into customers. Perfect for Brooklyn retailers 
+                Online stores that convert visitors into customers. Perfect for Manhattan retailers 
                 looking to expand beyond their local markets.
               </p>
             </div>
@@ -367,7 +367,7 @@ export default function BrooklynPage() {
               </div>
               <h3 className="text-xl font-semibold mb-4">Rapid Delivery</h3>
               <p className="text-gray-600">
-                Get your website live in 7 days. Perfect for Brooklyn businesses that need to move fast 
+                Get your website live in 7 days. Perfect for Manhattan businesses that need to move fast 
                 and capitalize on opportunities quickly.
               </p>
             </div>
@@ -380,10 +380,10 @@ export default function BrooklynPage() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-6">
-              What Brooklyn Businesses Are Saying
+              What Manhattan Businesses Are Saying
             </h2>
             <p className="text-xl text-gray-600">
-              Real results from real Brooklyn businesses
+              Real results from real Manhattan businesses
             </p>
           </div>
           
@@ -399,11 +399,11 @@ export default function BrooklynPage() {
                 </div>
               </div>
               <p className="text-gray-700 mb-4">
-                "Nandann Creative delivered exactly what we needed for our DUMBO tech startup. 
-                Their understanding of Brooklyn's creative culture really shows in their work."
+                "Nandann Creative delivered exactly what we needed for our Wall Street investment firm. 
+                Their understanding of Manhattan business culture really shows in their work."
               </p>
-              <div className="font-semibold text-gray-900">Jessica Martinez</div>
-              <div className="text-gray-600">CEO, DUMBO Tech Solutions, Brooklyn</div>
+              <div className="font-semibold text-gray-900">David Chen</div>
+              <div className="text-gray-600">Managing Partner, Financial District Investments, Manhattan</div>
             </div>
             
             <div className="bg-white p-8 rounded-lg">
@@ -417,11 +417,11 @@ export default function BrooklynPage() {
                 </div>
               </div>
               <p className="text-gray-700 mb-4">
-                "The rapid delivery service was perfect for our Williamsburg creative agency. We needed to launch quickly 
-                and they delivered a stunning website that captures our artistic vision."
+                "The rapid delivery service was perfect for our SoHo fashion startup. We needed to launch quickly 
+                and they delivered a stunning website that captures our brand's creative energy."
               </p>
-              <div className="font-semibold text-gray-900">Ryan Thompson</div>
-              <div className="text-gray-600">Creative Director, Williamsburg Design Studio, Brooklyn</div>
+              <div className="font-semibold text-gray-900">Sarah Rodriguez</div>
+              <div className="text-gray-600">Founder, SoHo Style Collective, Manhattan</div>
             </div>
             
             <div className="bg-white p-8 rounded-lg">
@@ -435,11 +435,11 @@ export default function BrooklynPage() {
                 </div>
               </div>
               <p className="text-gray-700 mb-4">
-                "Our Park Slope local business needed a website that could connect with our community. 
-                Nandann Creative built something that not only looks great but drives local engagement."
+                "Our Midtown corporate headquarters needed a website that could handle complex business requirements. 
+                Nandann Creative built something that not only looks great but performs even better."
               </p>
-              <div className="font-semibold text-gray-900">Sarah Chen</div>
-              <div className="text-gray-600">Owner, Park Slope Community Market, Brooklyn</div>
+              <div className="font-semibold text-gray-900">Michael Thompson</div>
+              <div className="text-gray-600">CTO, Midtown Enterprises, Manhattan</div>
             </div>
           </div>
         </div>
@@ -453,7 +453,7 @@ export default function BrooklynPage() {
               Frequently Asked Questions
             </h2>
             <p className="text-xl text-gray-600">
-              Everything you need to know about web development in Brooklyn
+              Everything you need to know about web development in Manhattan
             </p>
           </div>
           
@@ -476,11 +476,11 @@ export default function BrooklynPage() {
       <section className="py-20 bg-blue-600 text-white">
         <div className="max-w-4xl mx-auto text-center px-4">
           <h2 className="text-4xl font-bold mb-6">
-            Ready to Build Your Brooklyn Business Website?
+            Ready to Build Your Manhattan Business Website?
           </h2>
           <p className="text-xl mb-8 opacity-90">
-            Join hundreds of Brooklyn businesses who trust Nandann Creative with their digital presence. 
-            From DUMBO to Park Slope, we're here to help you succeed online.
+            Join hundreds of Manhattan businesses who trust Nandann Creative with their digital presence. 
+            From Wall Street to Times Square, we're here to help you succeed online.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact" className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
@@ -493,7 +493,7 @@ export default function BrooklynPage() {
         </div>
       </section>
 
-      <LocationFooter location="Brooklyn" locationShort="NYC" />
+      <LocationFooter location="Manhattan" locationShort="NYC" />
     </>
   );
 }

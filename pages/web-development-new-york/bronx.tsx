@@ -40,7 +40,7 @@ export default function BronxPage() {
     "@type": "LocalBusiness",
     "name": "Nandann Creative Agency",
     "description": "Premier web development and design agency serving Bronx businesses with custom websites, rapid delivery, and local SEO optimization.",
-    "url": "https://www.nandann.com/web-development-bronx",
+    "url": "https://www.nandann.com/web-development-new-york/bronx",
     "telephone": "+1-XXX-XXX-XXXX",
     "address": {
       "@type": "PostalAddress",
@@ -74,20 +74,20 @@ export default function BronxPage() {
   return (
     <>
       <Head>
-        <title>Web Development Bronx | Nandann Creative</title>
+        <title>Best Bronx Website Development | Nandann Creative</title>
         <meta name="description" content="Professional web development services in the Bronx. Custom websites, e-commerce solutions, and digital marketing for Bronx businesses from Yankee Stadium to Fordham." />
         <meta name="keywords" content="web development Bronx, Bronx web design, custom websites Bronx, e-commerce development Bronx, digital marketing Bronx, Yankee Stadium web development, Fordham web design" />
         
         {/* Open Graph tags */}
-        <meta property="og:title" content="Web Development Bronx | Nandann Creative" />
+        <meta property="og:title" content="Best Bronx Website Development | Nandann Creative" />
         <meta property="og:description" content="Professional web development services in the Bronx. Custom websites, e-commerce solutions, and digital marketing for Bronx businesses from Yankee Stadium to Fordham." />
         <meta property="og:image" content="https://www.nandann.com/bronx/bronx-web-development-nandann-creative-lg.webp" />
-        <meta property="og:url" content="https://www.nandann.com/web-development-bronx" />
+        <meta property="og:url" content="https://www.nandann.com/web-development-new-york/bronx" />
         <meta property="og:type" content="website" />
         
         {/* Twitter Card tags */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Web Development Bronx | Nandann Creative" />
+        <meta name="twitter:title" content="Best Bronx Website Development | Nandann Creative" />
         <meta name="twitter:description" content="Professional web development services in the Bronx. Custom websites, e-commerce solutions, and digital marketing for Bronx businesses from Yankee Stadium to Fordham." />
         <meta name="twitter:image" content="https://www.nandann.com/bronx/bronx-web-development-nandann-creative-lg.webp" />
         
@@ -95,7 +95,7 @@ export default function BronxPage() {
         <meta name="robots" content="index, follow" />
         <meta name="author" content="Nandann Creative" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="canonical" href="https://www.nandann.com/web-development-bronx" />
+        <link rel="canonical" href="https://www.nandann.com/web-development-new-york/bronx" />
         
         {/* Geo tags for Bronx */}
         <meta name="geo.region" content="US-NY" />
@@ -238,7 +238,7 @@ export default function BronxPage() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Link href="/web-development-manhattan" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            <Link href="/web-development-new-york/manhattan" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
               <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
                 <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -251,7 +251,7 @@ export default function BronxPage() {
               </p>
             </Link>
             
-            <Link href="/web-development-brooklyn" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            <Link href="/web-development-new-york/brooklyn" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
               <div className="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mb-6">
                 <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -264,7 +264,7 @@ export default function BronxPage() {
               </p>
             </Link>
             
-            <Link href="/web-development-queens" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            <Link href="/web-development-new-york/queens" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
               <div className="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
                 <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -277,7 +277,7 @@ export default function BronxPage() {
               </p>
             </Link>
             
-            <Link href="/web-development-bronx" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            <Link href="/web-development-new-york/bronx" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
               <div className="w-16 h-16 bg-orange-100 rounded-lg flex items-center justify-center mb-6">
                 <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -290,7 +290,7 @@ export default function BronxPage() {
               </p>
             </Link>
             
-            <Link href="/web-development-staten-island" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            <Link href="/web-development-new-york/staten-island" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
               <div className="w-16 h-16 bg-red-100 rounded-lg flex items-center justify-center mb-6">
                 <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
