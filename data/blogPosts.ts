@@ -1696,41 +1696,565 @@ print(response.data[0].embedding)</code></pre>
       <h2>Why Mobile‑First Still Matters</h2>
       <p>Most of the world experiences your brand on a pocket‑sized screen, in motion, with imperfect networks and brief attention. Mobile‑first is not a slogan; it is a constraint that forces clarity. When you design for the smallest screen first, you are compelled to choose: one primary action, one message, one path. That discipline eliminates bloat, simplifies decisions, and creates interfaces that convert on all devices—not just phones.</p>
       
+      <pre><code class="language-css">/* Mobile-first CSS approach */
+.container {
+  padding: 16px; /* Mobile-first padding */
+  max-width: 100%;
+}
+
+/* Progressive enhancement for larger screens */
+@media (min-width: 768px) {
+  .container {
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}</code></pre>
+      
       <h2>Start With Real Content</h2>
-      <p>Wireframes without copy invite decoration. Mobile‑first begins with real words: the 8–12 word headline that earns a scroll, the two‑sentence value proposition, the three bullets that answer “why this, why now,” and the label on the primary button. With content in hand, structure falls out: sections are short, modules are single‑purpose, and the primary action is obvious.</p>
+      <p>Wireframes without copy invite decoration. Mobile‑first begins with real words: the 8–12 word headline that earns a scroll, the two‑sentence value proposition, the three bullets that answer "why this, why now," and the label on the primary button. With content in hand, structure falls out: sections are short, modules are single‑purpose, and the primary action is obvious.</p>
+      
+      <pre><code class="language-html"><!-- Content-first HTML structure -->
+<section class="hero">
+  <h1>Build Websites That Convert</h1>
+  <p>Professional web development that drives real business results. Fast delivery, modern design, proven results.</p>
+  <button class="cta-primary">Start Your Project</button>
+</section>
+
+<section class="benefits">
+  <h2>Why Choose Us</h2>
+  <ul>
+    <li>7-day delivery guarantee</li>
+    <li>Mobile-first responsive design</li>
+    <li>SEO optimized from day one</li>
+  </ul>
+</section></code></pre>
       
       <h2>Information Architecture Under Constraint</h2>
-      <p>Small screens surface organizational problems. We recommend a “one screen, one job” approach: each section should do one thing well—introduce, prove, explain, ask. If a section requires multiple taps to understand, it is probably two sections. Navigation should reflect this hierarchy: keep it shallow, predictable, and scannable. Avoid hamburger menus on landing pages; favor inline navigation or a short sticky header when appropriate.</p>
+      <p>Small screens surface organizational problems. We recommend a "one screen, one job" approach: each section should do one thing well—introduce, prove, explain, ask. If a section requires multiple taps to understand, it is probably two sections. Navigation should reflect this hierarchy: keep it shallow, predictable, and scannable. Avoid hamburger menus on landing pages; favor inline navigation or a short sticky header when appropriate.</p>
+      
+      <pre><code class="language-html"><!-- Mobile navigation structure -->
+<nav class="mobile-nav">
+  <div class="nav-brand">Logo</div>
+  <div class="nav-links">
+    <a href="/services">Services</a>
+    <a href="/portfolio">Portfolio</a>
+    <a href="/contact">Contact</a>
+  </div>
+</nav>
+
+<!-- One screen, one job sections -->
+<section class="intro">
+  <h1>What We Do</h1>
+  <p>We build fast, beautiful websites.</p>
+</section>
+
+<section class="proof">
+  <h2>Our Results</h2>
+  <div class="stats">...</div>
+</section>
+
+<section class="explain">
+  <h2>How It Works</h2>
+  <div class="process">...</div>
+</section>
+
+<section class="ask">
+  <h2>Ready to Start?</h2>
+  <button>Get Quote</button>
+</section></code></pre>
       
       <h2>Typography That Breathes</h2>
       <p>Readable typography is the fastest performance win. Favor a single, well‑hinted variable font or a system stack; keep sizes legible (16–18px base), maintain comfortable line‑height (1.5–1.7), and use spacing to create rhythm. Resist the temptation to shrink text to fit content; edit content to fit text. Accessibility settings (text size, contrast) must never break layout—test them early.</p>
       
+      <pre><code class="language-css">/* Mobile-first typography system */
+:root {
+  --font-size-base: 16px;
+  --line-height-base: 1.6;
+  --font-family: system-ui, -apple-system, sans-serif;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+}
+
+h1 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  line-height: 1.3;
+  margin-bottom: 0.75rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  max-width: 65ch; /* Optimal reading width */
+}</code></pre>
+      
       <h2>Layout and Spacing Tokens</h2>
       <p>Establish tokens for space (4/8‑point scale), radii, and shadows. Tokens harmonize design and development and make refactors safe. In mobile‑first systems we prefer generous spacing between tap targets (8–12px minimum gutters), comfortable paddings (16–24px blocks), and radii that clearly separate interactive and static surfaces.</p>
+      
+      <pre><code class="language-css">/* Design tokens for mobile-first spacing */
+:root {
+  /* Spacing scale (4/8-point system) */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--space-md);
+}
+
+.button {
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  margin: var(--space-xs);
+}</code></pre>
       
       <h2>Buttons, Gestures, and Tap Targets</h2>
       <p>Touch interactions must be forgiving: 44×44px minimum target, 8–12px separation, and large, descriptive labels. Avoid relying solely on gestures that are not discoverable (e.g., hidden swipes); always provide a visible control. The primary action should be the largest, most visually prominent element on screen, and secondary actions should be styled as links or ghost buttons to reduce competition.</p>
       
+      <pre><code class="language-css">/* Mobile-friendly button system */
+.button {
+  min-height: 44px; /* Minimum touch target */
+  min-width: 44px;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  font-size: 16px; /* Prevent zoom on iOS */
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.button-primary {
+  background: #007bff;
+  color: white;
+  border: none;
+  font-weight: 600;
+}
+
+.button-secondary {
+  background: transparent;
+  color: #007bff;
+  border: 2px solid #007bff;
+}
+
+.button-ghost {
+  background: transparent;
+  color: #666;
+  border: none;
+  text-decoration: underline;
+}
+
+/* Ensure adequate spacing between interactive elements */
+.button + .button {
+  margin-left: var(--space-sm);
+}</code></pre>
+      
       <h2>Imagery and Media</h2>
       <p>On mobile, imagery either clarifies or clutters. Use media to communicate concrete value: product in context, before/after states, social proof. Technically, load only what is needed: responsive sources, AVIF/WEBP, and lazy‑load below‑the‑fold. Avoid background images for critical hero content so the browser can prioritize decoding and layout. Always provide concise alt text; it improves both accessibility and SEO.</p>
       
-      <h2>Forms That Don’t Fight the Thumb</h2>
+      <pre><code class="language-html"><!-- Responsive images with proper optimization -->
+<picture>
+  <source 
+    srcset="/images/hero-mobile.webp" 
+    media="(max-width: 767px)"
+    type="image/webp">
+  <source 
+    srcset="/images/hero-desktop.webp" 
+    media="(min-width: 768px)"
+    type="image/webp">
+  <img 
+    src="/images/hero-fallback.jpg" 
+    alt="Professional web development services - Nandann Creative"
+    loading="eager"
+    width="800"
+    height="400">
+</picture>
+
+<!-- Lazy-loaded images below the fold -->
+<img 
+  src="/images/feature-1.webp" 
+  alt="Fast website delivery in 7 days"
+  loading="lazy"
+  width="400"
+  height="300">
+
+<!-- Social proof images -->
+<img 
+  src="/images/client-logo.webp" 
+  alt="Trusted by leading businesses"
+  loading="lazy"
+  width="200"
+  height="100"></code></pre>
+      
+      <h2>Forms That Don't Fight the Thumb</h2>
       <p>Short forms convert. Group related fields, enable autofill, and choose the right virtual keyboard (email, phone, number). Validate inline with plain language and preserve user input when errors occur. For multi‑step flows, show progress and allow back navigation without losing state. Captchas should be invisible or very gentle; challenging captchas on mobile kill conversions.</p>
+      
+      <pre><code class="language-html"><!-- Mobile-optimized form -->
+<form class="contact-form">
+  <div class="form-group">
+    <label for="name">Full Name</label>
+    <input 
+      type="text" 
+      id="name" 
+      name="name" 
+      autocomplete="name"
+      required
+      aria-describedby="name-error">
+    <div id="name-error" class="error-message" role="alert"></div>
+  </div>
+  
+  <div class="form-group">
+    <label for="email">Email Address</label>
+    <input 
+      type="email" 
+      id="email" 
+      name="email" 
+      autocomplete="email"
+      required
+      aria-describedby="email-error">
+    <div id="email-error" class="error-message" role="alert"></div>
+  </div>
+  
+  <div class="form-group">
+    <label for="phone">Phone Number</label>
+    <input 
+      type="tel" 
+      id="phone" 
+      name="phone" 
+      autocomplete="tel"
+      aria-describedby="phone-error">
+    <div id="phone-error" class="error-message" role="alert"></div>
+  </div>
+  
+  <button type="submit" class="button-primary">
+    Get Free Quote
+  </button>
+</form></code></pre>
+      
+      <pre><code class="language-css">/* Mobile form styling */
+.form-group {
+  margin-bottom: var(--space-md);
+}
+
+label {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-weight: 500;
+}
+
+input {
+  width: 100%;
+  padding: var(--space-sm);
+  border: 2px solid #ddd;
+  border-radius: var(--radius-sm);
+  font-size: 16px; /* Prevent zoom on iOS */
+  min-height: 44px;
+}
+
+input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 14px;
+  margin-top: var(--space-xs);
+}</code></pre>
       
       <h2>Performance as a Design Constraint</h2>
       <p>Performance is part of design. Define budgets early: total JS under a threshold, hero LCP under 2.0s on a midrange device, total image weight below a set ceiling. Mobile‑first choices naturally help: fewer fonts, smaller images, simpler animations, and less JavaScript. If a visual flourish requires heavy code or blocks rendering, reserve it for desktop or remove it.</p>
       
+      <pre><code class="language-javascript">// Performance budgets and monitoring
+const PERFORMANCE_BUDGETS = {
+  lcp: 2000, // 2 seconds
+  cls: 0.1,  // Cumulative Layout Shift
+  inp: 200,  // Interaction to Next Paint
+  jsSize: 100000, // 100KB JavaScript
+  imageWeight: 500000 // 500KB total images
+};
+
+// Monitor Core Web Vitals
+function monitorWebVitals() {
+  if ('web-vital' in window) {
+    getCLS(console.log);
+    getFID(console.log);
+    getLCP(console.log);
+  }
+}
+
+// Lazy load non-critical resources
+function loadNonCriticalResources() {
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          loadResource(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    });
+    
+    document.querySelectorAll('[data-lazy]').forEach(el => {
+      observer.observe(el);
+    });
+  }
+}</code></pre>
+      
       <h2>Motion, Feedback, and Meaning</h2>
-      <p>Use motion to clarify—not to decorate. Short, natural easing communicates cause and effect: buttons press, panes glide, inputs confirm. Respect the user’s reduced‑motion preference. On mobile, micro‑interactions should be brief and purposeful; nothing should slow the path to the primary action.</p>
+      <p>Use motion to clarify—not to decorate. Short, natural easing communicates cause and effect: buttons press, panes glide, inputs confirm. Respect the user's reduced‑motion preference. On mobile, micro‑interactions should be brief and purposeful; nothing should slow the path to the primary action.</p>
+      
+      <pre><code class="language-css">/* Respectful motion design */
+@media (prefers-reduced-motion: no-preference) {
+  .button {
+    transition: transform 0.1s ease, background-color 0.2s ease;
+  }
+  
+  .button:active {
+    transform: scale(0.98);
+  }
+  
+  .card {
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+/* Disable motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Micro-interactions */
+.loading {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}</code></pre>
       
       <h2>Accessibility From the Start</h2>
       <p>Mobile environments amplify accessibility needs. Ensure sufficient color contrast, visible focus styles, and logical DOM order. All interactive controls must be reachable by keyboard and assistive tech. Labels should be programmatic, not just visual. Test with screen readers and device accessibility settings, not just automated tools.</p>
       
+      <pre><code class="language-css">/* Accessibility-first styling */
+:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .button-primary {
+    background: #000;
+    color: #fff;
+    border: 2px solid #000;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+    --border-color: #333333;
+  }
+  
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+  
+  input {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
+  }
+}</code></pre>
+      
+      <pre><code class="language-html"><!-- Accessible HTML structure -->
+<main>
+  <h1>Page Title</h1>
+  
+  <section aria-labelledby="services-heading">
+    <h2 id="services-heading">Our Services</h2>
+    <div role="list" aria-label="Service offerings">
+      <div role="listitem">
+        <h3>Web Development</h3>
+        <p>Custom websites built for performance.</p>
+      </div>
+    </div>
+  </section>
+  
+  <form aria-label="Contact form">
+    <fieldset>
+      <legend>Contact Information</legend>
+      <label for="contact-name">Name (required)</label>
+      <input 
+        id="contact-name" 
+        type="text" 
+        required 
+        aria-describedby="name-help">
+      <div id="name-help">Enter your full name</div>
+    </fieldset>
+  </form>
+</main></code></pre>
+      
       <h2>Progressive Enhancement Over Polyfills</h2>
       <p>Design the minimal usable experience first; enhance when capabilities exist. For example: render content and forms server‑side, then add client‑side hydration for richer interactions. Fail gracefully when features are unavailable. This approach improves reliability on flaky networks and aging devices without special‑casing them in code.</p>
       
+      <pre><code class="language-javascript">// Progressive enhancement approach
+function enhanceForm() {
+  const form = document.querySelector('.contact-form');
+  if (!form) return;
+  
+  // Basic form works without JavaScript
+  // Enhance with client-side validation
+  form.addEventListener('submit', handleSubmit);
+  
+  // Add real-time validation if supported
+  if ('input' in document.createElement('input')) {
+    addRealTimeValidation(form);
+  }
+}
+
+function handleSubmit(event) {
+  event.preventDefault();
+  
+  // Show loading state
+  const button = event.target.querySelector('button[type="submit"]');
+  const originalText = button.textContent;
+  button.textContent = 'Sending...';
+  button.disabled = true;
+  
+  // Submit form data
+  fetch('/api/contact', {
+    method: 'POST',
+    body: new FormData(event.target)
+  })
+  .then(response => response.json())
+  .then(data => {
+    showSuccessMessage();
+  })
+  .catch(error => {
+    showErrorMessage();
+  })
+  .finally(() => {
+    button.textContent = originalText;
+    button.disabled = false;
+  });
+}
+
+// Graceful degradation
+if ('fetch' in window) {
+  enhanceForm();
+} else {
+  // Fallback for older browsers
+  console.log('Form will submit normally');
+}</code></pre>
+      
       <h2>SEO and Content Strategy</h2>
-      <p>Google’s mobile‑first indexing means your phone experience <em>is</em> your SEO. Use clear headings, concise copy, and FAQ sections where they genuinely help. Include alt text, structured data, canonical links, and Open Graph images so shares look great. Internal links should be descriptive and finger‑friendly—no tiny tap targets buried in body copy.</p>
+      <p>Google's mobile‑first indexing means your phone experience <em>is</em> your SEO. Use clear headings, concise copy, and FAQ sections where they genuinely help. Include alt text, structured data, canonical links, and Open Graph images so shares look great. Internal links should be descriptive and finger‑friendly—no tiny tap targets buried in body copy.</p>
+      
+      <pre><code class="language-html"><!-- SEO-optimized HTML structure -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile-First Web Development | Nandann Creative</title>
+  <meta name="description" content="Professional mobile-first web development services. Fast, responsive websites that convert on every device.">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://www.nandann.com/services">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Mobile-First Web Development | Nandann Creative">
+  <meta property="og:description" content="Professional mobile-first web development services.">
+  <meta property="og:image" content="https://www.nandann.com/images/services-og.jpg">
+  <meta property="og:url" content="https://www.nandann.com/services">
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Nandann Creative",
+    "description": "Mobile-first web development agency",
+    "url": "https://www.nandann.com",
+    "telephone": "+1-XXX-XXX-XXXX",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "US"
+    }
+  }
+  </script>
+</head>
+<body>
+  <main>
+    <h1>Mobile-First Web Development</h1>
+    
+    <section>
+      <h2>Why Mobile-First Matters</h2>
+      <p>Most users browse on mobile devices...</p>
+    </section>
+    
+    <section>
+      <h2>Our Process</h2>
+      <ol>
+        <li>Mobile-first design</li>
+        <li>Performance optimization</li>
+        <li>SEO implementation</li>
+      </ol>
+    </section>
+    
+    <!-- FAQ Section for SEO -->
+    <section>
+      <h2>Frequently Asked Questions</h2>
+      <div itemscope itemtype="https://schema.org/FAQPage">
+        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <h3 itemprop="name">How long does development take?</h3>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <div itemprop="text">Most projects are completed within 7 days.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html></code></pre>
       
       <h2>Design System Hand‑Off</h2>
       <p>Mobile‑first shines when paired with a design system. Provide tokens, components, and usage guidance, not just mockups. Developers should be able to assemble pages using standard parts with predictable behavior on small screens. Document component dos and don'ts (e.g., when a card becomes a list) and performance notes (e.g., image sizes, lazy‑loading rules).</p>
