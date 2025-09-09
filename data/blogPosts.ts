@@ -2315,45 +2315,45 @@ if ('fetch' in window) {
 // Card component with proper mobile behavior
 function Card({ title, description, image, href }) {
   return (
-    <div className="card">
+    &lt;div className="card"&gt;
       {image && (
-        <img 
+        &lt;img 
           src={image.src} 
           alt={image.alt}
           className="card-image"
           loading="lazy"
           width="300"
           height="200"
-        />
+        /&gt;
       )}
-      <h3>{title}</h3>
-      <p>{description}</p>
+      &lt;h3&gt;{title}&lt;/h3&gt;
+      &lt;p&gt;{description}&lt;/p&gt;
       {href && (
-        <a href={href} className="button-primary">
+        &lt;a href={href} className="button-primary"&gt;
           Learn More
-        </a>
+        &lt;/a&gt;
       )}
-    </div>
+    &lt;/div&gt;
   );
 }
 
 // Usage in different contexts
 function ServiceCards() {
   return (
-    <div className="card-grid">
-      <Card 
+    &lt;div className="card-grid"&gt;
+      &lt;Card 
         title="Web Development"
         description="Custom websites built for performance"
         image={{ src: "/images/web-dev.webp", alt: "Web development services" }}
         href="/services/web-development"
-      />
-      <Card 
+      /&gt;
+      &lt;Card 
         title="SEO Optimization"
         description="Improve your search rankings"
         image={{ src: "/images/seo.webp", alt: "SEO optimization services" }}
         href="/services/seo"
-      />
-    </div>
+      /&gt;
+    &lt;/div&gt;
   );
 }</code></pre>
       
