@@ -98,7 +98,10 @@ export default function WordPressPlugin() {
               </div>
             </div>
             
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
+            <h1 
+              className="text-5xl md:text-7xl font-bold text-white mb-6"
+              style={{ fontSize: 'clamp(3rem, 8vw, 6rem)' }}
+            >
               Fix WordPress Permission <span className="text-gradient">Errors Instantly</span>
             </h1>
             
