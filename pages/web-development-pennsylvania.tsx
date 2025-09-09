@@ -140,8 +140,7 @@ export default function WebDevelopmentPennsylvania() {
         {/* Content */}
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
-            <span className="text-blue-400">Need a Website?</span> Get It{' '}
-            <span className="text-red-400">Built Fast</span> in Pennsylvania!
+            Web Development That's Keystone Strong in Pennsylvania!
           </h1>
           <p className="text-xl sm:text-2xl text-gray-200 mb-8 max-w-4xl mx-auto">
             From Philadelphia to Pittsburgh, Harrisburg to Erie, we're the web development agency that gets Pennsylvania's spirit. 
@@ -315,8 +314,7 @@ export default function WebDevelopmentPennsylvania() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-                Understanding Pennsylvania's{' '}
-                <span className="text-blue-600">Unique Spirit</span>
+                Pennsylvania's Keystone Heritage Powers Our Digital Solutions
               </h2>
               <p className="text-lg text-gray-600 mb-6">
                 Pennsylvania isn't just a state - it's a way of life! From the City of Brotherly Love to the Steel City, we get the local flavor that makes your business authentic.

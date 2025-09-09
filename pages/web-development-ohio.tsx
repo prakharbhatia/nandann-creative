@@ -140,8 +140,7 @@ export default function WebDevelopmentOhio() {
         {/* Content */}
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
-            <span className="text-blue-400">Need a Website?</span> Get It{' '}
-            <span className="text-red-400">Built Fast</span> in Ohio!
+            Web Development That's Buckeye Bold in Ohio!
           </h1>
           <p className="text-xl sm:text-2xl text-gray-200 mb-8 max-w-4xl mx-auto">
             From Cincinnati to Columbus, Cleveland to Toledo, we're the web development agency that gets Ohio's spirit. 
@@ -315,8 +314,7 @@ export default function WebDevelopmentOhio() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-                Understanding Ohio's{' '}
-                <span className="text-blue-600">Unique Spirit</span>
+                Ohio's Buckeye Innovation Drives Our Digital Excellence
               </h2>
               <p className="text-lg text-gray-600 mb-6">
                 Ohio isn't just a state - it's a way of life! From the Queen City to the Arch City, we get the local flavor that makes your business authentic.

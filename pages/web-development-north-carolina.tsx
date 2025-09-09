@@ -140,7 +140,7 @@ export default function NorthCarolinaPage() {
         
         <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold mb-6" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
-            Web Development That Gets It Done Right Here in North Carolina
+            Web Development That's Tar Heel Tough in North Carolina!
           </h1>
           <p className="text-xl md:text-2xl mb-8 leading-relaxed">
             From the Blue Ridge Mountains to the Outer Banks, we build websites that work for North Carolina businesses. 
@@ -199,7 +199,7 @@ export default function NorthCarolinaPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                We Get It, North Carolina! Your Vibe is One of a Kind
+                North Carolina's Tar Heel Spirit Powers Our Digital Innovation
               </h2>
               <p className="text-lg text-gray-600 mb-6">
                 North Carolina is more than just the Tar Heel State—it's a dynamic blend of traditional Southern values and cutting-edge innovation. From Charlotte's banking powerhouses to the Research Triangle's biotech breakthroughs, each region has its own character and business needs.

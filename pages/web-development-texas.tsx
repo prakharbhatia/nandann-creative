@@ -315,8 +315,7 @@ export default function WebDevelopmentTexas() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-                Understanding Texas's{' '}
-                <span className="text-blue-600">Unique Spirit</span>
+                Texas's Lone Star Spirit Drives Our Digital Innovation
               </h2>
               <p className="text-lg text-gray-600 mb-6">
                 Texas isn't just a state - it's a way of life! From the energy capital of Houston to the live music capital of Austin, we get the local flavor that makes your business authentic.

@@ -104,7 +104,7 @@ export default function WashingtonWebDevelopment() {
             className="text-4xl md:text-6xl font-bold mb-6"
             style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}
           >
-            Need a Website? Get It Built Fast in Washington!
+            Web Development That's Totally Rad in the Evergreen State!
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-gray-200">
             From Seattle to Spokane, we're Washington's go-to web development team. 
@@ -189,7 +189,7 @@ export default function WashingtonWebDevelopment() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl font-bold mb-6 text-gray-800">
-                Understanding Washington's Unique Culture
+                Washington's Pacific Northwest Innovation Powers Our Digital Solutions
               </h2>
               <p className="text-lg text-gray-600 mb-6">
                 Washington isn't just about coffee and rain anymore. From Seattle's booming tech scene to Spokane's growing business community, 

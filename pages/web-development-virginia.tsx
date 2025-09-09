@@ -140,7 +140,7 @@ export default function VirginiaPage() {
         
         <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold mb-6" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
-            Web Development That Gets It Done Right Here in Virginia
+            Web Development That's Wicked Good in the Old Dominion!
           </h1>
           <p className="text-xl md:text-2xl mb-8 leading-relaxed">
             From the Blue Ridge Mountains to the Chesapeake Bay, we build websites that work for Virginia businesses. 
@@ -199,7 +199,7 @@ export default function VirginiaPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                We Get It, Virginia! Your Vibe is One of a Kind
+                Virginia's Historic Heritage Meets Modern Digital Innovation
               </h2>
               <p className="text-lg text-gray-600 mb-6">
                 Virginia is more than just the Old Dominion—it's a perfect blend of historic tradition and modern innovation. From Northern Virginia's tech corridor to Hampton Roads' maritime industry, each region has its own character and business needs.
