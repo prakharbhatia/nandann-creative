@@ -1695,40 +1695,40 @@ print(response.data[0].embedding)</code></pre>
       <picture>
         <source 
           media="(max-width: 640px)" 
-          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-mobile.avif" 
+          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-mobile.avif 1x, /images/optimized/mobile-first-design-principles-nandann-creative-tablet.avif 2x" 
           type="image/avif"
         />
         <source 
           media="(max-width: 640px)" 
-          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-mobile.webp" 
+          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-mobile.webp 1x, /images/optimized/mobile-first-design-principles-nandann-creative-tablet.webp 2x" 
           type="image/webp"
         />
         <source 
           media="(max-width: 1024px)" 
-          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-tablet.avif" 
+          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-tablet.avif 1x, /images/optimized/mobile-first-design-principles-nandann-creative-desktop.avif 2x" 
           type="image/avif"
         />
         <source 
           media="(max-width: 1024px)" 
-          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-tablet.webp" 
+          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-tablet.webp 1x, /images/optimized/mobile-first-design-principles-nandann-creative-desktop.webp 2x" 
           type="image/webp"
         />
         <source 
           media="(max-width: 1440px)" 
-          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-desktop.avif" 
+          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-desktop.avif 1x, /images/optimized/mobile-first-design-principles-nandann-creative-large.avif 2x" 
           type="image/avif"
         />
         <source 
           media="(max-width: 1440px)" 
-          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-desktop.webp" 
+          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-desktop.webp 1x, /images/optimized/mobile-first-design-principles-nandann-creative-large.webp 2x" 
           type="image/webp"
         />
         <source 
-          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-large.avif" 
+          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-large.avif 1x, /images/optimized/mobile-first-design-principles-nandann-creative-large.avif 2x" 
           type="image/avif"
         />
         <source 
-          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-large.webp" 
+          srcset="/images/optimized/mobile-first-design-principles-nandann-creative-large.webp 1x, /images/optimized/mobile-first-design-principles-nandann-creative-large.webp 2x" 
           type="image/webp"
         />
         <img 

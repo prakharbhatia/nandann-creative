@@ -87,21 +87,42 @@ export default function BlogPostPage({ post }: Props) {
               rel="preload" 
               as="image" 
               href="/images/optimized/mobile-first-design-principles-nandann-creative-mobile.avif"
-              media="(max-width: 640px)"
+              media="(max-width: 640px) and (max-resolution: 1dppx)"
               fetchPriority="high"
             />
             <link 
               rel="preload" 
               as="image" 
               href="/images/optimized/mobile-first-design-principles-nandann-creative-tablet.avif"
-              media="(min-width: 641px) and (max-width: 1024px)"
+              media="(max-width: 640px) and (min-resolution: 2dppx)"
+              fetchPriority="high"
+            />
+            <link 
+              rel="preload" 
+              as="image" 
+              href="/images/optimized/mobile-first-design-principles-nandann-creative-tablet.avif"
+              media="(min-width: 641px) and (max-width: 1024px) and (max-resolution: 1dppx)"
               fetchPriority="high"
             />
             <link 
               rel="preload" 
               as="image" 
               href="/images/optimized/mobile-first-design-principles-nandann-creative-desktop.avif"
-              media="(min-width: 1025px) and (max-width: 1440px)"
+              media="(min-width: 641px) and (max-width: 1024px) and (min-resolution: 2dppx)"
+              fetchPriority="high"
+            />
+            <link 
+              rel="preload" 
+              as="image" 
+              href="/images/optimized/mobile-first-design-principles-nandann-creative-desktop.avif"
+              media="(min-width: 1025px) and (max-width: 1440px) and (max-resolution: 1dppx)"
+              fetchPriority="high"
+            />
+            <link 
+              rel="preload" 
+              as="image" 
+              href="/images/optimized/mobile-first-design-principles-nandann-creative-large.avif"
+              media="(min-width: 1025px) and (max-width: 1440px) and (min-resolution: 2dppx)"
               fetchPriority="high"
             />
             <link 
