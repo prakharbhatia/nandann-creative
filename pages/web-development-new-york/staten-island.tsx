@@ -139,7 +139,7 @@ export default function StatenIslandPage() {
         
         <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold mb-6" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
-            Web Development That Gets It Done Right Here in Staten Island
+            Web Development That Builds Staten Island Family Businesses
           </h1>
           <p className="text-xl md:text-2xl mb-8 leading-relaxed">
             From the Ferry to local communities, we build websites that work for Staten Island businesses. 
@@ -169,7 +169,7 @@ export default function StatenIslandPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
           <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-8 border border-white border-opacity-20">
             <h2 className="text-4xl font-bold mb-6 text-green-400">
-              #1 Rated Web Development Agency in Staten Island
+              Staten Island's Family Business Web Development Specialists
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center">
@@ -198,7 +198,7 @@ export default function StatenIslandPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                We Get It, Staten Island! Your Vibe is One of a Kind
+                Staten Island's Family Values Guide Our Web Design
               </h2>
               <p className="text-lg text-gray-600 mb-6">
                 Staten Island is more than just a borough—it's a perfect blend of suburban charm and family values. From the Ferry area's bustling activity to local communities' family-owned businesses, each neighborhood has its own character and business needs.

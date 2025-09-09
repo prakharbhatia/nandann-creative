@@ -139,7 +139,7 @@ export default function QueensPage() {
         
         <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold mb-6" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
-            Web Development That Gets It Done Right Here in Queens
+            Web Development That Connects Queens' Global Communities
           </h1>
           <p className="text-xl md:text-2xl mb-8 leading-relaxed">
             From Flushing to Astoria, we build websites that work for Queens businesses. 
@@ -169,7 +169,7 @@ export default function QueensPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
           <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-8 border border-white border-opacity-20">
             <h2 className="text-4xl font-bold mb-6 text-green-400">
-              #1 Rated Web Development Agency in Queens
+              Queens' Multilingual Web Development Experts
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center">
@@ -198,7 +198,7 @@ export default function QueensPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                We Get It, Queens! Your Vibe is One of a Kind
+                Queens' Cultural Diversity Shapes Our Digital Solutions
               </h2>
               <p className="text-lg text-gray-600 mb-6">
                 Queens is more than just a borough—it's a perfect blend of cultural diversity and business innovation. From Flushing's Asian business district to Astoria's Greek community, each neighborhood has its own character and business needs.
