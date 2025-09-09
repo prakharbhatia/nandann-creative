@@ -1690,9 +1690,9 @@ print(response.data[0].embedding)</code></pre>
     readTime: '16 min read',
     category: 'Design',
     tags: ['Design', 'UX', 'Mobile'],
-    coverImage: '/images/pexels-divinetechygirl-1181244.jpg',
+    coverImage: '/images/mobile-first-design-principles-nandann-creative.jpg',
     contentHtml: `
-      <img src="/images/pexels-divinetechygirl-1181244.jpg" alt="Mobile‑first design banner" />
+      <img src="/images/mobile-first-design-principles-nandann-creative.jpg" alt="Mobile-first design principles banner - Nandann Creative" />
       <h2>Why Mobile‑First Still Matters</h2>
       <p>Most of the world experiences your brand on a pocket‑sized screen, in motion, with imperfect networks and brief attention. Mobile‑first is not a slogan; it is a constraint that forces clarity. When you design for the smallest screen first, you are compelled to choose: one primary action, one message, one path. That discipline eliminates bloat, simplifies decisions, and creates interfaces that convert on all devices—not just phones.</p>
       
@@ -1733,10 +1733,217 @@ print(response.data[0].embedding)</code></pre>
       <p>Google’s mobile‑first indexing means your phone experience <em>is</em> your SEO. Use clear headings, concise copy, and FAQ sections where they genuinely help. Include alt text, structured data, canonical links, and Open Graph images so shares look great. Internal links should be descriptive and finger‑friendly—no tiny tap targets buried in body copy.</p>
       
       <h2>Design System Hand‑Off</h2>
-      <p>Mobile‑first shines when paired with a design system. Provide tokens, components, and usage guidance, not just mockups. Developers should be able to assemble pages using standard parts with predictable behavior on small screens. Document component dos and don’ts (e.g., when a card becomes a list) and performance notes (e.g., image sizes, lazy‑loading rules).</p>
+      <p>Mobile‑first shines when paired with a design system. Provide tokens, components, and usage guidance, not just mockups. Developers should be able to assemble pages using standard parts with predictable behavior on small screens. Document component dos and don'ts (e.g., when a card becomes a list) and performance notes (e.g., image sizes, lazy‑loading rules).</p>
+      
+      <pre><code class="language-css">/* Design system component documentation */
+/* Card Component - Mobile-first responsive behavior */
+.card {
+  background: white;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+/* Mobile: Stack vertically */
+@media (max-width: 767px) {
+  .card-grid {
+    display: block;
+  }
+  
+  .card {
+    width: 100%;
+    margin-bottom: var(--space-md);
+  }
+}
+
+/* Tablet+: Grid layout */
+@media (min-width: 768px) {
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-md);
+  }
+}
+
+/* Performance notes for images */
+.card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  /* Lazy load below fold */
+  loading: lazy;
+}
+
+/* Component states */
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.card:focus-within {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}</code></pre>
+      
+      <pre><code class="language-javascript">// Design system component usage examples
+// Card component with proper mobile behavior
+function Card({ title, description, image, href }) {
+  return (
+    <div className="card">
+      {image && (
+        <img 
+          src={image.src} 
+          alt={image.alt}
+          className="card-image"
+          loading="lazy"
+          width="300"
+          height="200"
+        />
+      )}
+      <h3>{title}</h3>
+      <p>{description}</p>
+      {href && (
+        <a href={href} className="button-primary">
+          Learn More
+        </a>
+      )}
+    </div>
+  );
+}
+
+// Usage in different contexts
+function ServiceCards() {
+  return (
+    <div className="card-grid">
+      <Card 
+        title="Web Development"
+        description="Custom websites built for performance"
+        image={{ src: "/images/web-dev.webp", alt: "Web development services" }}
+        href="/services/web-development"
+      />
+      <Card 
+        title="SEO Optimization"
+        description="Improve your search rankings"
+        image={{ src: "/images/seo.webp", alt: "SEO optimization services" }}
+        href="/services/seo"
+      />
+    </div>
+  );
+}</code></pre>
       
       <h2>Testing That Mirrors Reality</h2>
-      <p>Validate on midrange hardware and real networks. Emulate throttled 4G/3G conditions, large text settings, and dark mode. Check Web Vitals (LCP/CLS/INP) and collect real‑user data after launch. A quick “bus test” works wonders: can someone complete the main task one‑handed while walking to a meeting?</p>
+      <p>Validate on midrange hardware and real networks. Emulate throttled 4G/3G conditions, large text settings, and dark mode. Check Web Vitals (LCP/CLS/INP) and collect real‑user data after launch. A quick "bus test" works wonders: can someone complete the main task one‑handed while walking to a meeting?</p>
+      
+      <pre><code class="language-javascript">// Real-world testing utilities
+// Performance monitoring for mobile devices
+function monitorMobilePerformance() {
+  // Check if we're on a mobile device
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  
+  if (isMobile && 'performance' in window) {
+    // Monitor Core Web Vitals
+    const observer = new PerformanceObserver((list) => {
+      list.getEntries().forEach((entry) => {
+        if (entry.entryType === 'largest-contentful-paint') {
+          console.log('LCP:', entry.startTime);
+          // Alert if LCP > 2.5s on mobile
+          if (entry.startTime > 2500) {
+            console.warn('Poor LCP on mobile:', entry.startTime);
+          }
+        }
+        
+        if (entry.entryType === 'layout-shift') {
+          console.log('CLS:', entry.value);
+          // Alert if CLS > 0.1
+          if (entry.value > 0.1) {
+            console.warn('Poor CLS:', entry.value);
+          }
+        }
+      });
+    });
+    
+    observer.observe({ entryTypes: ['largest-contentful-paint', 'layout-shift'] });
+  }
+}
+
+// Network-aware loading
+function loadWithNetworkAwareness() {
+  if ('connection' in navigator) {
+    const connection = navigator.connection;
+    
+    // Adjust loading strategy based on connection
+    if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
+      // Load only critical resources
+      loadCriticalResources();
+    } else if (connection.effectiveType === '3g') {
+      // Load critical + important resources
+      loadCriticalResources();
+      loadImportantResources();
+    } else {
+      // Load everything
+      loadAllResources();
+    }
+  }
+}
+
+// One-handed usability test
+function testOneHandedUsability() {
+  // Check if primary CTA is reachable with thumb
+  const primaryCTA = document.querySelector('.button-primary');
+  if (primaryCTA) {
+    const rect = primaryCTA.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    
+    // CTA should be in bottom 1/3 of screen for thumb reach
+    const isThumbReachable = rect.top > (viewportHeight * 0.66);
+    
+    if (!isThumbReachable) {
+      console.warn('Primary CTA may not be thumb-reachable on mobile');
+    }
+  }
+}</code></pre>
+      
+      <pre><code class="language-css">/* Testing styles for different scenarios */
+/* Large text testing */
+@media (prefers-reduced-motion: no-preference) {
+  .test-large-text {
+    font-size: 24px; /* Test with large text */
+    line-height: 1.5;
+  }
+}
+
+/* Dark mode testing */
+@media (prefers-color-scheme: dark) {
+  .test-dark-mode {
+    background-color: #1a1a1a;
+    color: #ffffff;
+  }
+  
+  .test-dark-mode .button-primary {
+    background-color: #0066cc;
+    color: #ffffff;
+  }
+}
+
+/* High contrast testing */
+@media (prefers-contrast: high) {
+  .test-high-contrast {
+    background-color: #000000;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+  }
+}
+
+/* Reduced motion testing */
+@media (prefers-reduced-motion: reduce) {
+  .test-no-motion * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}</code></pre>
       
       <h2>Common Pitfalls</h2>
       <ul>
@@ -1746,6 +1953,148 @@ print(response.data[0].embedding)</code></pre>
         <li>Huge hero images that push the value proposition below the fold.</li>
         <li>Animations that stall rendering or ignore reduced‑motion preferences.</li>
       </ul>
+      
+      <pre><code class="language-css">/* Common Pitfall Examples - What NOT to do */
+
+/* ❌ Desktop-first component squeezed into mobile */
+.desktop-card {
+  width: 300px;
+  height: 200px;
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width: 768px) {
+  .desktop-card {
+    width: 100%; /* This creates cramped layout */
+    height: auto;
+  }
+}
+
+/* ✅ Mobile-first component that scales up */
+.mobile-first-card {
+  width: 100%;
+  padding: var(--space-md);
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .mobile-first-card {
+    width: 300px;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+/* ❌ Wall of text with no hierarchy */
+.bad-text-wall {
+  font-size: 14px;
+  line-height: 1.2;
+  margin: 0;
+  padding: 0;
+}
+
+/* ✅ Proper text hierarchy */
+.good-text-hierarchy h1 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.good-text-hierarchy h2 {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  line-height: 1.3;
+  margin-bottom: 0.75rem;
+}
+
+.good-text-hierarchy p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  max-width: 65ch;
+}
+
+/* ❌ Competing buttons of equal weight */
+.bad-buttons .button-primary,
+.bad-buttons .button-secondary {
+  background: #007bff;
+  color: white;
+  padding: 12px 24px;
+  font-weight: 600;
+}
+
+/* ✅ Clear primary/secondary hierarchy */
+.good-buttons .button-primary {
+  background: #007bff;
+  color: white;
+  padding: 12px 24px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.good-buttons .button-secondary {
+  background: transparent;
+  color: #007bff;
+  border: 2px solid #007bff;
+  padding: 10px 22px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* ❌ Huge hero image */
+.bad-hero {
+  height: 100vh;
+  background-image: url('huge-image.jpg');
+  background-size: cover;
+}
+
+.bad-hero .hero-content {
+  position: absolute;
+  bottom: 20px; /* Content pushed way down */
+}
+
+/* ✅ Reasonable hero with content above fold */
+.good-hero {
+  min-height: 60vh;
+  background-image: url('optimized-image.webp');
+  background-size: cover;
+  display: flex;
+  align-items: center;
+}
+
+.good-hero .hero-content {
+  padding: var(--space-lg);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-md);
+}
+
+/* ❌ Animations that ignore preferences */
+.bad-animation {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ✅ Respectful animations */
+.good-animation {
+  transition: transform 0.2s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .good-animation:hover {
+    transform: scale(1.05);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .good-animation {
+    transition: none;
+  }
+}</code></pre>
       
       <h2>Launch Checklist</h2>
       <ol>
@@ -1757,6 +2106,100 @@ print(response.data[0].embedding)</code></pre>
         <li>Structured data, canonical, and OG/Twitter images verified.</li>
         <li>Accessibility checks passed (contrast, labels, focus, screen reader).</li>
       </ol>
+      
+      <pre><code class="language-javascript">// Launch checklist validation script
+function validateMobileFirstLaunch() {
+  const checklist = {
+    primaryActionAboveFold: false,
+    readableTypography: false,
+    adequateTapTargets: false,
+    optimizedImages: false,
+    performanceBudgets: false,
+    seoElements: false,
+    accessibilityCompliant: false
+  };
+  
+  // 1. Check primary action above fold
+  const primaryCTA = document.querySelector('.button-primary');
+  if (primaryCTA) {
+    const rect = primaryCTA.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    checklist.primaryActionAboveFold = rect.top < (viewportHeight * 0.8);
+  }
+  
+  // 2. Check readable typography
+  const bodyText = document.querySelector('body');
+  if (bodyText) {
+    const computedStyle = window.getComputedStyle(bodyText);
+    const fontSize = parseFloat(computedStyle.fontSize);
+    const lineHeight = parseFloat(computedStyle.lineHeight);
+    checklist.readableTypography = fontSize >= 16 && lineHeight >= 1.5;
+  }
+  
+  // 3. Check tap targets
+  const interactiveElements = document.querySelectorAll('button, a, input, select, textarea');
+  let adequateTargets = true;
+  interactiveElements.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.width < 44 || rect.height < 44) {
+      adequateTargets = false;
+    }
+  });
+  checklist.adequateTapTargets = adequateTargets;
+  
+  // 4. Check optimized images
+  const images = document.querySelectorAll('img');
+  let optimizedImages = true;
+  images.forEach(img => {
+    if (!img.src.includes('.webp') && !img.src.includes('.avif')) {
+      optimizedImages = false;
+    }
+    if (!img.hasAttribute('loading') || img.getAttribute('loading') !== 'lazy') {
+      optimizedImages = false;
+    }
+  });
+  checklist.optimizedImages = optimizedImages;
+  
+  // 5. Check performance budgets
+  if ('performance' in window) {
+    const navigation = performance.getEntriesByType('navigation')[0];
+    if (navigation) {
+      const loadTime = navigation.loadEventEnd - navigation.loadEventStart;
+      checklist.performanceBudgets = loadTime < 2000; // 2 seconds
+    }
+  }
+  
+  // 6. Check SEO elements
+  const hasCanonical = document.querySelector('link[rel="canonical"]');
+  const hasOGImage = document.querySelector('meta[property="og:image"]');
+  const hasStructuredData = document.querySelector('script[type="application/ld+json"]');
+  checklist.seoElements = !!(hasCanonical && hasOGImage && hasStructuredData);
+  
+  // 7. Check accessibility
+  const hasAltText = Array.from(document.querySelectorAll('img')).every(img => img.alt);
+  const hasLabels = Array.from(document.querySelectorAll('input')).every(input => 
+    input.hasAttribute('aria-label') || 
+    document.querySelector('label[for="' + input.id + '"]')
+  );
+  checklist.accessibilityCompliant = hasAltText && hasLabels;
+  
+  // Report results
+  console.log('Mobile-First Launch Checklist:', checklist);
+  
+  const passedChecks = Object.values(checklist).filter(Boolean).length;
+  const totalChecks = Object.keys(checklist).length;
+  
+  if (passedChecks === totalChecks) {
+    console.log('✅ All checks passed! Ready for launch.');
+  } else {
+    console.log('⚠️ ' + (totalChecks - passedChecks) + ' checks failed. Review before launch.');
+  }
+  
+  return checklist;
+}
+
+// Run validation on page load
+document.addEventListener('DOMContentLoaded', validateMobileFirstLaunch);</code></pre>
       
       <p>Mobile‑first is not a trend. It is a practical method for building focused, fast experiences that convert. Start small, validate often, and let success on the smallest screen shape everything else.</p>
       <p>See how this flows into our <a href="${internalLinks.services}">Services</a> and <a href="${internalLinks.rapid}">Same‑Day Delivery</a>.</p>
