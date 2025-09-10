@@ -17,6 +17,9 @@ const nextConfig = {
     swcPlugins: [],
   },
   
+  // SWC configuration to disable polyfills
+  swcMinify: true,
+  
   // Webpack optimizations for modern browsers
   webpack: (config, { dev, isServer }) => {
     // Modern JavaScript target - no polyfills needed
@@ -43,7 +46,30 @@ const nextConfig = {
         'core-js/modules/es.object.has-own': false,
         'core-js/modules/es.string.trim-end': false,
         'core-js/modules/es.string.trim-start': false,
+        // Additional polyfill disabling
+        'core-js': false,
+        'core-js/': false,
+        '@babel/polyfill': false,
+        'babel-polyfill': false,
       };
+      
+      // Disable polyfill injection completely
+      config.optimization = {
+        ...config.optimization,
+        providedExports: false,
+        usedExports: false,
+      };
+      
+      // Add plugin to remove polyfills
+      const webpack = require('webpack');
+      config.plugins.push(
+        new webpack.IgnorePlugin({
+          resourceRegExp: /^core-js$/,
+        }),
+        new webpack.IgnorePlugin({
+          resourceRegExp: /^core-js\/modules\/es\./,
+        })
+      );
     }
     
     return config;
