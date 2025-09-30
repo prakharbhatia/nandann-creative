@@ -105,59 +105,6 @@ export default function WordPressPluginPage() {
           "Responsive Admin Interface"
         ],
         "keywords": "wordpress permissions, file permissions, chmod, wordpress security, site migration, permission errors"
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Is this plugin safe to use?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes, the plugin includes multiple safety measures: requires administrator privileges, shows confirmation dialogs before processing, validates all paths to ensure they're within WordPress, processes files in batches to prevent timeouts, and provides detailed error reporting."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Will this break my WordPress site?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "The permissions set by this plugin (0644 for files, 0755 for directories) are the WordPress recommended standards. However, some special files or custom configurations might require different permissions. Always backup your site before making changes."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can I undo the permission changes?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No, permission changes cannot be automatically undone. This is why it's important to have a backup before running the tool. However, the plugin sets standard WordPress permissions that should work for most installations."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What happens if the process is interrupted?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "The plugin processes files in batches, so if interrupted, only the current batch might be affected. You can safely restart the process, and it will continue from where it left off."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Does this work on shared hosting?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes, as long as your hosting provider allows the PHP chmod() function and you have sufficient file system permissions. The plugin will display an error if chmod() is not available."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How long does the process take?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "The processing time depends on the number of files in your WordPress installation. The plugin uses batch processing to handle large sites efficiently, with real-time progress tracking so you can monitor the process."
-            }
-          }
-        ]
       }
     ]
   };
