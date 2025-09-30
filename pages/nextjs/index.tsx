@@ -155,13 +155,13 @@ export default function NextJSIndex() {
                   </div>
                 </Link>
 
-                <Link href="/blog/core-web-vitals-optimization-guide" className="group">
+                <Link href="/blog/web-performance-optimization-guide" className="group">
                   <div className="bg-white rounded-xl p-6 hover:bg-gray-50 transition-all duration-300 border border-gray-200">
                     <h3 className="text-lg font-semibold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
-                      Core Web Vitals Optimization Guide
+                      Complete Web Performance Optimization Guide
                     </h3>
                     <p className="text-gray-600 text-sm">
-                      Actionable steps to hit green Core Web Vitals on modern Next.js stacks.
+                      Actionable steps to optimize web performance and hit green Core Web Vitals on modern stacks.
                     </p>
                   </div>
                 </Link>
