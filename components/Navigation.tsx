@@ -8,6 +8,7 @@ export default function Navigation() {
   const [logoError, setLogoError] = useState(false)
   const [showMobileBlog, setShowMobileBlog] = useState(false)
   const [showMobilePortfolio, setShowMobilePortfolio] = useState(false)
+  const [showMobileNextJS, setShowMobileNextJS] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +23,7 @@ export default function Navigation() {
     { href: '/', label: 'Home' },
     { href: '/services', label: 'Services' },
     { href: '/blog', label: 'Blog' },
+    { href: '/nextjs', label: 'Next.js' },
     { href: '/approach', label: 'Approach' },
     { href: '/portfolio', label: 'Portfolio' },
     { href: '/about', label: 'About' },
@@ -75,7 +77,7 @@ export default function Navigation() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              item.href !== '/blog' && item.href !== '/portfolio' ? (
+              item.href !== '/blog' && item.href !== '/portfolio' && item.href !== '/nextjs' ? (
                 <Link
                   key={item.href}
                   href={item.href}
@@ -104,6 +106,57 @@ export default function Navigation() {
                         <li className="pt-1 mt-1 border-t border-white/10">
                           <Link href="/portfolio" className="block px-4 py-2 rounded-lg text-blue-300 hover:text-white hover:bg-white/10 transition">
                             View all projects →
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              ) : item.href === '/nextjs' ? (
+                <div key={item.href} className="relative group/nextjs">
+                  <Link
+                    href="/nextjs"
+                    className="text-gray-300 hover:text-white transition-colors duration-200 font-medium relative group/link"
+                  >
+                    Next.js
+                    <span className="absolute -bottom-1 left-0 w-0 h-px bg-gradient-to-r from-blue-400 to-purple-400 group-hover/link:w-full transition-all duration-500 ease-out"></span>
+                  </Link>
+                  <div className="absolute left-1/2 -translate-x-1/2 top-full -mt-1 hidden group-hover/nextjs:block z-50">
+                    <div className="min-w-[380px] rounded-xl border border-white/10 bg-black/70 backdrop-blur-xl p-3 shadow-xl">
+                      <ul className="space-y-1">
+                        <li>
+                          <Link href="/nextjs/wordpress-to-nextjs-migration-cost" className="block px-4 py-2 rounded-lg text-gray-200 hover:text-white hover:bg-white/10 transition">
+                            WordPress to Next.js Migration Cost
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/nextjs/wordpress-to-nextjs-migration-service" className="block px-4 py-2 rounded-lg text-gray-200 hover:text-white hover:bg-white/10 transition">
+                            WordPress to Next.js Migration Service
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/nextjs/wordpress-to-nextjs-seo-migration" className="block px-4 py-2 rounded-lg text-gray-200 hover:text-white hover:bg-white/10 transition">
+                            WordPress to Next.js SEO Migration
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/nextjs/how-to-migrate-wordpress-to-nextjs" className="block px-4 py-2 rounded-lg text-gray-200 hover:text-white hover:bg-white/10 transition">
+                            How to Migrate WordPress to Next.js
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/nextjs/nextjs-vs-wordpress-performance-benchmark" className="block px-4 py-2 rounded-lg text-gray-200 hover:text-white hover:bg-white/10 transition">
+                            Next.js vs WordPress Performance
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/nextjs/nextjs-image-optimization-techniques" className="block px-4 py-2 rounded-lg text-gray-200 hover:text-white hover:bg-white/10 transition">
+                            Next.js Image Optimization
+                          </Link>
+                        </li>
+                        <li className="pt-1 mt-1 border-t border-white/10">
+                          <Link href="/nextjs" className="block px-4 py-2 rounded-lg text-blue-300 hover:text-white hover:bg-white/10 transition">
+                            View all Next.js content →
                           </Link>
                         </li>
                       </ul>
@@ -192,7 +245,7 @@ export default function Navigation() {
           }`}
         >
           <div className="glass rounded-2xl p-4 space-y-3">
-            {navItems.filter((n) => n.href !== '/blog' && n.href !== '/portfolio').map((item) => (
+            {navItems.filter((n) => n.href !== '/blog' && n.href !== '/portfolio' && n.href !== '/nextjs').map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -221,6 +274,54 @@ export default function Navigation() {
                 <li className="pt-1 mt-1 border-t border-white/10">
                   <Link href="/portfolio" className="block text-blue-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
                     View all projects →
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <button
+              className="w-full text-left text-gray-300 hover:text-white transition-colors duration-200 font-medium py-2 flex items-center justify-between"
+              onClick={() => setShowMobileNextJS(!showMobileNextJS)}
+              aria-expanded={showMobileNextJS}
+              aria-controls="mobile-nextjs-submenu"
+            >
+              <span>Next.js</span>
+              <span className={`transform transition ${showMobileNextJS ? 'rotate-180' : ''}`}>▾</span>
+            </button>
+            <div id="mobile-nextjs-submenu" className={`overflow-hidden transition-all ${showMobileNextJS ? 'max-h-96' : 'max-h-0'}`}>
+              <ul className="pl-3 space-y-1">
+                <li>
+                  <Link href="/nextjs/wordpress-to-nextjs-migration-cost" className="block text-gray-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    WordPress to Next.js Migration Cost
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/nextjs/wordpress-to-nextjs-migration-service" className="block text-gray-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    WordPress to Next.js Migration Service
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/nextjs/wordpress-to-nextjs-seo-migration" className="block text-gray-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    WordPress to Next.js SEO Migration
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/nextjs/how-to-migrate-wordpress-to-nextjs" className="block text-gray-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    How to Migrate WordPress to Next.js
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/nextjs/nextjs-vs-wordpress-performance-benchmark" className="block text-gray-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    Next.js vs WordPress Performance
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/nextjs/nextjs-image-optimization-techniques" className="block text-gray-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    Next.js Image Optimization
+                  </Link>
+                </li>
+                <li className="pt-1 mt-1 border-t border-white/10">
+                  <Link href="/nextjs" className="block text-blue-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    View all Next.js content →
                   </Link>
                 </li>
               </ul>
