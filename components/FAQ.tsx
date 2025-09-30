@@ -93,7 +93,7 @@ export default function FAQ({ title = "Frequently Asked Questions", faqs = defau
                 {title}
               </span>
             </h2>
-            <p className="text-xl text-gray-300">
+            <p className="text-xl text-gray-600">
               Get answers to the most common questions about our services
             </p>
           </div>
@@ -102,7 +102,7 @@ export default function FAQ({ title = "Frequently Asked Questions", faqs = defau
             {faqs.map((faq, index) => (
               <div
                 key={index}
-                className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-300"
+                className="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:bg-gray-50 transition-all duration-300 shadow-lg"
               >
                 <button
                   onClick={() => toggleFAQ(index)}
@@ -110,7 +110,7 @@ export default function FAQ({ title = "Frequently Asked Questions", faqs = defau
                   aria-expanded={openIndex === index}
                   aria-controls={`faq-answer-${index}`}
                 >
-                  <h3 className="text-lg font-semibold text-white pr-4">
+                  <h3 className="text-lg font-semibold text-gray-900 pr-4">
                     {faq.question}
                   </h3>
                   <div className="flex-shrink-0">
@@ -129,8 +129,8 @@ export default function FAQ({ title = "Frequently Asked Questions", faqs = defau
                   }`}
                 >
                   <div className="px-8 pb-6">
-                    <div className="border-t border-white/10 pt-4">
-                      <p className="text-gray-300 leading-relaxed">
+                    <div className="border-t border-gray-200 pt-4">
+                      <p className="text-gray-600 leading-relaxed">
                         {faq.answer}
                       </p>
                     </div>
@@ -142,16 +142,16 @@ export default function FAQ({ title = "Frequently Asked Questions", faqs = defau
 
           {/* CTA Section */}
           <div className="mt-16 text-center">
-            <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-white mb-4">
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-gray-200 rounded-2xl p-8">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
                 Still have questions?
               </h3>
-              <p className="text-gray-300 mb-6">
+              <p className="text-gray-600 mb-6">
                 We'd love to discuss your project and answer any specific questions you might have.
               </p>
               <Link
                 href="/contact"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 inline-block"
+                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 px-8 py-3 rounded-lg text-white font-medium transition-all duration-300 transform hover:scale-105 inline-block"
               >
                 Get in Touch
               </Link>
