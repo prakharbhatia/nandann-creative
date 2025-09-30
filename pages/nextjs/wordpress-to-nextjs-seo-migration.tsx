@@ -83,62 +83,62 @@ export default function WordPressToNextJSSEOMigration() {
 
       <Navigation />
       
-      <main className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
+      <main className="min-h-screen bg-white">
         {/* Hero Section */}
         <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-8">
+              <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-8">
                 WordPress to Next.js <span className="text-gradient">SEO Migration</span> 2025
               </h1>
-              <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+              <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
                 Expert SEO migration service that preserves and enhances your search rankings. 
                 Zero SEO loss, improved performance, and better Core Web Vitals with our proven migration strategy.
               </p>
             </div>
 
             {/* SEO Migration Process */}
-            <div className="glass rounded-2xl p-8 mb-16">
-              <h2 className="text-3xl font-bold text-white mb-8 text-center">SEO Migration Process</h2>
+            <div className="bg-gray-50 rounded-2xl p-8 mb-16 border border-gray-200">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">SEO Migration Process</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="bg-white/5 rounded-xl p-6 text-center">
+                <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <span className="text-white text-2xl">🔍</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">SEO Audit</h3>
-                  <p className="text-gray-300 text-sm">Comprehensive analysis of current SEO performance, rankings, and technical issues.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">SEO Audit</h3>
+                  <p className="text-gray-600 text-sm">Comprehensive analysis of current SEO performance, rankings, and technical issues.</p>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6 text-center">
+                <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <span className="text-white text-2xl">📋</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Migration Planning</h3>
-                  <p className="text-gray-300 text-sm">Detailed SEO migration strategy with URL mapping and redirect planning.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Migration Planning</h3>
+                  <p className="text-gray-600 text-sm">Detailed SEO migration strategy with URL mapping and redirect planning.</p>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6 text-center">
+                <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <span className="text-white text-2xl">⚙️</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Implementation</h3>
-                  <p className="text-gray-300 text-sm">SEO-preserving migration with enhanced technical SEO and structured data.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Implementation</h3>
+                  <p className="text-gray-600 text-sm">SEO-preserving migration with enhanced technical SEO and structured data.</p>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6 text-center">
+                <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <span className="text-white text-2xl">📊</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Monitoring</h3>
-                  <p className="text-gray-300 text-sm">30 days of SEO monitoring and performance tracking post-migration.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Monitoring</h3>
+                  <p className="text-gray-600 text-sm">30 days of SEO monitoring and performance tracking post-migration.</p>
                 </div>
               </div>
             </div>
 
             {/* SEO Preservation Strategies */}
             <div className="grid lg:grid-cols-2 gap-12 mb-16">
-              <div className="glass rounded-2xl p-8">
-                <h2 className="text-3xl font-bold text-white mb-8">SEO Preservation Strategies</h2>
+              <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200">
+                <h2 className="text-3xl font-bold text-gray-900 mb-8">SEO Preservation Strategies</h2>
                 <div className="space-y-6">
                   <div className="flex items-start space-x-4">
                     <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
