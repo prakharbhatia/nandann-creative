@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import Navigation from '../../components/Navigation';
+import LocationNavigation from '../../components/LocationNavigation';
 import Footer from '../../components/Footer';
 import FAQ from '../../components/FAQ';
 import StructuredData from '../../components/StructuredData';
@@ -81,7 +81,7 @@ export default function NextJSImageOptimizationTechniques() {
         pageDescription="Complete guide to Next.js image optimization techniques 2025. Learn advanced strategies for Core Web Vitals, lazy loading, responsive images, and performance optimization with code examples."
       />
 
-      <Navigation />
+      <LocationNavigation location="Next.js Image Optimization" locationShort="Optimization" />
       
       <main className="min-h-screen bg-white">
         {/* Hero Section */}

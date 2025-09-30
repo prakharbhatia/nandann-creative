@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import Navigation from '../../components/Navigation';
+import LocationNavigation from '../../components/LocationNavigation';
 import Footer from '../../components/Footer';
 import StructuredData from '../../components/StructuredData';
 
@@ -44,7 +44,7 @@ export default function NextJSIndex() {
         pageDescription="Comprehensive Next.js development services, WordPress migration guides, and performance optimization. Expert Next.js consulting for modern web applications in 2025."
       />
 
-      <Navigation />
+      <LocationNavigation location="Next.js Resources" locationShort="Next.js" />
       
       <main className="min-h-screen bg-white">
         {/* Hero Section */}

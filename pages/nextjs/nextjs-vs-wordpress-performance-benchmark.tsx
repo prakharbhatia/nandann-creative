@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import Navigation from '../../components/Navigation';
+import LocationNavigation from '../../components/LocationNavigation';
 import Footer from '../../components/Footer';
 import FAQ from '../../components/FAQ';
 import StructuredData from '../../components/StructuredData';
@@ -81,7 +81,7 @@ export default function NextJSVsWordPressPerformanceBenchmark() {
         pageDescription="Comprehensive Next.js vs WordPress performance benchmark 2025. Real-world speed tests, Core Web Vitals comparison, and performance analysis. See why Next.js is 40-60% faster."
       />
 
-      <Navigation />
+      <LocationNavigation location="Next.js vs WordPress Performance" locationShort="Performance" />
       
       <main className="min-h-screen bg-white">
         {/* Hero Section */}

@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import Navigation from '../../components/Navigation';
+import LocationNavigation from '../../components/LocationNavigation';
 import Footer from '../../components/Footer';
 import FAQ from '../../components/FAQ';
 import StructuredData from '../../components/StructuredData';
@@ -81,7 +81,7 @@ export default function HowToMigrateWordPressToNextJS() {
         pageDescription="Complete step-by-step guide to migrate WordPress to Next.js in 2025. Learn best practices, tools, and strategies for successful migration with code examples and expert tips."
       />
 
-      <Navigation />
+      <LocationNavigation location="WordPress to Next.js Tutorial" locationShort="Tutorial" />
       
       <main className="min-h-screen bg-white">
         {/* Hero Section */}

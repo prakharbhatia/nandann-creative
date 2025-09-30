@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import Navigation from '../../components/Navigation';
+import LocationNavigation from '../../components/LocationNavigation';
 import Footer from '../../components/Footer';
 import FAQ from '../../components/FAQ';
 import StructuredData from '../../components/StructuredData';
@@ -81,7 +81,7 @@ export default function WordPressToNextJSMigrationCost() {
         pageDescription="Complete WordPress to Next.js migration cost breakdown for 2025. Get transparent pricing, ROI analysis, and budget planning for your migration project."
       />
 
-      <Navigation />
+      <LocationNavigation location="WordPress to Next.js Migration" locationShort="Migration" />
       
       <main className="min-h-screen bg-white">
         {/* Hero Section */}
