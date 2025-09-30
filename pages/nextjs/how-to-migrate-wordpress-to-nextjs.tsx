@@ -363,11 +363,11 @@ export default function Post({ post }: { post: Post }) {
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mr-4">
                     <span className="text-white text-xl font-bold">4</span>
                   </div>
-                  <h2 className="text-3xl font-bold text-white">Testing & Launch</h2>
+                  <h2 className="text-3xl font-bold text-gray-900">Testing & Launch</h2>
                 </div>
                 <div className="grid lg:grid-cols-2 gap-8">
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-4">Quality Assurance</h3>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Quality Assurance</h3>
                     <ul className="space-y-3 text-gray-600">
                       <li className="flex items-start space-x-3">
                         <span className="text-blue-400 mt-1">•</span>
@@ -392,10 +392,10 @@ export default function Post({ post }: { post: Post }) {
                     </ul>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-4">Deployment</h3>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Deployment</h3>
                     <div className="bg-white/5 rounded-xl p-6 mb-6">
-                      <h4 className="text-lg font-semibold text-white mb-3">Vercel Deployment</h4>
-                      <pre className="text-gray-300 text-sm overflow-x-auto">
+                      <h4 className="text-lg font-semibold text-gray-900 mb-3">Vercel Deployment</h4>
+                      <pre className="text-gray-600 text-sm overflow-x-auto">
 {`# Deploy to Vercel
 npm install -g vercel
 vercel --prod
@@ -426,54 +426,54 @@ vercel --prod
 
             {/* Best Practices */}
             <div className="glass rounded-2xl p-8 mb-16">
-              <h2 className="text-3xl font-bold text-white mb-8 text-center">Migration Best Practices</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Migration Best Practices</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div className="bg-white/5 rounded-xl p-6">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">🔍</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">SEO Preservation</h3>
-                  <p className="text-gray-300 text-sm">Maintain URL structure, implement 301 redirects, and preserve all meta tags and structured data.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">SEO Preservation</h3>
+                  <p className="text-gray-600 text-sm">Maintain URL structure, implement 301 redirects, and preserve all meta tags and structured data.</p>
                 </div>
 
                 <div className="bg-white/5 rounded-xl p-6">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">⚡</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Performance Optimization</h3>
-                  <p className="text-gray-300 text-sm">Use Next.js Image component, implement proper caching, and optimize Core Web Vitals.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Performance Optimization</h3>
+                  <p className="text-gray-600 text-sm">Use Next.js Image component, implement proper caching, and optimize Core Web Vitals.</p>
                 </div>
 
                 <div className="bg-white/5 rounded-xl p-6">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">🛡️</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Zero Downtime</h3>
-                  <p className="text-gray-300 text-sm">Use staging environment and perform seamless DNS switch during off-peak hours.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Zero Downtime</h3>
+                  <p className="text-gray-600 text-sm">Use staging environment and perform seamless DNS switch during off-peak hours.</p>
                 </div>
 
                 <div className="bg-white/5 rounded-xl p-6">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">📱</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Mobile-First Design</h3>
-                  <p className="text-gray-300 text-sm">Implement responsive design and optimize for mobile performance and user experience.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Mobile-First Design</h3>
+                  <p className="text-gray-600 text-sm">Implement responsive design and optimize for mobile performance and user experience.</p>
                 </div>
 
                 <div className="bg-white/5 rounded-xl p-6">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">🔧</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Functionality Preservation</h3>
-                  <p className="text-gray-300 text-sm">Recreate all existing functionality using modern web technologies and best practices.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Functionality Preservation</h3>
+                  <p className="text-gray-600 text-sm">Recreate all existing functionality using modern web technologies and best practices.</p>
                 </div>
 
                 <div className="bg-white/5 rounded-xl p-6">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">📊</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Monitoring & Analytics</h3>
-                  <p className="text-gray-300 text-sm">Set up comprehensive monitoring, analytics, and error tracking for post-launch optimization.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Monitoring & Analytics</h3>
+                  <p className="text-gray-600 text-sm">Set up comprehensive monitoring, analytics, and error tracking for post-launch optimization.</p>
                 </div>
               </div>
             </div>
@@ -481,10 +481,10 @@ vercel --prod
             {/* CTA Section */}
             <div className="text-center">
               <div className="glass rounded-2xl p-12">
-                <h2 className="text-4xl font-bold text-white mb-6">
+                <h2 className="text-4xl font-bold text-gray-900 mb-6">
                   Need Help with Your Migration?
                 </h2>
-                <p className="text-xl text-gray-300 mb-8">
+                <p className="text-xl text-gray-600 mb-8">
                   Get expert assistance with your WordPress to Next.js migration. 
                   Professional migration services with zero downtime and SEO preservation.
                 </p>

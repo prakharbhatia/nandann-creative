@@ -145,8 +145,8 @@ export default function WordPressToNextJSSEOMigration() {
                       <span className="text-white text-sm">✓</span>
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">URL Structure Preservation</h3>
-                      <p className="text-gray-300">Maintain existing URL structure and implement comprehensive 301 redirects for any necessary changes.</p>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">URL Structure Preservation</h3>
+                      <p className="text-gray-600">Maintain existing URL structure and implement comprehensive 301 redirects for any necessary changes.</p>
                     </div>
                   </div>
 
@@ -155,8 +155,8 @@ export default function WordPressToNextJSSEOMigration() {
                       <span className="text-white text-sm">✓</span>
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Meta Tag Migration</h3>
-                      <p className="text-gray-300">Complete migration of title tags, meta descriptions, Open Graph tags, and Twitter Cards.</p>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Meta Tag Migration</h3>
+                      <p className="text-gray-600">Complete migration of title tags, meta descriptions, Open Graph tags, and Twitter Cards.</p>
                     </div>
                   </div>
 
@@ -165,8 +165,8 @@ export default function WordPressToNextJSSEOMigration() {
                       <span className="text-white text-sm">✓</span>
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Structured Data Enhancement</h3>
-                      <p className="text-gray-300">Implement enhanced structured data using modern Next.js capabilities and schema.org standards.</p>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Structured Data Enhancement</h3>
+                      <p className="text-gray-600">Implement enhanced structured data using modern Next.js capabilities and schema.org standards.</p>
                     </div>
                   </div>
 
@@ -175,8 +175,8 @@ export default function WordPressToNextJSSEOMigration() {
                       <span className="text-white text-sm">✓</span>
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Content Optimization</h3>
-                      <p className="text-gray-300">Preserve content structure, internal linking, and optimize for better search engine understanding.</p>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Content Optimization</h3>
+                      <p className="text-gray-600">Preserve content structure, internal linking, and optimize for better search engine understanding.</p>
                     </div>
                   </div>
 
@@ -185,15 +185,15 @@ export default function WordPressToNextJSSEOMigration() {
                       <span className="text-white text-sm">✓</span>
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Technical SEO</h3>
-                      <p className="text-gray-300">Implement proper canonical URLs, robots.txt, sitemap.xml, and other technical SEO elements.</p>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Technical SEO</h3>
+                      <p className="text-gray-600">Implement proper canonical URLs, robots.txt, sitemap.xml, and other technical SEO elements.</p>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div className="glass rounded-2xl p-8">
-                <h2 className="text-3xl font-bold text-white mb-8">SEO Improvements</h2>
+                <h2 className="text-3xl font-bold text-gray-900 mb-8">SEO Improvements</h2>
                 <div className="space-y-6">
                   <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
                     <h3 className="text-lg font-semibold text-gray-900 mb-3">Performance Gains</h3>
