@@ -195,44 +195,44 @@ export default function WordPressToNextJSSEOMigration() {
               <div className="glass rounded-2xl p-8">
                 <h2 className="text-3xl font-bold text-white mb-8">SEO Improvements</h2>
                 <div className="space-y-6">
-                  <div className="bg-white/5 rounded-xl p-6">
-                    <h3 className="text-lg font-semibold text-white mb-3">Performance Gains</h3>
+                  <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Performance Gains</h3>
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
                         <div className="text-blue-400 font-semibold">40-60%</div>
-                        <div className="text-gray-300">Faster Load Times</div>
+                        <div className="text-gray-600">Faster Load Times</div>
                       </div>
                       <div>
                         <div className="text-blue-400 font-semibold">20-30%</div>
-                        <div className="text-gray-300">Better Core Web Vitals</div>
+                        <div className="text-gray-600">Better Core Web Vitals</div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="bg-white/5 rounded-xl p-6">
-                    <h3 className="text-lg font-semibold text-white mb-3">Search Rankings</h3>
+                  <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Search Rankings</h3>
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
                         <div className="text-blue-400 font-semibold">15-25%</div>
-                        <div className="text-gray-300">Organic Traffic Increase</div>
+                        <div className="text-gray-600">Organic Traffic Increase</div>
                       </div>
                       <div>
                         <div className="text-blue-400 font-semibold">10-20%</div>
-                        <div className="text-gray-300">Better Search Rankings</div>
+                        <div className="text-gray-600">Better Search Rankings</div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="bg-white/5 rounded-xl p-6">
-                    <h3 className="text-lg font-semibold text-white mb-3">User Experience</h3>
+                  <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">User Experience</h3>
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
                         <div className="text-blue-400 font-semibold">5-15%</div>
-                        <div className="text-gray-300">Conversion Rate Boost</div>
+                        <div className="text-gray-600">Conversion Rate Boost</div>
                       </div>
                       <div>
                         <div className="text-blue-400 font-semibold">30-50%</div>
-                        <div className="text-gray-300">Reduced Bounce Rate</div>
+                        <div className="text-gray-600">Reduced Bounce Rate</div>
                       </div>
                     </div>
                   </div>
@@ -241,115 +241,115 @@ export default function WordPressToNextJSSEOMigration() {
             </div>
 
             {/* Technical SEO Features */}
-            <div className="glass rounded-2xl p-8 mb-16">
-              <h2 className="text-3xl font-bold text-white mb-8 text-center">Technical SEO Features</h2>
+            <div className="bg-gray-50 rounded-2xl p-8 mb-16 border border-gray-200">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Technical SEO Features</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="bg-white/5 rounded-xl p-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">🔗</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">URL & Redirect Management</h3>
-                  <p className="text-gray-300 text-sm">Comprehensive URL preservation and 301 redirect implementation to maintain link equity and user experience.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">URL & Redirect Management</h3>
+                  <p className="text-gray-600 text-sm">Comprehensive URL preservation and 301 redirect implementation to maintain link equity and user experience.</p>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">📝</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Meta Tags & Schema</h3>
-                  <p className="text-gray-300 text-sm">Complete meta tag migration and enhanced structured data implementation using modern schema.org standards.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Meta Tags & Schema</h3>
+                  <p className="text-gray-600 text-sm">Complete meta tag migration and enhanced structured data implementation using modern schema.org standards.</p>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">🗺️</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Sitemap & Robots</h3>
-                  <p className="text-gray-300 text-sm">Automatic sitemap generation, robots.txt optimization, and proper crawling directives for search engines.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Sitemap & Robots</h3>
+                  <p className="text-gray-600 text-sm">Automatic sitemap generation, robots.txt optimization, and proper crawling directives for search engines.</p>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">⚡</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Core Web Vitals</h3>
-                  <p className="text-gray-300 text-sm">Optimization for LCP, FID, and CLS to improve Core Web Vitals scores and search rankings.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Core Web Vitals</h3>
+                  <p className="text-gray-600 text-sm">Optimization for LCP, FID, and CLS to improve Core Web Vitals scores and search rankings.</p>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">📱</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Mobile Optimization</h3>
-                  <p className="text-gray-300 text-sm">Responsive design implementation and mobile-first optimization for better mobile search performance.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Mobile Optimization</h3>
+                  <p className="text-gray-600 text-sm">Responsive design implementation and mobile-first optimization for better mobile search performance.</p>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">🔍</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">SEO Monitoring</h3>
-                  <p className="text-gray-300 text-sm">30 days of comprehensive SEO monitoring including rankings, traffic, and technical SEO audits.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">SEO Monitoring</h3>
+                  <p className="text-gray-600 text-sm">30 days of comprehensive SEO monitoring including rankings, traffic, and technical SEO audits.</p>
                 </div>
               </div>
             </div>
 
             {/* Case Study */}
-            <div className="glass rounded-2xl p-8 mb-16">
-              <h2 className="text-3xl font-bold text-white mb-8 text-center">SEO Migration Success Story</h2>
+            <div className="bg-gray-50 rounded-2xl p-8 mb-16 border border-gray-200">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">SEO Migration Success Story</h2>
               <div className="grid lg:grid-cols-2 gap-8">
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-6">E-commerce Site Migration</h3>
-                  <p className="text-gray-300 mb-6">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-6">E-commerce Site Migration</h3>
+                  <p className="text-gray-600 mb-6">
                     A leading e-commerce site with 10,000+ products migrated from WordPress to Next.js 
                     while preserving and enhancing their SEO performance.
                   </p>
                   <div className="space-y-4">
                     <div className="flex items-center space-x-3">
                       <span className="text-green-400 text-xl">✓</span>
-                      <span className="text-gray-300">Zero ranking loss during migration</span>
+                      <span className="text-gray-600">Zero ranking loss during migration</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <span className="text-green-400 text-xl">✓</span>
-                      <span className="text-gray-300">25% increase in organic traffic</span>
+                      <span className="text-gray-600">25% increase in organic traffic</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <span className="text-green-400 text-xl">✓</span>
-                      <span className="text-gray-300">50% improvement in page load speed</span>
+                      <span className="text-gray-600">50% improvement in page load speed</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <span className="text-green-400 text-xl">✓</span>
-                      <span className="text-gray-300">15% boost in conversion rates</span>
+                      <span className="text-gray-600">15% boost in conversion rates</span>
                     </div>
                   </div>
                 </div>
-                <div className="bg-white/5 rounded-xl p-6">
-                  <h4 className="text-lg font-semibold text-white mb-4">Before vs After</h4>
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+                  <h4 className="text-lg font-semibold text-gray-900 mb-4">Before vs After</h4>
                   <div className="space-y-4">
                     <div>
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-gray-300">Page Load Speed</span>
+                        <span className="text-gray-600">Page Load Speed</span>
                         <span className="text-blue-400">+50%</span>
                       </div>
-                      <div className="w-full bg-gray-700 rounded-full h-2">
+                      <div className="w-full bg-gray-200 rounded-full h-2">
                         <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full" style={{width: '75%'}}></div>
                       </div>
                     </div>
                     <div>
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-gray-300">Organic Traffic</span>
+                        <span className="text-gray-600">Organic Traffic</span>
                         <span className="text-blue-400">+25%</span>
                       </div>
-                      <div className="w-full bg-gray-700 rounded-full h-2">
+                      <div className="w-full bg-gray-200 rounded-full h-2">
                         <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full" style={{width: '60%'}}></div>
                       </div>
                     </div>
                     <div>
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-gray-300">Core Web Vitals</span>
+                        <span className="text-gray-600">Core Web Vitals</span>
                         <span className="text-blue-400">+30%</span>
                       </div>
-                      <div className="w-full bg-gray-700 rounded-full h-2">
+                      <div className="w-full bg-gray-200 rounded-full h-2">
                         <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full" style={{width: '80%'}}></div>
                       </div>
                     </div>
@@ -360,24 +360,24 @@ export default function WordPressToNextJSSEOMigration() {
 
             {/* CTA Section */}
             <div className="text-center">
-              <div className="glass rounded-2xl p-12">
-                <h2 className="text-4xl font-bold text-white mb-6">
+              <div className="bg-gray-50 rounded-2xl p-12 border border-gray-200">
+                <h2 className="text-4xl font-bold text-gray-900 mb-6">
                   Preserve Your SEO Rankings
                 </h2>
-                <p className="text-xl text-gray-300 mb-8">
+                <p className="text-xl text-gray-600 mb-8">
                   Get expert SEO migration services that preserve and enhance your search rankings. 
                   Free SEO audit and migration consultation included.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link
                     href="/contact"
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-full text-white font-semibold text-lg hover-lift hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300"
+                    className="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg text-white font-semibold text-lg transition-all duration-300 transform hover:scale-105"
                   >
                     Start SEO Migration
                   </Link>
                   <Link
                     href="/nextjs/wordpress-to-nextjs-migration-service"
-                    className="border border-white/20 hover:border-white/40 px-8 py-4 rounded-full text-white font-semibold text-lg hover:bg-white/10 transition-all duration-300"
+                    className="border border-gray-300 hover:border-blue-600 hover:text-blue-600 px-8 py-4 rounded-lg text-gray-700 font-semibold text-lg transition-all duration-300"
                   >
                     View Migration Services
                   </Link>

@@ -83,66 +83,66 @@ export default function NextJSImageOptimizationTechniques() {
 
       <Navigation />
       
-      <main className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
+      <main className="min-h-screen bg-white">
         {/* Hero Section */}
         <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-8">
+              <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-8">
                 Next.js <span className="text-gradient">Image Optimization</span> Techniques 2025
               </h1>
-              <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+              <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
                 Complete guide to Next.js image optimization techniques for maximum performance. 
                 Learn advanced strategies for Core Web Vitals, lazy loading, responsive images, and performance optimization.
               </p>
             </div>
 
             {/* Optimization Overview */}
-            <div className="glass rounded-2xl p-8 mb-16">
-              <h2 className="text-3xl font-bold text-white mb-8 text-center">Image Optimization Overview</h2>
+            <div className="bg-gray-50 rounded-2xl p-8 mb-16 border border-gray-200">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Image Optimization Overview</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="bg-white/5 rounded-xl p-6 text-center">
+                <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <span className="text-white text-2xl">⚡</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Automatic Optimization</h3>
-                  <p className="text-gray-300 text-sm">Built-in image optimization with format conversion and size reduction.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Automatic Optimization</h3>
+                  <p className="text-gray-600 text-sm">Built-in image optimization with format conversion and size reduction.</p>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6 text-center">
+                <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <span className="text-white text-2xl">🖼️</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Responsive Images</h3>
-                  <p className="text-gray-300 text-sm">Automatic responsive sizing and multiple image generation.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Responsive Images</h3>
+                  <p className="text-gray-600 text-sm">Automatic responsive sizing and multiple image generation.</p>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6 text-center">
+                <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <span className="text-white text-2xl">🚀</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Lazy Loading</h3>
-                  <p className="text-gray-300 text-sm">Intelligent lazy loading for improved page performance.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Lazy Loading</h3>
+                  <p className="text-gray-600 text-sm">Intelligent lazy loading for improved page performance.</p>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6 text-center">
+                <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <span className="text-white text-2xl">📱</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Core Web Vitals</h3>
-                  <p className="text-gray-300 text-sm">Optimized for LCP, CLS, and other performance metrics.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Core Web Vitals</h3>
+                  <p className="text-gray-600 text-sm">Optimized for LCP, CLS, and other performance metrics.</p>
                 </div>
               </div>
             </div>
 
             {/* Basic Implementation */}
-            <div className="glass rounded-2xl p-8 mb-16">
-              <h2 className="text-3xl font-bold text-white mb-8">Basic Image Component Implementation</h2>
+            <div className="bg-gray-50 rounded-2xl p-8 mb-16 border border-gray-200">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">Basic Image Component Implementation</h2>
               <div className="grid lg:grid-cols-2 gap-8">
                 <div>
-                  <h3 className="text-xl font-semibold text-white mb-4">Basic Usage</h3>
-                  <div className="bg-white/5 rounded-xl p-6 mb-6">
-                    <pre className="text-gray-300 text-sm overflow-x-auto">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">Basic Usage</h3>
+                  <div className="bg-white rounded-xl p-6 mb-6 shadow-lg border border-gray-200">
+                    <pre className="text-gray-600 text-sm overflow-x-auto">
 {`import Image from 'next/image'
 
 // Basic image with optimization
@@ -164,7 +164,7 @@ export default function NextJSImageOptimizationTechniques() {
 />`}
                     </pre>
                   </div>
-                  <ul className="space-y-3 text-gray-300">
+                  <ul className="space-y-3 text-gray-600">
                     <li className="flex items-start space-x-3">
                       <span className="text-blue-400 mt-1">•</span>
                       <span>Automatic format conversion (WebP, AVIF)</span>
@@ -180,9 +180,9 @@ export default function NextJSImageOptimizationTechniques() {
                   </ul>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-white mb-4">Advanced Configuration</h3>
-                  <div className="bg-white/5 rounded-xl p-6 mb-6">
-                    <pre className="text-gray-300 text-sm overflow-x-auto">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">Advanced Configuration</h3>
+                  <div className="bg-white rounded-xl p-6 mb-6 shadow-lg border border-gray-200">
+                    <pre className="text-gray-600 text-sm overflow-x-auto">
 {`// next.config.js
 module.exports = {
   images: {
@@ -197,7 +197,7 @@ module.exports = {
 }`}
                     </pre>
                   </div>
-                  <ul className="space-y-3 text-gray-300">
+                  <ul className="space-y-3 text-gray-600">
                     <li className="flex items-start space-x-3">
                       <span className="text-blue-400 mt-1">•</span>
                       <span>Custom device sizes and image sizes</span>
@@ -216,13 +216,13 @@ module.exports = {
             </div>
 
             {/* Responsive Images */}
-            <div className="glass rounded-2xl p-8 mb-16">
-              <h2 className="text-3xl font-bold text-white mb-8">Responsive Image Techniques</h2>
+            <div className="bg-gray-50 rounded-2xl p-8 mb-16 border border-gray-200">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">Responsive Image Techniques</h2>
               <div className="grid lg:grid-cols-2 gap-8">
                 <div>
-                  <h3 className="text-xl font-semibold text-white mb-4">Fill Container</h3>
-                  <div className="bg-white/5 rounded-xl p-6 mb-6">
-                    <pre className="text-gray-300 text-sm overflow-x-auto">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">Fill Container</h3>
+                  <div className="bg-white rounded-xl p-6 mb-6 shadow-lg border border-gray-200">
+                    <pre className="text-gray-600 text-sm overflow-x-auto">
 {`// Responsive image that fills container
 <div className="relative w-full h-64">
   <Image
@@ -244,7 +244,7 @@ module.exports = {
 />`}
                     </pre>
                   </div>
-                  <ul className="space-y-3 text-gray-300">
+                  <ul className="space-y-3 text-gray-600">
                     <li className="flex items-start space-x-3">
                       <span className="text-blue-400 mt-1">•</span>
                       <span>Use 'fill' prop for responsive containers</span>
@@ -260,9 +260,9 @@ module.exports = {
                   </ul>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-white mb-4">Sizes Prop Strategy</h3>
-                  <div className="bg-white/5 rounded-xl p-6 mb-6">
-                    <pre className="text-gray-300 text-sm overflow-x-auto">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">Sizes Prop Strategy</h3>
+                  <div className="bg-white rounded-xl p-6 mb-6 shadow-lg border border-gray-200">
+                    <pre className="text-gray-600 text-sm overflow-x-auto">
 {`// Optimized sizes for different layouts
 <Image
   src="/hero-image.jpg"
@@ -283,7 +283,7 @@ module.exports = {
 />`}
                     </pre>
                   </div>
-                  <ul className="space-y-3 text-gray-300">
+                  <ul className="space-y-3 text-gray-600">
                     <li className="flex items-start space-x-3">
                       <span className="text-blue-400 mt-1">•</span>
                       <span>Define sizes based on layout breakpoints</span>
@@ -302,17 +302,17 @@ module.exports = {
             </div>
 
             {/* Performance Optimization */}
-            <div className="glass rounded-2xl p-8 mb-16">
-              <h2 className="text-3xl font-bold text-white mb-8">Performance Optimization Strategies</h2>
+            <div className="bg-gray-50 rounded-2xl p-8 mb-16 border border-gray-200">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">Performance Optimization Strategies</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="bg-white/5 rounded-xl p-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">⚡</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Priority Loading</h3>
-                  <p className="text-gray-300 text-sm mb-4">Use priority prop for above-the-fold images to improve LCP scores.</p>
-                  <div className="bg-black/20 rounded-lg p-3">
-                    <pre className="text-gray-300 text-xs overflow-x-auto">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Priority Loading</h3>
+                  <p className="text-gray-600 text-sm mb-4">Use priority prop for above-the-fold images to improve LCP scores.</p>
+                  <div className="bg-gray-100 rounded-lg p-3">
+                    <pre className="text-gray-600 text-xs overflow-x-auto">
 {`<Image
   src="/hero.jpg"
   priority
@@ -322,55 +322,55 @@ module.exports = {
                   </div>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">🖼️</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Format Optimization</h3>
-                  <p className="text-gray-300 text-sm mb-4">Automatic WebP/AVIF conversion for 30-50% smaller file sizes.</p>
-                  <div className="bg-black/20 rounded-lg p-3">
-                    <pre className="text-gray-300 text-xs overflow-x-auto">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Format Optimization</h3>
+                  <p className="text-gray-600 text-sm mb-4">Automatic WebP/AVIF conversion for 30-50% smaller file sizes.</p>
+                  <div className="bg-gray-100 rounded-lg p-3">
+                    <pre className="text-gray-600 text-xs overflow-x-auto">
 {`// Automatic format detection
 // Serves AVIF → WebP → JPEG/PNG`}
                     </pre>
                   </div>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">📱</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Responsive Sizing</h3>
-                  <p className="text-gray-300 text-sm mb-4">Generate multiple sizes for different devices and screen densities.</p>
-                  <div className="bg-black/20 rounded-lg p-3">
-                    <pre className="text-gray-300 text-xs overflow-x-auto">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Responsive Sizing</h3>
+                  <p className="text-gray-600 text-sm mb-4">Generate multiple sizes for different devices and screen densities.</p>
+                  <div className="bg-gray-100 rounded-lg p-3">
+                    <pre className="text-gray-600 text-xs overflow-x-auto">
 {`sizes="(max-width: 768px) 100vw, 50vw"`}
                     </pre>
                   </div>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">🚀</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Lazy Loading</h3>
-                  <p className="text-gray-300 text-sm mb-4">Images load only when entering viewport, reducing initial page weight.</p>
-                  <div className="bg-black/20 rounded-lg p-3">
-                    <pre className="text-gray-300 text-xs overflow-x-auto">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Lazy Loading</h3>
+                  <p className="text-gray-600 text-sm mb-4">Images load only when entering viewport, reducing initial page weight.</p>
+                  <div className="bg-gray-100 rounded-lg p-3">
+                    <pre className="text-gray-600 text-xs overflow-x-auto">
 {`// Default behavior
 // loading="lazy"`}
                     </pre>
                   </div>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">🔧</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Quality Optimization</h3>
-                  <p className="text-gray-300 text-sm mb-4">Adjust quality settings for optimal balance between size and visual quality.</p>
-                  <div className="bg-black/20 rounded-lg p-3">
-                    <pre className="text-gray-300 text-xs overflow-x-auto">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Quality Optimization</h3>
+                  <p className="text-gray-600 text-sm mb-4">Adjust quality settings for optimal balance between size and visual quality.</p>
+                  <div className="bg-gray-100 rounded-lg p-3">
+                    <pre className="text-gray-600 text-xs overflow-x-auto">
 {`<Image
   quality={75}
   src="/image.jpg"
@@ -379,14 +379,14 @@ module.exports = {
                   </div>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">🌐</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">CDN Integration</h3>
-                  <p className="text-gray-300 text-sm mb-4">Serve optimized images from global CDN for faster delivery.</p>
-                  <div className="bg-black/20 rounded-lg p-3">
-                    <pre className="text-gray-300 text-xs overflow-x-auto">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">CDN Integration</h3>
+                  <p className="text-gray-600 text-sm mb-4">Serve optimized images from global CDN for faster delivery.</p>
+                  <div className="bg-gray-100 rounded-lg p-3">
+                    <pre className="text-gray-600 text-xs overflow-x-auto">
 {`// Automatic CDN optimization
 // Built into Next.js Image component`}
                     </pre>
@@ -396,13 +396,13 @@ module.exports = {
             </div>
 
             {/* Core Web Vitals Optimization */}
-            <div className="glass rounded-2xl p-8 mb-16">
-              <h2 className="text-3xl font-bold text-white mb-8">Core Web Vitals Optimization</h2>
+            <div className="bg-gray-50 rounded-2xl p-8 mb-16 border border-gray-200">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">Core Web Vitals Optimization</h2>
               <div className="grid lg:grid-cols-2 gap-8">
                 <div>
-                  <h3 className="text-xl font-semibold text-white mb-4">LCP (Largest Contentful Paint)</h3>
-                  <div className="bg-white/5 rounded-xl p-6 mb-6">
-                    <pre className="text-gray-300 text-sm overflow-x-auto">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">LCP (Largest Contentful Paint)</h3>
+                  <div className="bg-white rounded-xl p-6 mb-6 shadow-lg border border-gray-200">
+                    <pre className="text-gray-600 text-sm overflow-x-auto">
 {`// Optimize hero image for LCP
 <Image
   src="/hero-image.jpg"
@@ -422,7 +422,7 @@ module.exports = {
 />`}
                     </pre>
                   </div>
-                  <ul className="space-y-3 text-gray-300">
+                  <ul className="space-y-3 text-gray-600">
                     <li className="flex items-start space-x-3">
                       <span className="text-blue-400 mt-1">•</span>
                       <span>Use priority prop for above-the-fold images</span>
@@ -438,9 +438,9 @@ module.exports = {
                   </ul>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-white mb-4">CLS (Cumulative Layout Shift)</h3>
-                  <div className="bg-white/5 rounded-xl p-6 mb-6">
-                    <pre className="text-gray-300 text-sm overflow-x-auto">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">CLS (Cumulative Layout Shift)</h3>
+                  <div className="bg-white rounded-xl p-6 mb-6 shadow-lg border border-gray-200">
+                    <pre className="text-gray-600 text-sm overflow-x-auto">
 {`// Prevent layout shift with explicit dimensions
 <div className="relative w-full h-64">
   <Image
@@ -462,7 +462,7 @@ module.exports = {
 />`}
                     </pre>
                   </div>
-                  <ul className="space-y-3 text-gray-300">
+                  <ul className="space-y-3 text-gray-600">
                     <li className="flex items-start space-x-3">
                       <span className="text-blue-400 mt-1">•</span>
                       <span>Always specify width and height</span>
@@ -481,13 +481,13 @@ module.exports = {
             </div>
 
             {/* Advanced Techniques */}
-            <div className="glass rounded-2xl p-8 mb-16">
-              <h2 className="text-3xl font-bold text-white mb-8">Advanced Optimization Techniques</h2>
+            <div className="bg-gray-50 rounded-2xl p-8 mb-16 border border-gray-200">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">Advanced Optimization Techniques</h2>
               <div className="space-y-8">
                 <div>
-                  <h3 className="text-xl font-semibold text-white mb-4">External Image Sources</h3>
-                  <div className="bg-white/5 rounded-xl p-6 mb-6">
-                    <pre className="text-gray-300 text-sm overflow-x-auto">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">External Image Sources</h3>
+                  <div className="bg-white rounded-xl p-6 mb-6 shadow-lg border border-gray-200">
+                    <pre className="text-gray-600 text-sm overflow-x-auto">
 {`// next.config.js
 module.exports = {
   images: {
@@ -515,9 +515,9 @@ module.exports = {
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-semibold text-white mb-4">Image Placeholders and Blur</h3>
-                  <div className="bg-white/5 rounded-xl p-6 mb-6">
-                    <pre className="text-gray-300 text-sm overflow-x-auto">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">Image Placeholders and Blur</h3>
+                  <div className="bg-white rounded-xl p-6 mb-6 shadow-lg border border-gray-200">
+                    <pre className="text-gray-600 text-sm overflow-x-auto">
 {`// Blur placeholder
 <Image
   src="/image.jpg"
@@ -546,9 +546,9 @@ const { base64 } = await getPlaiceholder('/image.jpg')
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-semibold text-white mb-4">Custom Image Loader</h3>
-                  <div className="bg-white/5 rounded-xl p-6 mb-6">
-                    <pre className="text-gray-300 text-sm overflow-x-auto">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">Custom Image Loader</h3>
+                  <div className="bg-white rounded-xl p-6 mb-6 shadow-lg border border-gray-200">
+                    <pre className="text-gray-600 text-sm overflow-x-auto">
 {`// Custom loader for external services
 const customLoader = ({ src, width, quality }) => {
   return \`https://example.com/image?url=\${encodeURIComponent(src)}&w=\${width}&q=\${quality || 75}\`
@@ -577,55 +577,55 @@ module.exports = {
             </div>
 
             {/* Performance Metrics */}
-            <div className="glass rounded-2xl p-8 mb-16">
-              <h2 className="text-3xl font-bold text-white mb-8 text-center">Performance Impact</h2>
+            <div className="bg-gray-50 rounded-2xl p-8 mb-16 border border-gray-200">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Performance Impact</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="bg-white/5 rounded-xl p-6 text-center">
+                <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="text-3xl font-bold text-blue-400 mb-2">30-50%</div>
-                  <div className="text-gray-300">Smaller File Sizes</div>
-                  <div className="text-sm text-gray-400 mt-2">WebP/AVIF conversion</div>
+                  <div className="text-gray-600">Smaller File Sizes</div>
+                  <div className="text-sm text-gray-500 mt-2">WebP/AVIF conversion</div>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6 text-center">
+                <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="text-3xl font-bold text-blue-400 mb-2">2-3x</div>
-                  <div className="text-gray-300">Faster Loading</div>
-                  <div className="text-sm text-gray-400 mt-2">Lazy loading + optimization</div>
+                  <div className="text-gray-600">Faster Loading</div>
+                  <div className="text-sm text-gray-500 mt-2">Lazy loading + optimization</div>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6 text-center">
+                <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="text-3xl font-bold text-blue-400 mb-2">40%</div>
-                  <div className="text-gray-300">Better LCP</div>
-                  <div className="text-sm text-gray-400 mt-2">Largest Contentful Paint</div>
+                  <div className="text-gray-600">Better LCP</div>
+                  <div className="text-sm text-gray-500 mt-2">Largest Contentful Paint</div>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6 text-center">
+                <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="text-3xl font-bold text-blue-400 mb-2">90%</div>
-                  <div className="text-gray-300">Reduced CLS</div>
-                  <div className="text-sm text-gray-400 mt-2">Cumulative Layout Shift</div>
+                  <div className="text-gray-600">Reduced CLS</div>
+                  <div className="text-sm text-gray-500 mt-2">Cumulative Layout Shift</div>
                 </div>
               </div>
             </div>
 
             {/* CTA Section */}
             <div className="text-center">
-              <div className="glass rounded-2xl p-12">
-                <h2 className="text-4xl font-bold text-white mb-6">
+              <div className="bg-gray-50 rounded-2xl p-12 border border-gray-200">
+                <h2 className="text-4xl font-bold text-gray-900 mb-6">
                   Need Help with Image Optimization?
                 </h2>
-                <p className="text-xl text-gray-300 mb-8">
+                <p className="text-xl text-gray-600 mb-8">
                   Get expert help implementing Next.js image optimization techniques. 
                   Improve your Core Web Vitals and site performance with professional optimization services.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link
                     href="/contact"
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-full text-white font-semibold text-lg hover-lift hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300"
+                    className="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg text-white font-semibold text-lg transition-all duration-300 transform hover:scale-105"
                   >
                     Get Optimization Help
                   </Link>
                   <Link
                     href="/nextjs/wordpress-to-nextjs-migration-service"
-                    className="border border-white/20 hover:border-white/40 px-8 py-4 rounded-full text-white font-semibold text-lg hover:bg-white/10 transition-all duration-300"
+                    className="border border-gray-300 hover:border-blue-600 hover:text-blue-600 px-8 py-4 rounded-lg text-gray-700 font-semibold text-lg transition-all duration-300"
                   >
                     View Migration Services
                   </Link>

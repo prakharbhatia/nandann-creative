@@ -83,54 +83,54 @@ export default function HowToMigrateWordPressToNextJS() {
 
       <Navigation />
       
-      <main className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
+      <main className="min-h-screen bg-white">
         {/* Hero Section */}
         <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-8">
+              <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-8">
                 How to Migrate <span className="text-gradient">WordPress to Next.js</span> 2025
               </h1>
-              <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+              <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
                 Complete step-by-step guide to migrate WordPress to Next.js in 2025. 
                 Learn best practices, tools, and strategies for successful migration with code examples and expert tips.
               </p>
             </div>
 
             {/* Migration Steps */}
-            <div className="glass rounded-2xl p-8 mb-16">
-              <h2 className="text-3xl font-bold text-white mb-8 text-center">Migration Steps Overview</h2>
+            <div className="bg-gray-50 rounded-2xl p-8 mb-16 border border-gray-200">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Migration Steps Overview</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="bg-white/5 rounded-xl p-6 text-center">
+                <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <span className="text-white text-2xl font-bold">1</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Planning & Analysis</h3>
-                  <p className="text-gray-300 text-sm">Audit your WordPress site, inventory content, and plan the migration strategy.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Planning & Analysis</h3>
+                  <p className="text-gray-600 text-sm">Audit your WordPress site, inventory content, and plan the migration strategy.</p>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6 text-center">
+                <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <span className="text-white text-2xl font-bold">2</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Content Migration</h3>
-                  <p className="text-gray-300 text-sm">Export and migrate all content, media files, and data to Next.js format.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Content Migration</h3>
+                  <p className="text-gray-600 text-sm">Export and migrate all content, media files, and data to Next.js format.</p>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6 text-center">
+                <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <span className="text-white text-2xl font-bold">3</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Development & Design</h3>
-                  <p className="text-gray-300 text-sm">Recreate design and functionality using Next.js components and modern practices.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Development & Design</h3>
+                  <p className="text-gray-600 text-sm">Recreate design and functionality using Next.js components and modern practices.</p>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6 text-center">
+                <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <span className="text-white text-2xl font-bold">4</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Testing & Launch</h3>
-                  <p className="text-gray-300 text-sm">Test thoroughly, optimize performance, and deploy with zero downtime.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Testing & Launch</h3>
+                  <p className="text-gray-600 text-sm">Test thoroughly, optimize performance, and deploy with zero downtime.</p>
                 </div>
               </div>
             </div>
@@ -138,17 +138,17 @@ export default function HowToMigrateWordPressToNextJS() {
             {/* Detailed Steps */}
             <div className="space-y-12 mb-16">
               {/* Step 1 */}
-              <div className="glass rounded-2xl p-8">
+              <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200">
                 <div className="flex items-center mb-6">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mr-4">
                     <span className="text-white text-xl font-bold">1</span>
                   </div>
-                  <h2 className="text-3xl font-bold text-white">Planning & Analysis</h2>
+                  <h2 className="text-3xl font-bold text-gray-900">Planning & Analysis</h2>
                 </div>
                 <div className="grid lg:grid-cols-2 gap-8">
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-4">Site Audit</h3>
-                    <ul className="space-y-3 text-gray-300">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Site Audit</h3>
+                    <ul className="space-y-3 text-gray-600">
                       <li className="flex items-start space-x-3">
                         <span className="text-blue-400 mt-1">•</span>
                         <span>Inventory all pages, posts, and custom post types</span>
@@ -172,8 +172,8 @@ export default function HowToMigrateWordPressToNextJS() {
                     </ul>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-4">Migration Strategy</h3>
-                    <ul className="space-y-3 text-gray-300">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Migration Strategy</h3>
+                    <ul className="space-y-3 text-gray-600">
                       <li className="flex items-start space-x-3">
                         <span className="text-blue-400 mt-1">•</span>
                         <span>Choose Next.js rendering strategy (SSG/SSR/ISR)</span>
@@ -200,19 +200,19 @@ export default function HowToMigrateWordPressToNextJS() {
               </div>
 
               {/* Step 2 */}
-              <div className="glass rounded-2xl p-8">
+              <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200">
                 <div className="flex items-center mb-6">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mr-4">
                     <span className="text-white text-xl font-bold">2</span>
                   </div>
-                  <h2 className="text-3xl font-bold text-white">Content Migration</h2>
+                  <h2 className="text-3xl font-bold text-gray-900">Content Migration</h2>
                 </div>
                 <div className="grid lg:grid-cols-2 gap-8">
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-4">Content Export</h3>
-                    <div className="bg-white/5 rounded-xl p-6 mb-6">
-                      <h4 className="text-lg font-semibold text-white mb-3">WordPress REST API</h4>
-                      <pre className="text-gray-300 text-sm overflow-x-auto">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Content Export</h3>
+                    <div className="bg-white rounded-xl p-6 mb-6 shadow-lg border border-gray-200">
+                      <h4 className="text-lg font-semibold text-gray-900 mb-3">WordPress REST API</h4>
+                      <pre className="text-gray-600 text-sm overflow-x-auto">
 {`// Export posts via REST API
 const response = await fetch(
   'https://yoursite.com/wp-json/wp/v2/posts'
@@ -225,7 +225,7 @@ const pages = await fetch(
 );`}
                       </pre>
                     </div>
-                    <ul className="space-y-3 text-gray-300">
+                    <ul className="space-y-3 text-gray-600">
                       <li className="flex items-start space-x-3">
                         <span className="text-blue-400 mt-1">•</span>
                         <span>Export all posts, pages, and custom post types</span>
@@ -241,10 +241,10 @@ const pages = await fetch(
                     </ul>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-4">Content Processing</h3>
-                    <div className="bg-white/5 rounded-xl p-6 mb-6">
-                      <h4 className="text-lg font-semibold text-white mb-3">Content Transformation</h4>
-                      <pre className="text-gray-300 text-sm overflow-x-auto">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Content Processing</h3>
+                    <div className="bg-white rounded-xl p-6 mb-6 shadow-lg border border-gray-200">
+                      <h4 className="text-lg font-semibold text-gray-900 mb-3">Content Transformation</h4>
+                      <pre className="text-gray-600 text-sm overflow-x-auto">
 {`// Transform WordPress content to Next.js
 function transformPost(wpPost) {
   return {
@@ -259,7 +259,7 @@ function transformPost(wpPost) {
 }`}
                       </pre>
                     </div>
-                    <ul className="space-y-3 text-gray-300">
+                    <ul className="space-y-3 text-gray-600">
                       <li className="flex items-start space-x-3">
                         <span className="text-blue-400 mt-1">•</span>
                         <span>Clean and format content for Next.js</span>
@@ -278,19 +278,19 @@ function transformPost(wpPost) {
               </div>
 
               {/* Step 3 */}
-              <div className="glass rounded-2xl p-8">
+              <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200">
                 <div className="flex items-center mb-6">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mr-4">
                     <span className="text-white text-xl font-bold">3</span>
                   </div>
-                  <h2 className="text-3xl font-bold text-white">Development & Design</h2>
+                  <h2 className="text-3xl font-bold text-gray-900">Development & Design</h2>
                 </div>
                 <div className="grid lg:grid-cols-2 gap-8">
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-4">Next.js Setup</h3>
-                    <div className="bg-white/5 rounded-xl p-6 mb-6">
-                      <h4 className="text-lg font-semibold text-white mb-3">Project Initialization</h4>
-                      <pre className="text-gray-300 text-sm overflow-x-auto">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Next.js Setup</h3>
+                    <div className="bg-white rounded-xl p-6 mb-6 shadow-lg border border-gray-200">
+                      <h4 className="text-lg font-semibold text-gray-900 mb-3">Project Initialization</h4>
+                      <pre className="text-gray-600 text-sm overflow-x-auto">
 {`# Create Next.js project
 npx create-next-app@latest my-site
 cd my-site
@@ -300,7 +300,7 @@ npm install @next/mdx gray-matter
 npm install -D @types/node`}
                       </pre>
                     </div>
-                    <ul className="space-y-3 text-gray-300">
+                    <ul className="space-y-3 text-gray-600">
                       <li className="flex items-start space-x-3">
                         <span className="text-blue-400 mt-1">•</span>
                         <span>Set up Next.js project with TypeScript</span>
@@ -316,10 +316,10 @@ npm install -D @types/node`}
                     </ul>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-4">Component Development</h3>
-                    <div className="bg-white/5 rounded-xl p-6 mb-6">
-                      <h4 className="text-lg font-semibold text-white mb-3">Post Component</h4>
-                      <pre className="text-gray-300 text-sm overflow-x-auto">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Component Development</h3>
+                    <div className="bg-white rounded-xl p-6 mb-6 shadow-lg border border-gray-200">
+                      <h4 className="text-lg font-semibold text-gray-900 mb-3">Post Component</h4>
+                      <pre className="text-gray-600 text-sm overflow-x-auto">
 {`// components/Post.tsx
 interface Post {
   title: string;
@@ -339,7 +339,7 @@ export default function Post({ post }: { post: Post }) {
 }`}
                       </pre>
                     </div>
-                    <ul className="space-y-3 text-gray-300">
+                    <ul className="space-y-3 text-gray-600">
                       <li className="flex items-start space-x-3">
                         <span className="text-blue-400 mt-1">•</span>
                         <span>Create reusable React components</span>
@@ -368,7 +368,7 @@ export default function Post({ post }: { post: Post }) {
                 <div className="grid lg:grid-cols-2 gap-8">
                   <div>
                     <h3 className="text-xl font-semibold text-white mb-4">Quality Assurance</h3>
-                    <ul className="space-y-3 text-gray-300">
+                    <ul className="space-y-3 text-gray-600">
                       <li className="flex items-start space-x-3">
                         <span className="text-blue-400 mt-1">•</span>
                         <span>Test all functionality and user interactions</span>
@@ -405,7 +405,7 @@ vercel --prod
 # Automatic deployments on push`}
                       </pre>
                     </div>
-                    <ul className="space-y-3 text-gray-300">
+                    <ul className="space-y-3 text-gray-600">
                       <li className="flex items-start space-x-3">
                         <span className="text-blue-400 mt-1">•</span>
                         <span>Deploy to staging environment first</span>

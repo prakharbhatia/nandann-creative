@@ -83,93 +83,93 @@ export default function NextJSVsWordPressPerformanceBenchmark() {
 
       <Navigation />
       
-      <main className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
+      <main className="min-h-screen bg-white">
         {/* Hero Section */}
         <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-8">
+              <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-8">
                 Next.js vs WordPress <span className="text-gradient">Performance Benchmark</span> 2025
               </h1>
-              <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+              <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
                 Comprehensive performance comparison between Next.js and WordPress. 
                 Real-world speed tests, Core Web Vitals analysis, and performance metrics that matter.
               </p>
             </div>
 
             {/* Performance Overview */}
-            <div className="glass rounded-2xl p-8 mb-16">
-              <h2 className="text-3xl font-bold text-white mb-8 text-center">Performance Overview</h2>
+            <div className="bg-gray-50 rounded-2xl p-8 mb-16 border border-gray-200">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Performance Overview</h2>
               <div className="grid md:grid-cols-2 gap-8">
-                <div className="bg-white/5 rounded-xl p-6">
-                  <h3 className="text-2xl font-bold text-white mb-6 text-center">Next.js</h3>
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Next.js</h3>
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-300">Page Load Time</span>
+                      <span className="text-gray-600">Page Load Time</span>
                       <span className="text-green-400 font-bold">1.2s</span>
                     </div>
-                    <div className="w-full bg-gray-700 rounded-full h-3">
+                    <div className="w-full bg-gray-200 rounded-full h-3">
                       <div className="bg-gradient-to-r from-green-500 to-green-400 h-3 rounded-full" style={{width: '85%'}}></div>
                     </div>
                     
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-300">LCP (Largest Contentful Paint)</span>
+                      <span className="text-gray-600">LCP (Largest Contentful Paint)</span>
                       <span className="text-green-400 font-bold">1.8s</span>
                     </div>
-                    <div className="w-full bg-gray-700 rounded-full h-3">
+                    <div className="w-full bg-gray-200 rounded-full h-3">
                       <div className="bg-gradient-to-r from-green-500 to-green-400 h-3 rounded-full" style={{width: '90%'}}></div>
                     </div>
                     
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-300">FID (First Input Delay)</span>
+                      <span className="text-gray-600">FID (First Input Delay)</span>
                       <span className="text-green-400 font-bold">45ms</span>
                     </div>
-                    <div className="w-full bg-gray-700 rounded-full h-3">
+                    <div className="w-full bg-gray-200 rounded-full h-3">
                       <div className="bg-gradient-to-r from-green-500 to-green-400 h-3 rounded-full" style={{width: '95%'}}></div>
                     </div>
                     
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-300">CLS (Cumulative Layout Shift)</span>
+                      <span className="text-gray-600">CLS (Cumulative Layout Shift)</span>
                       <span className="text-green-400 font-bold">0.02</span>
                     </div>
-                    <div className="w-full bg-gray-700 rounded-full h-3">
+                    <div className="w-full bg-gray-200 rounded-full h-3">
                       <div className="bg-gradient-to-r from-green-500 to-green-400 h-3 rounded-full" style={{width: '98%'}}></div>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6">
-                  <h3 className="text-2xl font-bold text-white mb-6 text-center">WordPress</h3>
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">WordPress</h3>
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-300">Page Load Time</span>
+                      <span className="text-gray-600">Page Load Time</span>
                       <span className="text-red-400 font-bold">3.8s</span>
                     </div>
-                    <div className="w-full bg-gray-700 rounded-full h-3">
+                    <div className="w-full bg-gray-200 rounded-full h-3">
                       <div className="bg-gradient-to-r from-red-500 to-red-400 h-3 rounded-full" style={{width: '35%'}}></div>
                     </div>
                     
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-300">LCP (Largest Contentful Paint)</span>
+                      <span className="text-gray-600">LCP (Largest Contentful Paint)</span>
                       <span className="text-red-400 font-bold">4.2s</span>
                     </div>
-                    <div className="w-full bg-gray-700 rounded-full h-3">
+                    <div className="w-full bg-gray-200 rounded-full h-3">
                       <div className="bg-gradient-to-r from-red-500 to-red-400 h-3 rounded-full" style={{width: '30%'}}></div>
                     </div>
                     
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-300">FID (First Input Delay)</span>
+                      <span className="text-gray-600">FID (First Input Delay)</span>
                       <span className="text-red-400 font-bold">280ms</span>
                     </div>
-                    <div className="w-full bg-gray-700 rounded-full h-3">
+                    <div className="w-full bg-gray-200 rounded-full h-3">
                       <div className="bg-gradient-to-r from-red-500 to-red-400 h-3 rounded-full" style={{width: '25%'}}></div>
                     </div>
                     
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-300">CLS (Cumulative Layout Shift)</span>
+                      <span className="text-gray-600">CLS (Cumulative Layout Shift)</span>
                       <span className="text-red-400 font-bold">0.18</span>
                     </div>
-                    <div className="w-full bg-gray-700 rounded-full h-3">
+                    <div className="w-full bg-gray-200 rounded-full h-3">
                       <div className="bg-gradient-to-r from-red-500 to-red-400 h-3 rounded-full" style={{width: '20%'}}></div>
                     </div>
                   </div>
@@ -179,35 +179,35 @@ export default function NextJSVsWordPressPerformanceBenchmark() {
 
             {/* Detailed Benchmarks */}
             <div className="grid lg:grid-cols-2 gap-12 mb-16">
-              <div className="glass rounded-2xl p-8">
-                <h2 className="text-3xl font-bold text-white mb-8">Speed Benchmarks</h2>
+              <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200">
+                <h2 className="text-3xl font-bold text-gray-900 mb-8">Speed Benchmarks</h2>
                 <div className="space-y-6">
-                  <div className="bg-white/5 rounded-xl p-6">
-                    <h3 className="text-lg font-semibold text-white mb-4">Page Load Times</h3>
+                  <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Page Load Times</h3>
                     <div className="space-y-3">
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-300">Homepage</span>
+                        <span className="text-gray-600">Homepage</span>
                         <div className="flex items-center space-x-4">
                           <span className="text-green-400 font-bold">1.2s</span>
                           <span className="text-red-400 font-bold">3.8s</span>
                         </div>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-300">Blog Post</span>
+                        <span className="text-gray-600">Blog Post</span>
                         <div className="flex items-center space-x-4">
                           <span className="text-green-400 font-bold">0.8s</span>
                           <span className="text-red-400 font-bold">2.9s</span>
                         </div>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-300">Product Page</span>
+                        <span className="text-gray-600">Product Page</span>
                         <div className="flex items-center space-x-4">
                           <span className="text-green-400 font-bold">1.5s</span>
                           <span className="text-red-400 font-bold">4.2s</span>
                         </div>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-300">Search Results</span>
+                        <span className="text-gray-600">Search Results</span>
                         <div className="flex items-center space-x-4">
                           <span className="text-green-400 font-bold">0.6s</span>
                           <span className="text-red-400 font-bold">2.1s</span>
@@ -216,25 +216,25 @@ export default function NextJSVsWordPressPerformanceBenchmark() {
                     </div>
                   </div>
 
-                  <div className="bg-white/5 rounded-xl p-6">
-                    <h3 className="text-lg font-semibold text-white mb-4">Image Loading</h3>
+                  <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Image Loading</h3>
                     <div className="space-y-3">
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-300">Hero Image</span>
+                        <span className="text-gray-600">Hero Image</span>
                         <div className="flex items-center space-x-4">
                           <span className="text-green-400 font-bold">0.4s</span>
                           <span className="text-red-400 font-bold">1.8s</span>
                         </div>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-300">Gallery Images</span>
+                        <span className="text-gray-600">Gallery Images</span>
                         <div className="flex items-center space-x-4">
                           <span className="text-green-400 font-bold">0.2s</span>
                           <span className="text-red-400 font-bold">1.2s</span>
                         </div>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-300">Product Images</span>
+                        <span className="text-gray-600">Product Images</span>
                         <div className="flex items-center space-x-4">
                           <span className="text-green-400 font-bold">0.3s</span>
                           <span className="text-red-400 font-bold">1.5s</span>
@@ -245,58 +245,58 @@ export default function NextJSVsWordPressPerformanceBenchmark() {
                 </div>
               </div>
 
-              <div className="glass rounded-2xl p-8">
-                <h2 className="text-3xl font-bold text-white mb-8">Core Web Vitals</h2>
+              <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200">
+                <h2 className="text-3xl font-bold text-gray-900 mb-8">Core Web Vitals</h2>
                 <div className="space-y-6">
-                  <div className="bg-white/5 rounded-xl p-6">
-                    <h3 className="text-lg font-semibold text-white mb-4">LCP (Largest Contentful Paint)</h3>
+                  <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">LCP (Largest Contentful Paint)</h3>
                     <div className="space-y-3">
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-300">Next.js Average</span>
+                        <span className="text-gray-600">Next.js Average</span>
                         <span className="text-green-400 font-bold">1.8s</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-300">WordPress Average</span>
+                        <span className="text-gray-600">WordPress Average</span>
                         <span className="text-red-400 font-bold">4.2s</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-300">Improvement</span>
+                        <span className="text-gray-600">Improvement</span>
                         <span className="text-blue-400 font-bold">+57%</span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="bg-white/5 rounded-xl p-6">
-                    <h3 className="text-lg font-semibold text-white mb-4">FID (First Input Delay)</h3>
+                  <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">FID (First Input Delay)</h3>
                     <div className="space-y-3">
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-300">Next.js Average</span>
+                        <span className="text-gray-600">Next.js Average</span>
                         <span className="text-green-400 font-bold">45ms</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-300">WordPress Average</span>
+                        <span className="text-gray-600">WordPress Average</span>
                         <span className="text-red-400 font-bold">280ms</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-300">Improvement</span>
+                        <span className="text-gray-600">Improvement</span>
                         <span className="text-blue-400 font-bold">+84%</span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="bg-white/5 rounded-xl p-6">
-                    <h3 className="text-lg font-semibold text-white mb-4">CLS (Cumulative Layout Shift)</h3>
+                  <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">CLS (Cumulative Layout Shift)</h3>
                     <div className="space-y-3">
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-300">Next.js Average</span>
+                        <span className="text-gray-600">Next.js Average</span>
                         <span className="text-green-400 font-bold">0.02</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-300">WordPress Average</span>
+                        <span className="text-gray-600">WordPress Average</span>
                         <span className="text-red-400 font-bold">0.18</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-300">Improvement</span>
+                        <span className="text-gray-600">Improvement</span>
                         <span className="text-blue-400 font-bold">+89%</span>
                       </div>
                     </div>
@@ -306,124 +306,124 @@ export default function NextJSVsWordPressPerformanceBenchmark() {
             </div>
 
             {/* Performance Factors */}
-            <div className="glass rounded-2xl p-8 mb-16">
-              <h2 className="text-3xl font-bold text-white mb-8 text-center">Performance Factors</h2>
+            <div className="bg-gray-50 rounded-2xl p-8 mb-16 border border-gray-200">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Performance Factors</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="bg-white/5 rounded-xl p-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">⚡</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Server-Side Rendering</h3>
-                  <p className="text-gray-300 text-sm">Next.js provides SSR out of the box, while WordPress requires plugins and optimization for similar performance.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Server-Side Rendering</h3>
+                  <p className="text-gray-600 text-sm">Next.js provides SSR out of the box, while WordPress requires plugins and optimization for similar performance.</p>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">🖼️</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Image Optimization</h3>
-                  <p className="text-gray-300 text-sm">Next.js Image component provides automatic optimization, lazy loading, and modern format conversion.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Image Optimization</h3>
+                  <p className="text-gray-600 text-sm">Next.js Image component provides automatic optimization, lazy loading, and modern format conversion.</p>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">📦</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Code Splitting</h3>
-                  <p className="text-gray-300 text-sm">Automatic code splitting reduces initial bundle size and improves loading performance.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Code Splitting</h3>
+                  <p className="text-gray-600 text-sm">Automatic code splitting reduces initial bundle size and improves loading performance.</p>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">🗄️</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Database Queries</h3>
-                  <p className="text-gray-300 text-sm">Static generation eliminates database queries for most pages, resulting in faster load times.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Database Queries</h3>
+                  <p className="text-gray-600 text-sm">Static generation eliminates database queries for most pages, resulting in faster load times.</p>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">🌐</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">CDN Integration</h3>
-                  <p className="text-gray-300 text-sm">Built-in CDN support and edge caching provide global performance optimization.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">CDN Integration</h3>
+                  <p className="text-gray-600 text-sm">Built-in CDN support and edge caching provide global performance optimization.</p>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:bg-gray-100 transition-all duration-300">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
                     <span className="text-white text-xl">🔧</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Built-in Optimization</h3>
-                  <p className="text-gray-300 text-sm">Next.js includes performance optimizations by default, reducing the need for additional plugins.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Built-in Optimization</h3>
+                  <p className="text-gray-600 text-sm">Next.js includes performance optimizations by default, reducing the need for additional plugins.</p>
                 </div>
               </div>
             </div>
 
             {/* Real-World Case Study */}
-            <div className="glass rounded-2xl p-8 mb-16">
-              <h2 className="text-3xl font-bold text-white mb-8 text-center">Real-World Performance Case Study</h2>
+            <div className="bg-gray-50 rounded-2xl p-8 mb-16 border border-gray-200">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Real-World Performance Case Study</h2>
               <div className="grid lg:grid-cols-2 gap-8">
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-6">E-commerce Site Migration</h3>
-                  <p className="text-gray-300 mb-6">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-6">E-commerce Site Migration</h3>
+                  <p className="text-gray-600 mb-6">
                     A leading e-commerce site with 10,000+ products migrated from WordPress to Next.js, 
                     resulting in significant performance improvements across all metrics.
                   </p>
                   <div className="space-y-4">
                     <div className="flex items-center space-x-3">
                       <span className="text-green-400 text-xl">✓</span>
-                      <span className="text-gray-300">68% faster page load times</span>
+                      <span className="text-gray-600">68% faster page load times</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <span className="text-green-400 text-xl">✓</span>
-                      <span className="text-gray-300">45% improvement in Core Web Vitals</span>
+                      <span className="text-gray-600">45% improvement in Core Web Vitals</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <span className="text-green-400 text-xl">✓</span>
-                      <span className="text-gray-300">32% increase in conversion rates</span>
+                      <span className="text-gray-600">32% increase in conversion rates</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <span className="text-green-400 text-xl">✓</span>
-                      <span className="text-gray-300">25% boost in organic traffic</span>
+                      <span className="text-gray-600">25% boost in organic traffic</span>
                     </div>
                   </div>
                 </div>
-                <div className="bg-white/5 rounded-xl p-6">
-                  <h4 className="text-lg font-semibold text-white mb-4">Performance Metrics</h4>
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+                  <h4 className="text-lg font-semibold text-gray-900 mb-4">Performance Metrics</h4>
                   <div className="space-y-4">
                     <div>
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-gray-300">Page Load Speed</span>
+                        <span className="text-gray-600">Page Load Speed</span>
                         <span className="text-blue-400">+68%</span>
                       </div>
-                      <div className="w-full bg-gray-700 rounded-full h-3">
+                      <div className="w-full bg-gray-200 rounded-full h-3">
                         <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-3 rounded-full" style={{width: '85%'}}></div>
                       </div>
                     </div>
                     <div>
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-gray-300">Core Web Vitals</span>
+                        <span className="text-gray-600">Core Web Vitals</span>
                         <span className="text-blue-400">+45%</span>
                       </div>
-                      <div className="w-full bg-gray-700 rounded-full h-3">
+                      <div className="w-full bg-gray-200 rounded-full h-3">
                         <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-3 rounded-full" style={{width: '75%'}}></div>
                       </div>
                     </div>
                     <div>
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-gray-300">Conversion Rate</span>
+                        <span className="text-gray-600">Conversion Rate</span>
                         <span className="text-blue-400">+32%</span>
                       </div>
-                      <div className="w-full bg-gray-700 rounded-full h-3">
+                      <div className="w-full bg-gray-200 rounded-full h-3">
                         <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-3 rounded-full" style={{width: '70%'}}></div>
                       </div>
                     </div>
                     <div>
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-gray-300">Organic Traffic</span>
+                        <span className="text-gray-600">Organic Traffic</span>
                         <span className="text-blue-400">+25%</span>
                       </div>
-                      <div className="w-full bg-gray-700 rounded-full h-3">
+                      <div className="w-full bg-gray-200 rounded-full h-3">
                         <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-3 rounded-full" style={{width: '65%'}}></div>
                       </div>
                     </div>
@@ -434,24 +434,24 @@ export default function NextJSVsWordPressPerformanceBenchmark() {
 
             {/* CTA Section */}
             <div className="text-center">
-              <div className="glass rounded-2xl p-12">
-                <h2 className="text-4xl font-bold text-white mb-6">
+              <div className="bg-gray-50 rounded-2xl p-12 border border-gray-200">
+                <h2 className="text-4xl font-bold text-gray-900 mb-6">
                   Ready to Improve Your Site's Performance?
                 </h2>
-                <p className="text-xl text-gray-300 mb-8">
+                <p className="text-xl text-gray-600 mb-8">
                   Migrate from WordPress to Next.js and see dramatic performance improvements. 
                   Get expert migration services with guaranteed performance gains.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link
                     href="/contact"
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-full text-white font-semibold text-lg hover-lift hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300"
+                    className="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg text-white font-semibold text-lg transition-all duration-300 transform hover:scale-105"
                   >
                     Start Performance Migration
                   </Link>
                   <Link
                     href="/nextjs/wordpress-to-nextjs-migration-service"
-                    className="border border-white/20 hover:border-white/40 px-8 py-4 rounded-full text-white font-semibold text-lg hover:bg-white/10 transition-all duration-300"
+                    className="border border-gray-300 hover:border-blue-600 hover:text-blue-600 px-8 py-4 rounded-lg text-gray-700 font-semibold text-lg transition-all duration-300"
                   >
                     View Migration Services
                   </Link>
