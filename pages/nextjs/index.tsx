@@ -46,15 +46,15 @@ export default function NextJSIndex() {
 
       <Navigation />
       
-      <main className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
+      <main className="min-h-screen bg-white">
         {/* Hero Section */}
         <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-8">
+              <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-8">
                 Next.js <span className="text-gradient">Development</span> 2025
               </h1>
-              <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+              <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
                 Expert Next.js development services, WordPress migration guides, and performance optimization. 
                 Transform your web presence with modern React framework solutions.
               </p>
@@ -62,67 +62,67 @@ export default function NextJSIndex() {
 
             {/* Services Grid */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-              <div className="glass rounded-2xl p-8 hover:bg-white/10 transition-all duration-300">
+              <div className="bg-gray-50 rounded-2xl p-8 hover:bg-gray-100 transition-all duration-300 border border-gray-200">
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-6">
                   <span className="text-white text-2xl">💰</span>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4">Migration Cost Analysis</h3>
-                <p className="text-gray-300 mb-6">Comprehensive cost breakdown for WordPress to Next.js migration with ROI analysis and budget planning.</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Migration Cost Analysis</h3>
+                <p className="text-gray-600 mb-6">Comprehensive cost breakdown for WordPress to Next.js migration with ROI analysis and budget planning.</p>
                 <Link href="/nextjs/wordpress-to-nextjs-migration-cost" className="text-blue-400 hover:text-blue-300 transition-colors">
                   Learn More →
                 </Link>
               </div>
 
-              <div className="glass rounded-2xl p-8 hover:bg-white/10 transition-all duration-300">
+              <div className="bg-gray-50 rounded-2xl p-8 hover:bg-gray-100 transition-all duration-300 border border-gray-200">
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-6">
                   <span className="text-white text-2xl">🚀</span>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4">Migration Services</h3>
-                <p className="text-gray-300 mb-6">Professional WordPress to Next.js migration services with zero downtime and SEO preservation.</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Migration Services</h3>
+                <p className="text-gray-600 mb-6">Professional WordPress to Next.js migration services with zero downtime and SEO preservation.</p>
                 <Link href="/nextjs/wordpress-to-nextjs-migration-service" className="text-blue-400 hover:text-blue-300 transition-colors">
                   Get Started →
                 </Link>
               </div>
 
-              <div className="glass rounded-2xl p-8 hover:bg-white/10 transition-all duration-300">
+              <div className="bg-gray-50 rounded-2xl p-8 hover:bg-gray-100 transition-all duration-300 border border-gray-200">
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-6">
                   <span className="text-white text-2xl">🔍</span>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4">SEO Migration</h3>
-                <p className="text-gray-300 mb-6">Preserve and enhance your SEO rankings during WordPress to Next.js migration with proven strategies.</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">SEO Migration</h3>
+                <p className="text-gray-600 mb-6">Preserve and enhance your SEO rankings during WordPress to Next.js migration with proven strategies.</p>
                 <Link href="/nextjs/wordpress-to-nextjs-seo-migration" className="text-blue-400 hover:text-blue-300 transition-colors">
                   Explore →
                 </Link>
               </div>
 
-              <div className="glass rounded-2xl p-8 hover:bg-white/10 transition-all duration-300">
+              <div className="bg-gray-50 rounded-2xl p-8 hover:bg-gray-100 transition-all duration-300 border border-gray-200">
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-6">
                   <span className="text-white text-2xl">📚</span>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4">Migration Guide</h3>
-                <p className="text-gray-300 mb-6">Step-by-step tutorial for migrating WordPress to Next.js with code examples and best practices.</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Migration Guide</h3>
+                <p className="text-gray-600 mb-6">Step-by-step tutorial for migrating WordPress to Next.js with code examples and best practices.</p>
                 <Link href="/nextjs/how-to-migrate-wordpress-to-nextjs" className="text-blue-400 hover:text-blue-300 transition-colors">
                   Read Guide →
                 </Link>
               </div>
 
-              <div className="glass rounded-2xl p-8 hover:bg-white/10 transition-all duration-300">
+              <div className="bg-gray-50 rounded-2xl p-8 hover:bg-gray-100 transition-all duration-300 border border-gray-200">
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-6">
                   <span className="text-white text-2xl">⚡</span>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4">Performance Benchmark</h3>
-                <p className="text-gray-300 mb-6">Comprehensive performance comparison between Next.js and WordPress with real-world metrics.</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Performance Benchmark</h3>
+                <p className="text-gray-600 mb-6">Comprehensive performance comparison between Next.js and WordPress with real-world metrics.</p>
                 <Link href="/nextjs/nextjs-vs-wordpress-performance-benchmark" className="text-blue-400 hover:text-blue-300 transition-colors">
                   View Results →
                 </Link>
               </div>
 
-              <div className="glass rounded-2xl p-8 hover:bg-white/10 transition-all duration-300">
+              <div className="bg-gray-50 rounded-2xl p-8 hover:bg-gray-100 transition-all duration-300 border border-gray-200">
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-6">
                   <span className="text-white text-2xl">🖼️</span>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4">Image Optimization</h3>
-                <p className="text-gray-300 mb-6">Advanced Next.js image optimization techniques for maximum performance and Core Web Vitals.</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Image Optimization</h3>
+                <p className="text-gray-600 mb-6">Advanced Next.js image optimization techniques for maximum performance and Core Web Vitals.</p>
                 <Link href="/nextjs/nextjs-image-optimization-techniques" className="text-blue-400 hover:text-blue-300 transition-colors">
                   Learn Techniques →
                 </Link>
@@ -130,37 +130,37 @@ export default function NextJSIndex() {
             </div>
 
             {/* Related Blog Posts */}
-            <div className="glass rounded-2xl p-8">
-              <h2 className="text-3xl font-bold text-white mb-8 text-center">Related Next.js Articles</h2>
+            <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Related Next.js Articles</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <Link href="/blog/nextjs-hosting-options-comparison" className="group">
-                  <div className="bg-white/5 rounded-xl p-6 hover:bg-white/10 transition-all duration-300">
-                    <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-blue-400 transition-colors">
+                  <div className="bg-white rounded-xl p-6 hover:bg-gray-50 transition-all duration-300 border border-gray-200">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
                       Next.js Hosting Options Compared 2025
                     </h3>
-                    <p className="text-gray-300 text-sm">
+                    <p className="text-gray-600 text-sm">
                       Vercel, Netlify, Cloudflare, AWS, GCP, Azure comparison for Next.js hosting.
                     </p>
                   </div>
                 </Link>
 
                 <Link href="/blog/react-vs-nextjs-which-to-choose" className="group">
-                  <div className="bg-white/5 rounded-xl p-6 hover:bg-white/10 transition-all duration-300">
-                    <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-blue-400 transition-colors">
+                  <div className="bg-white rounded-xl p-6 hover:bg-gray-50 transition-all duration-300 border border-gray-200">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
                       React vs Next.js: Which to Choose 2025
                     </h3>
-                    <p className="text-gray-300 text-sm">
+                    <p className="text-gray-600 text-sm">
                       Understand when to use vanilla React and when Next.js unlocks speed and SEO wins.
                     </p>
                   </div>
                 </Link>
 
                 <Link href="/blog/core-web-vitals-optimization-guide" className="group">
-                  <div className="bg-white/5 rounded-xl p-6 hover:bg-white/10 transition-all duration-300">
-                    <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-blue-400 transition-colors">
+                  <div className="bg-white rounded-xl p-6 hover:bg-gray-50 transition-all duration-300 border border-gray-200">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
                       Core Web Vitals Optimization Guide
                     </h3>
-                    <p className="text-gray-300 text-sm">
+                    <p className="text-gray-600 text-sm">
                       Actionable steps to hit green Core Web Vitals on modern Next.js stacks.
                     </p>
                   </div>
@@ -173,11 +173,11 @@ export default function NextJSIndex() {
         {/* CTA Section */}
         <section className="py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="glass rounded-2xl p-12">
-              <h2 className="text-4xl font-bold text-white mb-6">
+            <div className="bg-gray-50 rounded-2xl p-12 border border-gray-200">
+              <h2 className="text-4xl font-bold text-gray-900 mb-6">
                 Ready to Migrate to Next.js?
               </h2>
-              <p className="text-xl text-gray-300 mb-8">
+              <p className="text-xl text-gray-600 mb-8">
                 Get expert consultation and professional migration services for your WordPress site.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -189,7 +189,7 @@ export default function NextJSIndex() {
                 </Link>
                 <Link
                   href="/nextjs/wordpress-to-nextjs-migration-cost"
-                  className="border border-white/20 hover:border-white/40 px-8 py-4 rounded-full text-white font-semibold text-lg hover:bg-white/10 transition-all duration-300"
+                  className="border border-gray-300 hover:border-gray-400 px-8 py-4 rounded-full text-gray-900 font-semibold text-lg hover:bg-gray-100 transition-all duration-300"
                 >
                   View Cost Analysis
                 </Link>

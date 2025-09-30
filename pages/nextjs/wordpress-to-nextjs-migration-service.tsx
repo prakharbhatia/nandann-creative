@@ -81,70 +81,70 @@ export default function WordPressToNextJSMigrationService() {
 
       <Navigation />
       
-      <main className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
+      <main className="min-h-screen bg-white">
         {/* Hero Section */}
         <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-8">
+              <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-8">
                 WordPress to Next.js <span className="text-gradient">Migration Service</span> 2025
               </h1>
-              <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+              <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
                 Professional WordPress to Next.js migration with zero downtime, SEO preservation, 
                 and performance optimization. Expert migration team with 16+ years experience.
               </p>
             </div>
 
             {/* Service Overview */}
-            <div className="glass rounded-2xl p-8 mb-16">
-              <h2 className="text-3xl font-bold text-white mb-8 text-center">Our Migration Process</h2>
+            <div className="bg-gray-50 rounded-2xl p-8 mb-16 border border-gray-200">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Our Migration Process</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="bg-white/5 rounded-xl p-6 text-center">
+                <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <span className="text-white text-2xl font-bold">1</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Analysis & Planning</h3>
-                  <p className="text-gray-300 text-sm">Comprehensive site audit, content inventory, and migration strategy development.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Analysis & Planning</h3>
+                  <p className="text-gray-600 text-sm">Comprehensive site audit, content inventory, and migration strategy development.</p>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6 text-center">
+                <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <span className="text-white text-2xl font-bold">2</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Development & Migration</h3>
-                  <p className="text-gray-300 text-sm">Content migration, design recreation, and functionality implementation in staging environment.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Development & Migration</h3>
+                  <p className="text-gray-600 text-sm">Content migration, design recreation, and functionality implementation in staging environment.</p>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6 text-center">
+                <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <span className="text-white text-2xl font-bold">3</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Testing & Optimization</h3>
-                  <p className="text-gray-300 text-sm">Comprehensive testing, performance optimization, and SEO implementation.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Testing & Optimization</h3>
+                  <p className="text-gray-600 text-sm">Comprehensive testing, performance optimization, and SEO implementation.</p>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-6 text-center">
+                <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <span className="text-white text-2xl font-bold">4</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Launch & Support</h3>
-                  <p className="text-gray-300 text-sm">Seamless deployment, DNS switch, and 30 days of post-launch support.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Launch & Support</h3>
+                  <p className="text-gray-600 text-sm">Seamless deployment, DNS switch, and 30 days of post-launch support.</p>
                 </div>
               </div>
             </div>
 
             {/* Service Features */}
             <div className="grid lg:grid-cols-2 gap-12 mb-16">
-              <div className="glass rounded-2xl p-8">
-                <h2 className="text-3xl font-bold text-white mb-8">What We Deliver</h2>
+              <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200">
+                <h2 className="text-3xl font-bold text-gray-900 mb-8">What We Deliver</h2>
                 <div className="space-y-6">
                   <div className="flex items-start space-x-4">
                     <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
                       <span className="text-white text-sm">✓</span>
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Zero Downtime Migration</h3>
-                      <p className="text-gray-300">Seamless transition with no impact on your live site or business operations.</p>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Zero Downtime Migration</h3>
+                      <p className="text-gray-600">Seamless transition with no impact on your live site or business operations.</p>
                     </div>
                   </div>
 
@@ -153,8 +153,8 @@ export default function WordPressToNextJSMigrationService() {
                       <span className="text-white text-sm">✓</span>
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">SEO Preservation</h3>
-                      <p className="text-gray-300">Complete SEO preservation with improvements including structured data and meta optimization.</p>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">SEO Preservation</h3>
+                      <p className="text-gray-600">Complete SEO preservation with improvements including structured data and meta optimization.</p>
                     </div>
                   </div>
 
@@ -163,8 +163,8 @@ export default function WordPressToNextJSMigrationService() {
                       <span className="text-white text-sm">✓</span>
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Performance Enhancement</h3>
-                      <p className="text-gray-300">40-60% faster load times and improved Core Web Vitals through Next.js optimization.</p>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Performance Enhancement</h3>
+                      <p className="text-gray-600">40-60% faster load times and improved Core Web Vitals through Next.js optimization.</p>
                     </div>
                   </div>
 
@@ -173,8 +173,8 @@ export default function WordPressToNextJSMigrationService() {
                       <span className="text-white text-sm">✓</span>
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Functionality Preservation</h3>
-                      <p className="text-gray-300">All existing features, forms, and integrations are preserved and enhanced.</p>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Functionality Preservation</h3>
+                      <p className="text-gray-600">All existing features, forms, and integrations are preserved and enhanced.</p>
                     </div>
                   </div>
 
@@ -183,47 +183,47 @@ export default function WordPressToNextJSMigrationService() {
                       <span className="text-white text-sm">✓</span>
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Training & Documentation</h3>
-                      <p className="text-gray-300">Comprehensive training for your team and detailed documentation for ongoing maintenance.</p>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Training & Documentation</h3>
+                      <p className="text-gray-600">Comprehensive training for your team and detailed documentation for ongoing maintenance.</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="glass rounded-2xl p-8">
-                <h2 className="text-3xl font-bold text-white mb-8">Why Choose Our Service</h2>
+              <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200">
+                <h2 className="text-3xl font-bold text-gray-900 mb-8">Why Choose Our Service</h2>
                 <div className="space-y-6">
-                  <div className="bg-white/5 rounded-xl p-6">
-                    <h3 className="text-lg font-semibold text-white mb-3">16+ Years Experience</h3>
-                    <p className="text-gray-300 text-sm">Led by Prakhar Bhatia with extensive experience in WordPress and Next.js development, ensuring expert-level migration services.</p>
+                  <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">16+ Years Experience</h3>
+                    <p className="text-gray-600 text-sm">Led by Prakhar Bhatia with extensive experience in WordPress and Next.js development, ensuring expert-level migration services.</p>
                   </div>
 
-                  <div className="bg-white/5 rounded-xl p-6">
-                    <h3 className="text-lg font-semibold text-white mb-3">Proven Track Record</h3>
-                    <p className="text-gray-300 text-sm">Successfully migrated 100+ WordPress sites to Next.js with zero downtime and improved performance metrics.</p>
+                  <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Proven Track Record</h3>
+                    <p className="text-gray-600 text-sm">Successfully migrated 100+ WordPress sites to Next.js with zero downtime and improved performance metrics.</p>
                   </div>
 
-                  <div className="bg-white/5 rounded-xl p-6">
-                    <h3 className="text-lg font-semibold text-white mb-3">Modern Technology Stack</h3>
-                    <p className="text-gray-300 text-sm">Latest Next.js features, React 18, TypeScript, and modern development practices for optimal results.</p>
+                  <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Modern Technology Stack</h3>
+                    <p className="text-gray-600 text-sm">Latest Next.js features, React 18, TypeScript, and modern development practices for optimal results.</p>
                   </div>
 
-                  <div className="bg-white/5 rounded-xl p-6">
-                    <h3 className="text-lg font-semibold text-white mb-3">Comprehensive Support</h3>
-                    <p className="text-gray-300 text-sm">30 days of post-launch support, ongoing maintenance packages, and dedicated project management.</p>
+                  <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Comprehensive Support</h3>
+                    <p className="text-gray-600 text-sm">30 days of post-launch support, ongoing maintenance packages, and dedicated project management.</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Service Packages */}
-            <div className="glass rounded-2xl p-8 mb-16">
-              <h2 className="text-3xl font-bold text-white mb-8 text-center">Migration Service Packages</h2>
+            <div className="bg-gray-50 rounded-2xl p-8 mb-16 border border-gray-200">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Migration Service Packages</h2>
               <div className="grid md:grid-cols-3 gap-8">
-                <div className="bg-white/5 rounded-xl p-8">
-                  <h3 className="text-2xl font-bold text-white mb-4">Standard Migration</h3>
-                  <div className="text-3xl font-bold text-blue-400 mb-6">$5,000 - $12,000</div>
-                  <ul className="space-y-3 text-gray-300 mb-8">
+                <div className="bg-white rounded-xl p-8 shadow-lg border border-gray-200">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Standard Migration</h3>
+                  <div className="text-3xl font-bold text-blue-600 mb-6">$1,700 - $4,000</div>
+                  <ul className="space-y-3 text-gray-600 mb-8">
                     <li className="flex items-center space-x-3">
                       <span className="text-green-400">✓</span>
                       <span>Content migration</span>
@@ -253,15 +253,15 @@ export default function WordPressToNextJSMigrationService() {
                   </Link>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-8 border-2 border-blue-500 relative">
+                <div className="bg-white rounded-xl p-8 border-2 border-blue-500 relative shadow-lg">
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                     <span className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
                       Most Popular
                     </span>
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">Premium Migration</h3>
-                  <div className="text-3xl font-bold text-blue-400 mb-6">$12,000 - $25,000</div>
-                  <ul className="space-y-3 text-gray-300 mb-8">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Premium Migration</h3>
+                  <div className="text-3xl font-bold text-blue-600 mb-6">$4,000 - $8,500</div>
+                  <ul className="space-y-3 text-gray-600 mb-8">
                     <li className="flex items-center space-x-3">
                       <span className="text-green-400">✓</span>
                       <span>Everything in Standard</span>
@@ -295,10 +295,10 @@ export default function WordPressToNextJSMigrationService() {
                   </Link>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-8">
-                  <h3 className="text-2xl font-bold text-white mb-4">Enterprise Migration</h3>
-                  <div className="text-3xl font-bold text-blue-400 mb-6">$25,000+</div>
-                  <ul className="space-y-3 text-gray-300 mb-8">
+                <div className="bg-white rounded-xl p-8 shadow-lg border border-gray-200">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Enterprise Migration</h3>
+                  <div className="text-3xl font-bold text-blue-600 mb-6">$8,500+</div>
+                  <ul className="space-y-3 text-gray-600 mb-8">
                     <li className="flex items-center space-x-3">
                       <span className="text-green-400">✓</span>
                       <span>Everything in Premium</span>
@@ -336,11 +336,11 @@ export default function WordPressToNextJSMigrationService() {
 
             {/* CTA Section */}
             <div className="text-center">
-              <div className="glass rounded-2xl p-12">
-                <h2 className="text-4xl font-bold text-white mb-6">
+              <div className="bg-gray-50 rounded-2xl p-12 border border-gray-200">
+                <h2 className="text-4xl font-bold text-gray-900 mb-6">
                   Ready to Migrate Your WordPress Site?
                 </h2>
-                <p className="text-xl text-gray-300 mb-8">
+                <p className="text-xl text-gray-600 mb-8">
                   Get a free consultation and detailed migration plan for your WordPress to Next.js project.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -352,7 +352,7 @@ export default function WordPressToNextJSMigrationService() {
                   </Link>
                   <Link
                     href="/nextjs/wordpress-to-nextjs-migration-cost"
-                    className="border border-white/20 hover:border-white/40 px-8 py-4 rounded-full text-white font-semibold text-lg hover:bg-white/10 transition-all duration-300"
+                    className="border border-gray-300 hover:border-gray-400 px-8 py-4 rounded-full text-gray-900 font-semibold text-lg hover:bg-gray-100 transition-all duration-300"
                   >
                     View Cost Analysis
                   </Link>
