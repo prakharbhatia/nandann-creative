@@ -14,6 +14,15 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'get-ready-2025-holiday-sales-traffic',
+    title: 'Get Ready for 2025 Holiday Sales Traffic: Site Optimization Guide',
+    excerpt: 'Prepare your website for the busiest shopping season. Learn about page speed optimization, WordPress to Next.js migration, and headless solutions for peak holiday performance.',
+    date: 'Oct 3, 2025',
+    readTime: '15 min read',
+    category: 'Performance & Optimization',
+    coverImage: '/images/holidays-2025-nandann-creative-agency-tablet.webp'
+  },
+  {
     slug: 'apple-iphone-17-ios-26-event-2025',
     title: 'Apple iPhone 17, iOS 26, and Apple Event 2025: What Developers Need to Know',
     excerpt: 'Comprehensive guide to Apple iPhone 17, iOS 26 release date, and Apple Event 2025. Learn about new APIs, SwiftUI enhancements, Core ML updates, and developer opportunities.',
