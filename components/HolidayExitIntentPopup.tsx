@@ -130,7 +130,7 @@ export default function HolidayExitIntentPopup({
 
   const handleLearnMore = () => {
     trackButton('Exit Intent Learn More', 'Holiday Blog');
-    window.location.href = '/rapid-same-day-website-delivery';
+    window.location.href = '/blog/get-ready-2025-holiday-sales-traffic';
     handleClose();
   };
 
