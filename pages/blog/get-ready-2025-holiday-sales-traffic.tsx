@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Navigation from '../../components/Navigation';
 import Footer from '../../components/Footer';
+import HolidayExitIntentPopup from '../../components/HolidayExitIntentPopup';
 
 export default function HolidaySalesTrafficPage() {
   const canonicalUrl = 'https://www.nandann.com/blog/get-ready-2025-holiday-sales-traffic';
@@ -493,6 +494,13 @@ export default function HolidaySalesTrafficPage() {
         </article>
         
         <Footer />
+        
+        {/* Holiday Exit Intent Popup */}
+        <HolidayExitIntentPopup 
+          enabled={true}
+          minTimeOnPage={20} // Show after 20 seconds
+          minScrollPercentage={15} // Or after 15% scroll
+        />
       </div>
     </>
   );
