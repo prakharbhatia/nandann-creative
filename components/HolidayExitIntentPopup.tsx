@@ -13,7 +13,7 @@ export default function HolidayExitIntentPopup({
   minTimeOnPage = 30, // 30 seconds
   minScrollPercentage = 25 // 25% scroll
 }: HolidayExitIntentPopupProps) {
-  const { trackForm, trackEvent } = useAnalytics();
+  const { trackForm, trackButton } = useAnalytics();
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -55,7 +55,7 @@ export default function HolidayExitIntentPopup({
   const { reset } = useExitIntent(() => {
     if (enabled && canShowPopup && !showPopup) {
       setShowPopup(true);
-      trackEvent('Exit Intent Popup', 'Shown', 'Holiday Blog');
+      trackButton('Exit Intent Popup Shown', 'Holiday Blog');
       
       // Prevent body scroll when popup is open
       document.body.style.overflow = 'hidden';
@@ -70,7 +70,7 @@ export default function HolidayExitIntentPopup({
   const handleClose = () => {
     setShowPopup(false);
     document.body.style.overflow = 'unset';
-    trackEvent('Exit Intent Popup', 'Closed', 'Holiday Blog');
+    trackButton('Exit Intent Popup Closed', 'Holiday Blog');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -93,7 +93,7 @@ export default function HolidayExitIntentPopup({
       });
 
       if (response.ok) {
-        trackEvent('Exit Intent Popup', 'Form Submitted', 'Holiday Blog');
+        trackButton('Exit Intent Form Submitted', 'Holiday Blog');
         alert('Thank you! We\'ll get back to you within 24 hours with your free performance audit.');
         
         // Reset form and close popup
@@ -122,7 +122,7 @@ export default function HolidayExitIntentPopup({
   };
 
   const handleLearnMore = () => {
-    trackEvent('Exit Intent Popup', 'Learn More Clicked', 'Holiday Blog');
+    trackButton('Exit Intent Learn More', 'Holiday Blog');
     window.location.href = '/rapid-same-day-website-delivery';
     handleClose();
   };
