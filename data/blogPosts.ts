@@ -30,30 +30,24 @@ export const blogPosts: BlogPost[] = [
     tags: ['holiday optimization', 'Black Friday performance', 'WordPress to Next.js migration', 'headless WordPress', 'page speed optimization', 'Core Web Vitals', 'free performance audit', 'e-commerce optimization'],
     coverImage: '/images/holidays-2025-nandann-creative-agency-tablet.webp',
     contentHtml: `
-      <img src="/images/holidays-2025-nandann-creative-agency.jpg" alt="Get Ready for 2025 Holiday Sales Traffic - Nandann Creative Agency" />
+      <img src="/images/holidays-2025-nandann-creative-agency-tablet.webp" alt="Get Ready for 2025 Holiday Sales Traffic - Nandann Creative Agency" />
       
-      <div class="bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/30 rounded-xl p-6 mb-8">
-        <p class="text-lg text-white mb-0">
-          <strong>⚠️ Time-Sensitive:</strong> Prepare your site now to avoid losing customers during the busiest shopping period of the year.
-        </p>
+      <div class="alert alert-warning">
+        <p><strong>⚠️ Time-Sensitive:</strong> Prepare your site now to avoid losing customers during the busiest shopping period of the year.</p>
       </div>
 
-      <p class="text-xl text-gray-200 leading-relaxed mb-8">
+      <p class="lead">
         The busiest time of the year is fast approaching! From Black Friday right through the new year, many e‑commerce sites see almost double their daily average of traffic on peak days.
       </p>
 
-      <p class="text-gray-200 leading-relaxed mb-6">
-        Prepare your site to make sure it gets your visitors through the door and where they want to go. 
-        We're here to help you get ready with tools that can prep your site ahead of this time to make it faster, more secure, and even better at converting visitors into customers.
-      </p>
+      <p>Prepare your site to make sure it gets your visitors through the door and where they want to go. 
+      We're here to help you get ready with tools that can prep your site ahead of this time to make it faster, more secure, and even better at converting visitors into customers.</p>
 
       <h2>Why Holiday Traffic Optimization Matters</h2>
       
-      <p class="text-gray-200 leading-relaxed mb-6">
-        During Black Friday through New Year's, online traffic surges dramatically. According to recent studies:
-      </p>
+      <p>During Black Friday through New Year's, online traffic surges dramatically. According to recent studies:</p>
 
-      <ul class="text-gray-200 space-y-3 mb-8">
+      <ul>
         <li>Sites see <strong>180-250%</strong> traffic increases on peak shopping days</li>
         <li><strong>53%</strong> of mobile users abandon sites that take longer than 3 seconds to load</li>
         <li>Every <strong>100ms</strong> improvement in load time can increase conversions by 1%</li>
@@ -62,43 +56,30 @@ export const blogPosts: BlogPost[] = [
 
       <h2>🚀 Page Speed Boost</h2>
       
-      <p class="text-gray-200 leading-relaxed mb-6">
-        When traffic spikes, every second counts. With our Page Speed Boost service, you can automatically apply 30+ performance enhancements to optimize your site for speed and performance, so you can focus on your sales, not your site.
-      </p>
+      <p>When traffic spikes, every second counts. With our Page Speed Boost service, you can automatically apply 30+ performance enhancements to optimize your site for speed and performance, so you can focus on your sales, not your site.</p>
 
       <h2>⚡ WordPress to Next.js Migration</h2>
       
-      <p class="text-gray-200 leading-relaxed mb-6">
-
-        For businesses expecting significant holiday traffic, migrating from WordPress to Next.js can provide dramatic performance improvements. Next.js offers server-side rendering, automatic code splitting, and built-in performance optimizations that can boost site speed by 40-60%.
-      </p>
+      <p>For businesses expecting significant holiday traffic, migrating from WordPress to Next.js can provide dramatic performance improvements. Next.js offers server-side rendering, automatic code splitting, and built-in performance optimizations that can boost site speed by 40-60%.</p>
 
       <h2>🔀 Headless WordPress Solutions</h2>
       
-      <p class="text-gray-200 leading-relaxed mb-6">
-        Keep your familiar WordPress backend while gaining modern frontend performance. Headless WordPress separates content management from presentation, letting you use React, Next.js, or Vue.js for lightning-fast user experiences.
-      </p>
+      <p>Keep your familiar WordPress backend while gaining modern frontend performance. Headless WordPress separates content management from presentation, letting you use React, Next.js, or Vue.js for lightning-fast user experiences.</p>
 
       <h2>🆓 Free Performance Audit</h2>
       
-      <p class="text-gray-200 leading-relaxed mb-6">
-        Don't optimize blindly. Our comprehensive free performance audit identifies exactly what's slowing down your site and provides actionable recommendations tailored to your specific needs.
-      </p>
+      <p>Don't optimize blindly. Our comprehensive free performance audit identifies exactly what's slowing down your site and provides actionable recommendations tailored to your specific needs.</p>
 
-      <div class="bg-gradient-to-r from-orange-500/20 to-red-500/20 border border-orange-500/30 rounded-2xl p-8 text-center mb-8">
+      <div class="callout callout-primary">
         <h3>⏰ Limited Time Holiday Prep Package</h3>
-        <p class="text-gray-200 mb-6">
-          Don't wait until November. Start preparing now with our comprehensive holiday optimization package that includes everything you need for peak traffic performance.
-        </p>
+        <p>Don't wait until November. Start preparing now with our comprehensive holiday optimization package that includes everything you need for peak traffic performance.</p>
       </div>
 
       <h2>📊 Holiday Traffic Timeline</h2>
       
-      <p class="text-gray-200 leading-relaxed mb-6">
-        Here's your ideal preparation timeline to ensure peak performance during the busiest periods:
-      </p>
+      <p>Here's your ideal preparation timeline to ensure peak performance during the busiest periods:</p>
 
-      <ul class="space-y-4 mb-8 text-gray-200">
+      <ul>
         <li><strong>October 2025:</strong> Site Audit & Optimization Planning</li>
         <li><strong>November 2025:</strong> Implementation & Testing</li>
         <li><strong>November 28:</strong> Black Friday Launch</li>
@@ -106,16 +87,24 @@ export const blogPosts: BlogPost[] = [
 
       <h2>🎯 Key Takeaways</h2>
       
-      <ul class="space-y-3 text-gray-200 mb-8">
+      <ul>
         <li><strong>Front loading optimization:</strong> Improving site speed now pays dividends during peak traffic</li>
         <li><strong>Mobile-first approach:</strong> Most holiday shopping happens on mobile devices</li>
         <li><strong>Core Web Vitals:</strong> Google's ranking factors directly impact holiday search visibility</li>
         <li><strong>Professional help:</strong> Expert optimization delivers better ROI than DIY attempts</li>
       </ul>
 
-      <p class="text-gray-200 leading-relaxed mb-8">
-        The holiday season represents the biggest revenue opportunity for e‑commerce businesses. A well-optimized site can capture more sales, build customer loyalty, and set the foundation for year‑round success. Start preparing now to maximize your holiday performance.
-      </p>
+      <p>The holiday season represents the biggest revenue opportunity for e‑commerce businesses. A well-optimized site can capture more sales, build customer loyalty, and set the foundation for year‑round success. Start preparing now to maximize your holiday performance.</p>
+
+      <div class="conclusion">
+        <h3>Ready to Optimize for Holiday Success?</h3>
+        <p>Don't lose customers due to slow performance. Get your free audit and discuss how we can prepare your site for peak holiday traffic.</p>
+        
+        <div class="cta-block">
+          <a href="/contact" class="btn btn-primary btn-lg">Get Free Performance Audit →</a>
+          <a href="/rapid-same-day-website-delivery" class="btn btn-secondary">Learn About Rapid Delivery</a>
+        </div>
+      </div>
     `,
     faqs: [
       {

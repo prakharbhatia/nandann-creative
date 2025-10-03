@@ -4,6 +4,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import Navigation from '../../components/Navigation';
 import Footer from '../../components/Footer';
 import ContentRenderer from '../../components/ContentRenderer';
+import HolidayExitIntentPopup from '../../components/HolidayExitIntentPopup';
 import { blogPosts, getPostBySlug, getAllPosts, type BlogPost } from '../../data/blogPosts';
 
 type Props = { post: BlogPost };
@@ -231,6 +232,15 @@ export default function BlogPostPage({ post }: Props) {
         </article>
 
         <Footer />
+        
+        {/* Holiday Exit Intent Popup - Only for the holiday blog post */}
+        {post.slug === 'get-ready-2025-holiday-sales-traffic' && (
+          <HolidayExitIntentPopup 
+            enabled={true}
+            minTimeOnPage={20} // Show after 20 seconds
+            minScrollPercentage={15} // Or after 15% scroll
+          />
+        )}
       </div>
     </>
   );
