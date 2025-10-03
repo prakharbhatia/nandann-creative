@@ -15,6 +15,7 @@ export default function HolidayExitIntentPopup({
 }: HolidayExitIntentPopupProps) {
   const { trackForm, trackButton } = useAnalytics();
   const [showPopup, setShowPopup] = useState(false);
+  const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -69,8 +70,14 @@ export default function HolidayExitIntentPopup({
 
   const handleClose = () => {
     setShowPopup(false);
+    setShowForm(false);
     document.body.style.overflow = 'unset';
     trackButton('Exit Intent Popup Closed', 'Holiday Blog');
+  };
+
+  const handleGetAudit = () => {
+    setShowForm(true);
+    trackButton('Exit Intent Get Audit Clicked', 'Holiday Blog');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -138,166 +145,157 @@ export default function HolidayExitIntentPopup({
       />
       
       {/* Popup Content */}
-      <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 border border-white/20 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 border border-white/20 rounded-2xl max-w-md w-full shadow-2xl">
         {/* Close Button */}
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors duration-200 z-10"
+          className="absolute top-3 right-3 text-white/70 hover:text-white transition-colors duration-200 z-10"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
 
         {/* Content */}
-        <div className="p-8">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-red-500/20 to-orange-500/20 text-red-300 px-4 py-2 rounded-full text-sm font-bold mb-4">
-              ⏰ HOLIDAY PREP LIMITED TIME
-            </div>
-            
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Don't Lose Holiday Sales to Slow Performance!
-            </h2>
-            
-            <p className="text-lg text-gray-300 leading-relaxed">
-              The busiest shopping season is approaching fast. Ensure your website can handle the traffic spike with our <strong className="text-blue-300">free performance audit</strong> and <strong className="text-purple-300">rapid optimization package</strong>.
-            </p>
-          </div>
+        <div className="p-6">
+          {!showForm ? (
+            // Initial compact view
+            <>
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center gap-2 bg-gradient-to-r from-red-500/20 to-orange-500/20 text-red-300 px-3 py-1 rounded-full text-xs font-bold mb-3">
+                  ⏰ LIMITED TIME
+                </div>
+                
+                <h2 className="text-2xl font-bold text-white mb-3">
+                  Prepare for Holiday Traffic
+                </h2>
+                
+                <p className="text-gray-300 text-sm mb-4">
+                  Black Friday is coming! Get a <strong className="text-blue-300">free performance audit</strong> before the rush.
+                </p>
+              </div>
 
-          {/* Value Props */}
-          <div className="grid md:grid-cols-2 gap-4 mb-8">
-            <div className="flex items-start gap-3 p-4 bg-gradient-to-r from-blue-500/10 to-blue-600/10 border border-blue-500/20 rounded-xl">
-              <span className="text-blue-400 mt-1">✓</span>
-              <div>
-                <div className="text-white font-semibold">Free Performance Audit</div>
-                <div className="text-gray-300 text-sm">Core Web Vitals analysis & actionable recommendations</div>
+              {/* Compact Benefits */}
+              <div className="space-y-2 mb-6">
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="text-green-400">✓</span>
+                  <span className="text-gray-300">Free Core Web Vitals audit</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="text-green-400">✓</span>
+                  <span className="text-gray-300">WordPress to Next.js migration</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="text-green-400">✓</span>
+                  <span className="text-gray-300">24-48 hour turnaround</span>
+                </div>
               </div>
-            </div>
-            
-            <div className="flex items-start gap-3 p-4 bg-gradient-to-r from-purple-500/10 to-purple-600/10 border border-purple-500/20 rounded-xl">
-              <span className="text-purple-400 mt-1">✓</span>
-              <div>
-                <div className="text-white font-semibold">WordPress to Next.js Migration</div>
-                <div className="text-gray-300 text-sm">40-60% faster load times for holiday traffic</div>
-              </div>
-            </div>
-            
-            <div className="flex items-start gap-3 p-4 bg-gradient-to-r from-green-500/10 to-green-600/10 border border-green-500/20 rounded-xl">
-              <span className="text-green-400 mt-1">✓</span>
-              <div>
-                <div className="text-white font-semibold">Rapid Optimization</div>
-                <div className="text-gray-300 text-sm">Multiple WebVitals improvements & caching strategies</div>
-              </div>
-            </div>
-            
-            <div className="flex items-start gap-3 p-4 bg-gradient-to-r from-orange-500/10 to-orange-600/10 border border-orange-500/20 rounded-xl">
-              <span className="text-orange-400 mt-1">✓</span>
-              <div>
-                <div className="text-white font-semibold">24-48 Hour Turnaround</div>
-                <div className="text-gray-300 text-sm">Get your site ready before Black Friday rush</div>
-              </div>
-            </div>
-          </div>
 
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-white font-medium mb-2">Name *</label>
-                <input
-                  type="text"
-                  name="name"
-                  required
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full bg-white/10 backdrop-blur-sm border border-white/30 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                  placeholder="Your name"
-                />
-              </div>
-              <div>
-                <label className="block text-white font-medium mb-2">Email *</label>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full bg-white/10 backdrop-blur-sm border border-white/30 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                  placeholder="your@email.com"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-white font-medium mb-2">Company</label>
-                <input
-                  type="text"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleChange}
-                  className="w-full bg-white/10 backdrop-blur-sm border border-white/30 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                  placeholder="Your company"
-                />
-              </div>
-              <div>
-                <label className="block text-white font-medium mb-2">Project Type</label>
-                <select
-                  name="project"
-                  value={formData.project}
-                  onChange={handleChange}
-                  className="w-full bg-white/10 backdrop-blur-sm border border-white/30 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+              {/* CTA Buttons */}
+              <div className="space-y-3">
+                <button
+                  onClick={handleGetAudit}
+                  className="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 px-6 py-3 rounded-xl text-white font-bold hover:scale-105 hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-300"
                 >
-                  <option value="" className="bg-gray-800 text-white">Select project type</option>
-                  <option value="holiday-optimization" className="bg-gray-800 text-white">Holiday Performance Optimization</option>
-                  <option value="wp-migration" className="bg-gray-800 text-white">WordPress to Next.js Migration</option>
-                  <option value="audit" className="bg-gray-800 text-white">Free Performance Audit Only</option>
-                  <option value="rapid-delivery" className="bg-gray-800 text-white">Rapid Website Delivery</option>
-                  <option value="other" className="bg-gray-800 text-white">Other</option>
-                </select>
+                  Get Free Audit →
+                </button>
+                
+                <button
+                  onClick={handleLearnMore}
+                  className="w-full text-gray-400 hover:text-white text-sm underline transition-colors duration-200"
+                >
+                  Learn more about our services
+                </button>
               </div>
-            </div>
+            </>
+          ) : (
+            // Form view
+            <>
+              <div className="text-center mb-4">
+                <h3 className="text-xl font-bold text-white mb-2">Get Your Free Audit</h3>
+                <p className="text-gray-400 text-sm">We'll respond within 24 hours</p>
+              </div>
 
-            <div>
-              <label className="block text-white font-medium mb-2">Message *</label>
-              <textarea
-                name="message"
-                required
-                rows={4}
-                value={formData.message}
-                onChange={handleChange}
-                className="w-full bg-white/10 backdrop-blur-sm border border-white/30 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 resize-none"
-                placeholder="Tell us about your current site and holiday traffic concerns..."
-              ></textarea>
-            </div>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full bg-white/10 backdrop-blur-sm border border-white/30 rounded-lg px-4 py-2.5 text-white text-sm placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                    placeholder="Your name *"
+                  />
+                </div>
 
-            {/* Buttons */}
-            <div className="space-y-4">
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 px-8 py-4 rounded-xl text-white font-bold text-lg hover:scale-105 hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-300"
-              >
-                🚀 Get Free Performance Audit
-              </button>
-              
-              <button
-                type="button"
-                onClick={handleLearnMore}
-                className="w-full bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 px-8 py-3 rounded-xl text-white font-medium hover:scale-105 transition-all duration-300"
-              >
-                Learn About Our Holiday Package →
-              </button>
-            </div>
-          </form>
+                <div>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full bg-white/10 backdrop-blur-sm border border-white/30 rounded-lg px-4 py-2.5 text-white text-sm placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                    placeholder="your@email.com *"
+                  />
+                </div>
 
-          {/* Footer Note */}
-          <div className="mt-6 text-center">
-            <p className="text-gray-400 text-sm">
-              ⚡ Response guaranteed within 24 hours • 🔒 No spam, ever
-            </p>
-          </div>
+                <div>
+                  <input
+                    type="text"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleChange}
+                    className="w-full bg-white/10 backdrop-blur-sm border border-white/30 rounded-lg px-4 py-2.5 text-white text-sm placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                    placeholder="Company (optional)"
+                  />
+                </div>
+
+                <div>
+                  <select
+                    name="project"
+                    value={formData.project}
+                    onChange={handleChange}
+                    className="w-full bg-white/10 backdrop-blur-sm border border-white/30 rounded-lg px-4 py-2.5 text-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                  >
+                    <option value="" className="bg-gray-800 text-white">What do you need?</option>
+                    <option value="audit" className="bg-gray-800 text-white">Free Performance Audit</option>
+                    <option value="holiday-optimization" className="bg-gray-800 text-white">Holiday Optimization</option>
+                    <option value="wp-migration" className="bg-gray-800 text-white">WordPress Migration</option>
+                    <option value="other" className="bg-gray-800 text-white">Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <textarea
+                    name="message"
+                    required
+                    rows={3}
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="w-full bg-white/10 backdrop-blur-sm border border-white/30 rounded-lg px-4 py-2.5 text-white text-sm placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 resize-none"
+                    placeholder="Tell us about your site *"
+                  ></textarea>
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 px-6 py-3 rounded-lg text-white font-bold hover:scale-105 hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-300"
+                >
+                  Submit →
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setShowForm(false)}
+                  className="w-full text-gray-400 hover:text-white text-sm underline transition-colors duration-200"
+                >
+                  ← Back
+                </button>
+              </form>
+            </>
+          )}
         </div>
       </div>
     </div>
