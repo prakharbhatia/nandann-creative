@@ -14,6 +14,15 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'struggling-with-scalability-accelerate-time-to-market-nextjs',
+    title: 'Struggling with Scalability? Accelerate Time to Market with Next.js',
+    excerpt: 'Discover how Next.js transforms scalability challenges into competitive advantages. Learn about performance optimization, cost reduction, and faster development cycles that accelerate your time to market.',
+    date: 'Oct 6, 2025',
+    readTime: '18 min read',
+    category: 'Performance & Optimization',
+    coverImage: '/images/optimized/next-js-scale-nandann-creative-agency-tablet.webp'
+  },
+  {
     slug: 'get-ready-2025-holiday-sales-traffic',
     title: 'Get Ready for 2025 Holiday Sales Traffic: Site Optimization Guide',
     excerpt: 'Prepare your website for the busiest shopping season. Learn about page speed optimization, WordPress to Next.js migration, and headless solutions for peak holiday performance.',
