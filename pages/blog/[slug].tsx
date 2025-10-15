@@ -80,6 +80,61 @@ export default function BlogPostPage({ post }: Props) {
         {/* Canonical URL */}
         <link rel="canonical" href={canonicalUrl} />
         
+        {/* Preload LCP image for Core Web Vitals post */}
+        {post.slug === 'ace-core-web-vitals-2025-inp-requirements' && (
+          <>
+            <link 
+              rel="preload" 
+              as="image" 
+              href="/images/core-web-vitals-improve-nandann-creative-mobile.webp"
+              media="(max-width: 640px) and (max-resolution: 1dppx)"
+              fetchPriority="high"
+            />
+            <link 
+              rel="preload" 
+              as="image" 
+              href="/images/core-web-vitals-improve-nandann-creative-mobile.webp"
+              media="(max-width: 640px) and (min-resolution: 2dppx)"
+              fetchPriority="high"
+            />
+            <link 
+              rel="preload" 
+              as="image" 
+              href="/images/core-web-vitals-improve-nandann-creative-tablet.webp"
+              media="(min-width: 641px) and (max-width: 1024px) and (max-resolution: 1dppx)"
+              fetchPriority="high"
+            />
+            <link 
+              rel="preload" 
+              as="image" 
+              href="/images/core-web-vitals-improve-nandann-creative-tablet.webp"
+              media="(min-width: 641px) and (max-width: 1024px) and (min-resolution: 2dppx)"
+              fetchPriority="high"
+            />
+            <link 
+              rel="preload" 
+              as="image" 
+              href="/images/core-web-vitals-improve-nandann-creative-desktop.webp"
+              media="(min-width: 1025px) and (max-width: 1440px) and (max-resolution: 1dppx)"
+              fetchPriority="high"
+            />
+            <link 
+              rel="preload" 
+              as="image" 
+              href="/images/core-web-vitals-improve-nandann-creative-large.webp"
+              media="(min-width: 1025px) and (max-width: 1440px) and (min-resolution: 2dppx)"
+              fetchPriority="high"
+            />
+            <link 
+              rel="preload" 
+              as="image" 
+              href="/images/core-web-vitals-improve-nandann-creative-large.webp"
+              media="(min-width: 1441px)"
+              fetchPriority="high"
+            />
+          </>
+        )}
+        
         {/* Preload LCP image for mobile-first design post */}
         {post.slug === 'mobile-first-design-principles' && (
           <>

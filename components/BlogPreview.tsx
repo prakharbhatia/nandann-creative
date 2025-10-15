@@ -14,6 +14,15 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'ace-core-web-vitals-2025-inp-requirements',
+    title: '7 Ways to Ace Core Web Vitals in 2025 Without Rebuilding Your Entire Website (New INP Requirements)',
+    excerpt: 'Master Google\'s latest Core Web Vitals updates including the new INP metric. Learn 7 proven techniques to improve LCP, CLS, FCP, and INP scores without rebuilding your website.',
+    date: 'Oct 15, 2025',
+    readTime: '18 min read',
+    category: 'Performance & Optimization',
+    coverImage: '/images/core-web-vitals-improve-nandann-creative-tablet.webp'
+  },
+  {
     slug: 'struggling-with-scalability-accelerate-time-to-market-nextjs',
     title: 'Struggling with Scalability? Accelerate Time to Market with Next.js',
     excerpt: 'Discover how Next.js transforms scalability challenges into competitive advantages. Learn about performance optimization, cost reduction, and faster development cycles that accelerate your time to market.',
