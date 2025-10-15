@@ -214,34 +214,34 @@ function processDataInChunks(data, chunkSize = 100) {
 
       <h4>Code Example: Optimizing Images for LCP</h4>
       
-      <pre><code><!-- ❌ BAD: Unoptimized image -->
-<img src="hero-image.jpg" alt="Hero image" />
+      <pre><code>&lt;!-- ❌ BAD: Unoptimized image --&gt;
+&lt;img src="hero-image.jpg" alt="Hero image" /&gt;
 
-<!-- ✅ GOOD: Optimized responsive image -->
-<picture>
-  <source 
+&lt;!-- ✅ GOOD: Optimized responsive image --&gt;
+&lt;picture&gt;
+  &lt;source 
     media="(max-width: 768px)" 
     srcset="hero-mobile.webp 400w, hero-mobile-2x.webp 800w"
     type="image/webp"
-  />
-  <source 
+  /&gt;
+  &lt;source 
     media="(min-width: 769px)" 
     srcset="hero-desktop.webp 1200w, hero-desktop-2x.webp 2400w"
     type="image/webp"
-  />
-  <img 
+  /&gt;
+  &lt;img 
     src="hero-fallback.jpg" 
     alt="Hero image"
     width="1200"
     height="600"
     loading="eager"
     fetchpriority="high"
-  />
-</picture>
+  /&gt;
+&lt;/picture&gt;
 
-<!-- ✅ GOOD: Preload critical resources -->
-<link rel="preload" as="image" href="hero-mobile.webp" media="(max-width: 768px)" />
-<link rel="preload" as="image" href="hero-desktop.webp" media="(min-width: 769px)" /></code></pre>
+&lt;!-- ✅ GOOD: Preload critical resources --&gt;
+&lt;link rel="preload" as="image" href="hero-mobile.webp" media="(max-width: 768px)" /&gt;
+&lt;link rel="preload" as="image" href="hero-desktop.webp" media="(min-width: 769px)" /&gt;</code></pre>
 
       <h4>LCP Optimization Strategies:</h4>
       <ul>
@@ -313,9 +313,9 @@ function processDataInChunks(data, chunkSize = 100) {
 
       <h4>Code Example: Critical CSS Inlining</h4>
       
-      <pre><code><!-- ✅ GOOD: Inline critical CSS -->
-<head>
-  <style>
+      <pre><code>&lt;!-- ✅ GOOD: Inline critical CSS --&gt;
+&lt;head&gt;
+  &lt;style&gt;
     /* Critical above-the-fold CSS */
     .hero-section {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -331,19 +331,19 @@ function processDataInChunks(data, chunkSize = 100) {
       text-align: center;
       margin-bottom: 1rem;
     }
-  </style>
+  &lt;/style&gt;
   
-  <!-- Load non-critical CSS asynchronously -->
-  <link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="styles.css"></noscript>
-</head>
+  &lt;!-- Load non-critical CSS asynchronously --&gt;
+  &lt;link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"&gt;
+  &lt;noscript&gt;&lt;link rel="stylesheet" href="styles.css"&gt;&lt;/noscript&gt;
+&lt;/head&gt;
 
-<!-- ✅ GOOD: Resource hints for faster loading -->
-<head>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://cdn.example.com">
-  <link rel="dns-prefetch" href="https://analytics.google.com">
-</head></code></pre>
+&lt;!-- ✅ GOOD: Resource hints for faster loading --&gt;
+&lt;head&gt;
+  &lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+  &lt;link rel="preconnect" href="https://cdn.example.com"&gt;
+  &lt;link rel="dns-prefetch" href="https://analytics.google.com"&gt;
+&lt;/head&gt;</code></pre>
 
       <h4>FCP Optimization Techniques:</h4>
       <ul>
@@ -362,17 +362,17 @@ function processDataInChunks(data, chunkSize = 100) {
 
       <h4>Code Example: Optimizing Third-Party Scripts</h4>
       
-      <pre><code><!-- ❌ BAD: Blocking third-party scripts -->
-<script src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>
-<script>
+      <pre><code>&lt;!-- ❌ BAD: Blocking third-party scripts --&gt;
+&lt;script src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"&gt;&lt;/script&gt;
+&lt;script&gt;
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'GA_TRACKING_ID');
-</script>
+&lt;/script&gt;
 
-<!-- ✅ GOOD: Deferred loading -->
-<script>
+&lt;!-- ✅ GOOD: Deferred loading --&gt;
+&lt;script&gt;
   // Defer Google Analytics until after page load
   window.addEventListener('load', function() {
     const script = document.createElement('script');
@@ -387,10 +387,10 @@ function processDataInChunks(data, chunkSize = 100) {
       gtag('config', 'GA_TRACKING_ID');
     };
   });
-</script>
+&lt;/script&gt;
 
-<!-- ✅ GOOD: Conditional loading for chatbots -->
-<script>
+&lt;!-- ✅ GOOD: Conditional loading for chatbots --&gt;
+&lt;script&gt;
   // Only load chatbot after user interaction
   let chatbotLoaded = false;
   
@@ -407,7 +407,7 @@ function processDataInChunks(data, chunkSize = 100) {
   // Load on scroll or after 30 seconds
   window.addEventListener('scroll', loadChatbot, { once: true });
   setTimeout(loadChatbot, 30000);
-</script></code></pre>
+&lt;/script&gt;</code></pre>
 
       <h4>Third-Party Script Optimization Strategy:</h4>
       <ul>
@@ -424,32 +424,32 @@ function processDataInChunks(data, chunkSize = 100) {
 
       <h4>Code Example: Comprehensive Resource Hints</h4>
       
-      <pre><code><!-- ✅ GOOD: Complete resource hint strategy -->
-<head>
-  <!-- Preconnect to external domains -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdn.example.com">
+      <pre><code>&lt;!-- ✅ GOOD: Complete resource hint strategy --&gt;
+&lt;head&gt;
+  &lt;!-- Preconnect to external domains --&gt;
+  &lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+  &lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+  &lt;link rel="preconnect" href="https://cdn.example.com"&gt;
   
-  <!-- DNS prefetch for analytics -->
-  <link rel="dns-prefetch" href="https://www.google-analytics.com">
-  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+  &lt;!-- DNS prefetch for analytics --&gt;
+  &lt;link rel="dns-prefetch" href="https://www.google-analytics.com"&gt;
+  &lt;link rel="dns-prefetch" href="https://www.googletagmanager.com"&gt;
   
-  <!-- Preload critical resources -->
-  <link rel="preload" href="/fonts/main-font.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/images/hero-image.webp" as="image">
-  <link rel="preload" href="/css/critical.css" as="style">
+  &lt;!-- Preload critical resources --&gt;
+  &lt;link rel="preload" href="/fonts/main-font.woff2" as="font" type="font/woff2" crossorigin&gt;
+  &lt;link rel="preload" href="/images/hero-image.webp" as="image"&gt;
+  &lt;link rel="preload" href="/css/critical.css" as="style"&gt;
   
-  <!-- Prefetch next page resources -->
-  <link rel="prefetch" href="/next-page.html">
-  <link rel="prefetch" href="/css/non-critical.css">
+  &lt;!-- Prefetch next page resources --&gt;
+  &lt;link rel="prefetch" href="/next-page.html"&gt;
+  &lt;link rel="prefetch" href="/css/non-critical.css"&gt;
   
-  <!-- Module preload for ES modules -->
-  <link rel="modulepreload" href="/js/main-module.js">
-</head>
+  &lt;!-- Module preload for ES modules --&gt;
+  &lt;link rel="modulepreload" href="/js/main-module.js"&gt;
+&lt;/head&gt;
 
-<!-- ✅ GOOD: Dynamic resource hints -->
-<script>
+&lt;!-- ✅ GOOD: Dynamic resource hints --&gt;
+&lt;script&gt;
   // Add resource hints based on user behavior
   function addResourceHint(href, rel) {
     const link = document.createElement('link');
@@ -459,12 +459,12 @@ function processDataInChunks(data, chunkSize = 100) {
   }
   
   // Prefetch resources on hover
-  document.querySelectorAll('a[href]').forEach(link => {
+  document.querySelectorAll('a[href]').forEach(link =&gt; {
     link.addEventListener('mouseenter', function() {
       addResourceHint(this.href, 'prefetch');
     });
   });
-</script></code></pre>
+&lt;/script&gt;</code></pre>
 
       <h4>Resource Hint Best Practices:</h4>
       <ul>
@@ -481,8 +481,8 @@ function processDataInChunks(data, chunkSize = 100) {
 
       <h4>Code Example: Real User Monitoring (RUM)</h4>
       
-      <pre><code><!-- ✅ GOOD: Web Vitals monitoring script -->
-<script>
+      <pre><code>&lt;!-- ✅ GOOD: Web Vitals monitoring script --&gt;
+&lt;script&gt;
   // Import the web-vitals library
   import {getCLS, getFID, getFCP, getLCP, getTTFB, getINP} from 'web-vitals';
 
@@ -516,10 +516,10 @@ function processDataInChunks(data, chunkSize = 100) {
   getLCP(sendToAnalytics);
   getTTFB(sendToAnalytics);
   getINP(sendToAnalytics); // New metric for 2025
-</script>
+&lt;/script&gt;
 
-<!-- ✅ GOOD: Performance monitoring dashboard -->
-<script>
+&lt;!-- ✅ GOOD: Performance monitoring dashboard --&gt;
+&lt;script&gt;
   // Simple performance monitoring
   window.addEventListener('load', function() {
     const perfData = performance.getEntriesByType('navigation')[0];
@@ -535,11 +535,11 @@ function processDataInChunks(data, chunkSize = 100) {
     console.log('Performance Metrics:', metrics);
     
     // Send to your monitoring service
-    if (metrics.fcp > 1500) {
+    if (metrics.fcp &gt; 1500) {
       console.warn('FCP is above 1.5s threshold');
     }
   });
-</script></code></pre>
+&lt;/script&gt;</code></pre>
 
       <h4>Monitoring Setup Checklist:</h4>
       <ul>
