@@ -8,6 +8,10 @@ export default function Document() {
         <link rel="icon" href="/images/Nandann-favicon.png" type="image/png" />
         <link rel="shortcut icon" href="/images/Nandann-favicon.png" type="image/png" />
         <link rel="apple-touch-icon" href="/images/Nandann-favicon.png" />
+        
+        {/* Referrer Policy for better security and GA compatibility */}
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
+        
         {/* Preconnect for GA when it loads later (low-cost DNS prefetch) */}
         <link rel="dns-prefetch" href="//www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="" />
