@@ -27,12 +27,12 @@ export default function WebVitalsTracking() {
           }
         }, 100);
         
-        // Timeout after 10 seconds
+        // Timeout after 15 seconds (increased to account for 7s GA4 delay)
         setTimeout(() => {
           clearInterval(checkInterval);
-          console.warn('GA4 not loaded after 10 seconds, skipping web vitals tracking');
+          console.warn('GA4 not loaded after 15 seconds, skipping web vitals tracking');
           resolve();
-        }, 10000);
+        }, 15000);
       });
     }
     
