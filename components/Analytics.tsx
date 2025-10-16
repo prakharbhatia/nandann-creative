@@ -33,10 +33,15 @@ export default function Analytics() {
         window.removeEventListener('mousemove', enable, { passive: true } as any);
       };
 
-      // Delay GTM loading by 7 seconds after page load for optimal performance
+      // Check if debug mode is enabled - if so, load GA4 immediately
+      const urlParams = new URLSearchParams(window.location.search);
+      const isDebugMode = urlParams.get('debug_mode') === 'true';
+      const delay = isDebugMode ? 0 : 7000; // Immediate load in debug mode, 7s otherwise
+
+      // Delay GTM loading by 7 seconds after page load for optimal performance (unless debug mode)
       const delayTimer = setTimeout(() => {
         enable();
-      }, 7000);
+      }, delay);
 
       // Also enable on user interaction for better UX
       window.addEventListener('scroll', enable, { passive: true });
