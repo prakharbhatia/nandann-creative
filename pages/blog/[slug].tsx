@@ -81,67 +81,15 @@ export default function BlogPostPage({ post }: Props) {
         {/* Canonical URL */}
         <link rel="canonical" href={canonicalUrl} />
         
-        {/* Preload LCP image for Core Web Vitals post */}
+        {/* Preload LCP image for Core Web Vitals post - using tablet size as default (most common) */}
         {post.slug === 'ace-core-web-vitals-2025-inp-requirements' && (
           <>
-            {/* AVIF preloads (preferred format) */}
             <link 
               rel="preload" 
               as="image" 
-              type="image/avif"
-              href="/images/core-web-vitals-improve-nandann-creative-mobile.avif"
-              media="(max-width: 640px)"
-            />
-            <link 
-              rel="preload" 
-              as="image" 
-              type="image/avif"
-              href="/images/core-web-vitals-improve-nandann-creative-tablet.avif"
-              media="(min-width: 641px) and (max-width: 1024px)"
-            />
-            <link 
-              rel="preload" 
-              as="image" 
-              type="image/avif"
-              href="/images/core-web-vitals-improve-nandann-creative-desktop.avif"
-              media="(min-width: 1025px) and (max-width: 1440px)"
-            />
-            <link 
-              rel="preload" 
-              as="image" 
-              type="image/avif"
-              href="/images/core-web-vitals-improve-nandann-creative-large.avif"
-              media="(min-width: 1441px)"
-            />
-            
-            {/* WebP fallback preloads */}
-            <link 
-              rel="preload" 
-              as="image" 
-              type="image/webp"
-              href="/images/core-web-vitals-improve-nandann-creative-mobile.webp"
-              media="(max-width: 640px)"
-            />
-            <link 
-              rel="preload" 
-              as="image" 
-              type="image/webp"
               href="/images/core-web-vitals-improve-nandann-creative-tablet.webp"
-              media="(min-width: 641px) and (max-width: 1024px)"
-            />
-            <link 
-              rel="preload" 
-              as="image" 
-              type="image/webp"
-              href="/images/core-web-vitals-improve-nandann-creative-desktop.webp"
-              media="(min-width: 1025px) and (max-width: 1440px)"
-            />
-            <link 
-              rel="preload" 
-              as="image" 
-              type="image/webp"
-              href="/images/core-web-vitals-improve-nandann-creative-large.webp"
-              media="(min-width: 1441px)"
+              imageSrcSet="/images/core-web-vitals-improve-nandann-creative-mobile.webp 640w, /images/core-web-vitals-improve-nandann-creative-tablet.webp 1024w, /images/core-web-vitals-improve-nandann-creative-desktop.webp 1440w"
+              imageSizes="100vw"
             />
           </>
         )}
