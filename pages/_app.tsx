@@ -2,11 +2,13 @@ import type { AppProps } from 'next/app';
 import '../styles/globals.css';
 import Analytics from '../components/Analytics';
 import HolidayExitIntentPopup from '../components/HolidayExitIntentPopup';
+import WebVitalsTracking from '../components/WebVitalsTracking';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Analytics />
+      <WebVitalsTracking />
       <Component {...pageProps} />
       <HolidayExitIntentPopup 
         enabled={true}
