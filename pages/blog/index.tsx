@@ -39,6 +39,7 @@ export default function BlogIndexPage() {
               <Link 
                 key={post.slug}
                 href={`/blog/${post.slug}`}
+                prefetch={false}
                 className="block group"
               >
                 <article className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-300 h-full flex flex-col cursor-pointer">

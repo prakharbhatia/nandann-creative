@@ -116,6 +116,7 @@ export default function BlogPreview() {
             <Link 
               key={post.slug}
               href={`/blog/${post.slug}`}
+              prefetch={false}
               className="block group"
             >
               <article className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-300 hover:scale-105 cursor-pointer">
@@ -160,6 +161,7 @@ export default function BlogPreview() {
         <div className="text-center">
           <Link
             href="/blog"
+            prefetch={false}
             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25"
           >
             View All Articles

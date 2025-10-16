@@ -229,15 +229,15 @@ export default function BlogPostPage({ post }: Props) {
 
           <nav className="flex justify-between text-blue-300">
             {prev ? (
-              <Link href={`/blog/${prev.slug}`} className="hover:text-blue-200">← {prev.title}</Link>
+              <Link href={`/blog/${prev.slug}`} prefetch={false} className="hover:text-blue-200">← {prev.title}</Link>
             ) : <span />}
             {next ? (
-              <Link href={`/blog/${next.slug}`} className="hover:text-blue-200">{next.title} →</Link>
+              <Link href={`/blog/${next.slug}`} prefetch={false} className="hover:text-blue-200">{next.title} →</Link>
             ) : <span />}
           </nav>
 
           <div className="mt-12">
-            <Link href="/blog" className="text-blue-400 hover:text-blue-300">← Back to Blog</Link>
+            <Link href="/blog" prefetch={false} className="text-blue-400 hover:text-blue-300">← Back to Blog</Link>
           </div>
         </article>
 
