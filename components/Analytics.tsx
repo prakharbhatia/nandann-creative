@@ -74,6 +74,11 @@ export default function Analytics() {
               (window as any).gtag = gtag;
               
               gtag('js', new Date());
+              
+              // Check if debug mode is enabled via URL parameter
+              const urlParams = new URLSearchParams(window.location.search);
+              const isDebugMode = urlParams.get('debug_mode') === 'true';
+              
               gtag('config', GA_TRACKING_ID, {
                 page_path: window.location.pathname,
                 send_page_view: true, // Enable automatic page views
@@ -82,7 +87,9 @@ export default function Analytics() {
                 allow_google_signals: false,
                 allow_ad_personalization_signals: false,
                 // Performance optimizations
-                transport_type: 'beacon'
+                transport_type: 'beacon',
+                // Enable debug mode for DebugView
+                debug_mode: isDebugMode
               });
               
               // Send initial page view
