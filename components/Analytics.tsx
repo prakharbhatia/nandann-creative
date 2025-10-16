@@ -33,7 +33,7 @@ export default function Analytics() {
         window.removeEventListener('mousemove', enable, { passive: true } as any);
       };
 
-      // Delay GTM loading by 7 seconds after page load
+      // Delay GTM loading by 7 seconds after page load for optimal performance
       const delayTimer = setTimeout(() => {
         enable();
       }, 7000);
@@ -61,11 +61,12 @@ export default function Analytics() {
     <>
       {shouldLoad && (
         <>
-          {/* Optimized Google Analytics loading */}
+          {/* Google Analytics 4 */}
           <Script
-            strategy="lazyOnload"
+            strategy="afterInteractive"
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
             onLoad={() => {
+              console.log('GA4 script loaded successfully');
               // Initialize GA immediately after script loads
               window.dataLayer = window.dataLayer || [];
               function gtag(...args: any[]) { window.dataLayer.push(args); }
@@ -74,23 +75,24 @@ export default function Analytics() {
               gtag('js', new Date());
               gtag('config', GA_TRACKING_ID, {
                 page_path: window.location.pathname,
-                send_page_view: false,
+                send_page_view: true, // Enable automatic page views
                 cookie_flags: 'SameSite=None;Secure',
                 anonymize_ip: true,
                 allow_google_signals: false,
                 allow_ad_personalization_signals: false,
                 // Performance optimizations
-                transport_type: 'beacon',
-                custom_map: {
-                  'custom_parameter': 'value'
-                }
+                transport_type: 'beacon'
               });
               
-              // Initial page view
+              console.log('GA4 initialized with ID:', GA_TRACKING_ID);
+              
+              // Send initial page view
               gtag('event', 'page_view', {
                 page_path: window.location.pathname,
                 page_title: document.title,
               });
+              
+              console.log('Initial page_view event sent');
             }}
           />
         </>
