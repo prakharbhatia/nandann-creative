@@ -54,7 +54,6 @@ export default function WebVitalsTracking() {
       try {
         // Get user info from API
         userData = await fetch('/api/get-user-info').then(r => r.json());
-        console.log('User data loaded:', userData);
         
         // Dynamically import web-vitals
         const { onCLS, onFCP, onLCP, onTTFB, onINP } = await import('web-vitals');
@@ -131,10 +130,8 @@ export default function WebVitalsTracking() {
           
           // Send event to GA4 if available, otherwise store it
           if (typeof window.gtag === 'function') {
-            console.log('Sending web vitals event to GA4:', metric.name, eventData);
             window.gtag('event', 'web_vitals', eventData);
           } else {
-            console.log('GA4 not ready, storing metric:', metric.name);
             webVitalsMetrics.push({ metric, eventData });
           }
         };
@@ -149,17 +146,14 @@ export default function WebVitalsTracking() {
         // Try to send any stored metrics after a delay
         setTimeout(() => sendStoredMetrics(sendToGA4), 1000);
         
-        // Additional debugging - try to send a test event
+        // Send a test event to verify GA4 connectivity
         setTimeout(async () => {
           await waitForGA4();
           if (typeof window.gtag === 'function') {
-            console.log('GA4 is ready, sending test event');
             window.gtag('event', 'test_event', {
               test_parameter: 'web_vitals_tracking_test',
               timestamp: Date.now()
             });
-          } else {
-            console.log('GA4 still not ready after timeout');
           }
         }, 5000);
         

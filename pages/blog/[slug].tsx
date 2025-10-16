@@ -81,17 +81,14 @@ export default function BlogPostPage({ post }: Props) {
         {/* Canonical URL */}
         <link rel="canonical" href={canonicalUrl} />
         
-        {/* Preload LCP image for Core Web Vitals post - using tablet size as default (most common) */}
+        {/* Preload LCP image for Core Web Vitals post */}
         {post.slug === 'ace-core-web-vitals-2025-inp-requirements' && (
-          <>
-            <link 
-              rel="preload" 
-              as="image" 
-              href="/images/core-web-vitals-improve-nandann-creative-tablet.webp"
-              imageSrcSet="/images/core-web-vitals-improve-nandann-creative-mobile.webp 640w, /images/core-web-vitals-improve-nandann-creative-tablet.webp 1024w, /images/core-web-vitals-improve-nandann-creative-desktop.webp 1440w"
-              imageSizes="100vw"
-            />
-          </>
+          <link 
+            rel="preload" 
+            as="image" 
+            type="image/webp"
+            href="/images/core-web-vitals-improve-nandann-creative-tablet.webp"
+          />
         )}
         
         {/* Preload LCP image for mobile-first design post */}

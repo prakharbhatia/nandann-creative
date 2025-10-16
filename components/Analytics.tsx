@@ -66,10 +66,11 @@ export default function Analytics() {
             strategy="afterInteractive"
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
             onLoad={() => {
-              console.log('GA4 script loaded successfully');
               // Initialize GA immediately after script loads
               window.dataLayer = window.dataLayer || [];
-              function gtag(...args: any[]) { window.dataLayer.push(args); }
+              function gtag(...args: any[]) { 
+                window.dataLayer.push(args); 
+              }
               (window as any).gtag = gtag;
               
               gtag('js', new Date());
@@ -84,15 +85,11 @@ export default function Analytics() {
                 transport_type: 'beacon'
               });
               
-              console.log('GA4 initialized with ID:', GA_TRACKING_ID);
-              
               // Send initial page view
               gtag('event', 'page_view', {
                 page_path: window.location.pathname,
                 page_title: document.title,
               });
-              
-              console.log('Initial page_view event sent');
             }}
           />
         </>
