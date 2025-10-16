@@ -9,11 +9,52 @@ declare global {
 export default function WebVitalsTracking() {
   useEffect(() => {
     let userData: any = null;
+    let webVitalsMetrics: any[] = []; // Store metrics until GA4 is ready
+    
+    // Function to wait for GA4 to be ready
+    function waitForGA4(): Promise<void> {
+      return new Promise((resolve) => {
+        if (typeof window.gtag === 'function') {
+          resolve();
+          return;
+        }
+        
+        // Check every 100ms for GA4 to be ready
+        const checkInterval = setInterval(() => {
+          if (typeof window.gtag === 'function') {
+            clearInterval(checkInterval);
+            resolve();
+          }
+        }, 100);
+        
+        // Timeout after 10 seconds
+        setTimeout(() => {
+          clearInterval(checkInterval);
+          console.warn('GA4 not loaded after 10 seconds, skipping web vitals tracking');
+          resolve();
+        }, 10000);
+      });
+    }
+    
+    // Function to send stored metrics to GA4
+    async function sendStoredMetrics(sendToGA4: (metric: any) => void) {
+      await waitForGA4();
+      
+      if (typeof window.gtag !== 'function') {
+        console.warn('GA4 not available, skipping web vitals tracking');
+        return;
+      }
+      
+      // Send all stored metrics
+      webVitalsMetrics.forEach(({ metric }) => sendToGA4(metric));
+      webVitalsMetrics = []; // Clear the array
+    }
     
     async function initTracking() {
       try {
         // Get user info from API
         userData = await fetch('/api/get-user-info').then(r => r.json());
+        console.log('User data loaded:', userData);
         
         // Dynamically import web-vitals
         const { onCLS, onFCP, onLCP, onTTFB, onINP } = await import('web-vitals');
@@ -54,41 +95,47 @@ export default function WebVitalsTracking() {
           const browserMatch = userAgent.match(/(Chrome|Safari|Firefox|Edge|Opera)/);
           const browserName = browserMatch ? browserMatch[0] : 'Other';
           
-          // Send event to GA4
-          if (typeof window.gtag !== 'undefined') {
-            window.gtag('event', 'web_vitals', {
-              // User identification & location
-              user_hash: userData?.user_hash || 'unknown',
-              country: userData?.country || 'unknown',
-              city: userData?.city || 'unknown',
-              region: userData?.region || 'unknown',
-              timezone: userData?.timezone || 'unknown',
-              isp: userData?.isp || 'unknown',
-              
-              // Core Web Vitals metrics
-              metric_name: metric.name,
-              metric_value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
-              metric_rating: rating,
-              metric_delta: Math.round(metric.delta),
-              metric_id: metric.id,
-              
-              // Page context
-              page_url: window.location.href,
-              page_path: window.location.pathname,
-              page_title: document.title,
-              
-              // Device & browser info
-              device_type: deviceType,
-              browser_name: browserName,
-              
-              // Connection info
-              connection_type: connection?.effectiveType || 'unknown',
-              connection_downlink: connection?.downlink || 0,
-              connection_rtt: connection?.rtt || 0,
-              
-              // Timestamp
-              timestamp: Date.now()
-            });
+          const eventData = {
+            // User identification & location
+            user_hash: userData?.user_hash || 'unknown',
+            country: userData?.country || 'unknown',
+            city: userData?.city || 'unknown',
+            region: userData?.region || 'unknown',
+            timezone: userData?.timezone || 'unknown',
+            isp: userData?.isp || 'unknown',
+            
+            // Core Web Vitals metrics
+            metric_name: metric.name,
+            metric_value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
+            metric_rating: rating,
+            metric_delta: Math.round(metric.delta),
+            metric_id: metric.id,
+            
+            // Page context
+            page_url: window.location.href,
+            page_path: window.location.pathname,
+            page_title: document.title,
+            
+            // Device & browser info
+            device_type: deviceType,
+            browser_name: browserName,
+            
+            // Connection info
+            connection_type: connection?.effectiveType || 'unknown',
+            connection_downlink: connection?.downlink || 0,
+            connection_rtt: connection?.rtt || 0,
+            
+            // Timestamp
+            timestamp: Date.now()
+          };
+          
+          // Send event to GA4 if available, otherwise store it
+          if (typeof window.gtag === 'function') {
+            console.log('Sending web vitals event to GA4:', metric.name, eventData);
+            window.gtag('event', 'web_vitals', eventData);
+          } else {
+            console.log('GA4 not ready, storing metric:', metric.name);
+            webVitalsMetrics.push({ metric, eventData });
           }
         };
         
@@ -98,6 +145,23 @@ export default function WebVitalsTracking() {
         onLCP(sendToGA4);
         onTTFB(sendToGA4);
         onINP(sendToGA4);
+        
+        // Try to send any stored metrics after a delay
+        setTimeout(() => sendStoredMetrics(sendToGA4), 1000);
+        
+        // Additional debugging - try to send a test event
+        setTimeout(async () => {
+          await waitForGA4();
+          if (typeof window.gtag === 'function') {
+            console.log('GA4 is ready, sending test event');
+            window.gtag('event', 'test_event', {
+              test_parameter: 'web_vitals_tracking_test',
+              timestamp: Date.now()
+            });
+          } else {
+            console.log('GA4 still not ready after timeout');
+          }
+        }, 5000);
         
       } catch (error) {
         console.error('Web Vitals tracking error:', error);
