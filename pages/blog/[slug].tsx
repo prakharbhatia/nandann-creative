@@ -91,7 +91,6 @@ export default function BlogPostPage({ post }: Props) {
               type="image/avif"
               href="/images/core-web-vitals-improve-nandann-creative-mobile.avif"
               media="(max-width: 640px)"
-              fetchPriority="high"
             />
             <link 
               rel="preload" 
@@ -99,7 +98,6 @@ export default function BlogPostPage({ post }: Props) {
               type="image/avif"
               href="/images/core-web-vitals-improve-nandann-creative-tablet.avif"
               media="(min-width: 641px) and (max-width: 1024px)"
-              fetchPriority="high"
             />
             <link 
               rel="preload" 
@@ -107,7 +105,6 @@ export default function BlogPostPage({ post }: Props) {
               type="image/avif"
               href="/images/core-web-vitals-improve-nandann-creative-desktop.avif"
               media="(min-width: 1025px) and (max-width: 1440px)"
-              fetchPriority="high"
             />
             <link 
               rel="preload" 
@@ -115,7 +112,6 @@ export default function BlogPostPage({ post }: Props) {
               type="image/avif"
               href="/images/core-web-vitals-improve-nandann-creative-large.avif"
               media="(min-width: 1441px)"
-              fetchPriority="high"
             />
             
             {/* WebP fallback preloads */}
@@ -125,7 +121,6 @@ export default function BlogPostPage({ post }: Props) {
               type="image/webp"
               href="/images/core-web-vitals-improve-nandann-creative-mobile.webp"
               media="(max-width: 640px)"
-              fetchPriority="high"
             />
             <link 
               rel="preload" 
@@ -133,7 +128,6 @@ export default function BlogPostPage({ post }: Props) {
               type="image/webp"
               href="/images/core-web-vitals-improve-nandann-creative-tablet.webp"
               media="(min-width: 641px) and (max-width: 1024px)"
-              fetchPriority="high"
             />
             <link 
               rel="preload" 
@@ -141,7 +135,6 @@ export default function BlogPostPage({ post }: Props) {
               type="image/webp"
               href="/images/core-web-vitals-improve-nandann-creative-desktop.webp"
               media="(min-width: 1025px) and (max-width: 1440px)"
-              fetchPriority="high"
             />
             <link 
               rel="preload" 
@@ -149,7 +142,6 @@ export default function BlogPostPage({ post }: Props) {
               type="image/webp"
               href="/images/core-web-vitals-improve-nandann-creative-large.webp"
               media="(min-width: 1441px)"
-              fetchPriority="high"
             />
           </>
         )}
