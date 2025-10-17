@@ -1,114 +1,62 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { GA_TRACKING_ID, pageview } from '../lib/gtag';
 
 export default function Analytics() {
   const router = useRouter();
-  const [shouldLoad, setShouldLoad] = useState(false);
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {
-      if (shouldLoad) {
-        pageview(url);
-      }
+      pageview(url);
     };
     
     router.events.on('routeChangeComplete', handleRouteChange);
-
-    if (!shouldLoad) {
-      let loaded = false;
-      const enable = () => {
-        if (loaded) return;
-        loaded = true;
-        setShouldLoad(true);
-        removeListeners();
-      };
-
-      const removeListeners = () => {
-        window.removeEventListener('scroll', enable, { passive: true } as any);
-        window.removeEventListener('pointerdown', enable, { passive: true } as any);
-        window.removeEventListener('keydown', enable);
-        window.removeEventListener('touchstart', enable, { passive: true } as any);
-        window.removeEventListener('mousemove', enable, { passive: true } as any);
-      };
-
-      // Check if debug mode is enabled - if so, load GA4 immediately
-      const isDebugMode = typeof window !== 'undefined' && window.location.search.includes('debug_mode=true');
-      const delay = isDebugMode ? 0 : 7000; // Immediate load in debug mode, 7s otherwise
-      
-      if (isDebugMode) {
-        console.log('🔍 GA4 Debug Mode: Loading immediately');
-      }
-
-      // Delay GTM loading by 7 seconds after page load for optimal performance (unless debug mode)
-      const delayTimer = setTimeout(() => {
-        enable();
-      }, delay);
-
-      // Also enable on user interaction for better UX
-      window.addEventListener('scroll', enable, { passive: true });
-      window.addEventListener('pointerdown', enable, { passive: true });
-      window.addEventListener('keydown', enable);
-      window.addEventListener('touchstart', enable, { passive: true });
-      window.addEventListener('mousemove', enable, { passive: true });
-
-      return () => {
-        router.events.off('routeChangeComplete', handleRouteChange);
-        removeListeners();
-        clearTimeout(delayTimer);
-      };
-    }
-
+    
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
-  }, [router.events, shouldLoad]);
+  }, [router.events]);
 
   return (
     <>
-      {shouldLoad && (
-        <>
-          {/* Google Analytics 4 */}
-          <Script
-            strategy="afterInteractive"
-            src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-            onLoad={() => {
-              // Initialize GA immediately after script loads
-              window.dataLayer = window.dataLayer || [];
-              function gtag(...args: any[]) { 
-                window.dataLayer.push(args); 
-              }
-              (window as any).gtag = gtag;
-              
-              gtag('js', new Date());
-              
-              // Check if debug mode is enabled via URL parameter
-              const urlParams = new URLSearchParams(window.location.search);
-              const isDebugMode = urlParams.get('debug_mode') === 'true';
-              
-              gtag('config', GA_TRACKING_ID, {
-                page_path: window.location.pathname,
-                send_page_view: true, // Enable automatic page views
-                cookie_flags: 'SameSite=None;Secure',
-                anonymize_ip: true,
-                allow_google_signals: false,
-                allow_ad_personalization_signals: false,
-                // Performance optimizations
-                transport_type: 'beacon',
-                // Enable debug mode for DebugView
-                debug_mode: isDebugMode
-              });
-              
-              // Send initial page view
-              gtag('event', 'page_view', {
-                page_path: window.location.pathname,
-                page_title: document.title,
-              });
-            }}
-          />
-        </>
-      )}
+      {/* Google Analytics 4 - Loads immediately */}
+      <Script
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+        onLoad={() => {
+          // Initialize GA immediately after script loads
+          window.dataLayer = window.dataLayer || [];
+          function gtag(...args: any[]) { 
+            window.dataLayer.push(args); 
+          }
+          (window as any).gtag = gtag;
+          
+          gtag('js', new Date());
+          
+          // Check if debug mode is enabled via URL parameter
+          const urlParams = new URLSearchParams(window.location.search);
+          const isDebugMode = urlParams.get('debug_mode') === 'true';
+          
+          if (isDebugMode) {
+            console.log('🔍 GA4 Debug Mode Active');
+          }
+          
+          gtag('config', GA_TRACKING_ID, {
+            page_path: window.location.pathname,
+            send_page_view: true,
+            cookie_flags: 'SameSite=None;Secure',
+            // Enable debug mode for DebugView
+            debug_mode: isDebugMode
+          });
+          
+          // Send initial page view
+          gtag('event', 'page_view', {
+            page_path: window.location.pathname,
+            page_title: document.title,
+          });
+        }}
+      />
     </>
   );
 }
