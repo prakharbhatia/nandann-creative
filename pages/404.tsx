@@ -22,30 +22,28 @@ export default function Custom404() {
         <meta name="twitter:description" content="The page you're looking for doesn't exist. Play our Flappy Bird game while you're here!" />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-8 px-4">
-        {/* Header */}
-        <div className="max-w-6xl mx-auto text-center mb-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
-            <div className="flex-1">
-              <h1 className="text-6xl sm:text-7xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800">
-                404
-              </h1>
+          <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-8 px-4">
+            {/* Header */}
+            <div className="max-w-6xl mx-auto text-center mb-8">
+              <div className="flex items-center justify-center gap-4 sm:gap-8 mb-6">
+                <h1 className="text-6xl sm:text-7xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800">
+                  404
+                </h1>
+                <Link 
+                  href="/" 
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap"
+                >
+                  🏠 Go Home
+                </Link>
+              </div>
+              
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-3">
+                Oops! Page Not Found
+              </h2>
+              <p className="text-lg text-gray-600 mb-6">
+                While you're here, why not play a quick game?
+              </p>
             </div>
-            <Link 
-              href="/" 
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-            >
-              🏠 Go Home
-            </Link>
-          </div>
-          
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-3">
-            Oops! Page Not Found
-          </h2>
-          <p className="text-lg text-gray-600 mb-6">
-            While you're here, why not play a quick game?
-          </p>
-        </div>
 
         {/* Flappy Bird Game */}
         <div className="max-w-6xl mx-auto mb-12">

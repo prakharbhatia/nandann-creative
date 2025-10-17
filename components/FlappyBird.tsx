@@ -17,13 +17,13 @@ export default function FlappyBird() {
     frameCount: 0
   });
 
-  // Game constants (easier settings)
-  const GRAVITY = 0.4;
-  const JUMP_VELOCITY = -7;
-  const PIPE_SPEED = 2;
-  const PIPE_GAP = 200;
+  // Game constants (much easier settings)
+  const GRAVITY = 0.25;
+  const JUMP_VELOCITY = -6;
+  const PIPE_SPEED = 1.5;
+  const PIPE_GAP = 250;
   const PIPE_WIDTH = 60;
-  const PIPE_SPACING = 250;
+  const PIPE_SPACING = 300;
   const CANVAS_WIDTH = 800;
   const CANVAS_HEIGHT = 600;
 
