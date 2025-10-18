@@ -14,6 +14,15 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'php-8-5-launch-major-updates',
+    title: 'PHP 8.5 Launch: Major Updates in This Version That Will Actually Make Life Easier',
+    excerpt: 'Discover the major updates in PHP 8.5 that simplify development. Pipe operator, property hooks, get_exception_handler, new DOM API, and more with detailed code examples.',
+    date: 'Oct 18, 2025',
+    readTime: '22 min read',
+    category: 'Technology & Development',
+    coverImage: '/images/php-8-5-nandann-creative-agency(1)-tablet.webp'
+  },
+  {
     slug: 'ace-core-web-vitals-2025-inp-requirements',
     title: '7 Ways to Ace Core Web Vitals in 2025 Without Rebuilding Your Entire Website (New INP Requirements)',
     excerpt: 'Master Google\'s latest Core Web Vitals updates including the new INP metric. Learn 7 proven techniques to improve LCP, CLS, FCP, and INP scores without rebuilding your website.',

@@ -97,7 +97,7 @@ export default function BlogPostPage({ post }: Props) {
                 rel="preload" 
                 as="image" 
                 type="image/webp"
-                href="/images/php-8-5-nandann-creative-agency-edited-tablet.webp"
+                href="/images/php-8-5-nandann-creative-agency(1)-tablet.webp"
               />
             )}
         

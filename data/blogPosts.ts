@@ -28,23 +28,23 @@ export const blogPosts: BlogPost[] = [
     readTime: '22 min read',
     category: 'Technology & Development',
     tags: ['PHP 8.5', 'PHP features', 'backend development', 'web development', 'PHP performance', 'PHP 2025', 'modern PHP', 'PHP updates', 'property hooks', 'pipe operator', 'PHP DOM'],
-    coverImage: '/images/php-8-5-nandann-creative-agency-edited-tablet.webp',
+    coverImage: '/images/php-8-5-nandann-creative-agency(1)-tablet.webp',
     contentHtml: `
-      <img src="/images/php-8-5-nandann-creative-agency-edited-tablet.webp" alt="PHP 8.5 Launch: Major Updates - Nandann Creative Agency" />
+      <img src="/images/php-8-5-nandann-creative-agency(1)-tablet.webp" alt="PHP 8.5 Launch: Major Updates - Nandann Creative Agency" />
       
       <div class="alert alert-info">
-        <p><strong>PHP 8.5 Released:</strong> The latest version of PHP brings game-changing features that will transform how you write backend code. From the revolutionary pipe operator to property hooks, here's everything you need to know.</p>
+        <p><strong>PHP 8.5 Scheduled Release:</strong> PHP 8.5 is set to launch on November 20, 2025, bringing game-changing features that will transform how you write backend code. From the revolutionary pipe operator to property hooks, here's everything you need to know about what's coming.</p>
       </div>
 
       <p class="lead">
-        PHP 8.5 has arrived, and it's not just another incremental update. This version introduces features that fundamentally change how we approach PHP development, making code cleaner, more readable, and significantly more powerful. Whether you're building APIs, web applications, or complex backend systems, PHP 8.5 will make your life easier.
+        PHP 8.5 is coming soon, and it's not just another incremental update. This version introduces features that fundamentally change how we approach PHP development, making code cleaner, more readable, and significantly more powerful. Whether you're building APIs, web applications, or complex backend systems, PHP 8.5 will make your life easier.
       </p>
 
       <p>In this comprehensive guide, we'll explore every major update with detailed code examples, performance comparisons, and real-world use cases. By the end, you'll understand exactly how PHP 8.5 can transform your development workflow.</p>
 
       <h2>Why PHP 8.5 Matters in 2025</h2>
       
-      <p>PHP 8.5 represents a significant evolution in the language's capabilities. Released in October 2025, this version focuses on developer experience, performance, and modern programming patterns. The updates aren't just syntactic sugar—they're fundamental improvements that address real pain points developers face daily.</p>
+      <p>PHP 8.5 represents a significant evolution in the language's capabilities. Scheduled for release on November 20, 2025, this version focuses on developer experience, performance, and modern programming patterns. The updates aren't just syntactic sugar—they're fundamental improvements that address real pain points developers face daily.</p>
 
       <h3>Key Benefits of Upgrading to PHP 8.5</h3>
       
