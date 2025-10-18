@@ -245,8 +245,8 @@ export default function Navigation() {
         {/* Mobile Menu */}
         <div 
           id="mobile-menu"
-          className={`md:hidden transition-all duration-300 overflow-hidden ${
-            isMobileMenuOpen ? 'max-h-96 mt-4' : 'max-h-0'
+          className={`md:hidden transition-all duration-300 overflow-y-auto ${
+            isMobileMenuOpen ? 'max-h-[80vh] mt-4' : 'max-h-0 overflow-hidden'
           }`}
         >
           <div className="glass rounded-2xl p-4 space-y-3">
@@ -269,7 +269,7 @@ export default function Navigation() {
               <span>Portfolio</span>
               <span className={`transform transition ${showMobilePortfolio ? 'rotate-180' : ''}`}>▾</span>
             </button>
-            <div id="mobile-portfolio-submenu" className={`overflow-hidden transition-all ${showMobilePortfolio ? 'max-h-96' : 'max-h-0'}`}>
+            <div id="mobile-portfolio-submenu" className={`overflow-hidden transition-all duration-300 ${showMobilePortfolio ? 'max-h-[500px]' : 'max-h-0'}`}>
               <ul className="pl-3 space-y-1">
                 <li>
                   <Link href="/reset-file-and-folder-permissions" className="block text-gray-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
@@ -292,7 +292,7 @@ export default function Navigation() {
               <span>Next.js</span>
               <span className={`transform transition ${showMobileNextJS ? 'rotate-180' : ''}`}>▾</span>
             </button>
-            <div id="mobile-nextjs-submenu" className={`overflow-hidden transition-all ${showMobileNextJS ? 'max-h-96' : 'max-h-0'}`}>
+            <div id="mobile-nextjs-submenu" className={`overflow-hidden transition-all duration-300 ${showMobileNextJS ? 'max-h-[500px]' : 'max-h-0'}`}>
               <ul className="pl-3 space-y-1">
                 <li>
                   <Link href="/nextjs/wordpress-to-nextjs-migration-cost" className="block text-gray-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
@@ -340,7 +340,7 @@ export default function Navigation() {
               <span>Blog</span>
               <span className={`transform transition ${showMobileBlog ? 'rotate-180' : ''}`}>▾</span>
             </button>
-            <div id="mobile-blog-submenu" className={`overflow-hidden transition-all ${showMobileBlog ? 'max-h-96' : 'max-h-0'}`}>
+            <div id="mobile-blog-submenu" className={`overflow-hidden transition-all duration-300 ${showMobileBlog ? 'max-h-[500px]' : 'max-h-0'}`}>
               <ul className="pl-3 space-y-1">
                 <li>
                   <Link href="/blog/php-8-5-launch-major-updates" className="block text-gray-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
