@@ -81,15 +81,25 @@ export default function BlogPostPage({ post }: Props) {
         {/* Canonical URL */}
         <link rel="canonical" href={canonicalUrl} />
         
-        {/* Preload LCP image for Core Web Vitals post */}
-        {post.slug === 'ace-core-web-vitals-2025-inp-requirements' && (
-          <link 
-            rel="preload" 
-            as="image" 
-            type="image/webp"
-            href="/images/core-web-vitals-improve-nandann-creative-tablet.webp"
-          />
-        )}
+            {/* Preload LCP image for Core Web Vitals post */}
+            {post.slug === 'ace-core-web-vitals-2025-inp-requirements' && (
+              <link 
+                rel="preload" 
+                as="image" 
+                type="image/webp"
+                href="/images/core-web-vitals-improve-nandann-creative-tablet.webp"
+              />
+            )}
+            
+            {/* Preload LCP image for PHP 8.5 post */}
+            {post.slug === 'php-8-5-launch-major-updates' && (
+              <link 
+                rel="preload" 
+                as="image" 
+                type="image/webp"
+                href="/images/php-8-5-nandann-creative-agency-edited-tablet.webp"
+              />
+            )}
         
         {/* Preload LCP image for mobile-first design post */}
         {post.slug === 'mobile-first-design-principles' && (
