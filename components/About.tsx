@@ -38,20 +38,22 @@ export default function About() {
       {/* Founder Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
             {/* Profile Image */}
             <div className="order-2 lg:order-1">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-3xl blur-2xl opacity-20"></div>
-                <div className="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8">
-                  <Image
-                    src="/images/prakhar.jpg"
-                    alt="Prakhar Bhatia - Founder of Nandann Creative Agency"
-                    width={400}
-                    height={500}
-                    className="rounded-2xl w-full h-auto object-cover"
-                    priority
-                  />
+              <div className="sticky top-8">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-3xl blur-2xl opacity-20"></div>
+                  <div className="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8">
+                    <Image
+                      src="/images/prakhar.jpg"
+                      alt="Prakhar Bhatia - Founder of Nandann Creative Agency"
+                      width={400}
+                      height={500}
+                      className="rounded-2xl w-full h-auto object-cover"
+                      priority
+                    />
+                  </div>
                 </div>
               </div>
             </div>
