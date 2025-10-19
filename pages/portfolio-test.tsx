@@ -141,38 +141,32 @@ export default function PortfolioTest() {
   const capabilities = [
     {
       title: "High-Performance Web Applications",
-      description: "Build lightning-fast applications with modern frameworks",
-      icon: "⚡",
+      description: "Build fast, scalable applications using modern frameworks and optimization techniques",
       features: ["Next.js", "React", "Core Web Vitals", "Performance Optimization"]
     },
     {
       title: "WordPress to Next.js Migrations",
       description: "Seamless migration with zero downtime and improved performance",
-      icon: "🚀",
       features: ["Zero Downtime", "SSG/ISR", "API Integration", "SEO Preservation"]
     },
     {
       title: "Core Web Vitals Optimization",
-      description: "Achieve perfect scores and boost search rankings",
-      icon: "📈",
-      features: ["LCP < 1s", "CLS < 0.1", "FID < 100ms", "SEO Boost"]
+      description: "Achieve optimal performance scores and improve search rankings",
+      features: ["LCP < 1s", "CLS < 0.1", "FID < 100ms", "SEO Improvement"]
     },
     {
       title: "Trading & FinTech Systems",
-      description: "Real-time systems handling millions of transactions",
-      icon: "💰",
+      description: "Real-time systems handling millions of transactions with microsecond precision",
       features: ["Microsecond Latency", "High Availability", "Real-time Data", "Scalability"]
     },
     {
       title: "Enterprise-Scale Solutions",
-      description: "Architect systems for Fortune 500 companies",
-      icon: "🏢",
+      description: "Architect and build systems for large-scale enterprise applications",
       features: ["High Availability", "Disaster Recovery", "Security", "Compliance"]
     },
     {
       title: "WordPress Custom Development",
-      description: "20 years of WordPress expertise and custom solutions",
-      icon: "🔧",
+      description: "Two decades of WordPress expertise delivering custom solutions",
       features: ["Custom Plugins", "Theme Development", "API Integration", "Performance"]
     }
   ];
@@ -338,9 +332,9 @@ export default function PortfolioTest() {
           return (
             <div className="flex items-center justify-center h-64 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg">
               <div className="text-center">
-                <div className="text-6xl mb-4">🔧</div>
-                <div className="text-white font-bold text-xl">WordPress Plugin</div>
+                <div className="text-white font-bold text-xl mb-2">WordPress Plugin</div>
                 <div className="text-gray-300">10,000+ Active Installs</div>
+                <div className="text-blue-300 text-sm mt-2">Reset File and Folder Permissions</div>
               </div>
             </div>
           );
@@ -463,8 +457,8 @@ export default function PortfolioTest() {
               20 Years of Building <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">High-Performance Solutions</span>
             </h1>
             <p className="text-xl text-gray-300 max-w-4xl mx-auto mb-12">
-              From WordPress plugins to enterprise-scale trading systems, I've delivered measurable results 
-              across diverse industries without compromising on quality or performance.
+              From WordPress plugins to enterprise trading systems, I've delivered measurable results 
+              across diverse industries with a focus on performance and reliability.
             </p>
           </div>
         </section>
@@ -477,15 +471,14 @@ export default function PortfolioTest() {
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
               {[
-                { label: "Years Experience", value: `${counters.years}+`, icon: "⏰" },
-                { label: "Projects Delivered", value: `${counters.projects}+`, icon: "🚀" },
-                { label: "Daily Transactions", value: `${counters.transactions}M+`, icon: "💳" },
-                { label: "Average Uptime", value: `${counters.uptime}%`, icon: "⚡" },
-                { label: "Transaction Volume", value: `$${counters.volume}B+`, icon: "💰" },
-                { label: "Plugin Downloads", value: `${counters.downloads}K+`, icon: "📦" }
+                { label: "Years Experience", value: `${counters.years}+` },
+                { label: "Projects Delivered", value: `${counters.projects}+` },
+                { label: "Daily Transactions", value: `${counters.transactions}M+` },
+                { label: "Average Uptime", value: `${counters.uptime}%` },
+                { label: "Transaction Volume", value: `$${counters.volume}B+` },
+                { label: "Plugin Downloads", value: `${counters.downloads}K+` }
               ].map((stat, index) => (
                 <div key={index} className="glass rounded-2xl p-6 text-center hover-lift">
-                  <div className="text-4xl mb-4">{stat.icon}</div>
                   <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
                     {stat.value}
                   </div>
@@ -557,7 +550,6 @@ export default function PortfolioTest() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {capabilities.map((capability, index) => (
                 <div key={index} className="glass rounded-2xl p-6 hover-lift group">
-                  <div className="text-4xl mb-4">{capability.icon}</div>
                   <h3 className="text-xl font-bold text-white mb-3 group-hover:text-gradient transition-all duration-300">
                     {capability.title}
                   </h3>
@@ -602,11 +594,11 @@ export default function PortfolioTest() {
           <div className="max-w-4xl mx-auto text-center">
             <div className="glass rounded-3xl p-12">
               <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                Ready to Build Something <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Amazing</span>?
+                Ready to Start Your <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Project</span>?
               </h3>
               <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                Let's discuss your project and create a solution that delivers measurable results. 
-                With 20 years of experience, I'm here to bring your vision to life.
+                Let's discuss your requirements and build a solution that delivers results. 
+                With 20 years of experience, I can help bring your project to life.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
