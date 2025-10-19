@@ -46,10 +46,10 @@ export default function Hero() {
             <span className="block text-white mb-4">
               Crafting <span className="text-white">Digital</span>
             </span>
-            <span className="block relative h-20 md:h-24 lg:h-28 flex items-center justify-center" style={{color: 'rgb(147, 51, 234)'}}>
+            <span className="block relative h-20 md:h-24 lg:h-28 flex items-center justify-center overflow-visible" style={{color: 'rgb(147, 51, 234)'}}>
               <span 
                 key={currentWordIndex}
-                className={`absolute inset-0 flex items-center justify-center text-center transition-all duration-700 ease-in-out relative z-20 ${
+                className={`absolute inset-0 flex items-center justify-center text-center transition-all duration-700 ease-in-out z-20 ${
                   isAnimating 
                     ? 'animate-slideOutUp' 
                     : 'animate-slideInUp'

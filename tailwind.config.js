@@ -49,14 +49,13 @@ module.exports = {
           '100%': { opacity: '1' }
         },
         slideInUp: {
-          '0%': { transform: 'translateY(120%)', opacity: '0' },
-          '30%': { transform: 'translateY(20%)', opacity: '0.6' },
-          '70%': { transform: 'translateY(-5%)', opacity: '0.9' },
+          '0%': { transform: 'translateY(100%)', opacity: '0' },
+          '50%': { transform: 'translateY(0)', opacity: '0.8' },
           '100%': { transform: 'translateY(0)', opacity: '1' }
         },
         slideOutUp: {
           '0%': { transform: 'translateY(0)', opacity: '1' },
-          '100%': { transform: 'translateY(-120%)', opacity: '0' }
+          '100%': { transform: 'translateY(-100%)', opacity: '0' }
         }
       }
     },
