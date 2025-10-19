@@ -178,146 +178,104 @@ export default function PortfolioTest() {
   ];
 
   return (
-    <div className="bg-gray-900 min-h-screen text-white">
-      {/* Hero Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-8">
-            20 Years of Building <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">High-Performance Solutions</span>
-          </h1>
-          <p className="text-xl text-gray-300 max-w-4xl mx-auto mb-12">
+    <section id="portfolio" className="py-24 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="text-center mb-20">
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+            20 Years of Building <span className="text-gradient">High-Performance Solutions</span>
+          </h2>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             From WordPress plugins to enterprise trading systems, I've delivered measurable results 
             across diverse industries with a focus on performance and reliability.
           </p>
         </div>
-      </section>
 
-      {/* Projects Grid */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl font-bold text-white text-center mb-12">
-            Featured <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Projects</span>
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {projects.map((project, index) => (
-              <div key={index} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300">
-                <div className="mb-4">
-                  <span className="bg-gradient-to-r from-blue-500 to-purple-500 px-3 py-1 rounded-full text-sm text-white">
+        {/* Projects Grid */}
+        <div className="grid md:grid-cols-2 gap-8">
+          {projects.map((project, index) => (
+            <div key={index} className="glass rounded-3xl overflow-hidden hover-lift group">
+              {/* Image Placeholder */}
+              <div className="h-64 bg-gradient-to-br from-blue-500/20 to-purple-500/20 relative overflow-hidden">
+                <div className="absolute inset-0 flex items-center justify-center p-4">
+                  <div className="text-center">
+                    <div className="text-white font-bold text-xl mb-2">{project.title}</div>
+                    <div className="text-gray-300">{project.industry}</div>
+                  </div>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <div className="absolute bottom-4 left-4">
+                  <span className="glass px-3 py-1 rounded-full text-sm text-white">
                     {project.category}
                   </span>
                 </div>
-                
-                <h3 className="text-2xl font-bold text-white mb-4">
+              </div>
+
+              <div className="p-8">
+                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-gradient transition-all duration-300">
                   {project.title}
                 </h3>
-                
+
                 <p className="text-gray-300 mb-3">
                   <span className="font-semibold text-blue-300">Industry:</span> {project.industry}
                 </p>
-                
-                <p className="text-gray-300 mb-4">
+
+                <p className="text-gray-300 mb-4 leading-relaxed">
                   {project.description}
                 </p>
-                
-                <p className="text-gray-300 mb-6">
+
+                <p className="text-gray-300 mb-6 leading-relaxed">
                   <span className="font-semibold text-blue-300">Results:</span> {project.results}
                 </p>
 
+                {/* Tech Stack */}
                 <div className="flex flex-wrap gap-2 mb-6">
-                  {project.technologies.map((tech, techIndex) => (
+                  {project.technologies.map((tech: string, techIndex: number) => (
                     <span
                       key={techIndex}
-                      className="bg-white/10 px-3 py-1 rounded-full text-sm text-gray-300"
+                      className="glass-dark px-3 py-1 rounded-full text-sm text-gray-300"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
 
-                <Link
-                  href="/contact"
-                  className="text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200"
-                >
-                  Get Quote →
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Capabilities */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl font-bold text-white text-center mb-12">
-            What We Can <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Build For You</span>
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {capabilities.map((capability, index) => (
-              <div key={index} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300">
-                <h3 className="text-xl font-bold text-white mb-3">
-                  {capability.title}
-                </h3>
-                <p className="text-gray-300 mb-4">{capability.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {capability.features.map((feature, featureIndex) => (
-                    <span key={featureIndex} className="bg-white/10 px-3 py-1 rounded-full text-sm text-gray-300">
-                      {feature}
-                    </span>
-                  ))}
+                <div className="flex items-center justify-between">
+                  <Link
+                    href="/contact"
+                    className="text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200"
+                  >
+                    Get Quote →
+                  </Link>
+                  <div className="flex space-x-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-gray-400 text-sm">Live</span>
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-      </section>
 
-      {/* Testimonials */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl font-bold text-white text-center mb-12">
-            Client <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Testimonials</span>
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-                <div className="flex items-center mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                      <path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 3.817 1.48-8.279L.004 9.306l8.332-1.151L12 .587z"/>
-                    </svg>
-                  ))}
-                </div>
-                <p className="text-gray-300 text-lg mb-4 italic">"{testimonial.text}"</p>
-                <p className="text-white font-semibold">- {testimonial.author}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-12">
+        {/* CTA Section */}
+        <div className="text-center mt-20">
+          <div className="glass rounded-3xl p-12 max-w-4xl mx-auto">
             <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              Ready to Start Your <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Project</span>?
+              Ready to Start Your <span className="text-gradient">Project</span>?
             </h3>
             <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-              Let's discuss your requirements and build a solution that delivers results. 
-              With 20 years of experience, I can help bring your project to life.
+              Let's discuss your ideas and create something amazing together. 
+              We're here to bring your vision to life.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-full text-white font-semibold text-lg transition-all duration-300 inline-block"
-              >
-                Get Started Today
-              </Link>
-            </div>
+            <Link
+              href="/contact"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-full text-white font-semibold text-lg hover-lift hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 inline-block"
+            >
+              Get Started Today
+            </Link>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Portfolio FAQs */}
       <FAQ 
@@ -357,6 +315,6 @@ export default function PortfolioTest() {
           }
         ]}
       />
-    </div>
+    </section>
   );
 }
