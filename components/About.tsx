@@ -64,13 +64,27 @@ export default function About() {
                 </h2>
                 <div className="space-y-6 text-lg text-gray-300 leading-relaxed">
                   <p>
-                    I founded Nandann Creative Agency with a clear vision: to create digital solutions that don't just look good, but deliver real business value. With over 16 years in the industry, I've learned that the best results come from truly understanding each client's unique challenges and goals.
+                    I founded Nandann Creative Agency with a clear vision: to create digital solutions that don't just look good, but deliver real business value. With over 20 years in the industry, I've learned that the best results come from truly understanding each client's unique challenges and goals.
                   </p>
+                  
+                  <h3 className="text-xl font-semibold text-blue-300 mt-8 mb-4">A Journey Through Technology</h3>
                   <p>
-                    My approach combines technical expertise with creative problem-solving. Whether it's a startup needing their first website or an established business requiring complex automation, I believe in building lasting partnerships, not just completing projects.
+                    My love affair with coding began in 2004, starting with HTML, CSS, JavaScript, and PHP. Over two decades, I've evolved through WordPress, Joomla, and Magento development, then expanded into modern frameworks like Node.js, Python/FastAPI, React, Next.js, and Rust. I'm constantly exploring new technologies and coding techniques—because in this field, learning never stops.
                   </p>
+                  
+                  <h3 className="text-xl font-semibold text-blue-300 mt-8 mb-4">Enterprise-Scale Experience</h3>
                   <p>
-                    At Nandann, we don't believe in unnecessary complexity or inflated timelines. Our focus is on efficient, high-quality delivery that gets your business moving forward quickly. Every project receives my personal attention, ensuring the final result exceeds expectations.
+                    My technical journey has taken me beyond typical web development. I've configured and maintained the world's third-fastest mainframe (supercomputer) for three years, built algorithmic trading systems for leading hedge funds, and managed massive data operations on mainframes and Teradata. I've designed and tested disaster recovery systems for mission-critical financial infrastructure. This experience with high-performance computing and enterprise-scale systems informs how I approach every project—no matter the size.
+                  </p>
+                  
+                  <h3 className="text-xl font-semibold text-blue-300 mt-8 mb-4">Beyond the Code</h3>
+                  <p>
+                    When I'm not building digital solutions, I'm exploring the world. I've ridden my bike to Khardung La Pass (one of the world's highest motorable roads), driven across the entire Indian subcontinent in a 35-day journey, and pursued wildlife photography across diverse ecosystems. These adventures fuel my creativity and remind me that the best solutions come from understanding different perspectives, cultures, and ways of thinking.
+                  </p>
+                  
+                  <h3 className="text-xl font-semibold text-blue-300 mt-8 mb-4">My Approach</h3>
+                  <p>
+                    At Nandann, we don't believe in unnecessary complexity or inflated timelines. My approach combines technical expertise from enterprise systems with creative problem-solving honed through decades of diverse challenges. Whether it's a startup needing their first website or an established business requiring complex automation, I believe in building lasting partnerships, not just completing projects. Every project receives my personal attention, ensuring the final result exceeds expectations.
                   </p>
                 </div>
               </div>
