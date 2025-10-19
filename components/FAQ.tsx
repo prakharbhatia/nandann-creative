@@ -93,7 +93,7 @@ export default function FAQ({ title = "Frequently Asked Questions", faqs = defau
                 {title}
               </span>
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-white">
               Get answers to the most common questions about our services
             </p>
           </div>
