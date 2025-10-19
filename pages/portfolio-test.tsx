@@ -35,6 +35,94 @@ export default function PortfolioTest() {
       technologies: ["WordPress", "PHP", "JavaScript", "AJAX"],
       results: "Achieved over 10,000 active installs with a 4.9-star rating on WordPress.org",
       category: "WordPress Plugin"
+    },
+    {
+      title: "Healthcare Management System",
+      industry: "Healthcare",
+      description: "Built comprehensive patient management system with HIPAA compliance",
+      technologies: ["React", "Node.js", "PostgreSQL", "AWS"],
+      results: "Streamlined patient workflows by 60% and improved data accuracy to 99.8%",
+      category: "Healthcare Solutions"
+    },
+    {
+      title: "Real Estate Portal",
+      industry: "Real Estate",
+      description: "Developed property listing platform with advanced search and virtual tours",
+      technologies: ["Next.js", "MongoDB", "Stripe", "Google Maps API"],
+      results: "Increased property inquiries by 150% and reduced time-to-lease by 40%",
+      category: "Real Estate Platform"
+    },
+    {
+      title: "Educational Learning Management System",
+      industry: "Education",
+      description: "Created online learning platform with video streaming and progress tracking",
+      technologies: ["React", "Express.js", "MySQL", "AWS S3"],
+      results: "Enabled 50,000+ students to access courses with 95% completion rate",
+      category: "EdTech Solutions"
+    },
+    {
+      title: "Restaurant Ordering System",
+      industry: "Food & Beverage",
+      description: "Built mobile-first ordering platform with real-time kitchen management",
+      technologies: ["React Native", "Firebase", "Stripe", "Twilio"],
+      results: "Reduced order processing time by 45% and increased customer satisfaction by 30%",
+      category: "Food Tech Platform"
+    },
+    {
+      title: "Manufacturing ERP System",
+      industry: "Manufacturing",
+      description: "Developed enterprise resource planning system for production management",
+      technologies: ["Angular", "Java", "Oracle", "Docker"],
+      results: "Optimized production scheduling and reduced inventory costs by 25%",
+      category: "Manufacturing Solutions"
+    },
+    {
+      title: "Fitness Tracking Application",
+      industry: "Health & Fitness",
+      description: "Created comprehensive fitness app with workout plans and progress analytics",
+      technologies: ["React Native", "Node.js", "MongoDB", "Chart.js"],
+      results: "Achieved 100,000+ downloads with 4.7-star rating and 80% user retention",
+      category: "Fitness App"
+    },
+    {
+      title: "Legal Case Management System",
+      industry: "Legal Services",
+      description: "Built secure case management platform with document automation",
+      technologies: ["Vue.js", "Python", "PostgreSQL", "AWS"],
+      results: "Reduced case processing time by 50% and improved document accuracy by 90%",
+      category: "Legal Tech Solutions"
+    },
+    {
+      title: "Travel Booking Platform",
+      industry: "Travel & Tourism",
+      description: "Developed comprehensive travel booking system with multi-vendor integration",
+      technologies: ["React", "Express.js", "MySQL", "Payment Gateway"],
+      results: "Processed $2M+ in bookings with 99.5% transaction success rate",
+      category: "Travel Platform"
+    },
+    {
+      title: "Non-Profit Donation Portal",
+      industry: "Non-Profit",
+      description: "Created donation management system with campaign tracking and reporting",
+      technologies: ["Next.js", "Stripe", "MongoDB", "EmailJS"],
+      results: "Increased donation collection by 200% and reduced administrative overhead by 60%",
+      category: "Non-Profit Solutions"
+    },
+    {
+      title: "Automotive Parts Marketplace",
+      industry: "Automotive",
+      description: "Built B2B marketplace for automotive parts with inventory management",
+      technologies: ["React", "Node.js", "MongoDB", "AWS"],
+      results: "Connected 500+ suppliers with 2,000+ buyers, processing $5M+ in transactions",
+      category: "B2B Marketplace"
+    },
+    {
+      title: "Crypto Meme Coin Analysis & Copy Trading System",
+      industry: "Cryptocurrency Trading",
+      description: "Built Rust-based system to identify profitable meme coin traders and implement automated copy trading using Solana RPC",
+      technologies: ["Rust", "Solana RPC", "Web3", "PostgreSQL"],
+      results: "Identified top-performing traders with 85% accuracy and achieved 40% average returns through automated copy trading",
+      category: "Crypto Trading Solutions"
     }
   ];
 
