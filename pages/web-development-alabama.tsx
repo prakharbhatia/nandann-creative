@@ -168,10 +168,10 @@ export default function AlabamaPage() {
                   that capture Alabama's spirit and drive real results in the Heart of Dixie.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/contact" className="bg-gradient-to-r from-red-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-red-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 text-center">
+                  <Link href="/contact" className="bg-gradient-to-r from-red-600 to-red-800 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-red-700 hover:to-red-900 transition-all duration-300 transform hover:scale-105 text-center">
                     Get Your Free Quote
                   </Link>
-                  <Link href="/portfolio" className="border-2 border-red-600 text-red-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-red-600 hover:text-white transition-all duration-300 text-center">
+                  <Link href="/portfolio" className="border-2 border-red-600 text-red-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gradient-to-r from-red-600 to-red-800 hover:text-white transition-all duration-300 text-center">
                     View Our Work
                   </Link>
                 </div>
@@ -310,7 +310,7 @@ export default function AlabamaPage() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="bg-gradient-to-br from-red-50 to-blue-50 p-8 rounded-2xl">
-                <div className="w-16 h-16 bg-red-600 rounded-xl flex items-center justify-center mb-6">
+                <div className="w-16 h-16 bg-gradient-to-r from-red-600 to-red-800 rounded-xl flex items-center justify-center mb-6">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
@@ -536,7 +536,7 @@ export default function AlabamaPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-8 rounded-2xl">
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-red-600 to-red-800 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
                     M
                   </div>
                   <div>
@@ -570,7 +570,7 @@ export default function AlabamaPage() {
 
               <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-8 rounded-2xl">
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-red-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-red-600 to-red-800 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
                     T
                   </div>
                   <div>
