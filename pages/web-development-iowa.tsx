@@ -151,13 +151,13 @@ export default function IowaPage() {
         <LocationNavigation location="Iowa" locationShort="IA" />
         
         {/* Hero Section */}
-        <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gold-50 to-black-100">
+        <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-yellow-50 to-gray-100">
           <div className="max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
                   Go Hawks! Iowa Needs a{' '}
-                  <span className="text-gold-600">
+                  <span className="text-yellow-600">
                     Website That Works!
                   </span>
                 </h1>
@@ -168,10 +168,10 @@ export default function IowaPage() {
                   that capture Iowa's spirit and drive real results in the Hawkeye State.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/contact" className="bg-gradient-to-r from-gold-600 to-gold-800 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-gold-700 hover:to-gold-900 transition-all duration-300 transform hover:scale-105 text-center">
+                  <Link href="/contact" className="bg-gradient-to-r from-yellow-600 to-yellow-800 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-yellow-700 hover:to-yellow-900 transition-all duration-300 transform hover:scale-105 text-center">
                     Get Your Free Quote
                   </Link>
-                  <Link href="/portfolio" className="border-2 border-gold-600 text-gold-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gold-600 hover:text-white transition-all duration-300 text-center">
+                  <Link href="/portfolio" className="border-2 border-yellow-600 text-yellow-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-yellow-600 hover:text-white transition-all duration-300 text-center">
                     View Our Work
                   </Link>
                 </div>
@@ -260,7 +260,7 @@ export default function IowaPage() {
               </div>
 
               <div className="bg-white/90 backdrop-blur-xl p-8 rounded-2xl shadow-2xl text-center border border-white/20">
-                <div className="w-20 h-20 bg-gradient-to-br from-gold-500 to-black-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-yellow-500 to-gray-600 rounded-full flex items-center justify-center mx-auto mb-6">
                   <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
@@ -275,7 +275,7 @@ export default function IowaPage() {
               </div>
 
               <div className="bg-white/90 backdrop-blur-xl p-8 rounded-2xl shadow-2xl text-center border border-white/20">
-                <div className="w-20 h-20 bg-gradient-to-br from-black-500 to-gold-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-gray-500 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6">
                   <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
                   </svg>
@@ -298,7 +298,7 @@ export default function IowaPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                 Here's Why{' '}
-                <span className="text-gold-600">
+                <span className="text-yellow-600">
                   Nandann Creative
                 </span>{' '}
                 Gets Iowa
@@ -309,8 +309,8 @@ export default function IowaPage() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="bg-gradient-to-br from-gold-50 to-black-50 p-8 rounded-2xl">
-                <div className="w-16 h-16 bg-gold-600 rounded-xl flex items-center justify-center mb-6">
+              <div className="bg-gradient-to-br from-yellow-50 to-gray-50 p-8 rounded-2xl">
+                <div className="w-16 h-16 bg-yellow-600 rounded-xl flex items-center justify-center mb-6">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
@@ -323,7 +323,7 @@ export default function IowaPage() {
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-black-50 to-gold-50 p-8 rounded-2xl">
+              <div className="bg-gradient-to-br from-gray-50 to-yellow-50 p-8 rounded-2xl">
                 <div className="w-16 h-16 bg-black-600 rounded-xl flex items-center justify-center mb-6">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
@@ -370,7 +370,7 @@ export default function IowaPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <Link href="/web-development-iowa" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
                 <div className="w-16 h-16 bg-gold-100 rounded-lg flex items-center justify-center mb-6">
-                  <svg className="w-8 h-8 text-gold-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
@@ -457,7 +457,7 @@ export default function IowaPage() {
               <div>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                   We Get Iowa's{' '}
-                  <span className="text-gold-600">
+                  <span className="text-yellow-600">
                     Unique Spirit
                   </span>
                 </h2>
@@ -524,7 +524,7 @@ export default function IowaPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                 Don't Just Take Our Word For It -{' '}
-                  <span className="text-gold-600">
+                  <span className="text-yellow-600">
                     Iowa is Talking!
                   </span>
               </h2>
@@ -534,9 +534,9 @@ export default function IowaPage() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="bg-gradient-to-br from-gold-50 to-black-50 p-8 rounded-2xl">
+              <div className="bg-gradient-to-br from-yellow-50 to-gray-50 p-8 rounded-2xl">
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-gold-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                  <div className="w-12 h-12 bg-yellow-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
                     M
                   </div>
                   <div>
@@ -551,7 +551,7 @@ export default function IowaPage() {
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-black-50 to-gold-50 p-8 rounded-2xl">
+              <div className="bg-gradient-to-br from-gray-50 to-yellow-50 p-8 rounded-2xl">
                 <div className="flex items-center mb-4">
                   <div className="w-12 h-12 bg-black-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
                     S
@@ -594,7 +594,7 @@ export default function IowaPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                 Got Questions? We Got Answers!{' '}
-                <span className="text-gold-600">
+                <span className="text-yellow-600">
                   Iowa Style
                 </span>
               </h2>
@@ -628,10 +628,10 @@ export default function IowaPage() {
               Join hundreds of Iowa businesses that trust Nandann Creative with their digital success—from Des Moines to Davenport, go hawks!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact" className="bg-white text-gold-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
+              <Link href="/contact" className="bg-white text-yellow-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
                 Start Your Project Today
               </Link>
-              <Link href="/contact" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-gold-600 transition-all duration-300 text-center">
+              <Link href="/contact" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-yellow-600 transition-all duration-300 text-center">
                 Schedule a Consultation
               </Link>
             </div>
