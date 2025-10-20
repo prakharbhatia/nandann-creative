@@ -157,7 +157,7 @@ export default function NebraskaPage() {
               <div>
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
                   Go Big Red! Nebraska Needs a{' '}
-                  <span className="bg-gradient-to-r from-red-600 to-white-600 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent">
                     Website That Works!
                   </span>
                 </h1>
@@ -168,7 +168,7 @@ export default function NebraskaPage() {
                   that capture Nebraska's spirit and drive real results in the Cornhusker State.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/contact" className="bg-gradient-to-r from-red-600 to-white-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-red-700 hover:to-white-700 transition-all duration-300 transform hover:scale-105 text-center">
+                  <Link href="/contact" className="bg-gradient-to-r from-red-600 to-red-800 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-red-700 hover:to-red-900 transition-all duration-300 transform hover:scale-105 text-center">
                     Get Your Free Quote
                   </Link>
                   <Link href="/portfolio" className="border-2 border-red-600 text-red-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-red-600 hover:text-white transition-all duration-300 text-center">
