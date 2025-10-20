@@ -457,7 +457,7 @@ export default function IowaPage() {
               <div>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                   We Get Iowa's{' '}
-                  <span className="bg-gradient-to-r from-gold-600 to-black-600 bg-clip-text text-transparent">
+                  <span className="text-gold-600">
                     Unique Spirit
                   </span>
                 </h2>
@@ -594,7 +594,7 @@ export default function IowaPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                 Got Questions? We Got Answers!{' '}
-                <span className="bg-gradient-to-r from-gold-600 to-black-600 bg-clip-text text-transparent">
+                <span className="text-gold-600">
                   Iowa Style
                 </span>
               </h2>
@@ -619,7 +619,7 @@ export default function IowaPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gold-600 to-gold-800">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-800 to-gray-900">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
               Ready to Make Iowa Your Digital Hawkeye State?
