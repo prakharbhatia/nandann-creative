@@ -260,7 +260,7 @@ export default function NebraskaPage() {
               </div>
 
               <div className="bg-white/90 backdrop-blur-xl p-8 rounded-2xl shadow-2xl text-center border border-white/20">
-                <div className="w-20 h-20 bg-gradient-to-br from-red-500 to-white-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-red-500 to-red-700 rounded-full flex items-center justify-center mx-auto mb-6">
                   <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
@@ -298,7 +298,7 @@ export default function NebraskaPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                 Here's Why{' '}
-                <span className="bg-gradient-to-r from-red-600 to-white-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent">
                   Nandann Creative
                 </span>{' '}
                 Gets Nebraska
@@ -324,7 +324,7 @@ export default function NebraskaPage() {
               </div>
 
               <div className="bg-gradient-to-br from-white-50 to-red-50 p-8 rounded-2xl">
-                <div className="w-16 h-16 bg-white-600 rounded-xl flex items-center justify-center mb-6">
+                <div className="w-16 h-16 bg-red-600 rounded-xl flex items-center justify-center mb-6">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                   </svg>
@@ -383,7 +383,7 @@ export default function NebraskaPage() {
               
               <Link href="/web-development-nebraska" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
                 <div className="w-16 h-16 bg-white-100 rounded-lg flex items-center justify-center mb-6">
-                  <svg className="w-8 h-8 text-white-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                   </svg>
                 </div>
@@ -524,9 +524,9 @@ export default function NebraskaPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                 Don't Just Take Our Word For It -{' '}
-                <span className="bg-gradient-to-r from-red-600 to-white-600 bg-clip-text text-transparent">
-                  Nebraska is Talking!
-                </span>
+                  <span className="bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent">
+                    Nebraska is Talking!
+                  </span>
               </h2>
               <p className="text-xl text-gray-600">
                 Real results from real Nebraska businesses
@@ -534,7 +534,7 @@ export default function NebraskaPage() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="bg-gradient-to-br from-red-50 to-white-50 p-8 rounded-2xl">
+              <div className="bg-gradient-to-br from-red-50 to-red-100 p-8 rounded-2xl">
                 <div className="flex items-center mb-4">
                   <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
                     M
@@ -551,9 +551,9 @@ export default function NebraskaPage() {
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-white-50 to-red-50 p-8 rounded-2xl">
+              <div className="bg-gradient-to-br from-red-100 to-red-50 p-8 rounded-2xl">
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-white-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                  <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
                     S
                   </div>
                   <div>
@@ -568,9 +568,9 @@ export default function NebraskaPage() {
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-2xl">
+              <div className="bg-gradient-to-br from-red-50 to-red-100 p-8 rounded-2xl">
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-red-600 to-red-800 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
                     T
                   </div>
                   <div>
@@ -619,7 +619,7 @@ export default function NebraskaPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-red-600 to-white-600">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-red-600 to-red-800">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
               Ready to Make Nebraska Your Digital Cornhusker State?
