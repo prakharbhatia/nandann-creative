@@ -157,7 +157,7 @@ export default function AlabamaPage() {
               <div>
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
                   Roll Tide! Alabama Needs a{' '}
-                  <span className="bg-gradient-to-r from-crimson-600 to-crimson-800 bg-clip-text text-transparent">
+                  <span className="text-crimson-600">
                     Website That Works!
                   </span>
                 </h1>
@@ -298,7 +298,7 @@ export default function AlabamaPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                 Here's Why{' '}
-                <span className="bg-gradient-to-r from-crimson-600 to-crimson-800 bg-clip-text text-transparent">
+                <span className="text-crimson-600">
                   Nandann Creative
                 </span>{' '}
                 Gets Alabama
@@ -457,7 +457,7 @@ export default function AlabamaPage() {
               <div>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                   We Get Alabama's{' '}
-                  <span className="bg-gradient-to-r from-crimson-600 to-crimson-800 bg-clip-text text-transparent">
+                  <span className="text-crimson-600">
                     Unique Spirit
                   </span>
                 </h2>
@@ -524,7 +524,7 @@ export default function AlabamaPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
                 Don't Just Take Our Word For It -{' '}
-                  <span className="bg-gradient-to-r from-crimson-600 to-crimson-800 bg-clip-text text-transparent">
+                  <span className="text-crimson-600">
                     Alabama is Talking!
                   </span>
               </h2>
@@ -594,7 +594,7 @@ export default function AlabamaPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                 Got Questions? We Got Answers!{' '}
-                <span className="bg-gradient-to-r from-crimson-600 to-crimson-800 bg-clip-text text-transparent">
+                <span className="text-crimson-600">
                   Alabama Style
                 </span>
               </h2>

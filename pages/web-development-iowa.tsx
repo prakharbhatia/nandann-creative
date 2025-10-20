@@ -157,7 +157,7 @@ export default function IowaPage() {
               <div>
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
                   Go Hawks! Iowa Needs a{' '}
-                  <span className="bg-gradient-to-r from-gold-600 to-gold-800 bg-clip-text text-transparent">
+                  <span className="text-gold-600">
                     Website That Works!
                   </span>
                 </h1>
@@ -298,7 +298,7 @@ export default function IowaPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                 Here's Why{' '}
-                <span className="bg-gradient-to-r from-gold-600 to-gold-800 bg-clip-text text-transparent">
+                <span className="text-gold-600">
                   Nandann Creative
                 </span>{' '}
                 Gets Iowa
@@ -524,7 +524,7 @@ export default function IowaPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                 Don't Just Take Our Word For It -{' '}
-                  <span className="bg-gradient-to-r from-gold-600 to-gold-800 bg-clip-text text-transparent">
+                  <span className="text-gold-600">
                     Iowa is Talking!
                   </span>
               </h2>
