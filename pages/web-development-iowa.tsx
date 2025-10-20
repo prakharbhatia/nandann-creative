@@ -234,7 +234,7 @@ export default function IowaPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
                 Iowa's{' '}
-                <span className="text-gold-400">
+                <span className="text-yellow-400">
                   #1 Rated Web Development Agency
                 </span>
               </h2>
@@ -324,7 +324,7 @@ export default function IowaPage() {
               </div>
 
               <div className="bg-gradient-to-br from-gray-50 to-yellow-50 p-8 rounded-2xl">
-                <div className="w-16 h-16 bg-black-600 rounded-xl flex items-center justify-center mb-6">
+                <div className="w-16 h-16 bg-gray-600 rounded-xl flex items-center justify-center mb-6">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                   </svg>
@@ -369,7 +369,7 @@ export default function IowaPage() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <Link href="/web-development-iowa" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                <div className="w-16 h-16 bg-gold-100 rounded-lg flex items-center justify-center mb-6">
+                <div className="w-16 h-16 bg-yellow-100 rounded-lg flex items-center justify-center mb-6">
                   <svg className="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
@@ -382,8 +382,8 @@ export default function IowaPage() {
               </Link>
               
               <Link href="/web-development-iowa" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                <div className="w-16 h-16 bg-black-100 rounded-lg flex items-center justify-center mb-6">
-                  <svg className="w-8 h-8 text-black-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mb-6">
+                  <svg className="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                   </svg>
                 </div>
@@ -553,7 +553,7 @@ export default function IowaPage() {
 
               <div className="bg-gradient-to-br from-gray-50 to-yellow-50 p-8 rounded-2xl">
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-black-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                  <div className="w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
                     S
                   </div>
                   <div>
