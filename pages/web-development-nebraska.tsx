@@ -457,7 +457,7 @@ export default function NebraskaPage() {
               <div>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                   We Get Nebraska's{' '}
-                  <span className="bg-gradient-to-r from-red-600 to-white-600 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent">
                     Unique Spirit
                   </span>
                 </h2>
@@ -594,7 +594,7 @@ export default function NebraskaPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                 Got Questions? We Got Answers!{' '}
-                <span className="bg-gradient-to-r from-red-600 to-white-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent">
                   Nebraska Style
                 </span>
               </h2>
