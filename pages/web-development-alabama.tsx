@@ -151,13 +151,13 @@ export default function AlabamaPage() {
         <LocationNavigation location="Alabama" locationShort="AL" />
         
         {/* Hero Section */}
-        <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-crimson-50 to-blue-100">
+        <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-red-50 to-blue-100">
           <div className="max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
                   Roll Tide! Alabama Needs a{' '}
-                  <span className="text-crimson-600">
+                  <span className="text-red-600">
                     Website That Works!
                   </span>
                 </h1>
@@ -168,10 +168,10 @@ export default function AlabamaPage() {
                   that capture Alabama's spirit and drive real results in the Heart of Dixie.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/contact" className="bg-gradient-to-r from-crimson-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-crimson-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 text-center">
+                  <Link href="/contact" className="bg-gradient-to-r from-red-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-red-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 text-center">
                     Get Your Free Quote
                   </Link>
-                  <Link href="/portfolio" className="border-2 border-crimson-600 text-crimson-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-crimson-600 hover:text-white transition-all duration-300 text-center">
+                  <Link href="/portfolio" className="border-2 border-red-600 text-red-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-red-600 hover:text-white transition-all duration-300 text-center">
                     View Our Work
                   </Link>
                 </div>
@@ -234,7 +234,7 @@ export default function AlabamaPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
                 Alabama's{' '}
-                <span className="text-crimson-400">
+                <span className="text-red-400">
                   #1 Rated Web Development Agency
                 </span>
               </h2>
@@ -260,7 +260,7 @@ export default function AlabamaPage() {
               </div>
 
               <div className="bg-white/90 backdrop-blur-xl p-8 rounded-2xl shadow-2xl text-center border border-white/20">
-                <div className="w-20 h-20 bg-gradient-to-br from-crimson-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-red-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
                   <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
@@ -298,7 +298,7 @@ export default function AlabamaPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                 Here's Why{' '}
-                <span className="text-crimson-600">
+                <span className="text-red-600">
                   Nandann Creative
                 </span>{' '}
                 Gets Alabama
@@ -309,8 +309,8 @@ export default function AlabamaPage() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="bg-gradient-to-br from-crimson-50 to-blue-50 p-8 rounded-2xl">
-                <div className="w-16 h-16 bg-crimson-600 rounded-xl flex items-center justify-center mb-6">
+              <div className="bg-gradient-to-br from-red-50 to-blue-50 p-8 rounded-2xl">
+                <div className="w-16 h-16 bg-red-600 rounded-xl flex items-center justify-center mb-6">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
@@ -369,8 +369,8 @@ export default function AlabamaPage() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <Link href="/web-development-alabama" className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                <div className="w-16 h-16 bg-crimson-100 rounded-lg flex items-center justify-center mb-6">
-                  <svg className="w-8 h-8 text-crimson-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-16 h-16 bg-red-100 rounded-lg flex items-center justify-center mb-6">
+                  <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
@@ -457,7 +457,7 @@ export default function AlabamaPage() {
               <div>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                   We Get Alabama's{' '}
-                  <span className="text-crimson-600">
+                  <span className="text-red-600">
                     Unique Spirit
                   </span>
                 </h2>
@@ -524,7 +524,7 @@ export default function AlabamaPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
                 Don't Just Take Our Word For It -{' '}
-                  <span className="text-crimson-600">
+                  <span className="text-red-600">
                     Alabama is Talking!
                   </span>
               </h2>
@@ -536,7 +536,7 @@ export default function AlabamaPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-8 rounded-2xl">
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-crimson-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                  <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
                     M
                   </div>
                   <div>
@@ -570,7 +570,7 @@ export default function AlabamaPage() {
 
               <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-8 rounded-2xl">
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-crimson-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-red-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
                     T
                   </div>
                   <div>
@@ -594,7 +594,7 @@ export default function AlabamaPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                 Got Questions? We Got Answers!{' '}
-                <span className="text-crimson-600">
+                <span className="text-red-600">
                   Alabama Style
                 </span>
               </h2>
@@ -628,10 +628,10 @@ export default function AlabamaPage() {
               Join hundreds of Alabama businesses that trust Nandann Creative with their digital success—from Birmingham to Mobile, roll tide!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact" className="bg-white text-crimson-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
+              <Link href="/contact" className="bg-white text-red-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
                 Start Your Project Today
               </Link>
-              <Link href="/contact" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-crimson-600 transition-all duration-300 text-center">
+              <Link href="/contact" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-red-600 transition-all duration-300 text-center">
                 Schedule a Consultation
               </Link>
             </div>
