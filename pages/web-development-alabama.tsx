@@ -519,66 +519,66 @@ export default function AlabamaPage() {
         </section>
 
         {/* Testimonials Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 to-gray-800">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
                 Don't Just Take Our Word For It -{' '}
                 <span className="bg-gradient-to-r from-crimson-600 to-blue-600 bg-clip-text text-transparent">
                   Alabama is Talking!
                 </span>
               </h2>
-              <p className="text-xl text-gray-600">
+              <p className="text-xl text-gray-300">
                 Real results from real Alabama businesses
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="bg-gradient-to-br from-crimson-50 to-blue-50 p-8 rounded-2xl">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-8 rounded-2xl">
                 <div className="flex items-center mb-4">
                   <div className="w-12 h-12 bg-crimson-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
                     M
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Mike "The Birmingham Maverick" Johnson</h4>
-                    <p className="text-gray-600">CEO, Birmingham Corporate Solutions</p>
+                    <h4 className="font-semibold text-white">Mike "The Birmingham Maverick" Johnson</h4>
+                    <p className="text-gray-300">CEO, Birmingham Corporate Solutions</p>
                   </div>
                 </div>
-                <p className="text-gray-700 italic">
+                <p className="text-gray-200 italic">
                   "These folks totally get Alabama! Our new website captures the corporate sophistication and our 
                   client inquiries doubled in the first month. They even used the right shade of crimson—
                   that's respect for Alabama's values! Roll Tide with great web design!"
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-blue-50 to-purple-50 p-8 rounded-2xl">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-8 rounded-2xl">
                 <div className="flex items-center mb-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
                     S
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Sarah "The Montgomery Strategist" Williams</h4>
-                    <p className="text-gray-600">Director, Montgomery Government Services</p>
+                    <h4 className="font-semibold text-white">Sarah "The Montgomery Strategist" Williams</h4>
+                    <p className="text-gray-300">Director, Montgomery Government Services</p>
                   </div>
                 </div>
-                <p className="text-gray-700 italic">
+                <p className="text-gray-200 italic">
                   "Right on! These folks delivered our website faster than you can say 'Roll Tide!' Our 
                   government inquiries increased 180% and clients love the professional vibe. They understand 
                   that in Alabama, it's not just business—it's about Southern hospitality and excellence!"
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-2xl">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-8 rounded-2xl">
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-crimson-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
                     T
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Tom "The Mobile Dynamo" Thompson</h4>
-                    <p className="text-gray-600">Founder, Mobile Port Solutions</p>
+                    <h4 className="font-semibold text-white">Tom "The Mobile Dynamo" Thompson</h4>
+                    <p className="text-gray-300">Founder, Mobile Port Solutions</p>
                   </div>
                 </div>
-                <p className="text-gray-700 italic">
+                <p className="text-gray-200 italic">
                   "As a port solutions company in Mobile, we needed a website that honors our coastal heritage while 
                   showcasing our modern capabilities. Nandann Creative delivered a site that's helped us win major contracts 
                   while staying true to our Alabama values. They understand Alabama business!"
