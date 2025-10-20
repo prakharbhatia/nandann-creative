@@ -157,7 +157,7 @@ export default function IowaPage() {
               <div>
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
                   Go Hawks! Iowa Needs a{' '}
-                  <span className="bg-gradient-to-r from-gold-600 to-black-600 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-gold-600 to-gold-800 bg-clip-text text-transparent">
                     Website That Works!
                   </span>
                 </h1>
@@ -168,7 +168,7 @@ export default function IowaPage() {
                   that capture Iowa's spirit and drive real results in the Hawkeye State.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/contact" className="bg-gradient-to-r from-gold-600 to-black-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-gold-700 hover:to-black-700 transition-all duration-300 transform hover:scale-105 text-center">
+                  <Link href="/contact" className="bg-gradient-to-r from-gold-600 to-gold-800 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-gold-700 hover:to-gold-900 transition-all duration-300 transform hover:scale-105 text-center">
                     Get Your Free Quote
                   </Link>
                   <Link href="/portfolio" className="border-2 border-gold-600 text-gold-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gold-600 hover:text-white transition-all duration-300 text-center">
@@ -298,7 +298,7 @@ export default function IowaPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                 Here's Why{' '}
-                <span className="bg-gradient-to-r from-gold-600 to-black-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-gold-600 to-gold-800 bg-clip-text text-transparent">
                   Nandann Creative
                 </span>{' '}
                 Gets Iowa
@@ -524,9 +524,9 @@ export default function IowaPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                 Don't Just Take Our Word For It -{' '}
-                <span className="bg-gradient-to-r from-gold-600 to-black-600 bg-clip-text text-transparent">
-                  Iowa is Talking!
-                </span>
+                  <span className="bg-gradient-to-r from-gold-600 to-gold-800 bg-clip-text text-transparent">
+                    Iowa is Talking!
+                  </span>
               </h2>
               <p className="text-xl text-gray-600">
                 Real results from real Iowa businesses
@@ -619,7 +619,7 @@ export default function IowaPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gold-600 to-black-600">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gold-600 to-gold-800">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
               Ready to Make Iowa Your Digital Hawkeye State?
