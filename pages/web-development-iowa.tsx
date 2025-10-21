@@ -5,6 +5,7 @@ import Link from 'next/link';
 import LocationNavigation from '../components/LocationNavigation';
 import LocationFooter from '../components/LocationFooter';
 
+// Iowa Web Development Page - Updated gradient fixes
 export default function IowaPage() {
   // FAQ data for Iowa
   const faqs = [
