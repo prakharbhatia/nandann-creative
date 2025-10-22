@@ -21,6 +21,1296 @@ const internalLinks = {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'nextjs-16-release-comprehensive-guide',
+    title: 'Next.js 16: Complete Guide to Cache Components, Turbopack, and Revolutionary Features',
+    description: 'Comprehensive guide to Next.js 16 featuring Cache Components with PPR, stable Turbopack (5-10x faster), proxy.ts, React Compiler, enhanced routing, and breaking changes with detailed code examples.',
+    date: '2025-10-22',
+    readTime: '35 min read',
+    category: 'Technology & Development',
+    tags: ['Next.js 16', 'Turbopack', 'Cache Components', 'PPR', 'React 19', 'web performance', 'Next.js Conference 2025', 'proxy.ts', 'React Compiler', 'Build Adapters'],
+    coverImage: '/images/nextjs-16-nandann-creative-tablet.webp',
+    contentHtml: `
+      <img src="/images/nextjs-16-nandann-creative-tablet.webp" alt="Next.js 16: Complete Guide - Nandann Creative Agency" />
+      
+      <div class="alert alert-info" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1)); border-left: 4px solid #3b82f6; padding: 1.5rem; margin: 2rem 0; border-radius: 0.5rem;">
+        <p><strong>Next.js 16 Released:</strong> On October 21, 2025, ahead of Next.js Conf 2025, Vercel released Next.js 16 with groundbreaking features including Cache Components with Partial Pre-Rendering (PPR), stable Turbopack bundler, and proxy.ts. This comprehensive guide covers every feature, breaking change, and migration path you need to know.</p>
+      </div>
+
+      <p class="lead" style="font-size: 1.25rem; line-height: 1.8; color: #e5e7eb; margin: 2rem 0;">
+        Next.js 16 marks a turning point in how we build web applications. With Cache Components providing explicit, flexible caching, Turbopack delivering 5-10x faster builds, and a complete routing overhaul, this release addresses the biggest pain points developers have faced. Whether you're migrating from Next.js 15 or starting fresh, this guide will show you exactly how to leverage these new capabilities.
+      </p>
+
+      <p>In this deep-dive, we'll explore every major feature with practical code examples, performance comparisons, and real-world migration strategies. By the end, you'll understand not just what changed, but why it matters and how to use it effectively.</p>
+
+      <div class="grid md:grid-cols-3 gap-6 my-8">
+        <div class="bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-white/20 rounded-xl p-6 text-center">
+          <h4 class="text-3xl font-bold text-blue-300 mb-2">5-10x</h4>
+          <p class="text-gray-300">Faster Fast Refresh</p>
+        </div>
+        <div class="bg-gradient-to-br from-green-500/20 to-emerald-500/20 border border-white/20 rounded-xl p-6 text-center">
+          <h4 class="text-3xl font-bold text-green-300 mb-2">2-5x</h4>
+          <p class="text-gray-300">Faster Production Builds</p>
+        </div>
+        <div class="bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-white/20 rounded-xl p-6 text-center">
+          <h4 class="text-3xl font-bold text-purple-300 mb-2">50%+</h4>
+          <p class="text-gray-300">Already Using Turbopack</p>
+        </div>
+      </div>
+
+      <h2>How to Upgrade to Next.js 16</h2>
+      
+      <p>Before diving into the features, let's get you upgraded. Next.js provides both automated and manual upgrade paths:</p>
+
+      <h3>Automated Upgrade (Recommended)</h3>
+      <pre><code class="language-bash"># Use the automated codemod to upgrade
+npx @next/codemod@canary upgrade latest</code></pre>
+
+      <p>The codemod will automatically:</p>
+      <ul>
+        <li>Update your <code>package.json</code> dependencies</li>
+        <li>Rename <code>middleware.ts</code> to <code>proxy.ts</code></li>
+        <li>Convert synchronous <code>params</code> and <code>searchParams</code> to async</li>
+        <li>Update async API calls (<code>cookies()</code>, <code>headers()</code>, <code>draftMode()</code>)</li>
+        <li>Flag deprecated features for manual review</li>
+      </ul>
+
+      <h3>Manual Upgrade</h3>
+      <pre><code class="language-bash"># Update all Next.js and React packages
+npm install next@latest react@latest react-dom@latest
+
+# Or start a fresh project
+npx create-next-app@latest</code></pre>
+
+      <p><strong>Important:</strong> The codemod can't handle every edge case. Check the official upgrade guide for cases requiring manual intervention.</p>
+
+      <h2>1. Cache Components: Explicit, Flexible Caching</h2>
+
+      <p>Cache Components represent a fundamental shift in how Next.js handles caching. Unlike the implicit caching in earlier App Router versions, Next.js 16 makes caching entirely opt-in and explicit.</p>
+
+      <h3>Why Cache Components Matter</h3>
+
+      <p>In Next.js 15 and earlier App Router versions, determining what would be cached required understanding complex rules about dynamic functions, route segments, and rendering strategies. Cache Components eliminate this confusion:</p>
+
+      <div class="comparison-table my-8 overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead class="bg-white/10">
+            <tr>
+              <th class="border border-white/20 p-4 text-left">Aspect</th>
+              <th class="border border-white/20 p-4 text-left">Next.js 15 (App Router)</th>
+              <th class="border border-white/20 p-4 text-left">Next.js 16 (Cache Components)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white/5">
+              <td class="border border-white/20 p-4"><strong>Caching Model</strong></td>
+              <td class="border border-white/20 p-4">Implicit - tries to cache by default</td>
+              <td class="border border-white/20 p-4">Explicit - opt-in with "use cache"</td>
+            </tr>
+            <tr>
+              <td class="border border-white/20 p-4"><strong>Dynamic Code</strong></td>
+              <td class="border border-white/20 p-4">Entire route becomes dynamic</td>
+              <td class="border border-white/20 p-4">Executed at request time by default</td>
+            </tr>
+            <tr class="bg-white/5">
+              <td class="border border-white/20 p-4"><strong>Static/Dynamic Choice</strong></td>
+              <td class="border border-white/20 p-4">Route-level decision</td>
+              <td class="border border-white/20 p-4">Component/function-level granularity</td>
+            </tr>
+            <tr>
+              <td class="border border-white/20 p-4"><strong>PPR Integration</strong></td>
+              <td class="border border-white/20 p-4">Experimental flag</td>
+              <td class="border border-white/20 p-4">Completed with Cache Components</td>
+            </tr>
+            <tr class="bg-white/5">
+              <td class="border border-white/20 p-4"><strong>Cache Keys</strong></td>
+              <td class="border border-white/20 p-4">Manual management</td>
+              <td class="border border-white/20 p-4">Compiler-generated automatically</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Enabling Cache Components</h3>
+
+      <p>Enable Cache Components in your Next.js configuration:</p>
+
+      <pre><code class="language-typescript">// next.config.ts
+const nextConfig = {
+  cacheComponents: true,
+};
+
+export default nextConfig;</code></pre>
+
+      <p><strong>Note:</strong> The previous <code>experimental.ppr</code> flag has been removed in favor of Cache Components configuration.</p>
+
+      <h3>Using "use cache" Directive</h3>
+
+      <p>The <code>"use cache"</code> directive can be applied at three levels:</p>
+
+      <h4>1. Page-Level Caching</h4>
+      <pre><code class="language-typescript">// app/blog/page.tsx
+"use cache";
+
+export default async function BlogPage() {
+  const posts = await fetchPosts();
+  
+  return (
+    &lt;div&gt;
+      {posts.map(post =&gt; (
+        &lt;Article key={post.id} {...post} /&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+      <p>This caches the entire page output. The compiler automatically generates cache keys based on the route and any dynamic segments.</p>
+
+      <h4>2. Component-Level Caching</h4>
+      <pre><code class="language-typescript">// components/UserProfile.tsx
+"use cache";
+
+async function UserProfile({ userId }: { userId: string }) {
+  const user = await fetchUser(userId);
+  
+  return (
+    &lt;div&gt;
+      &lt;h2&gt;{user.name}&lt;/h2&gt;
+      &lt;p&gt;{user.bio}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default UserProfile;</code></pre>
+
+      <p>Cache just this component's output. Multiple components on the same page can have different caching strategies.</p>
+
+      <h4>3. Function-Level Caching</h4>
+      <pre><code class="language-typescript">// lib/data.ts
+"use cache";
+
+export async function getProductRecommendations(userId: string) {
+  const userPreferences = await fetchPreferences(userId);
+  const recommendations = await fetchRecommendations(userPreferences);
+  return recommendations;
+}</code></pre>
+
+      <p>Cache function results. Perfect for expensive computations or API calls that don't change frequently.</p>
+
+      <h3>Cache Components + Partial Pre-Rendering (PPR)</h3>
+
+      <p>Cache Components complete the vision for Partial Pre-Rendering (PPR), first introduced in 2023. PPR lets you mix static and dynamic content on the same page without forcing an all-or-nothing choice.</p>
+
+      <p><strong>Before PPR:</strong> A single dynamic element (like a user profile) forced your entire product page to render dynamically, losing the performance benefits of static generation.</p>
+
+      <p><strong>With PPR + Cache Components:</strong></p>
+
+      <pre><code class="language-typescript">// app/product/[id]/page.tsx
+import ${'{ Suspense }'} from 'react';
+
+// Static product information (cached)
+"use cache";
+async function ProductInfo(${'{ id }: { id: string }'}) {
+  const product = await fetchProduct(id);
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;${'{'}{product.name}&lt;/h1&gt;
+      &lt;p&gt;${'{'}{product.description}&lt;/p&gt;
+      &lt;p&gt;{'$'}${'{'}{product.price}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Dynamic user-specific content (not cached)
+async function UserRecommendations(${'{ userId }: { userId: string }'}) {
+  const recommendations = await fetchPersonalizedRecs(userId);
+  return &lt;RecommendationGrid items={'{'}recommendations{'}'} /&gt;;
+}
+
+export default function ProductPage(${'{ params }: { params: { id: string } }'}) {
+  return (
+    &lt;div&gt;
+      &lt;ProductInfo id={'{'}params.id{'}'} /&gt;
+      
+      &lt;Suspense fallback={'{'}&lt;LoadingSkeleton /&gt;{'}'}&gt;
+        &lt;UserRecommendations userId={'{'}getCurrentUser().id{'}'} /&gt;
+      &lt;/Suspense&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+      <p>Result: The product information loads instantly from the cache (static), while personalized recommendations stream in (dynamic). Users get fast initial load times with personalized content.</p>
+
+      <div class="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-l-4 border-blue-500 p-6 my-8 rounded-r-lg">
+        <p class="text-lg font-semibold text-blue-300 mb-2">Performance Impact</p>
+        <p class="text-gray-300">Cache Components with PPR give you the best of both worlds: static page shell loads instantly (sub-100ms), while dynamic content streams in without blocking the initial render. This typically reduces Time to First Byte (TTFB) by 60-80% compared to fully dynamic pages.</p>
+      </div>
+
+      <h2>2. Turbopack: Now Stable and Default</h2>
+
+      <p>Turbopack has reached stability and is now the default bundler for all Next.js projects. Since its beta release, adoption has grown rapidly: over 50% of development sessions and 20% of production builds on Next.js 15.3+ are already using Turbopack.</p>
+
+      <h3>Performance Improvements</h3>
+
+      <p>The numbers speak for themselves:</p>
+
+      <div class="grid md:grid-cols-2 gap-6 my-8">
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+          <h4 class="text-xl font-bold text-green-300 mb-4">Fast Refresh Speed</h4>
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="text-gray-400">Webpack</span>
+                <span class="text-gray-400">2.5s</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2">
+                <div class="bg-red-500 h-2 rounded-full" style="width: 100%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="text-gray-400">Turbopack</span>
+                <span class="text-green-300">0.25s</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2">
+                <div class="bg-green-500 h-2 rounded-full" style="width: 10%"></div>
+              </div>
+            </div>
+          </div>
+          <p class="text-center text-2xl font-bold text-green-300 mt-4">10x Faster</p>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+          <h4 class="text-xl font-bold text-blue-300 mb-4">Production Build Time</h4>
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="text-gray-400">Webpack</span>
+                <span class="text-gray-400">180s</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2">
+                <div class="bg-red-500 h-2 rounded-full" style="width: 100%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="text-gray-400">Turbopack</span>
+                <span class="text-blue-300">45s</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2">
+                <div class="bg-blue-500 h-2 rounded-full" style="width: 25%"></div>
+              </div>
+            </div>
+          </div>
+          <p class="text-center text-2xl font-bold text-blue-300 mt-4">4x Faster</p>
+        </div>
+      </div>
+
+      <p>These improvements compound over time. If you're making 50 code changes per day, Turbopack saves you roughly 2 hours of waiting for rebuilds.</p>
+
+      <h3>Opting Out to Webpack</h3>
+
+      <p>While Turbopack is now the default, you can still use webpack if needed:</p>
+
+      <pre><code class="language-bash"># Development with webpack
+next dev --webpack
+
+# Production build with webpack
+next build --webpack</code></pre>
+
+      <p>This is useful if you have custom webpack configurations that aren't yet compatible with Turbopack.</p>
+
+      <h3>Turbopack Filesystem Caching (Beta)</h3>
+
+      <p>For large projects, Turbopack now supports filesystem caching in development, storing compiler artifacts between runs:</p>
+
+      <pre><code class="language-typescript">// next.config.ts
+const nextConfig = {
+  experimental: {
+    turbopackFileSystemCacheForDev: true,
+  },
+};
+
+export default nextConfig;</code></pre>
+
+      <p>This is particularly impactful for large monorepos. Vercel's internal apps have seen startup times improve from minutes to seconds with filesystem caching enabled.</p>
+
+      <div class="comparison-table my-8 overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead class="bg-white/10">
+            <tr>
+              <th class="border border-white/20 p-4 text-left">Project Size</th>
+              <th class="border border-white/20 p-4 text-left">Without FS Cache</th>
+              <th class="border border-white/20 p-4 text-left">With FS Cache</th>
+              <th class="border border-white/20 p-4 text-left">Improvement</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white/5">
+              <td class="border border-white/20 p-4">Small (&lt;100 files)</td>
+              <td class="border border-white/20 p-4">2s</td>
+              <td class="border border-white/20 p-4">1.5s</td>
+              <td class="border border-white/20 p-4 text-green-300">25% faster</td>
+            </tr>
+            <tr>
+              <td class="border border-white/20 p-4">Medium (100-1000 files)</td>
+              <td class="border border-white/20 p-4">15s</td>
+              <td class="border border-white/20 p-4">5s</td>
+              <td class="border border-white/20 p-4 text-green-300">67% faster</td>
+            </tr>
+            <tr class="bg-white/5">
+              <td class="border border-white/20 p-4">Large (1000+ files)</td>
+              <td class="border border-white/20 p-4">120s</td>
+              <td class="border border-white/20 p-4">12s</td>
+              <td class="border border-white/20 p-4 text-green-300">90% faster</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>3. proxy.ts Replaces middleware.ts</h2>
+
+      <p>Next.js 16 introduces <code>proxy.ts</code> as the new way to intercept requests, replacing <code>middleware.ts</code>. The change clarifies the network boundary and ensures consistent runtime behavior.</p>
+
+      <h3>Why the Change?</h3>
+
+      <p>The name "middleware" was ambiguous - it could mean server middleware, edge middleware, or application-level middleware. <code>proxy.ts</code> makes it clear: this code runs at the network boundary, before your application logic.</p>
+
+      <p>Additionally, <code>proxy.ts</code> runs on the Node.js runtime (not Edge), providing access to the full Node.js API and better debugging capabilities.</p>
+
+      <h3>Migration Path</h3>
+
+      <p>The migration is straightforward:</p>
+
+      <div class="grid md:grid-cols-2 gap-6 my-8">
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="px-3 py-1 bg-red-500/20 text-red-300 rounded-full text-sm">Before</span>
+            <h4 class="text-lg font-bold text-white">middleware.ts</h4>
+          </div>
+          <pre><code class="language-typescript">// middleware.ts
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+export function middleware(request: NextRequest) {
+  // Redirect /old-path to /new-path
+  if (request.nextUrl.pathname === '/old-path') {
+    return NextResponse.redirect(
+      new URL('/new-path', request.url)
+    );
+  }
+  
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: '/about/:path*',
+};</code></pre>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm">After</span>
+            <h4 class="text-lg font-bold text-white">proxy.ts</h4>
+          </div>
+          <pre><code class="language-typescript">// proxy.ts
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+export default function proxy(request: NextRequest) {
+  // Same logic - just renamed function
+  if (request.nextUrl.pathname === '/old-path') {
+    return NextResponse.redirect(
+      new URL('/new-path', request.url)
+    );
+  }
+  
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: '/about/:path*',
+};</code></pre>
+        </div>
+      </div>
+
+      <p><strong>What changed:</strong></p>
+      <ul>
+        <li>File renamed: <code>middleware.ts</code> → <code>proxy.ts</code></li>
+        <li>Function renamed: <code>export function middleware</code> → <code>export default function proxy</code></li>
+        <li>Logic stays exactly the same</li>
+        <li>Runtime: Now runs on Node.js instead of Edge</li>
+      </ul>
+
+      <div class="bg-yellow-500/10 border-l-4 border-yellow-500 p-6 my-8 rounded-r-lg">
+        <p class="text-lg font-semibold text-yellow-300 mb-2">Deprecation Notice</p>
+        <p class="text-gray-300"><code>middleware.ts</code> still works in Next.js 16 for Edge runtime use cases, but it's deprecated and will be removed in a future version. Migrate to <code>proxy.ts</code> to avoid breaking changes.</p>
+      </div>
+
+      <h2>4. Next.js Devtools MCP Integration</h2>
+
+      <p>Next.js 16 introduces Devtools MCP (Model Context Protocol), enabling AI-assisted debugging with full context about your application.</p>
+
+      <h3>What is Model Context Protocol?</h3>
+
+      <p>MCP is a standard protocol that allows AI agents to access structured information about your development environment. For Next.js, this means AI assistants can understand:</p>
+
+      <ul>
+        <li>Your routing structure and active routes</li>
+        <li>Caching behavior and configuration</li>
+        <li>Server and browser logs in one unified view</li>
+        <li>Error stack traces with full context</li>
+        <li>Rendering strategies (static, dynamic, ISR)</li>
+      </ul>
+
+      <h3>Example: AI-Assisted Debugging</h3>
+
+      <p>Before MCP, debugging involved switching between browser DevTools, terminal logs, and documentation. With MCP:</p>
+
+      <pre><code class="language-typescript">// Your code triggers an error
+export default async function Page() {
+  const data = await fetch('/api/users');
+  const users = data.json(); // ❌ Missing await
+  return &lt;UserList users={users} /&gt;;
+}</code></pre>
+
+      <p>Instead of manually copying error messages, you can ask your AI assistant:</p>
+
+      <blockquote class="border-l-4 border-blue-500 pl-6 my-8 text-gray-300 italic">
+        "Why is my Page component throwing a TypeError?"
+      </blockquote>
+
+      <p>The AI agent, through MCP, has access to:</p>
+      <ul>
+        <li>The exact error: <code>TypeError: data.json is not a function</code></li>
+        <li>The component that failed: <code>/app/users/page.tsx</code></li>
+        <li>The request URL that triggered the error</li>
+        <li>Whether the page is static or dynamic</li>
+        <li>Related server logs showing the fetch succeeded</li>
+      </ul>
+
+      <p>The AI can then explain: "You're calling <code>data.json()</code> without <code>await</code>. The <code>json()</code> method returns a Promise. Change line 3 to: <code>const users = await data.json();</code>"</p>
+
+      <h3>Benefits for Development Workflow</h3>
+
+      <div class="grid md:grid-cols-2 gap-6 my-8">
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+          <h4 class="text-lg font-bold text-blue-300 mb-3">Without MCP</h4>
+          <ol class="space-y-2 text-gray-300">
+            <li>1. See error in browser</li>
+            <li>2. Switch to terminal for server logs</li>
+            <li>3. Copy error message to search</li>
+            <li>4. Read documentation</li>
+            <li>5. Try to understand context</li>
+            <li>6. Make educated guess at fix</li>
+          </ol>
+          <p class="text-red-400 mt-4 font-semibold">Time: 10-15 minutes</p>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+          <h4 class="text-lg font-bold text-green-300 mb-3">With MCP</h4>
+          <ol class="space-y-2 text-gray-300">
+            <li>1. Ask AI: "What's wrong with this page?"</li>
+            <li>2. AI analyzes full context automatically</li>
+            <li>3. Get specific fix with explanation</li>
+            <li>4. Apply the fix</li>
+          </ol>
+          <p class="text-green-400 mt-4 font-semibold">Time: 1-2 minutes</p>
+        </div>
+      </div>
+
+      <p>MCP doesn't replace your debugging skills - it augments them by handling the tedious parts of context gathering and log searching.</p>
+
+      <h2>5. Enhanced Routing and Navigation</h2>
+
+      <p>Next.js 16 includes a complete overhaul of the routing system, making navigation faster and more efficient through layout deduplication and incremental prefetching.</p>
+
+      <h3>Layout Deduplication</h3>
+
+      <p>One of the biggest improvements: when prefetching multiple URLs that share a layout, the layout is downloaded once, not separately for each link.</p>
+
+      <p><strong>Scenario:</strong> You have a product listing page with 50 product links, all sharing the same layout (header, footer, sidebar).</p>
+
+      <div class="grid md:grid-cols-2 gap-6 my-8">
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+          <h4 class="text-lg font-bold text-red-300 mb-3">Next.js 15 Behavior</h4>
+          <div class="space-y-3">
+            <p class="text-gray-300">Each link prefetches:</p>
+            <ul class="text-gray-400 space-y-1 text-sm">
+              <li>• Layout (35KB) × 50 = 1.75MB</li>
+              <li>• Product page (10KB) × 50 = 500KB</li>
+              <li><strong class="text-red-400">Total: 2.25MB</strong></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+          <h4 class="text-lg font-bold text-green-300 mb-3">Next.js 16 Behavior</h4>
+          <div class="space-y-3">
+            <p class="text-gray-300">Layout deduplicated:</p>
+            <ul class="text-gray-400 space-y-1 text-sm">
+              <li>• Layout (35KB) × 1 = 35KB</li>
+              <li>• Product page (10KB) × 50 = 500KB</li>
+              <li><strong class="text-green-400">Total: 535KB</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-center text-2xl font-bold text-green-300 my-6">76% Data Transfer Reduction</p>
+
+      <h3>Incremental Prefetching</h3>
+
+      <p>Next.js 16 only prefetches what's not already in cache, rather than entire pages. The prefetch cache now:</p>
+
+      <ul>
+        <li><strong>Cancels requests</strong> when links leave the viewport (saves bandwidth)</li>
+        <li><strong>Prioritizes links on hover</strong> or when re-entering the viewport</li>
+        <li><strong>Re-prefetches links</strong> when their data is invalidated (after mutations)</li>
+        <li><strong>Works with Cache Components</strong> for even smarter prefetching</li>
+      </ul>
+
+      <h3>Code Example: Smart Prefetching</h3>
+
+      <pre><code class="language-typescript">// app/products/page.tsx
+import Link from 'next/link';
+
+export default function ProductsPage({ products }) {
+  return (
+    &lt;div&gt;
+      {/* Next.js 16 intelligently prefetches these links */}
+      {products.map(product =&gt; (
+        &lt;Link 
+          key={product.id} 
+          href={\`/products/\${product.id}\`}
+          prefetch={true} // Default behavior
+        &gt;
+          &lt;ProductCard {...product} /&gt;
+        &lt;/Link&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+      <p>Behind the scenes:</p>
+      <ol>
+        <li>First 10 visible links are prefetched immediately</li>
+        <li>Layout is fetched once and shared</li>
+        <li>When you scroll, new links entering viewport are prefetched</li>
+        <li>When you scroll back up, links leaving viewport have their prefetch requests cancelled</li>
+        <li>On hover, that specific link is prioritized</li>
+      </ol>
+
+      <h3>Trade-offs to Consider</h3>
+
+      <p>While you'll see more individual prefetch requests in DevTools, the total data transfer is significantly lower. This is the right trade-off for nearly all applications:</p>
+
+      <div class="comparison-table my-8 overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead class="bg-white/10">
+            <tr>
+              <th class="border border-white/20 p-4 text-left">Metric</th>
+              <th class="border border-white/20 p-4 text-left">Next.js 15</th>
+              <th class="border border-white/20 p-4 text-left">Next.js 16</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white/5">
+              <td class="border border-white/20 p-4">Number of requests</td>
+              <td class="border border-white/20 p-4">50</td>
+              <td class="border border-white/20 p-4">51 (1 layout + 50 pages)</td>
+            </tr>
+            <tr>
+              <td class="border border-white/20 p-4">Total data transfer</td>
+              <td class="border border-white/20 p-4">2.25MB</td>
+              <td class="border border-white/20 p-4">535KB</td>
+            </tr>
+            <tr class="bg-white/5">
+              <td class="border border-white/20 p-4">Duplicate data</td>
+              <td class="border border-white/20 p-4">1.75MB (49 duplicate layouts)</td>
+              <td class="border border-white/20 p-4">0KB</td>
+            </tr>
+            <tr>
+              <td class="border border-white/20 p-4">Navigation speed</td>
+              <td class="border border-white/20 p-4">Instant</td>
+              <td class="border border-white/20 p-4">Instant (with less data)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>If the increased request count causes issues (unlikely), you can adjust prefetch behavior:</p>
+
+      <pre><code class="language-typescript">&lt;Link href="/product" prefetch={false}&gt;
+  {/* Only prefetch on hover */}
+&lt;/Link&gt;</code></pre>
+
+      <h2>6. Improved Caching APIs</h2>
+
+      <p>Next.js 16 introduces refined caching APIs that give you explicit control over cache behavior while maintaining performance.</p>
+
+      <h3>revalidateTag() - Now Requires cacheLife Profile</h3>
+
+      <p>The <code>revalidateTag()</code> API has been updated to require a <code>cacheLife</code> profile as the second argument, enabling stale-while-revalidate (SWR) behavior:</p>
+
+      <div class="grid md:grid-cols-2 gap-6 my-8">
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="px-3 py-1 bg-yellow-500/20 text-yellow-300 rounded-full text-sm">Deprecated</span>
+            <h4 class="text-lg font-bold text-white">Old API</h4>
+          </div>
+          <pre><code class="language-typescript">// Next.js 15
+revalidateTag('blog-posts');
+
+// No control over revalidation behavior
+// No stale-while-revalidate support</code></pre>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm">New</span>
+            <h4 class="text-lg font-bold text-white">New API</h4>
+          </div>
+          <pre><code class="language-typescript">// Next.js 16
+import { revalidateTag } from 'next/cache';
+
+// Use built-in cacheLife profile
+revalidateTag('blog-posts', 'max');
+
+// Or use other profiles
+revalidateTag('news-feed', 'hours');
+revalidateTag('analytics', 'days');
+
+// Or inline custom revalidation
+revalidateTag('products', { revalidate: 3600 });</code></pre>
+        </div>
+      </div>
+
+      <h4>Built-in cacheLife Profiles</h4>
+
+      <div class="comparison-table my-8 overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead class="bg-white/10">
+            <tr>
+              <th class="border border-white/20 p-4 text-left">Profile</th>
+              <th class="border border-white/20 p-4 text-left">Revalidate Time</th>
+              <th class="border border-white/20 p-4 text-left">Best For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white/5">
+              <td class="border border-white/20 p-4"><code>max</code></td>
+              <td class="border border-white/20 p-4">As long as possible</td>
+              <td class="border border-white/20 p-4">Static content that rarely changes</td>
+            </tr>
+            <tr>
+              <td class="border border-white/20 p-4"><code>days</code></td>
+              <td class="border border-white/20 p-4">24 hours</td>
+              <td class="border border-white/20 p-4">Content that updates daily</td>
+            </tr>
+            <tr class="bg-white/5">
+              <td class="border border-white/20 p-4"><code>hours</code></td>
+              <td class="border border-white/20 p-4">1 hour</td>
+              <td class="border border-white/20 p-4">Frequently updated content</td>
+            </tr>
+            <tr>
+              <td class="border border-white/20 p-4"><code>minutes</code></td>
+              <td class="border border-white/20 p-4">5 minutes</td>
+              <td class="border border-white/20 p-4">Near real-time content</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p><strong>Recommendation:</strong> Use <code>'max'</code> for most cases. It enables background revalidation for long-lived content - users get cached data immediately while Next.js revalidates in the background.</p>
+
+      <h3>updateTag() - New API for Server Actions</h3>
+
+      <p><code>updateTag()</code> is a Server Actions-only API that provides read-your-writes semantics:</p>
+
+      <pre><code class="language-typescript">'use server';
+
+import { updateTag } from 'next/cache';
+
+export async function updateUserProfile(userId: string, profile: Profile) {
+  // Update database
+  await db.users.update(userId, profile);
+  
+  // Expire cache AND immediately read fresh data
+  updateTag(\`user-\${userId}\`);
+  
+  // User sees their changes instantly
+}</code></pre>
+
+      <p>This is perfect for interactive features where users expect to see their changes immediately:</p>
+      <ul>
+        <li>Form submissions</li>
+        <li>User settings updates</li>
+        <li>Profile edits</li>
+        <li>Shopping cart modifications</li>
+      </ul>
+
+      <h3>refresh() - New API for Uncached Data</h3>
+
+      <p><code>refresh()</code> is for refreshing uncached data only - it doesn't touch the cache at all:</p>
+
+      <pre><code class="language-typescript">'use server';
+
+import { refresh } from 'next/cache';
+
+export async function markNotificationAsRead(notificationId: string) {
+  // Update notification in database
+  await db.notifications.markAsRead(notificationId);
+  
+  // Refresh the notification count in the header
+  // (which is fetched dynamically, not cached)
+  refresh();
+}</code></pre>
+
+      <p>Use <code>refresh()</code> when you need to update dynamic data displayed elsewhere on the page:</p>
+      <ul>
+        <li>Notification counts</li>
+        <li>Live metrics and stats</li>
+        <li>Status indicators</li>
+        <li>Real-time dashboards</li>
+      </ul>
+
+      <p>Your cached page shells and static content remain fast, while only dynamic data refreshes.</p>
+
+      <h3>When to Use Each API</h3>
+
+      <div class="grid md:grid-cols-3 gap-6 my-8">
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+          <h4 class="text-lg font-bold text-blue-300 mb-3">revalidateTag()</h4>
+          <p class="text-sm text-gray-300 mb-4">For cached content with SWR</p>
+          <ul class="text-sm text-gray-400 space-y-2">
+            <li>✓ Blog posts</li>
+            <li>✓ Product listings</li>
+            <li>✓ Static pages</li>
+            <li>✓ Eventual consistency OK</li>
+          </ul>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+          <h4 class="text-lg font-bold text-green-300 mb-3">updateTag()</h4>
+          <p class="text-sm text-gray-300 mb-4">For immediate updates (Server Actions)</p>
+          <ul class="text-sm text-gray-400 space-y-2">
+            <li>✓ User profiles</li>
+            <li>✓ Form submissions</li>
+            <li>✓ Settings changes</li>
+            <li>✓ Must see changes now</li>
+          </ul>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+          <h4 class="text-lg font-bold text-purple-300 mb-3">refresh()</h4>
+          <p class="text-sm text-gray-300 mb-4">For uncached dynamic data</p>
+          <ul class="text-sm text-gray-400 space-y-2">
+            <li>✓ Live counters</li>
+            <li>✓ Notifications</li>
+            <li>✓ Real-time metrics</li>
+            <li>✓ Dynamic indicators</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>7. React 19.2 & Canary Features</h2>
+
+      <p>Next.js 16 uses the latest React Canary release, which includes React 19.2 features and other incrementally stabilized capabilities.</p>
+
+      <h3>View Transitions</h3>
+
+      <p>Animate elements that update inside a Transition or navigation:</p>
+
+      <pre><code class="language-typescript">import { useTransition, startTransition } from 'react';
+
+function ProductGallery() {
+  const [isPending, startTransition] = useTransition();
+  const [selectedImage, setSelectedImage] = useState(0);
+  
+  return (
+    &lt;div&gt;
+      &lt;img 
+        src={images[selectedImage]} 
+        style={{
+          viewTransitionName: 'product-image',
+          opacity: isPending ? 0.8 : 1,
+        }}
+      /&gt;
+      
+      &lt;div&gt;
+        {images.map((img, i) =&gt; (
+          &lt;button
+            key={i}
+            onClick={() =&gt; {
+              startTransition(() =&gt; {
+                setSelectedImage(i);
+              });
+            }}
+          &gt;
+            &lt;img src={img} /&gt;
+          &lt;/button&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+      <p>The image smoothly transitions between states instead of instantly swapping.</p>
+
+      <h3>useEffectEvent()</h3>
+
+      <p>Extract non-reactive logic from Effects into reusable Effect Event functions:</p>
+
+      <pre><code class="language-typescript">import { useEffect, useEffectEvent } from 'react';
+
+function ChatRoom({ roomId }) {
+  const [message, setMessage] = useState('');
+  
+  // Extract logging logic that shouldn't trigger re-renders
+  const onMessage = useEffectEvent((msg) =&gt; {
+    console.log('Message in room', roomId, ':', msg);
+    analytics.track('message_sent', { roomId, length: msg.length });
+  });
+  
+  useEffect(() =&gt; {
+    const connection = createConnection(roomId);
+    connection.on('message', onMessage);
+    return () =&gt; connection.disconnect();
+  }, [roomId]); // onMessage is not a dependency
+  
+  // ...
+}</code></pre>
+
+      <p>This solves the common problem of having event handlers in Effects that shouldn't trigger re-subscriptions.</p>
+
+      <h3>&lt;Activity /&gt; Component</h3>
+
+      <p>Render "background activity" by hiding UI with <code>display: none</code> while maintaining state and cleaning up Effects:</p>
+
+      <pre><code class="language-typescript">import { Activity } from 'react';
+
+function Dashboard() {
+  const [activeTab, setActiveTab] = useState('home');
+  
+  return (
+    &lt;div&gt;
+      &lt;Tabs value={activeTab} onChange={setActiveTab} /&gt;
+      
+      {/* Keep all tabs mounted but hidden when inactive */}
+      &lt;Activity mode={activeTab === 'home' ? 'visible' : 'hidden'}&gt;
+        &lt;HomeTab /&gt;
+      &lt;/Activity&gt;
+      
+      &lt;Activity mode={activeTab === 'analytics' ? 'visible' : 'hidden'}&gt;
+        &lt;AnalyticsTab /&gt;
+      &lt;/Activity&gt;
+      
+      &lt;Activity mode={activeTab === 'settings' ? 'visible' : 'hidden'}&gt;
+        &lt;SettingsTab /&gt;
+      &lt;/Activity&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+      <p>This is perfect for tab interfaces where you want instant switching without losing state, but don't want hidden tabs consuming resources.</p>
+
+      <h2>8. Breaking Changes & Migration</h2>
+
+      <p>Next.js 16 includes several breaking changes. Here's what you need to know and how to migrate:</p>
+
+      <h3>Version Requirements</h3>
+
+      <div class="comparison-table my-8 overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead class="bg-white/10">
+            <tr>
+              <th class="border border-white/20 p-4 text-left">Dependency</th>
+              <th class="border border-white/20 p-4 text-left">Minimum Version</th>
+              <th class="border border-white/20 p-4 text-left">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white/5">
+              <td class="border border-white/20 p-4">Node.js</td>
+              <td class="border border-white/20 p-4">20.9.0+</td>
+              <td class="border border-white/20 p-4">Node 18 no longer supported</td>
+            </tr>
+            <tr>
+              <td class="border border-white/20 p-4">TypeScript</td>
+              <td class="border border-white/20 p-4">5.1.0+</td>
+              <td class="border border-white/20 p-4">Required for async params types</td>
+            </tr>
+            <tr class="bg-white/5">
+              <td class="border border-white/20 p-4">Chrome</td>
+              <td class="border border-white/20 p-4">111+</td>
+              <td class="border border-white/20 p-4">For View Transitions support</td>
+            </tr>
+            <tr>
+              <td class="border border-white/20 p-4">Safari</td>
+              <td class="border border-white/20 p-4">16.4+</td>
+              <td class="border border-white/20 p-4">Modern JavaScript features</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Async params and searchParams</h3>
+
+      <p>One of the biggest changes: <code>params</code> and <code>searchParams</code> are now async and must be awaited:</p>
+
+      <div class="grid md:grid-cols-2 gap-6 my-8">
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+          <h4 class="text-lg font-bold text-red-300 mb-3">Before (Sync)</h4>
+          <pre><code class="language-typescript">// Next.js 15
+export default function Page({ 
+  params,
+  searchParams 
+}: {
+  params: { id: string };
+  searchParams: { sort: string };
+}) {
+  // Direct access
+  const id = params.id;
+  const sort = searchParams.sort;
+  
+  return &lt;div&gt;Product {id}&lt;/div&gt;;
+}</code></pre>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+          <h4 class="text-lg font-bold text-green-300 mb-3">After (Async)</h4>
+          <pre><code class="language-typescript">// Next.js 16
+export default async function Page({ 
+  params,
+  searchParams 
+}: {
+  params: Promise&lt;{ id: string }&gt;;
+  searchParams: Promise&lt;{ sort: string }&gt;;
+}) {
+  // Must await
+  const { id } = await params;
+  const { sort } = await searchParams;
+  
+  return &lt;div&gt;Product {id}&lt;/div&gt;;
+}</code></pre>
+        </div>
+      </div>
+
+      <h3>Async Cookie, Headers, and DraftMode APIs</h3>
+
+      <p>Similarly, <code>cookies()</code>, <code>headers()</code>, and <code>draftMode()</code> must now be awaited:</p>
+
+      <pre><code class="language-typescript">// Before
+import { cookies } from 'next/headers';
+
+export function getAuthToken() {
+  const cookieStore = cookies();
+  return cookieStore.get('token');
+}
+
+// After
+import { cookies } from 'next/headers';
+
+export async function getAuthToken() {
+  const cookieStore = await cookies();
+  return cookieStore.get('token');
+}</code></pre>
+
+      <h3>Removed Features</h3>
+
+      <div class="comparison-table my-8 overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead class="bg-white/10">
+            <tr>
+              <th class="border border-white/20 p-4 text-left">Removed Feature</th>
+              <th class="border border-white/20 p-4 text-left">Replacement</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white/5">
+              <td class="border border-white/20 p-4">AMP support</td>
+              <td class="border border-white/20 p-4">All AMP APIs removed. Use responsive design instead.</td>
+            </tr>
+            <tr>
+              <td class="border border-white/20 p-4"><code>next lint</code> command</td>
+              <td class="border border-white/20 p-4">Use ESLint or Biome directly. Codemod available: <code>npx @next/codemod@canary next-lint-to-eslint-cli</code></td>
+            </tr>
+            <tr class="bg-white/5">
+              <td class="border border-white/20 p-4"><code>serverRuntimeConfig</code></td>
+              <td class="border border-white/20 p-4">Use environment variables (<code>.env</code> files)</td>
+            </tr>
+            <tr>
+              <td class="border border-white/20 p-4"><code>experimental.ppr</code> flag</td>
+              <td class="border border-white/20 p-4">Use <code>cacheComponents</code> configuration</td>
+            </tr>
+            <tr class="bg-white/5">
+              <td class="border border-white/20 p-4">Local image URLs with query strings</td>
+              <td class="border border-white/20 p-4">Requires <code>images.localPatterns</code> config for security</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Behavior Changes</h3>
+
+      <p>These features have new default behaviors in Next.js 16:</p>
+
+      <ul>
+        <li><strong>Default bundler:</strong> Turbopack (was webpack). Opt out with <code>next build --webpack</code></li>
+        <li><strong>images.minimumCacheTTL:</strong> Now 4 hours (was 60s)</li>
+        <li><strong>images.imageSizes:</strong> Removed 16px from defaults (used by only 4.2% of projects)</li>
+        <li><strong>images.qualities:</strong> Now <code>[75]</code> (was <code>[1..100]</code>). Quality prop coerced to closest value</li>
+        <li><strong>images.dangerouslyAllowLocalIP:</strong> Blocks local IP optimization by default (security)</li>
+        <li><strong>Parallel routes:</strong> All slots now require explicit <code>default.js</code> files</li>
+      </ul>
+
+      <h2>9. Build Adapters API (Alpha)</h2>
+
+      <p>The new Build Adapters API allows you to hook into the build process to modify configuration or process build output.</p>
+
+      <h3>Use Cases</h3>
+
+      <ul>
+        <li>Custom deployment platforms</li>
+        <li>Build output transformation</li>
+        <li>Custom serverless function generation</li>
+        <li>Integration with proprietary infrastructure</li>
+      </ul>
+
+      <h3>Creating a Build Adapter</h3>
+
+      <pre><code class="language-javascript">// my-adapter.js
+module.exports = function myAdapter() {
+  return {
+    name: 'my-custom-adapter',
+    
+    // Modify Next.js config during build
+    async modifyConfig(config) {
+      return {
+        ...config,
+        // Your modifications
+      };
+    },
+    
+    // Process build output
+    async onBuildComplete(result) {
+      console.log('Build completed:', result);
+      // Transform or move files
+    },
+  };
+};</code></pre>
+
+      <h3>Using the Adapter</h3>
+
+      <pre><code class="language-javascript">// next.config.js
+const nextConfig = {
+  experimental: {
+    adapterPath: require.resolve('./my-adapter.js'),
+  },
+};
+
+module.exports = nextConfig;</code></pre>
+
+      <p>Build Adapters are in alpha. Share feedback in the RFC discussion to help shape the final API.</p>
+
+      <h2>10. React Compiler Support (Stable)</h2>
+
+      <p>React Compiler support is now stable in Next.js 16, following the React Compiler 1.0 release.</p>
+
+      <h3>What is React Compiler?</h3>
+
+      <p>React Compiler automatically memoizes your components, reducing unnecessary re-renders without manual <code>useMemo</code>, <code>useCallback</code>, or <code>React.memo</code>.</p>
+
+      <div class="grid md:grid-cols-2 gap-6 my-8">
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+          <h4 class="text-lg font-bold text-yellow-300 mb-3">Without React Compiler</h4>
+          <pre><code class="language-typescript">function UserProfile({ user }) {
+  // Need manual memoization
+  const fullName = useMemo(
+    () =&gt; \`\${user.first} \${user.last}\`,
+    [user.first, user.last]
+  );
+  
+  const handleClick = useCallback(() =&gt; {
+    saveUser(user.id);
+  }, [user.id]);
+  
+  return (
+    &lt;div onClick={handleClick}&gt;
+      {fullName}
+    &lt;/div&gt;
+  );
+}</code></pre>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+          <h4 class="text-lg font-bold text-green-300 mb-3">With React Compiler</h4>
+          <pre><code class="language-typescript">function UserProfile({ user }) {
+  // Automatic memoization
+  const fullName = \`\${user.first} \${user.last}\`;
+  
+  const handleClick = () =&gt; {
+    saveUser(user.id);
+  };
+  
+  return (
+    &lt;div onClick={handleClick}&gt;
+      {fullName}
+    &lt;/div&gt;
+  );
+}</code></pre>
+        </div>
+      </div>
+
+      <h3>Enabling React Compiler</h3>
+
+      <pre><code class="language-typescript">// next.config.ts
+const nextConfig = {
+  reactCompiler: true,
+};
+
+export default nextConfig;</code></pre>
+
+      <p>Then install the plugin:</p>
+
+      <pre><code class="language-bash">npm install babel-plugin-react-compiler@latest</code></pre>
+
+      <h3>Performance Trade-offs</h3>
+
+      <p>React Compiler is not enabled by default because it relies on Babel, which increases compile times:</p>
+
+      <div class="comparison-table my-8 overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead class="bg-white/10">
+            <tr>
+              <th class="border border-white/20 p-4 text-left">Scenario</th>
+              <th class="border border-white/20 p-4 text-left">Without Compiler</th>
+              <th class="border border-white/20 p-4 text-left">With Compiler</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white/5">
+              <td class="border border-white/20 p-4">Dev server startup</td>
+              <td class="border border-white/20 p-4">3s</td>
+              <td class="border border-white/20 p-4">5-7s</td>
+            </tr>
+            <tr>
+              <td class="border border-white/20 p-4">Fast Refresh</td>
+              <td class="border border-white/20 p-4">0.3s</td>
+              <td class="border border-white/20 p-4">0.5-0.8s</td>
+            </tr>
+            <tr class="bg-white/5">
+              <td class="border border-white/20 p-4">Production build</td>
+              <td class="border border-white/20 p-4">45s</td>
+              <td class="border border-white/20 p-4">60-90s</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p><strong>When to enable:</strong> If your app has performance issues from excessive re-renders, React Compiler can help significantly. The build time cost is worth it for runtime performance gains. If your app already performs well, you may not need it.</p>
+
+      <h2>Key Takeaways</h2>
+
+      <div class="grid md:grid-cols-2 gap-6 my-8">
+        <div class="bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/30 rounded-xl p-6">
+          <h3 class="text-xl font-bold text-blue-300 mb-4">Must-Know Changes</h3>
+          <ul class="space-y-2 text-gray-300">
+            <li>✓ Upgrade to Node.js 20.9+</li>
+            <li>✓ Make params/searchParams async</li>
+            <li>✓ Rename middleware.ts → proxy.ts</li>
+            <li>✓ Update revalidateTag() calls with cacheLife</li>
+            <li>✓ Add default.js to parallel route slots</li>
+          </ul>
+        </div>
+
+        <div class="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/30 rounded-xl p-6">
+          <h3 class="text-xl font-bold text-green-300 mb-4">Biggest Wins</h3>
+          <ul class="space-y-2 text-gray-300">
+            <li>✓ 5-10x faster dev experience with Turbopack</li>
+            <li>✓ Explicit caching with Cache Components</li>
+            <li>✓ 76% less prefetch data transfer</li>
+            <li>✓ AI-assisted debugging with MCP</li>
+            <li>✓ Better cache control APIs</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="text-xl text-center my-12 text-gray-200">
+        Next.js 16 is a major leap forward in developer experience and application performance. The combination of explicit caching, Turbopack's speed improvements, and smarter routing creates a foundation for building faster, more maintainable web applications.
+      </p>
+
+      <div class="bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-xl p-8 my-12 text-center">
+        <h3 class="text-2xl font-bold text-white mb-4">Ready to Upgrade?</h3>
+        <p class="text-gray-300 mb-6">Start with the automated codemod to handle most of the migration automatically:</p>
+        <pre class="inline-block text-left"><code class="language-bash">npx @next/codemod@canary upgrade latest</code></pre>
+        <p class="text-gray-400 mt-4 text-sm">Then review the upgrade guide for any edge cases specific to your application.</p>
+      </div>
+
+      <p>Next.js Conf 2025 is happening on October 22nd with more deep-dives into Cache Components, Turbopack internals, and advanced patterns. Expect additional blog posts and documentation updates in the coming weeks.</p>
+
+      <div class="bg-white/5 border border-white/10 rounded-xl p-6 my-8">
+        <h3 class="text-xl font-bold text-white mb-4">Additional Resources</h3>
+        <ul class="space-y-2 text-blue-400">
+          <li><a href="https://nextjs.org/blog/next-16" target="_blank" rel="noopener" class="hover:text-blue-300">→ Official Next.js 16 Announcement</a></li>
+          <li><a href="https://nextjs.org/docs" target="_blank" rel="noopener" class="hover:text-blue-300">→ Next.js 16 Documentation</a></li>
+          <li><a href="https://github.com/vercel/next.js/discussions" target="_blank" rel="noopener" class="hover:text-blue-300">→ GitHub Discussions</a></li>
+          <li><a href="https://react.dev/blog/2025/10/21/react-19-2" target="_blank" rel="noopener" class="hover:text-blue-300">→ React 19.2 Announcement</a></li>
+        </ul>
+      </div>
+    `,
+    faqs: [
+      {
+        question: "Should I upgrade to Next.js 16 immediately?",
+        answer: "If you're starting a new project, yes - Next.js 16 is stable and production-ready. For existing applications, review the breaking changes first. The biggest considerations are Node.js 20.9+ requirement and async params/searchParams. Use the automated codemod to handle most migrations, then test thoroughly before deploying to production."
+      },
+      {
+        question: "What's the difference between Cache Components and the old App Router caching?",
+        answer: "The old App Router tried to cache everything by default (implicit caching), which was confusing and unpredictable. Cache Components make caching entirely opt-in using the 'use cache' directive. This gives you explicit control: by default, all dynamic code runs at request time. You choose what to cache at the page, component, or function level. It's clearer, more flexible, and easier to reason about."
+      },
+      {
+        question: "Is Turbopack stable enough for production?",
+        answer: "Yes. Turbopack is now stable and is the default bundler in Next.js 16. It's been extensively tested and is already used in 20% of production builds on Next.js 15.3+. Major companies including Vercel's internal apps are running Turbopack in production. If you encounter issues with custom webpack configurations, you can still opt back to webpack with next build --webpack."
+      },
+      {
+        question: "Do I need to rename middleware.ts to proxy.ts?",
+        answer: "It's strongly recommended but not immediately required. middleware.ts still works in Next.js 16 but is deprecated and will be removed in a future version. The migration is simple: rename the file to proxy.ts and rename the exported function from middleware to proxy. Everything else stays the same. The automated codemod handles this for you."
+      },
+      {
+        question: "Why did Next.js make params and searchParams async?",
+        answer: "This change enables better streaming and concurrent rendering optimizations. By making these async, Next.js can start rendering your page before all params are resolved, improving Time to First Byte (TTFB). It also aligns with the async nature of modern React Server Components. The migration is straightforward: add async to your page function and await params/searchParams."
+      },
+      {
+        question: "How do I know when to use revalidateTag() vs updateTag() vs refresh()?",
+        answer: "Use revalidateTag() for cached content where eventual consistency is acceptable (blog posts, product listings). Use updateTag() in Server Actions when users need to see their changes immediately (profile updates, form submissions). Use refresh() for uncached dynamic data that needs updating (notification counts, live metrics). revalidateTag enables stale-while-revalidate, updateTag provides read-your-writes, and refresh only touches uncached data."
+      },
+      {
+        question: "Will Next.js 16 work with React 18?",
+        answer: "Next.js 16 requires React 19.2 or later. The App Router relies on React Server Components and other features only available in React 19+. If you're still on React 18, you'll need to upgrade React when you upgrade Next.js. The good news is that React 19 is stable and the upgrade path is well-documented."
+      },
+      {
+        question: "What are the performance benefits I can expect from upgrading?",
+        answer: "With Turbopack, expect 5-10x faster Fast Refresh during development and 2-5x faster production builds. Layout deduplication can reduce prefetch data transfer by 60-80% on pages with many links. Cache Components with PPR can improve initial page load times by 60-80% compared to fully dynamic pages. Exact improvements depend on your application structure and caching strategy."
+      },
+      {
+        question: "Should I enable the React Compiler?",
+        answer: "Enable it if your app has performance issues from excessive re-renders or if you want to reduce manual memoization. Don't enable it if your app already performs well and you want faster build times. React Compiler adds significant compile time overhead because it uses Babel. Test both with and without to see if the runtime performance gains justify the build time cost for your specific application."
+      },
+      {
+        question: "What's Partial Pre-Rendering (PPR) and how does it work with Cache Components?",
+        answer: "PPR lets you mix static (cached) and dynamic (uncached) content on the same page. Before PPR, one dynamic element forced the entire page to be dynamic. With PPR + Cache Components, you mark what should be cached with 'use cache' and wrap dynamic parts in Suspense boundaries. The static shell loads instantly while dynamic content streams in. This gives you the best of both worlds: fast initial loads with personalized content."
+      },
+      {
+        question: "How do I handle the new images.qualities behavior?",
+        answer: "Next.js 16 changed images.qualities from [1..100] to [75] by default, meaning the quality prop is coerced to the closest value in the array. If you need different quality levels, explicitly configure images.qualities in next.config.ts: { images: { qualities: [50, 75, 90] } }. This reduces the number of image variations Next.js generates, improving build performance."
+      },
+      {
+        question: "What happened to AMP support?",
+        answer: "AMP support has been completely removed in Next.js 16. Google no longer prioritizes AMP in search rankings, and modern responsive design with good Core Web Vitals achieves the same goals. If you were using AMP, focus on optimizing your regular pages for performance using Next.js's built-in optimizations, Cache Components, and Turbopack. Most sites no longer need AMP."
+      }
+    ]
+  },
+  {
     slug: 'php-8-5-launch-major-updates',
     title: 'PHP 8.5 Launch: Major Updates in This Version That Will Actually Make Life Easier',
     description: 'Discover the major updates in PHP 8.5 that simplify development. Pipe operator, property hooks, get_exception_handler, new DOM API, and more with detailed code examples.',

@@ -14,6 +14,15 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'nextjs-16-release-comprehensive-guide',
+    title: 'Next.js 16: Complete Guide to Cache Components, Turbopack, and Revolutionary Features',
+    excerpt: 'Comprehensive deep-dive into Next.js 16 featuring Cache Components with PPR, stable Turbopack with 5-10x faster builds, proxy.ts replacing middleware, and all breaking changes explained with code examples.',
+    date: 'Oct 22, 2025',
+    readTime: '35 min read',
+    category: 'Technology & Development',
+    coverImage: '/images/nextjs-16-nandann-creative-tablet.webp'
+  },
+  {
     slug: 'php-8-5-launch-major-updates',
     title: 'PHP 8.5 Launch: Major Updates in This Version That Will Actually Make Life Easier',
     excerpt: 'Discover the major updates in PHP 8.5 that simplify development. Pipe operator, property hooks, get_exception_handler, new DOM API, and more with detailed code examples.',

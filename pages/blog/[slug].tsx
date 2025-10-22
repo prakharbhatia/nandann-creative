@@ -100,6 +100,17 @@ export default function BlogPostPage({ post }: Props) {
                 href="/images/php-8-5-nandann-creative-agency(1)-tablet.webp"
               />
             )}
+            
+            {/* Preload LCP image for Next.js 16 post */}
+            {post.slug === 'nextjs-16-release-comprehensive-guide' && (
+              <link 
+                rel="preload" 
+                as="image" 
+                type="image/webp"
+                href="/images/nextjs-16-nandann-creative-tablet.webp"
+                fetchPriority="high"
+              />
+            )}
         
         {/* Preload LCP image for mobile-first design post */}
         {post.slug === 'mobile-first-design-principles' && (
