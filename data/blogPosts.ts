@@ -245,6 +245,16 @@ export default function ProductPage(${'{ params }: { params: { id: string } }'})
         <p class="text-gray-300">Cache Components with PPR give you the best of both worlds: static page shell loads instantly (sub-100ms), while dynamic content streams in without blocking the initial render. This typically reduces Time to First Byte (TTFB) by 60-80% compared to fully dynamic pages.</p>
       </div>
 
+      <div class="bg-white/5 border border-white/10 rounded-xl p-6 my-8 text-center">
+        <p class="text-gray-300 mb-4">
+          <strong class="text-white">Migrating to Next.js 16 or need help with performance optimization?</strong><br/>
+          We specialize in <a href="/nextjs/struggling-with-scalability-accelerate-time-to-market-nextjs" class="text-blue-400 hover:text-blue-300 underline">Next.js scalability solutions</a> and can help you leverage these new features for maximum performance.
+        </p>
+        <a href="/contact" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-200">
+          Talk to Our Next.js Experts
+        </a>
+      </div>
+
       <h2>2. Turbopack: Now Stable and Default</h2>
 
       <p>Turbopack has reached stability and is now the default bundler for all Next.js projects. Since its beta release, adoption has grown rapidly: over 50% of development sessions and 20% of production builds on Next.js 15.3+ are already using Turbopack.</p>
@@ -1241,22 +1251,51 @@ export default nextConfig;</code></pre>
       </p>
 
       <div class="bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-xl p-8 my-12 text-center">
-        <h3 class="text-2xl font-bold text-white mb-4">Ready to Upgrade?</h3>
+        <h3 class="text-2xl font-bold text-white mb-4">Ready to Upgrade to Next.js 16?</h3>
         <p class="text-gray-300 mb-6">Start with the automated codemod to handle most of the migration automatically:</p>
-        <pre class="inline-block text-left"><code class="language-bash">npx @next/codemod@canary upgrade latest</code></pre>
-        <p class="text-gray-400 mt-4 text-sm">Then review the upgrade guide for any edge cases specific to your application.</p>
+        <pre class="inline-block text-left bg-black/30 px-4 py-2 rounded"><code class="language-bash">npx @next/codemod@canary upgrade latest</code></pre>
+        <p class="text-gray-400 mt-6 mb-6">Then review the upgrade guide for any edge cases specific to your application.</p>
+        
+        <div class="border-t border-white/20 pt-6 mt-6">
+          <h4 class="text-xl font-bold text-white mb-3">Need Expert Help with Your Migration?</h4>
+          <p class="text-gray-300 mb-6 max-w-2xl mx-auto">
+            Our team specializes in <a href="/nextjs/wordpress-to-nextjs-migration-service" class="text-blue-400 hover:text-blue-300 underline">WordPress to Next.js migrations</a> and <a href="/nextjs/how-to-migrate-wordpress-to-nextjs" class="text-blue-400 hover:text-blue-300 underline">complex Next.js upgrades</a>. 
+            We'll handle the migration, optimize for Core Web Vitals, and ensure zero downtime.
+          </p>
+          <a 
+            href="/contact" 
+            class="inline-block bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/50"
+          >
+            Get Your Free Migration Consultation
+          </a>
+          <p class="text-gray-400 text-sm mt-4">Same-day response • No obligation • Expert guidance</p>
+        </div>
       </div>
 
       <p>Next.js Conf 2025 is happening on October 22nd with more deep-dives into Cache Components, Turbopack internals, and advanced patterns. Expect additional blog posts and documentation updates in the coming weeks.</p>
 
       <div class="bg-white/5 border border-white/10 rounded-xl p-6 my-8">
         <h3 class="text-xl font-bold text-white mb-4">Additional Resources</h3>
-        <ul class="space-y-2 text-blue-400">
-          <li><a href="https://nextjs.org/blog/next-16" target="_blank" rel="noopener" class="hover:text-blue-300">→ Official Next.js 16 Announcement</a></li>
-          <li><a href="https://nextjs.org/docs" target="_blank" rel="noopener" class="hover:text-blue-300">→ Next.js 16 Documentation</a></li>
-          <li><a href="https://github.com/vercel/next.js/discussions" target="_blank" rel="noopener" class="hover:text-blue-300">→ GitHub Discussions</a></li>
-          <li><a href="https://react.dev/blog/2025/10/21/react-19-2" target="_blank" rel="noopener" class="hover:text-blue-300">→ React 19.2 Announcement</a></li>
-        </ul>
+        
+        <div class="mb-6">
+          <h4 class="text-lg font-semibold text-blue-300 mb-3">Official Next.js Resources</h4>
+          <ul class="space-y-2 text-blue-400">
+            <li><a href="https://nextjs.org/blog/next-16" target="_blank" rel="noopener" class="hover:text-blue-300">→ Official Next.js 16 Announcement</a></li>
+            <li><a href="https://nextjs.org/docs" target="_blank" rel="noopener" class="hover:text-blue-300">→ Next.js 16 Documentation</a></li>
+            <li><a href="https://github.com/vercel/next.js/discussions" target="_blank" rel="noopener" class="hover:text-blue-300">→ GitHub Discussions</a></li>
+            <li><a href="https://react.dev/blog/2025/10/21/react-19-2" target="_blank" rel="noopener" class="hover:text-blue-300">→ React 19.2 Announcement</a></li>
+          </ul>
+        </div>
+        
+        <div class="border-t border-white/20 pt-4">
+          <h4 class="text-lg font-semibold text-blue-300 mb-3">Our Next.js Services</h4>
+          <ul class="space-y-2 text-blue-400">
+            <li><a href="/nextjs/wordpress-to-nextjs-migration-service" class="hover:text-blue-300">→ WordPress to Next.js Migration Service</a></li>
+            <li><a href="/nextjs/how-to-migrate-wordpress-to-nextjs" class="hover:text-blue-300">→ Complete WordPress to Next.js Migration Guide</a></li>
+            <li><a href="/nextjs/struggling-with-scalability-accelerate-time-to-market-nextjs" class="hover:text-blue-300">→ Next.js Scalability Solutions</a></li>
+            <li><a href="/services" class="hover:text-blue-300">→ All Web Development Services</a></li>
+          </ul>
+        </div>
       </div>
     `,
     faqs: [
