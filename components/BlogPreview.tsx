@@ -139,12 +139,12 @@ export default function BlogPreview() {
             >
               <article className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-300 hover:scale-105 cursor-pointer">
                 {post.coverImage && (
-                  <div className="relative h-48 w-full">
+                  <div className="relative h-48 w-full bg-gradient-to-br from-gray-900 to-gray-800">
                     <Image
                       src={post.coverImage}
                       alt={post.title}
                       fill
-                      className="object-cover"
+                      className={post.slug === 'nextjs-16-release-comprehensive-guide' ? 'object-contain p-4' : 'object-cover'}
                     />
                   </div>
                 )}
