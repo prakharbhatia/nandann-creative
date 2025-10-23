@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
+import Navigation from '../components/Navigation';
+import Footer from '../components/Footer';
 
 export default function NextJS16Migrator() {
   return (
@@ -125,6 +127,7 @@ export default function NextJS16Migrator() {
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
+        <Navigation />
         {/* Hero Section */}
         <div className="container mx-auto px-4 py-16">
           <div className="text-center mb-16">
@@ -449,6 +452,7 @@ export default function NextJS16Migrator() {
             </p>
           </div>
         </div>
+        <Footer />
       </div>
     </>
   );
