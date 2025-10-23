@@ -36,3 +36,7 @@ next-env.d.ts
 
 # GPS tracker command files
 A5E-3 SMS Command copy.csv states/
+
+# Next.js 16 Migration Tool backups
+.nextjs16-migrator/
+migration-report.html
