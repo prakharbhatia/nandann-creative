@@ -8,7 +8,13 @@ export default function NextJS16Migrator() {
       <Head>
         <title>Next.js 16 Migration Tool - Superior Migration Solution | Nandann Creative</title>
         <meta name="description" content="Professional Next.js 14/15 to 16 migration tool with automatic backups, interactive CLI, and comprehensive analysis. Safer than @next/codemod with enterprise features." />
-        <meta name="keywords" content="nextjs migration, nextjs 16, migration tool, codemod, turbopack, cache components" />
+        <meta name="keywords" content="nextjs migration, nextjs 16, migration tool, codemod, turbopack, cache components, proxy.ts, middleware migration, nextjs upgrade, automatic migration" />
+        
+        {/* Additional SEO Meta Tags */}
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="Nandann Creative" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="canonical" href="https://nandann.com/nextjs16-migrator" />
         
         {/* Open Graph */}
         <meta property="og:title" content="Next.js 16 Migration Tool - Superior Migration Solution" />
@@ -51,7 +57,68 @@ export default function NextJS16Migrator() {
                 "url": "https://nandann.com"
               },
               "downloadUrl": "https://www.npmjs.com/package/nextjs16-migrator",
-              "softwareVersion": "1.0.1"
+              "softwareVersion": "1.0.2"
+            })
+          }}
+        />
+        
+        {/* FAQ JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": "What is the Next.js 16 Migration Tool?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The Next.js 16 Migration Tool is a professional-grade CLI tool that safely migrates Next.js 14/15 projects to Next.js 16. It provides automatic backups, interactive guidance, and comprehensive analysis to ensure a smooth migration process."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "How is this different from @next/codemod?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Unlike @next/codemod which only provides basic transformations, our tool offers automatic backups, dry-run previews, interactive CLI, comprehensive compatibility analysis, performance tracking, and one-command rollback capabilities."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Is it safe to migrate my production project?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, the tool creates automatic git commits and file backups before any changes. You can preview all changes with dry-run mode and rollback instantly if needed. It's designed for production environments where safety is critical."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "What Next.js features does it migrate?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The tool migrates middleware.ts to proxy.ts, updates cache APIs (revalidateTag with cacheLife profiles), converts async parameters (params, searchParams, cookies, headers), updates next/image components, and optimizes next.config.js configurations."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "How do I install and use the tool?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Install globally with 'npm install -g nextjs16-migrator' or use directly with 'npx nextjs16-migrator'. The tool provides an interactive wizard that guides you through the entire migration process."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Does it work with CI/CD pipelines?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, the tool includes GitHub Actions integration and batch processing capabilities for automated migrations in CI/CD environments. It supports non-interactive mode for automated deployments."
+                  }
+                }
+              ]
             })
           }}
         />
