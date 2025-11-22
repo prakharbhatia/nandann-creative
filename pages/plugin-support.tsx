@@ -76,8 +76,7 @@ function PluginSupportForm() {
     email: '',
     plugin: '',
     website: '',
-    issueDescription: '',
-    screenshot: null as File | null
+    issueDescription: ''
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -97,15 +96,6 @@ function PluginSupportForm() {
     });
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setFormData({
-        ...formData,
-        screenshot: e.target.files[0]
-      });
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -114,25 +104,19 @@ function PluginSupportForm() {
     trackForm('Plugin Support Form');
     
     try {
-      // Create FormData for file upload
-      const formDataToSend = new FormData();
-      formDataToSend.append('name', formData.name);
-      formDataToSend.append('email', formData.email);
-      formDataToSend.append('plugin', formData.plugin);
-      formDataToSend.append('website', formData.website);
-      formDataToSend.append('issueDescription', formData.issueDescription);
-      
-      if (formData.screenshot) {
-        formDataToSend.append('screenshot', formData.screenshot);
-      }
-
       // Send email using Formspree
       const response = await fetch('https://formspree.io/f/mrblqbgw', {
         method: 'POST',
-        body: formDataToSend,
         headers: {
-          'Accept': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          plugin: formData.plugin,
+          website: formData.website,
+          issueDescription: formData.issueDescription,
+        }),
       });
 
       if (response.ok) {
@@ -143,14 +127,8 @@ function PluginSupportForm() {
           email: '',
           plugin: '',
           website: '',
-          issueDescription: '',
-          screenshot: null
+          issueDescription: ''
         });
-        // Reset file input
-        const fileInput = document.getElementById('screenshot') as HTMLInputElement;
-        if (fileInput) {
-          fileInput.value = '';
-        }
       } else {
         throw new Error('Form submission failed');
       }
@@ -248,23 +226,6 @@ function PluginSupportForm() {
           className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 resize-none"
           placeholder="Please describe the issue you're experiencing in detail..."
         ></textarea>
-      </div>
-
-      <div>
-        <label htmlFor="screenshot" className="block text-gray-900 font-medium mb-2">
-          Screenshot (Optional)
-        </label>
-        <input
-          type="file"
-          id="screenshot"
-          name="screenshot"
-          accept="image/*"
-          onChange={handleFileChange}
-          className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-        />
-        <p className="mt-2 text-sm text-gray-600">
-          Upload a screenshot or image that helps illustrate the issue (PNG, JPG, or GIF)
-        </p>
       </div>
 
       <button
