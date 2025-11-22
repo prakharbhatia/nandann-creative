@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Footer() {
   const [logoError, setLogoError] = useState(false);
@@ -35,7 +36,15 @@ export default function Footer() {
         <p className="text-gray-400 mb-3">
           Crafting digital experiences that drive results
         </p>
-                  <p className="text-gray-500 text-sm mb-4">
+        <div className="mb-4">
+          <Link 
+            href="/plugin-support" 
+            className="text-gray-400 hover:text-white transition-colors text-sm underline underline-offset-4"
+          >
+            Plugin Support
+          </Link>
+        </div>
+        <p className="text-gray-500 text-sm mb-4">
           © 2025 Nandann Creative Agency. All rights reserved.
         </p>
       </div>

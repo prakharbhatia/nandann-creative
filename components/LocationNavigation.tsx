@@ -55,25 +55,40 @@ export default function LocationNavigation({ location, locationShort }: Location
               Services
             </Link>
             
-            {/* Portfolio Dropdown */}
-            <div className="relative group/portfolio">
+            {/* Blog Dropdown */}
+            <div className="relative group/blog">
               <Link
-                href="/portfolio"
+                href="/blog"
                 className="text-gray-700 hover:text-blue-600 transition-colors"
               >
-                Portfolio
+                Blog
               </Link>
-              <div className="absolute left-1/2 -translate-x-1/2 top-full -mt-1 hidden group-hover/portfolio:block z-50">
-                <div className="min-w-[280px] rounded-xl border border-gray-200 bg-white p-3 shadow-xl">
+              <div className="absolute left-1/2 -translate-x-1/2 top-full -mt-1 hidden group-hover/blog:block z-50">
+                <div className="min-w-[320px] rounded-xl border border-gray-200 bg-white p-3 shadow-xl">
                   <ul className="space-y-1">
                     <li>
-                      <Link href="/reset-file-and-folder-permissions" className="block px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition">
-                        File Permissions Plugin
+                      <Link href="/blog/php-8-5-launch-major-updates" className="block px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition">
+                        PHP 8.5 Launch: Major Updates
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/blog/ace-core-web-vitals-2025-inp-requirements" className="block px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition">
+                        7 Ways to Ace Core Web Vitals in 2025
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/blog/get-ready-2025-holiday-sales-traffic" className="block px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition">
+                        Get Ready for 2025 Holiday Sales Traffic
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/blog/apple-iphone-17-ios-26-event-2025" className="block px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition">
+                        Apple iPhone 17, iOS 26, and Apple Event 2025
                       </Link>
                     </li>
                     <li className="pt-1 mt-1 border-t border-gray-200">
-                      <Link href="/portfolio" className="block px-4 py-2 rounded-lg text-blue-600 hover:text-blue-700 hover:bg-gray-50 transition">
-                        View all projects →
+                      <Link href="/blog" className="block px-4 py-2 rounded-lg text-blue-600 hover:text-blue-700 hover:bg-gray-50 transition">
+                        See all articles →
                       </Link>
                     </li>
                   </ul>
@@ -132,35 +147,29 @@ export default function LocationNavigation({ location, locationShort }: Location
               </div>
             </div>
 
-            {/* Blog Dropdown */}
-            <div className="relative group/blog">
+            <Link href="/approach" className="text-gray-700 hover:text-blue-600 transition-colors">
+              Approach
+            </Link>
+            
+            {/* Portfolio Dropdown */}
+            <div className="relative group/portfolio">
               <Link
-                href="/blog"
+                href="/portfolio"
                 className="text-gray-700 hover:text-blue-600 transition-colors"
               >
-                Blog
+                Portfolio
               </Link>
-              <div className="absolute left-1/2 -translate-x-1/2 top-full -mt-1 hidden group-hover/blog:block z-50">
-                <div className="min-w-[320px] rounded-xl border border-gray-200 bg-white p-3 shadow-xl">
+              <div className="absolute left-1/2 -translate-x-1/2 top-full -mt-1 hidden group-hover/portfolio:block z-50">
+                <div className="min-w-[280px] rounded-xl border border-gray-200 bg-white p-3 shadow-xl">
                   <ul className="space-y-1">
                     <li>
-                      <Link href="/blog/gpt5-review-raising-the-floor" className="block px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition">
-                        GPT‑5 Is Here: Why Raising the Floor Matters Most
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/blog/ai-web-development-2025" className="block px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition">
-                        How AI Is Transforming Web Development in 2025
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/blog/same-day-website-delivery" className="block px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition">
-                        Same‑Day Website Delivery
+                      <Link href="/reset-file-and-folder-permissions" className="block px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition">
+                        File Permissions Plugin
                       </Link>
                     </li>
                     <li className="pt-1 mt-1 border-t border-gray-200">
-                      <Link href="/blog" className="block px-4 py-2 rounded-lg text-blue-600 hover:text-blue-700 hover:bg-gray-50 transition">
-                        See all articles →
+                      <Link href="/portfolio" className="block px-4 py-2 rounded-lg text-blue-600 hover:text-blue-700 hover:bg-gray-50 transition">
+                        View all projects →
                       </Link>
                     </li>
                   </ul>
@@ -171,8 +180,8 @@ export default function LocationNavigation({ location, locationShort }: Location
             <Link href="/about" className="text-gray-700 hover:text-blue-600 transition-colors">
               About
             </Link>
-            <Link href="/approach" className="text-gray-700 hover:text-blue-600 transition-colors">
-              Approach
+            <Link href="/contact" className="text-gray-700 hover:text-blue-600 transition-colors">
+              Contact
             </Link>
           </div>
 
@@ -180,9 +189,9 @@ export default function LocationNavigation({ location, locationShort }: Location
           <div className="hidden md:block">
             <Link 
               href="/contact"
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-6 py-3 rounded-full text-white font-medium hover-lift hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300"
             >
-              Get Started
+              Start Project
             </Link>
           </div>
 
@@ -223,26 +232,41 @@ export default function LocationNavigation({ location, locationShort }: Location
               Services
             </Link>
             
-            {/* Mobile Portfolio Dropdown */}
+            {/* Mobile Blog Dropdown */}
             <button
               className="w-full text-left text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2 flex items-center justify-between"
-              onClick={() => setShowMobilePortfolio(!showMobilePortfolio)}
-              aria-expanded={showMobilePortfolio}
-              aria-controls="mobile-portfolio-submenu"
+              onClick={() => setShowMobileBlog(!showMobileBlog)}
+              aria-expanded={showMobileBlog}
+              aria-controls="mobile-blog-submenu"
             >
-              Portfolio
-              <span className={`transform transition-transform ${showMobilePortfolio ? 'rotate-180' : ''}`}>▼</span>
+              Blog
+              <span className={`transform transition-transform ${showMobileBlog ? 'rotate-180' : ''}`}>▼</span>
             </button>
-            <div id="mobile-portfolio-submenu" className={`overflow-hidden transition-all ${showMobilePortfolio ? 'max-h-96' : 'max-h-0'}`}>
+            <div id="mobile-blog-submenu" className={`overflow-hidden transition-all ${showMobileBlog ? 'max-h-96' : 'max-h-0'}`}>
               <ul className="pl-3 space-y-1">
                 <li>
-                  <Link href="/reset-file-and-folder-permissions" className="block text-gray-600 hover:text-blue-600 transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
-                    File Permissions Plugin
+                  <Link href="/blog/php-8-5-launch-major-updates" className="block text-gray-600 hover:text-blue-600 transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    PHP 8.5 Launch: Major Updates
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/blog/ace-core-web-vitals-2025-inp-requirements" className="block text-gray-600 hover:text-blue-600 transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    7 Ways to Ace Core Web Vitals in 2025
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/blog/get-ready-2025-holiday-sales-traffic" className="block text-gray-600 hover:text-blue-600 transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    Get Ready for 2025 Holiday Sales Traffic
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/blog/apple-iphone-17-ios-26-event-2025" className="block text-gray-600 hover:text-blue-600 transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    Apple iPhone 17, iOS 26, and Apple Event 2025
                   </Link>
                 </li>
                 <li className="pt-1 mt-1 border-t border-gray-200">
-                  <Link href="/portfolio" className="block text-blue-600 hover:text-blue-700 transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
-                    View all projects →
+                  <Link href="/blog" className="block text-blue-600 hover:text-blue-700 transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    See all articles →
                   </Link>
                 </li>
               </ul>
@@ -298,36 +322,34 @@ export default function LocationNavigation({ location, locationShort }: Location
               </ul>
             </div>
 
-            {/* Mobile Blog Dropdown */}
+            <Link
+              href="/approach"
+              className="block text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Approach
+            </Link>
+            
+            {/* Mobile Portfolio Dropdown */}
             <button
               className="w-full text-left text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2 flex items-center justify-between"
-              onClick={() => setShowMobileBlog(!showMobileBlog)}
-              aria-expanded={showMobileBlog}
-              aria-controls="mobile-blog-submenu"
+              onClick={() => setShowMobilePortfolio(!showMobilePortfolio)}
+              aria-expanded={showMobilePortfolio}
+              aria-controls="mobile-portfolio-submenu"
             >
-              Blog
-              <span className={`transform transition-transform ${showMobileBlog ? 'rotate-180' : ''}`}>▼</span>
+              Portfolio
+              <span className={`transform transition-transform ${showMobilePortfolio ? 'rotate-180' : ''}`}>▼</span>
             </button>
-            <div id="mobile-blog-submenu" className={`overflow-hidden transition-all ${showMobileBlog ? 'max-h-96' : 'max-h-0'}`}>
+            <div id="mobile-portfolio-submenu" className={`overflow-hidden transition-all ${showMobilePortfolio ? 'max-h-96' : 'max-h-0'}`}>
               <ul className="pl-3 space-y-1">
                 <li>
-                  <Link href="/blog/gpt5-review-raising-the-floor" className="block text-gray-600 hover:text-blue-600 transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
-                    GPT‑5 Is Here: Why Raising the Floor Matters Most
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/blog/ai-web-development-2025" className="block text-gray-600 hover:text-blue-600 transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
-                    How AI Is Transforming Web Development in 2025
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/blog/same-day-website-delivery" className="block text-gray-600 hover:text-blue-600 transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
-                    Same‑Day Website Delivery
+                  <Link href="/reset-file-and-folder-permissions" className="block text-gray-600 hover:text-blue-600 transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    File Permissions Plugin
                   </Link>
                 </li>
                 <li className="pt-1 mt-1 border-t border-gray-200">
-                  <Link href="/blog" className="block text-blue-600 hover:text-blue-700 transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
-                    See all articles →
+                  <Link href="/portfolio" className="block text-blue-600 hover:text-blue-700 transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    View all projects →
                   </Link>
                 </li>
               </ul>
@@ -341,17 +363,17 @@ export default function LocationNavigation({ location, locationShort }: Location
               About
             </Link>
             <Link
-              href="/approach"
+              href="/contact"
               className="block text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Approach
+              Contact
             </Link>
             <Link
               href="/contact"
-              className="block bg-blue-600 px-4 py-3 rounded-lg text-white font-medium text-center mt-4 hover:bg-blue-700 transition-colors"
+              className="block bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-4 py-3 rounded-lg text-white font-medium text-center mt-4 transition-all duration-300"
             >
-              Get Started
+              Start Project
             </Link>
           </div>
         </div>
