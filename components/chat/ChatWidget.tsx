@@ -25,6 +25,7 @@ export default function ChatWidget() {
   const [pageUrl, setPageUrl] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
   const hasShownWelcome = useRef(false);
 
   // Restore customer data from localStorage on mount
@@ -66,19 +67,73 @@ export default function ChatWidget() {
     setPageUrl(window.location.href);
   }, []);
 
+  // Initialize audio context on user interaction (required for iOS Safari)
+  useEffect(() => {
+    const initAudioContext = async () => {
+      if (!audioContextRef.current) {
+        try {
+          const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+          audioContextRef.current = new AudioContextClass();
+          
+          // Resume audio context if suspended (iOS Safari requirement)
+          if (audioContextRef.current.state === 'suspended') {
+            await audioContextRef.current.resume();
+          }
+        } catch (error) {
+          console.error('Error initializing audio context:', error);
+        }
+      }
+    };
+
+    // Initialize on any user interaction (click, touch, etc.)
+    const handleUserInteraction = () => {
+      initAudioContext();
+    };
+
+    // Try to initialize immediately if possible
+    initAudioContext();
+
+    // Also initialize on user interactions
+    window.addEventListener('click', handleUserInteraction, { once: true });
+    window.addEventListener('touchstart', handleUserInteraction, { once: true });
+    window.addEventListener('touchend', handleUserInteraction, { once: true });
+
+    return () => {
+      window.removeEventListener('click', handleUserInteraction);
+      window.removeEventListener('touchstart', handleUserInteraction);
+      window.removeEventListener('touchend', handleUserInteraction);
+    };
+  }, []);
+
   // Request notification permission only when user opens chat (user interaction)
   useEffect(() => {
     if (isOpen && 'Notification' in window && Notification.permission === 'default') {
       Notification.requestPermission().catch(() => {});
     }
+    
+    // Resume audio context when chat opens (user interaction)
+    if (isOpen && audioContextRef.current && audioContextRef.current.state === 'suspended') {
+      audioContextRef.current.resume().catch(() => {});
+    }
   }, [isOpen]);
 
-  // Create notification sound - louder and more noticeable
+  // Create notification sound - louder and more noticeable, iOS Safari compatible
   useEffect(() => {
-    const createNotificationSound = () => {
+    const createNotificationSound = async () => {
       try {
-        const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-        
+        // Get or create audio context
+        if (!audioContextRef.current) {
+          const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+          audioContextRef.current = new AudioContextClass();
+        }
+
+        const audioContext = audioContextRef.current;
+
+        // Resume if suspended (critical for iOS Safari)
+        if (audioContext.state === 'suspended') {
+          await audioContext.resume();
+        }
+
         // Create a more noticeable double-beep pattern
         const playBeep = (frequency: number, startTime: number, duration: number, volume: number) => {
           const oscillator = audioContext.createOscillator();
@@ -137,7 +192,8 @@ export default function ChatWidget() {
                 if (msg.sender === 'admin') {
                   if ((audioRef as any).current) {
                     try {
-                      (audioRef as any).current();
+                      // Call async function - await not needed in forEach, but function will handle it
+                      (audioRef as any).current().catch(() => {});
                     } catch (e) {}
                   }
 
