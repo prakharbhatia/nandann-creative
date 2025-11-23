@@ -4,12 +4,16 @@ import { Message } from '@/types/chat';
 import { getCustomer, getAllCustomersByEmail, saveMessage, createOrUpdateSession } from '@/lib/chat/db';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  // Always return 200 OK immediately to Telegram to acknowledge receipt
+  // This prevents Telegram from retrying and marking as failed
+  res.status(200).json({ ok: true });
+
   if (req.method === 'GET') {
-    return res.status(200).json({ status: 'ok' });
+    return;
   }
 
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    return;
   }
 
   try {
@@ -160,10 +164,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               emailCustomers: email ? (await getAllCustomersByEmail(email)).length : 0,
               originalTextPreview: originalText.substring(0, 300),
             });
-            return res.status(400).json({
-              ok: false,
-              error: 'Could not determine customerId',
-            });
+            // Don't return error - we already sent 200 OK
+            return;
           }
           
           console.log('Final customerId determined:', finalCustomerId);
@@ -181,10 +183,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const saved = await saveMessage(adminMessage);
             if (!saved) {
               console.error('Failed to save admin message to database');
-              return res.status(500).json({ 
-                ok: false, 
-                error: 'Failed to save message to database',
-              });
+            // Don't return error - we already sent 200 OK
+            console.error('Failed to save admin message to database');
+            return;
             }
             await createOrUpdateSession(finalCustomerId);
             
@@ -196,18 +197,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             });
           } catch (error) {
             console.error('Error saving message to database:', error);
-            return res.status(500).json({ 
-              ok: false, 
-              error: error instanceof Error ? error.message : 'Database error',
-            });
+            // Don't return error - we already sent 200 OK
+            console.error('Error saving message to database:', error);
+            return;
           }
 
-          return res.status(200).json({ 
-            ok: true, 
-            email, 
-            customerId: finalCustomerId,
-            messageId: adminMessage.id,
-          });
+          // Success - message saved (we already sent 200 OK at the start)
+          console.log('✅ Reply processed and saved successfully');
+          return;
         } else {
           console.log('⚠️ Reply detected but missing email/customerId or message text:', {
             hasEmail: !!email,
@@ -226,10 +223,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       console.log('ℹ️ Update received but no message text');
     }
 
-    return res.status(200).json({ ok: true });
+    // All done - we already sent 200 OK at the start
+    return;
   } catch (error) {
     console.error('Error in Telegram webhook:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    // Don't return error - we already sent 200 OK at the start
+    // Telegram will retry if needed, but we don't want to fail the webhook
+    return;
   }
 }
 
