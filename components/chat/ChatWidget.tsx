@@ -9,7 +9,7 @@ const CONFIG = {
   position: 'right' as 'left' | 'right',
   autoPop: false,
   supportName: 'Prakhar',
-  supportAvatar: '/images/prakhar-avatar-nandann-creative.webp',
+  supportAvatar: '/images/prakhar-avatar-nandann-creative.webp?v=2',
   welcomeMessage: "Hi! I'm not a bot - I'm a real human! How can I help you today?",
 };
 
