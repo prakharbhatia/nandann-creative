@@ -155,6 +155,7 @@ export default function ChatWidget() {
     if (customerId) {
       loadMessages();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customerId]);
 
   // Show welcome message when chat opens
@@ -395,6 +396,7 @@ export default function ChatWidget() {
           <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="relative">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={CONFIG.supportAvatar}
                   alt={CONFIG.supportName}

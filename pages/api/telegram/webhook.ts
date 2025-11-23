@@ -71,7 +71,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const originalText = replyToMessage.text;
         
         console.log('Processing reply to message:', {
-          replyText: message.text.substring(0, 50),
+          replyText: message.text ? message.text.substring(0, 50) : 'No text',
           originalTextPreview: originalText.substring(0, 500),
           fullOriginalText: originalText,
         });
