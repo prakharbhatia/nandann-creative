@@ -68,19 +68,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         
         console.log('Processing reply to message:', {
           replyText: message.text.substring(0, 50),
-          originalTextPreview: originalText.substring(0, 200),
+          originalTextPreview: originalText.substring(0, 500),
+          fullOriginalText: originalText,
         });
         
-        let emailMatch = originalText.match(/\*Email:\*\s*([^\n]+)/);
+        // Try multiple email patterns
+        let emailMatch = originalText.match(/\*Email:\*\s*([^\n*]+)/);
         if (!emailMatch) {
           emailMatch = originalText.match(/Email:\s*([^\n]+)/);
         }
         if (!emailMatch) {
           emailMatch = originalText.match(/\(([^)]+@[^)]+)\)/);
         }
+        if (!emailMatch) {
+          emailMatch = originalText.match(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/);
+        }
         
-        // Try multiple patterns to find Customer ID
-        let customerIdMatch = originalText.match(/_Customer ID:\s*([^_\n]+)_/);
+        // Try multiple patterns to find Customer ID - try the most specific first
+        let customerIdMatch = originalText.match(/(customer_\d+_\w+)/);
+        if (!customerIdMatch) {
+          customerIdMatch = originalText.match(/_Customer ID:\s*([^_\n]+)_/);
+        }
         if (!customerIdMatch) {
           customerIdMatch = originalText.match(/\*Customer ID:\*\s*([^\n*]+)/);
         }
@@ -89,10 +97,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
         if (!customerIdMatch) {
           customerIdMatch = originalText.match(/Customer ID:.*?`([^`]+)`/);
-        }
-        // Also try to find customer_ pattern directly
-        if (!customerIdMatch) {
-          customerIdMatch = originalText.match(/(customer_\d+_\w+)/);
         }
         
         const email = emailMatch ? emailMatch[1].trim() : null;
