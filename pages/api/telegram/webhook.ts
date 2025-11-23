@@ -15,6 +15,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const update: TelegramWebhookUpdate = req.body;
 
+    console.log('Telegram webhook received:', {
+      updateId: update.update_id,
+      hasMessage: !!update.message,
+      hasCallbackQuery: !!update.callback_query,
+      messageText: update.message?.text?.substring(0, 50),
+      isReply: !!update.message?.reply_to_message,
+    });
+
     if (update.callback_query) {
       const callbackData = update.callback_query.data;
       const message = update.callback_query.message;
@@ -58,6 +66,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (replyToMessage && replyToMessage.text) {
         const originalText = replyToMessage.text;
         
+        console.log('Processing reply to message:', {
+          replyText: message.text.substring(0, 50),
+          originalTextPreview: originalText.substring(0, 200),
+        });
+        
         let emailMatch = originalText.match(/\*Email:\*\s*([^\n]+)/);
         if (!emailMatch) {
           emailMatch = originalText.match(/Email:\s*([^\n]+)/);
@@ -85,10 +98,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const email = emailMatch ? emailMatch[1].trim() : null;
         let customerId = customerIdMatch ? customerIdMatch[1].trim() : null;
         
+        console.log('Extracted from message:', {
+          email,
+          customerId,
+          emailMatch: emailMatch ? emailMatch[0] : null,
+          customerIdMatch: customerIdMatch ? customerIdMatch[0] : null,
+        });
+        
         if (customerId && customerId.startsWith('customer') && !customerId.includes('_')) {
           const normalized = customerId.match(/^customer(\d{13})(\w+)$/);
           if (normalized) {
             customerId = `customer_${normalized[1]}_${normalized[2]}`;
+            console.log('Normalized customerId:', customerId);
           }
         }
         
@@ -112,11 +133,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           }
           
           if (!finalCustomerId) {
+            console.error('Could not determine customerId:', {
+              email,
+              customerId,
+              emailCustomers: email ? (await getAllCustomersByEmail(email)).length : 0,
+            });
             return res.status(400).json({
               ok: false,
               error: 'Could not determine customerId',
             });
           }
+          
+          console.log('Final customerId determined:', finalCustomerId);
           
           const adminMessage: Message = {
             id: `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
