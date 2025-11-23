@@ -247,21 +247,23 @@ export default function ChatWidget() {
 
           const data = await response.json();
           if (data.success) {
-            try {
-              const messagesResponse = await fetch(`/api/chat/messages?customerId=${encodeURIComponent(customerData.id)}`);
-              const messagesData = await messagesResponse.json();
-              if (messagesData.success && messagesData.messages) {
-                setMessages(messagesData.messages);
-              } else {
-                setMessages((prev) => prev.map((msg) => 
-                  msg.id === tempMessage.id ? data.message : msg
-                ));
-              }
-            } catch (error) {
-              console.error('Error reloading messages:', error);
+            // Replace temp message with the actual saved message from server
+            if (data.message) {
               setMessages((prev) => prev.map((msg) => 
                 msg.id === tempMessage.id ? data.message : msg
               ));
+            } else {
+              // If no message in response, reload all messages
+              try {
+                const messagesResponse = await fetch(`/api/chat/messages?customerId=${encodeURIComponent(customerData.id)}`);
+                const messagesData = await messagesResponse.json();
+                if (messagesData.success && messagesData.messages) {
+                  setMessages(messagesData.messages);
+                }
+              } catch (error) {
+                console.error('Error reloading messages:', error);
+                // Keep the temp message if reload fails
+              }
             }
           } else {
             setMessages((prev) => prev.filter((msg) => msg.id !== tempMessage.id));
@@ -328,21 +330,23 @@ export default function ChatWidget() {
 
       const data = await response.json();
       if (data.success) {
-        try {
-          const messagesResponse = await fetch(`/api/chat/messages?customerId=${encodeURIComponent(customerId)}`);
-          const messagesData = await messagesResponse.json();
-          if (messagesData.success && messagesData.messages) {
-            setMessages(messagesData.messages);
-          } else {
-            setMessages((prev) => prev.map((msg) => 
-              msg.id === tempMessage.id ? data.message : msg
-            ));
-          }
-        } catch (error) {
-          console.error('Error reloading messages:', error);
+        // Replace temp message with the actual saved message from server
+        if (data.message) {
           setMessages((prev) => prev.map((msg) => 
             msg.id === tempMessage.id ? data.message : msg
           ));
+        } else {
+          // If no message in response, reload all messages
+          try {
+            const messagesResponse = await fetch(`/api/chat/messages?customerId=${encodeURIComponent(customerId)}`);
+            const messagesData = await messagesResponse.json();
+            if (messagesData.success && messagesData.messages) {
+              setMessages(messagesData.messages);
+            }
+          } catch (error) {
+            console.error('Error reloading messages:', error);
+            // Keep the temp message if reload fails
+          }
         }
         
         if (data.telegramError) {

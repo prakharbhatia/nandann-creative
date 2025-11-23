@@ -66,15 +66,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           emailMatch = originalText.match(/\(([^)]+@[^)]+)\)/);
         }
         
-        let customerIdMatch = originalText.match(/Customer ID:\s*([^\n_*]+)/);
+        // Try multiple patterns to find Customer ID
+        let customerIdMatch = originalText.match(/_Customer ID:\s*([^_\n]+)_/);
         if (!customerIdMatch) {
           customerIdMatch = originalText.match(/\*Customer ID:\*\s*([^\n*]+)/);
         }
         if (!customerIdMatch) {
-          customerIdMatch = originalText.match(/Customer ID:.*?`([^`]+)`/);
+          customerIdMatch = originalText.match(/Customer ID:\s*([^\n_*]+)/);
         }
         if (!customerIdMatch) {
-          customerIdMatch = originalText.match(/_Customer ID:\s*([^_\n]+)_/);
+          customerIdMatch = originalText.match(/Customer ID:.*?`([^`]+)`/);
+        }
+        // Also try to find customer_ pattern directly
+        if (!customerIdMatch) {
+          customerIdMatch = originalText.match(/(customer_\d+_\w+)/);
         }
         
         const email = emailMatch ? emailMatch[1].trim() : null;
@@ -123,11 +128,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           };
 
           try {
-            await saveMessage(adminMessage);
+            const saved = await saveMessage(adminMessage);
+            if (!saved) {
+              console.error('Failed to save admin message to database');
+              return res.status(500).json({ 
+                ok: false, 
+                error: 'Failed to save message to database',
+              });
+            }
             await createOrUpdateSession(finalCustomerId);
+            
+            console.log('Admin message saved successfully:', {
+              messageId: adminMessage.id,
+              customerId: finalCustomerId,
+              text: message.text.substring(0, 50),
+            });
           } catch (error) {
             console.error('Error saving message to database:', error);
-            throw error;
+            return res.status(500).json({ 
+              ok: false, 
+              error: error instanceof Error ? error.message : 'Database error',
+            });
           }
 
           return res.status(200).json({ 

@@ -41,8 +41,7 @@ export async function sendMessageToTelegram(options: TelegramMessageOptions): Pr
       `⚠️ *IMPORTANT:* Use Telegram's REPLY feature (swipe right) to respond\\!\n` +
       `_Customer ID: ${customerId}_`;
   } else {
-    messageText = `💬 *${customer.name}* (${customer.email})\n\n${message}\n\n` +
-      `⚠️ Use REPLY feature to respond to this customer`;
+    messageText = `💬 *${customer.name}* (${customer.email})\n\n${message}`;
   }
 
   const callbackData = 'reply_customer';
@@ -93,8 +92,7 @@ export async function sendMessageToTelegram(options: TelegramMessageOptions): Pr
               `Reply to this message to respond to the customer.\n` +
               `Customer ID: ${customerId}`;
           } else {
-            plainText = `💬 ${customer.name} (${customer.email})\n\n${message}\n\n` +
-              `Reply to this message to respond to the customer.`;
+            plainText = `💬 ${customer.name} (${customer.email})\n\n${message}`;
           }
 
           response = await fetch(`${TELEGRAM_API_URL}/sendMessage`, {
@@ -178,4 +176,3 @@ export async function getWebhookInfo(): Promise<any> {
     return null;
   }
 }
-
