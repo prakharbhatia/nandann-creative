@@ -63,6 +63,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const message = update.message;
       const replyToMessage = message.reply_to_message;
 
+      // Check if this is a reply to a message
       if (replyToMessage && replyToMessage.text) {
         const originalText = replyToMessage.text;
         
@@ -120,19 +121,32 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if ((email || customerId) && message.text) {
           let finalCustomerId = customerId;
           
+          // Priority: email lookup > customerId lookup > use customerId as-is
           if (email) {
             const allCustomersWithEmail = await getAllCustomersByEmail(email);
             if (allCustomersWithEmail.length > 0) {
+              // Use the most recent customer with this email
               finalCustomerId = allCustomersWithEmail[0].id;
+              console.log(`Found customer by email: ${email} -> ${finalCustomerId}`);
             } else if (customerId) {
-              finalCustomerId = customerId;
+              // Try to validate customerId exists
+              const dbCustomer = await getCustomer(customerId);
+              if (dbCustomer) {
+                finalCustomerId = dbCustomer.id;
+                console.log(`Found customer by ID: ${customerId}`);
+              } else {
+                finalCustomerId = customerId;
+                console.log(`Using provided customerId (not validated): ${customerId}`);
+              }
             }
           } else if (customerId) {
             const dbCustomer = await getCustomer(customerId);
             if (dbCustomer) {
               finalCustomerId = dbCustomer.id;
+              console.log(`Found customer by ID: ${customerId}`);
             } else {
               finalCustomerId = customerId;
+              console.log(`Using provided customerId (not validated): ${customerId}`);
             }
           }
           
@@ -141,6 +155,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               email,
               customerId,
               emailCustomers: email ? (await getAllCustomersByEmail(email)).length : 0,
+              originalTextPreview: originalText.substring(0, 300),
             });
             return res.status(400).json({
               ok: false,
@@ -189,7 +204,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             customerId: finalCustomerId,
             messageId: adminMessage.id,
           });
+        } else {
+          console.log('Reply detected but missing email/customerId or message text:', {
+            hasEmail: !!email,
+            hasCustomerId: !!customerId,
+            hasMessageText: !!message.text,
+            originalTextPreview: replyToMessage.text.substring(0, 200),
+          });
         }
+      } else {
+        console.log('Message received but not a reply to another message');
       }
     }
 
