@@ -73,27 +73,45 @@ export default function ChatWidget() {
     }
   }, [isOpen]);
 
-  // Create notification sound
+  // Create notification sound - louder and more noticeable
   useEffect(() => {
-    const createBeep = () => {
-      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-      const oscillator = audioContext.createOscillator();
-      const gainNode = audioContext.createGain();
-      
-      oscillator.connect(gainNode);
-      gainNode.connect(audioContext.destination);
-      
-      oscillator.frequency.value = 800;
-      oscillator.type = 'sine';
-      
-      gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-      
-      oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + 0.1);
+    const createNotificationSound = () => {
+      try {
+        const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+        
+        // Create a more noticeable double-beep pattern
+        const playBeep = (frequency: number, startTime: number, duration: number, volume: number) => {
+          const oscillator = audioContext.createOscillator();
+          const gainNode = audioContext.createGain();
+          
+          oscillator.connect(gainNode);
+          gainNode.connect(audioContext.destination);
+          
+          oscillator.frequency.value = frequency;
+          oscillator.type = 'sine';
+          
+          // Louder volume - start at 0.8 (80%) instead of 0.3
+          gainNode.gain.setValueAtTime(volume, startTime);
+          gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
+          
+          oscillator.start(startTime);
+          oscillator.stop(startTime + duration);
+        };
+        
+        const now = audioContext.currentTime;
+        const volume = 0.8; // Much louder - 80% volume
+        
+        // Double beep pattern for better noticeability
+        // First beep: higher pitch
+        playBeep(1000, now, 0.15, volume);
+        // Second beep: slightly lower pitch, after a short pause
+        playBeep(800, now + 0.2, 0.15, volume);
+      } catch (error) {
+        console.error('Error playing notification sound:', error);
+      }
     };
     
-    (audioRef as any).current = createBeep;
+    (audioRef as any).current = createNotificationSound;
   }, []);
 
   // Scroll to bottom when messages change
