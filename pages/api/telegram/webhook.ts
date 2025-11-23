@@ -15,13 +15,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const update: TelegramWebhookUpdate = req.body;
 
-    console.log('Telegram webhook received:', {
-      updateId: update.update_id,
-      hasMessage: !!update.message,
-      hasCallbackQuery: !!update.callback_query,
-      messageText: update.message?.text?.substring(0, 50),
-      isReply: !!update.message?.reply_to_message,
-    });
+    // Log the full update for debugging
+    console.log('=== Telegram Webhook Received ===');
+    console.log('Update ID:', update.update_id);
+    console.log('Has Message:', !!update.message);
+    console.log('Has Callback Query:', !!update.callback_query);
+    console.log('Message Text:', update.message?.text);
+    console.log('Is Reply:', !!update.message?.reply_to_message);
+    console.log('Reply To Message Text:', update.message?.reply_to_message?.text?.substring(0, 200));
+    console.log('Full Update:', JSON.stringify(update, null, 2));
+    console.log('================================');
 
     if (update.callback_query) {
       const callbackData = update.callback_query.data;
@@ -185,10 +188,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
             await createOrUpdateSession(finalCustomerId);
             
-            console.log('Admin message saved successfully:', {
+            console.log('✅ Admin message saved successfully:', {
               messageId: adminMessage.id,
               customerId: finalCustomerId,
               text: message.text.substring(0, 50),
+              timestamp: adminMessage.timestamp,
             });
           } catch (error) {
             console.error('Error saving message to database:', error);
@@ -205,16 +209,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             messageId: adminMessage.id,
           });
         } else {
-          console.log('Reply detected but missing email/customerId or message text:', {
+          console.log('⚠️ Reply detected but missing email/customerId or message text:', {
             hasEmail: !!email,
             hasCustomerId: !!customerId,
             hasMessageText: !!message.text,
-            originalTextPreview: replyToMessage.text.substring(0, 200),
+            originalTextPreview: replyToMessage.text.substring(0, 500),
+            fullOriginalText: replyToMessage.text,
           });
         }
       } else {
-        console.log('Message received but not a reply to another message');
+        console.log('ℹ️ Message received but not a reply to another message');
+        console.log('Message text:', message.text);
+        console.log('Has reply_to_message:', !!message.reply_to_message);
       }
+    } else {
+      console.log('ℹ️ Update received but no message text');
     }
 
     return res.status(200).json({ ok: true });
