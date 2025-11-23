@@ -19,16 +19,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const update: TelegramWebhookUpdate = req.body;
 
-    // Log the full update for debugging
-    console.log('=== Telegram Webhook Received ===');
-    console.log('Update ID:', update.update_id);
-    console.log('Has Message:', !!update.message);
-    console.log('Has Callback Query:', !!update.callback_query);
-    console.log('Message Text:', update.message?.text);
-    console.log('Is Reply:', !!update.message?.reply_to_message);
-    console.log('Reply To Message Text:', update.message?.reply_to_message?.text?.substring(0, 200));
-    console.log('Full Update:', JSON.stringify(update, null, 2));
-    console.log('================================');
 
     if (update.callback_query) {
       const callbackData = update.callback_query.data;
@@ -74,11 +64,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (replyToMessage && replyToMessage.text) {
         const originalText = replyToMessage.text;
         
-        console.log('Processing reply to message:', {
-          replyText: message.text ? message.text.substring(0, 50) : 'No text',
-          originalTextPreview: originalText.substring(0, 500),
-          fullOriginalText: originalText,
-        });
         
         // Try multiple email patterns
         let emailMatch = originalText.match(/\*Email:\*\s*([^\n*]+)/);
@@ -110,18 +95,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const email = emailMatch ? emailMatch[1].trim() : null;
         let customerId = customerIdMatch ? customerIdMatch[1].trim() : null;
         
-        console.log('Extracted from message:', {
-          email,
-          customerId,
-          emailMatch: emailMatch ? emailMatch[0] : null,
-          customerIdMatch: customerIdMatch ? customerIdMatch[0] : null,
-        });
         
         if (customerId && customerId.startsWith('customer') && !customerId.includes('_')) {
           const normalized = customerId.match(/^customer(\d{13})(\w+)$/);
           if (normalized) {
             customerId = `customer_${normalized[1]}_${normalized[2]}`;
-            console.log('Normalized customerId:', customerId);
           }
         }
         
@@ -134,41 +112,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             if (allCustomersWithEmail.length > 0) {
               // Use the most recent customer with this email
               finalCustomerId = allCustomersWithEmail[0].id;
-              console.log(`Found customer by email: ${email} -> ${finalCustomerId}`);
             } else if (customerId) {
               // Try to validate customerId exists
               const dbCustomer = await getCustomer(customerId);
               if (dbCustomer) {
                 finalCustomerId = dbCustomer.id;
-                console.log(`Found customer by ID: ${customerId}`);
               } else {
                 finalCustomerId = customerId;
-                console.log(`Using provided customerId (not validated): ${customerId}`);
               }
             }
           } else if (customerId) {
             const dbCustomer = await getCustomer(customerId);
             if (dbCustomer) {
               finalCustomerId = dbCustomer.id;
-              console.log(`Found customer by ID: ${customerId}`);
             } else {
               finalCustomerId = customerId;
-              console.log(`Using provided customerId (not validated): ${customerId}`);
             }
           }
           
           if (!finalCustomerId) {
-            console.error('Could not determine customerId:', {
-              email,
-              customerId,
-              emailCustomers: email ? (await getAllCustomersByEmail(email)).length : 0,
-              originalTextPreview: originalText.substring(0, 300),
-            });
-            // Don't return error - we already sent 200 OK
+            console.error('Could not determine customerId from Telegram reply');
             return;
           }
-          
-          console.log('Final customerId determined:', finalCustomerId);
           
           const adminMessage: Message = {
             id: `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
@@ -183,52 +148,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const saved = await saveMessage(adminMessage);
             if (!saved) {
               console.error('Failed to save admin message to database');
-            // Don't return error - we already sent 200 OK
-            console.error('Failed to save admin message to database');
-            return;
+              return;
             }
             await createOrUpdateSession(finalCustomerId);
-            
-            console.log('✅ Admin message saved successfully:', {
-              messageId: adminMessage.id,
-              customerId: finalCustomerId,
-              text: message.text.substring(0, 50),
-              timestamp: adminMessage.timestamp,
-            });
           } catch (error) {
-            console.error('Error saving message to database:', error);
-            // Don't return error - we already sent 200 OK
             console.error('Error saving message to database:', error);
             return;
           }
-
-          // Success - message saved (we already sent 200 OK at the start)
-          console.log('✅ Reply processed and saved successfully');
           return;
-        } else {
-          console.log('⚠️ Reply detected but missing email/customerId or message text:', {
-            hasEmail: !!email,
-            hasCustomerId: !!customerId,
-            hasMessageText: !!message.text,
-            originalTextPreview: replyToMessage.text.substring(0, 500),
-            fullOriginalText: replyToMessage.text,
-          });
         }
-      } else {
-        console.log('ℹ️ Message received but not a reply to another message');
-        console.log('Message text:', message.text);
-        console.log('Has reply_to_message:', !!message.reply_to_message);
       }
-    } else {
-      console.log('ℹ️ Update received but no message text');
     }
 
     // All done - we already sent 200 OK at the start
     return;
   } catch (error) {
     console.error('Error in Telegram webhook:', error);
-    // Don't return error - we already sent 200 OK at the start
-    // Telegram will retry if needed, but we don't want to fail the webhook
     return;
   }
 }

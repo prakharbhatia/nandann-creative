@@ -8,8 +8,8 @@ import { Message, Customer } from '@/types/chat';
 const CONFIG = {
   position: 'right' as 'left' | 'right',
   autoPop: false,
-  supportName: 'Laxmi',
-  supportAvatar: 'https://api.dicebear.com/7.x/personas/svg?seed=Laxmi&backgroundColor=ffd5dc&clothing=blazer&clothingColor=262e33&hair=long&hairColor=4a312c&skinColor=fdbcb4&topType=longHairStraight',
+  supportName: 'Prakhar',
+  supportAvatar: '/images/prakhar-avatar-nandann-creative.webp',
   welcomeMessage: "Hi! I'm not a bot - I'm a real human! How can I help you today?",
 };
 
