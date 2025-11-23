@@ -1,5 +1,3 @@
-'use client';
-
 import { useState, useEffect, useRef } from 'react';
 import MessageBubble from './MessageBubble';
 import CustomerDetailsModal from './CustomerDetailsModal';

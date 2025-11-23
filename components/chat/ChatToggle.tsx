@@ -1,5 +1,3 @@
-'use client';
-
 interface ChatToggleProps {
   onClick: () => void;
   isOpen: boolean;
