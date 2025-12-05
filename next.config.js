@@ -81,6 +81,9 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Temporarily disable optimization to fix 400 errors in Next.js 16
+    // This will serve images directly from public folder without optimization
+    unoptimized: true,
   },
 
   // Redirects for SEO
