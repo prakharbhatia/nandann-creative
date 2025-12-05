@@ -9,7 +9,7 @@ export default function FlappyBird() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [gameStats, setGameStats] = useState<GameStats>({ score: 0, highScore: 0 });
   const [gameState, setGameState] = useState<'ready' | 'playing' | 'gameover'>('ready');
-  const gameLoopRef = useRef<number>();
+  const gameLoopRef = useRef<number | undefined>(undefined);
   const gameDataRef = useRef({
     bird: { x: 100, y: 250, velocity: 0, radius: 20 },
     pipes: [] as Array<{ x: number; topHeight: number; scored: boolean }>,

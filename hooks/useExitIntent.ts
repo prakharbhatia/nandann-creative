@@ -20,7 +20,7 @@ export function useExitIntent(
 
   const mouseY = useRef<number>(0);
   const hasTriggered = useRef<boolean>(false);
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   useEffect(() => {
     if (!enabled) return;
