@@ -480,7 +480,6 @@ export default function TGLiveChat() {
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                     <FAQ
                         title="Frequently Asked Questions"
-                        subtitle="Got questions? We've got answers."
                         faqs={faqs}
                     />
                 </div>
