@@ -60,12 +60,14 @@ export default function ProjectLightbox({ project, onClose }: ProjectLightboxPro
                             {/* Details Section (Right/Bottom) */}
                             <div className="w-full md:w-1/2 p-8 md:p-10 flex flex-col">
                                 <div className="mb-6">
-                                    <div className="flex items-center gap-3 mb-3">
-                                        <span className="px-3 py-1 text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30 rounded-full">
-                                            {project.category.toUpperCase()}
-                                        </span>
+                                    <div className="flex flex-wrap items-center gap-2 mb-3">
+                                        {(Array.isArray(project.category) ? project.category : [project.category]).map((cat) => (
+                                            <span key={cat} className="px-3 py-1 text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30 rounded-full">
+                                                {cat.toUpperCase()}
+                                            </span>
+                                        ))}
                                         {project.isLive && (
-                                            <span className="flex items-center gap-1.5 text-xs text-green-400 font-medium">
+                                            <span className="flex items-center gap-1.5 text-xs text-green-400 font-medium ml-2">
                                                 <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
                                                 LIVE PROJECT
                                             </span>
