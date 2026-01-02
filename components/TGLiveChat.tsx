@@ -373,7 +373,7 @@ export default function TGLiveChat() {
                         Clean admin interface, organized chat history, and seamless Telegram integration.
                     </p>
 
-                    <div className="grid md:grid-cols-3 gap-8">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                         <div className="group">
                             <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 transition-all duration-300 group-hover:shadow-xl group-hover:border-blue-200">
                                 <Image
@@ -409,6 +409,18 @@ export default function TGLiveChat() {
                                 />
                             </div>
                             <p className="text-center text-gray-600 mt-4 text-sm">Reply from Telegram App</p>
+                        </div>
+                        <div className="group">
+                            <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 transition-all duration-300 group-hover:shadow-xl group-hover:border-blue-200">
+                                <Image
+                                    src="/images/tg-live-chat-screenshot-4.webp"
+                                    alt="TG Live Chat Widget on Website"
+                                    width={400}
+                                    height={300}
+                                    className="w-full h-auto"
+                                />
+                            </div>
+                            <p className="text-center text-gray-600 mt-4 text-sm">Chat Widget on Website</p>
                         </div>
                     </div>
                 </div>
