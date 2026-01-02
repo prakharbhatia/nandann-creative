@@ -43,7 +43,7 @@ export default function TGLiveChat() {
                     <div className="text-center mb-12">
                         <div className="inline-flex items-center gap-3 mb-6">
                             <Image
-                                src="/images/tg-live-chat-icon.jpg"
+                                src="/images/tg-live-chat-icon.webp"
                                 alt="TG Live Chat Icon"
                                 width={64}
                                 height={64}
@@ -98,7 +98,7 @@ export default function TGLiveChat() {
                     <div className="relative max-w-4xl mx-auto">
                         <div className="glass rounded-3xl p-4 inline-block">
                             <Image
-                                src="/images/tg-live-chat-banner.png"
+                                src="/images/tg-live-chat-banner.webp"
                                 alt="TG Live Chat - Customer support via Telegram"
                                 width={1024}
                                 height={300}
@@ -377,7 +377,7 @@ export default function TGLiveChat() {
                         <div className="group">
                             <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 transition-all duration-300 group-hover:shadow-xl group-hover:border-blue-200">
                                 <Image
-                                    src="/images/tg-live-chat-screenshot-1.png"
+                                    src="/images/tg-live-chat-screenshot-1.webp"
                                     alt="TG Live Chat Settings Page"
                                     width={400}
                                     height={300}
@@ -389,7 +389,7 @@ export default function TGLiveChat() {
                         <div className="group">
                             <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 transition-all duration-300 group-hover:shadow-xl group-hover:border-blue-200">
                                 <Image
-                                    src="/images/tg-live-chat-screenshot-2.png"
+                                    src="/images/tg-live-chat-screenshot-2.webp"
                                     alt="TG Live Chat History"
                                     width={400}
                                     height={300}
@@ -401,7 +401,7 @@ export default function TGLiveChat() {
                         <div className="group">
                             <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 transition-all duration-300 group-hover:shadow-xl group-hover:border-blue-200">
                                 <Image
-                                    src="/images/tg-live-chat-screenshot-3.png"
+                                    src="/images/tg-live-chat-screenshot-3.webp"
                                     alt="TG Live Chat Telegram App"
                                     width={400}
                                     height={300}

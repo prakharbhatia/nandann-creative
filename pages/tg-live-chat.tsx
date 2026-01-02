@@ -7,7 +7,7 @@ export default function TGLiveChatPage() {
     const pageTitle = "TG Live Chat - Free WordPress Live Chat Plugin via Telegram | Nandann";
     const pageDescription = "Chat with website visitors via Telegram. 100% free WordPress live chat plugin. Reply from your phone, no separate app needed. Privacy-first, GDPR compliant, zero monthly fees.";
     const pageUrl = "https://www.nandann.com/tg-live-chat";
-    const pageImage = "https://www.nandann.com/images/tg-live-chat-banner.png";
+    const pageImage = "https://www.nandann.com/images/tg-live-chat-banner.webp";
 
     const structuredData = {
         "@context": "https://schema.org",
