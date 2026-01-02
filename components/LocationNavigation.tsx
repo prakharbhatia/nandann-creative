@@ -24,11 +24,10 @@ export default function LocationNavigation({ location, locationShort }: Location
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled 
-        ? 'py-3 bg-white/95 backdrop-blur-xl border-b border-gray-200 shadow-lg' 
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+        ? 'py-3 bg-white/95 backdrop-blur-xl border-b border-gray-200 shadow-lg'
         : 'py-6 bg-white/90 backdrop-blur-sm'
-    }`}>
+      }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo */}
@@ -54,7 +53,7 @@ export default function LocationNavigation({ location, locationShort }: Location
             <Link href="/services" className="text-gray-700 hover:text-blue-600 transition-colors">
               Services
             </Link>
-            
+
             {/* Blog Dropdown */}
             <div className="relative group/blog">
               <Link
@@ -150,7 +149,7 @@ export default function LocationNavigation({ location, locationShort }: Location
             <Link href="/approach" className="text-gray-700 hover:text-blue-600 transition-colors">
               Approach
             </Link>
-            
+
             {/* Portfolio Dropdown */}
             <div className="relative group/portfolio">
               <Link
@@ -162,6 +161,11 @@ export default function LocationNavigation({ location, locationShort }: Location
               <div className="absolute left-1/2 -translate-x-1/2 top-full -mt-1 hidden group-hover/portfolio:block z-50">
                 <div className="min-w-[280px] rounded-xl border border-gray-200 bg-white p-3 shadow-xl">
                   <ul className="space-y-1">
+                    <li>
+                      <Link href="/tg-live-chat" className="block px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition">
+                        TG Live Chat
+                      </Link>
+                    </li>
                     <li>
                       <Link href="/reset-file-and-folder-permissions" className="block px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition">
                         File Permissions Plugin
@@ -187,7 +191,7 @@ export default function LocationNavigation({ location, locationShort }: Location
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Link 
+            <Link
               href="/contact"
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-6 py-3 rounded-full text-white font-medium hover-lift hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300"
             >
@@ -212,9 +216,8 @@ export default function LocationNavigation({ location, locationShort }: Location
         {/* Mobile Menu */}
         <div
           id="mobile-menu"
-          className={`md:hidden overflow-hidden transition-all duration-300 ${
-            isMobileMenuOpen ? 'max-h-96 mt-4' : 'max-h-0'
-          }`}
+          className={`md:hidden overflow-hidden transition-all duration-300 ${isMobileMenuOpen ? 'max-h-96 mt-4' : 'max-h-0'
+            }`}
         >
           <div className="bg-white rounded-2xl p-4 space-y-3 border border-gray-200 shadow-lg mt-4">
             <Link
@@ -231,7 +234,7 @@ export default function LocationNavigation({ location, locationShort }: Location
             >
               Services
             </Link>
-            
+
             {/* Mobile Blog Dropdown */}
             <button
               className="w-full text-left text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2 flex items-center justify-between"
@@ -329,7 +332,7 @@ export default function LocationNavigation({ location, locationShort }: Location
             >
               Approach
             </Link>
-            
+
             {/* Mobile Portfolio Dropdown */}
             <button
               className="w-full text-left text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2 flex items-center justify-between"
@@ -342,6 +345,11 @@ export default function LocationNavigation({ location, locationShort }: Location
             </button>
             <div id="mobile-portfolio-submenu" className={`overflow-hidden transition-all ${showMobilePortfolio ? 'max-h-96' : 'max-h-0'}`}>
               <ul className="pl-3 space-y-1">
+                <li>
+                  <Link href="/tg-live-chat" className="block text-gray-600 hover:text-blue-600 transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    TG Live Chat
+                  </Link>
+                </li>
                 <li>
                   <Link href="/reset-file-and-folder-permissions" className="block text-gray-600 hover:text-blue-600 transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
                     File Permissions Plugin
