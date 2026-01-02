@@ -118,7 +118,7 @@ export default function Navigation() {
                         </li>
                         <li>
                           <Link href="/reset-file-and-folder-permissions" className="block px-4 py-2 rounded-lg text-gray-200 hover:text-white hover:bg-white/10 transition">
-                            File Permissions Plugin
+                            Reset File and Folder Permissions
                           </Link>
                         </li>
                         <li className="pt-1 mt-1 border-t border-white/10">

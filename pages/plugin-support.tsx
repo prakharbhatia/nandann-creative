@@ -85,7 +85,7 @@ function PluginSupportForm() {
     'Bhairav Scheduled Cloud Backup',
     'Core Web Vitals - Real User Monitoring (RUM)',
     'Nandann AI Smart 404 Redirects - Auto Fix Broken Links & Typos',
-    'Reset file and folder permissions',
+    'Reset File and Folder Permissions',
     'TG Live Chat - Reply from Telegram'
   ];
 

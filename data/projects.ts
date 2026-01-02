@@ -70,6 +70,20 @@ export const projects: Project[] = [
         date: "2025-09-10"
     },
 
+    {
+        id: 'reset-file-folder-permissions',
+        title: "Reset File and Folder Permissions",
+        category: 'plugin',
+        techStack: ["WordPress", "PHP", "System Administration"],
+        description: "Automatically reset file and folder permissions to standard WordPress defaults to fix security and access issues.",
+        challenge: "Incorrect file permissions can cause security vulnerabilities or break WordPress functionality.",
+        solution: "Created a simple tool that resets all file and folder permissions to the recommended 644 and 755 settings with a single click.",
+        images: ["/images/plugin-banner.webp"],
+        link: "https://www.nandann.com/reset-file-and-folder-permissions",
+        isLive: true,
+        date: "2025-08-01"
+    },
+
     // Websites
     {
         id: 'summit-drilling',
