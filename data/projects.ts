@@ -90,7 +90,7 @@ export const projects: Project[] = [
         category: 'website',
         techStack: ["WordPress", "WooCommerce", "PHP"],
         description: "E-commerce platform for marine propulsion systems.",
-        images: ["/images/portfolio/aquadrive.webp"], // Placeholder path
+        images: ["/images/plugin-banner.webp"], // Placeholder due to IP agreement
         link: "https://www.aquadriveusa.com/",
         isLive: true,
         date: "2024-03-22"
