@@ -5,6 +5,42 @@ import FAQ from './FAQ';
 export default function Portfolio() {
   const projects = [
     {
+      title: "TG Live Chat",
+      industry: "WordPress Plugin",
+      description: "Seamlessly integrate Telegram for real-time customer support directly on your WordPress site.",
+      technologies: ["WordPress", "PHP", "Telegram API", "JavaScript"],
+      results: "Enhanced customer engagement and support efficiency.",
+      category: "Customer Support",
+      image: "/images/tg-live-chat-banner.webp"
+    },
+    {
+      title: "Core Web Vitals RUM",
+      industry: "Performance Monitoring",
+      description: "Real-time user monitoring for Core Web Vitals to optimize website performance.",
+      technologies: ["JavaScript", "Performance API", "Analytics", "React"],
+      results: "Improved site speed and user experience metrics.",
+      category: "Performance Tool",
+      image: "/images/plugins/cwv-banner.webp"
+    },
+    {
+      title: "AI Smart 404 Redirect",
+      industry: "SEO & UX",
+      description: "Intelligent 404 error handling that redirects users to relevant content using AI.",
+      technologies: ["AI/ML", "WordPress", "PHP", "SEO"],
+      results: "Reduced bounce rates and improved user retention.",
+      category: "SEO Plugin",
+      image: "/images/plugins/ai404-banner.webp"
+    },
+    {
+      title: "Bhairav Cloud Backup",
+      industry: "Data Security",
+      description: "Automated cloud backup solution for WordPress sites ensuring data safety.",
+      technologies: ["Cloud Storage", "PHP", "WordPress", "Security"],
+      results: "Reliable data protection and easy restoration.",
+      category: "Backup Solution",
+      image: "/images/plugins/bhairav-banner.webp"
+    },
+    {
       title: "Enterprise FinTech Platform",
       industry: "Financial Services",
       description: "Real-time algorithmic trading system with microsecond latency requirements",
@@ -13,7 +49,7 @@ export default function Portfolio() {
       category: "FinTech Solutions"
     },
     {
-      title: "High-Performance WordPress Migration", 
+      title: "High-Performance WordPress Migration",
       industry: "Media & Publishing",
       description: "Migrated large-scale WordPress site with 5M+ monthly visitors",
       technologies: ["WordPress", "Next.js", "React", "Cloudflare"],
@@ -30,7 +66,7 @@ export default function Portfolio() {
     },
     {
       title: "WordPress Plugin Development",
-      industry: "WordPress Ecosystem", 
+      industry: "WordPress Ecosystem",
       description: "Developed utility plugin to address common file permission issues",
       technologies: ["WordPress", "PHP", "JavaScript", "AJAX"],
       results: "Achieved over 10,000 active installs with a 4.9-star rating on WordPress.org",
@@ -135,7 +171,7 @@ export default function Portfolio() {
             20 Years of Building <span className="text-gradient">High-Performance Solutions</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            From WordPress plugins to enterprise trading systems, I've delivered measurable results 
+            From WordPress plugins to enterprise trading systems, I've delivered measurable results
             across diverse industries with a focus on performance and reliability.
           </p>
         </div>
@@ -145,13 +181,22 @@ export default function Portfolio() {
           {projects.map((project, index) => (
             <div key={index} className="glass rounded-3xl overflow-hidden hover-lift group">
               {/* Image Placeholder */}
-              <div className="h-64 bg-gradient-to-br from-blue-500/20 to-purple-500/20 relative overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center p-4">
-                  <div className="text-center">
-                    <div className="text-white font-bold text-xl mb-2">{project.title}</div>
-                    <div className="text-gray-300">{project.industry}</div>
+              <div className="h-64 bg-gradient-to-br from-blue-500/20 to-purple-500/20 relative overflow-hidden group-hover:scale-105 transition-transform duration-500">
+                {/* @ts-ignore */}
+                {project.image ? (
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center p-4">
+                    <div className="text-center">
+                      <div className="text-white font-bold text-xl mb-2">{project.title}</div>
+                      <div className="text-gray-300">{project.industry}</div>
+                    </div>
                   </div>
-                </div>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 <div className="absolute bottom-4 left-4">
                   <span className="glass px-3 py-1 rounded-full text-sm text-white">
@@ -213,7 +258,7 @@ export default function Portfolio() {
               Ready to Start Your <span className="text-gradient">Project</span>?
             </h3>
             <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-              Let's discuss your ideas and create something amazing together. 
+              Let's discuss your ideas and create something amazing together.
               We're here to bring your vision to life.
             </p>
             <Link
@@ -227,7 +272,7 @@ export default function Portfolio() {
       </div>
 
       {/* Portfolio FAQs */}
-      <FAQ 
+      <FAQ
         title="Portfolio & Projects"
         faqs={[
           {

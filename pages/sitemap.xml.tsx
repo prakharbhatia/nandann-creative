@@ -8,7 +8,7 @@ function Sitemap() {
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const baseUrl = 'https://www.nandann.com';
-  
+
   // Static pages
   const staticPages = [
     '',
@@ -43,6 +43,11 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     '/web-development-michigan',
     '/web-development-colorado',
     '/web-development-arizona',
+    // Plugin Pages
+    '/bhairav-cloud-backup',
+    '/ai-smart-404-redirect',
+    '/core-web-vitals-rum',
+    '/tg-live-chat',
     // Additional State Pages
     '/web-development-tennessee',
     '/web-development-maryland',
@@ -143,18 +148,18 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${staticPages
-    .map((page) => {
-      const priority = page === '' ? '1.0' : '0.8';
-      const changefreq = 'daily';
-      
-      return `  <url>
+      .map((page) => {
+        const priority = page === '' ? '1.0' : '0.8';
+        const changefreq = 'daily';
+
+        return `  <url>
     <loc>${baseUrl}${page}</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>
   </url>`;
-    })
-    .join('\n')}
+      })
+      .join('\n')}
 ${blogUrls}
 </urlset>`;
 
