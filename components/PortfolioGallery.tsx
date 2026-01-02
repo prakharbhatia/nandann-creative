@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 export default function PortfolioGallery() {
     const [activeCategory, setActiveCategory] = useState('all');
+    const [activeTechStack, setActiveTechStack] = useState('all');
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
@@ -16,18 +17,28 @@ export default function PortfolioGallery() {
         return Array.from(cats);
     }, []);
 
+    // Extract unique tech stacks
+    const techStacks = useMemo(() => {
+        const stacks = new Set<string>();
+        projects.forEach((p) => {
+            p.techStack.forEach((tech) => stacks.add(tech));
+        });
+        return Array.from(stacks).sort();
+    }, []);
+
     // Filter projects
     const filteredProjects = useMemo(() => {
         return projects.filter((project) => {
             const matchesCategory = activeCategory === 'all' || project.category === activeCategory;
+            const matchesTechStack = activeTechStack === 'all' || project.techStack.includes(activeTechStack);
             const matchesSearch =
                 project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 project.techStack.some((tech) => tech.toLowerCase().includes(searchQuery.toLowerCase()));
 
-            return matchesCategory && matchesSearch;
+            return matchesCategory && matchesTechStack && matchesSearch;
         });
-    }, [activeCategory, searchQuery]);
+    }, [activeCategory, activeTechStack, searchQuery]);
 
     return (
         <section className="min-h-screen bg-black text-white py-12">
@@ -48,6 +59,9 @@ export default function PortfolioGallery() {
                     categories={categories}
                     activeCategory={activeCategory}
                     onCategoryChange={setActiveCategory}
+                    techStacks={techStacks}
+                    activeTechStack={activeTechStack}
+                    onTechStackChange={setActiveTechStack}
                     searchQuery={searchQuery}
                     onSearchChange={setSearchQuery}
                 />
@@ -73,7 +87,11 @@ export default function PortfolioGallery() {
                     <div className="text-center py-20">
                         <p className="text-gray-500 text-lg">No projects found matching your criteria.</p>
                         <button
-                            onClick={() => { setActiveCategory('all'); setSearchQuery(''); }}
+                            onClick={() => {
+                                setActiveCategory('all');
+                                setActiveTechStack('all');
+                                setSearchQuery('');
+                            }}
                             className="mt-4 text-blue-400 hover:text-blue-300 underline"
                         >
                             Clear filters

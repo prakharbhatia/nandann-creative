@@ -90,7 +90,7 @@ export const projects: Project[] = [
         category: 'website',
         techStack: ["WordPress", "WooCommerce", "PHP"],
         description: "E-commerce platform for marine propulsion systems.",
-        images: ["/images/plugin-banner.webp"], // Placeholder due to IP agreement
+        images: [], // No image due to IP agreement
         link: "https://www.aquadriveusa.com/",
         isLive: true,
         date: "2024-03-22"
@@ -138,7 +138,7 @@ export const projects: Project[] = [
         category: 'website',
         techStack: ["WordPress", "Elementor", "Custom PHP"],
         description: "Wellness center website with appointment scheduling and event management.",
-        images: ["/images/portfolio/orila-center.webp"], // Placeholder path
+        images: [], // Placeholder removed
         link: "https://orilacenter.com/",
         isLive: true,
         date: "2024-02-28"
@@ -177,7 +177,7 @@ export const projects: Project[] = [
         description: "Automated trading system monitoring Solana mempool for arbitrage opportunities.",
         challenge: "Standard nodes were too slow to capture arbitrage opportunities in volatile markets.",
         solution: "Built a custom Rust-based engine with direct RPC connections and optimized transaction signing for sub-millisecond execution.",
-        images: ["/images/portfolio/crypto-bot.webp"], // Placeholder path
+        images: [], // Placeholder removed
         isLive: true,
         isConfidential: true,
         date: "2024-11-05"
@@ -190,7 +190,7 @@ export const projects: Project[] = [
         description: "Real-time analytics dashboard for monitoring multi-asset portfolio performance.",
         challenge: "Traders needed a unified view of positions across multiple exchanges with real-time P&L updates.",
         solution: "Developed a high-performance dashboard using WebSockets for live data streaming and D3.js for complex financial visualizations.",
-        images: ["/images/portfolio/trading-dashboard.webp"], // Placeholder path
+        images: [], // Placeholder removed
         isLive: true,
         isConfidential: true,
         date: "2024-10-15"
@@ -201,7 +201,7 @@ export const projects: Project[] = [
         category: 'backend',
         techStack: ["Python", "Pandas", "NumPy", "Docker"],
         description: "High-performance backtesting engine for validating trading strategies against historical data.",
-        images: ["/images/portfolio/python-code.webp"], // Placeholder path
+        images: [], // Placeholder removed
         isLive: false,
         isConfidential: true,
         date: "2024-08-20"
