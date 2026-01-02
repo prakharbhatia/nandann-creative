@@ -253,7 +253,7 @@ export const projects: Project[] = [
         category: 'website',
         techStack: ["WordPress", "Elementor", "Custom PHP"],
         description: "Wellness center website with appointment scheduling and event management.",
-        images: [], // Placeholder removed
+        images: ["/images/orila-center.webp"],
         link: "https://orilacenter.com/",
         isLive: true,
         date: "2024-02-28"
