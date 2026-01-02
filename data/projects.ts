@@ -99,6 +99,92 @@ export const projects: Project[] = [
         date: "2025-08-01"
     },
 
+    // Backend Projects
+    {
+        id: 'rust-stream-engine',
+        title: "RustStream Engine",
+        category: 'backend',
+        techStack: ["Rust", "Tokio", "Kafka", "Redis"],
+        description: "A high-throughput real-time data streaming engine capable of processing millions of events per second with sub-millisecond latency.",
+        challenge: "Legacy Node.js ingestion services were hitting CPU bottlenecks and high GC pauses under peak load.",
+        solution: "Re-engineered the core ingestion layer using Rust and Tokio, achieving a 50x performance improvement and 90% memory reduction.",
+        images: [],
+        link: "#",
+        isLive: false,
+        isConfidential: true,
+        date: "2025-11-15"
+    },
+    {
+        id: 'nexus-gateway',
+        title: "Nexus API Gateway",
+        category: 'backend',
+        techStack: ["Node.js", "Express", "Docker", "Kubernetes", "GraphQL"],
+        description: "A centralized API gateway aggregating data from 20+ microservices, providing unified authentication, rate limiting, and schema stitching.",
+        challenge: "Client applications had to make multiple round-trips to different services, causing latency and complexity.",
+        solution: "Implemented a federated GraphQL gateway using Express and Apollo Server, reducing client network requests by 70%.",
+        images: [],
+        link: "#",
+        isLive: true,
+        date: "2025-10-01"
+    },
+    {
+        id: 'cognito-ai-core',
+        title: "Cognito AI Serving Layer",
+        category: 'backend',
+        techStack: ["Python", "FastAPI", "PyTorch", "Celery", "Redis"],
+        description: "Scalable model inference backend for serving large language models and computer vision tasks.",
+        challenge: "Serving heavy ML models required efficient resource management and non-blocking request handling.",
+        solution: "Built an async inference service with FastAPI and Celery workers, enabling concurrent request processing and dynamic batching.",
+        images: [],
+        link: "#",
+        isLive: true,
+        date: "2025-08-20"
+    },
+    {
+        id: 'goscale-distributed',
+        title: "GoScale Distributed Store",
+        category: 'backend',
+        techStack: ["Go", "gRPC", "Raft Consensus", "RocksDB"],
+        description: "A distributed key-value store designed for high availability and strong consistency across multiple geographic regions.",
+        challenge: "Existing database solutions struggled with cross-region replication lag and partition tolerance.",
+        solution: "Developed a custom distributed store using Go and the Raft consensus algorithm to ensure data consistency and automatic failover.",
+        images: [],
+        link: "#",
+        isLive: false,
+        isConfidential: true,
+        date: "2025-07-10"
+    },
+
+    // Fintech Projects
+    {
+        id: 'quantedge-trading',
+        title: "QuantEdge Algo Platform",
+        category: 'fintech',
+        techStack: ["Python", "Pandas", "ZeroMQ", "WebSockets", "TimescaleDB"],
+        description: "Low-latency algorithmic trading platform for executing high-frequency strategies across multiple crypto exchanges.",
+        challenge: "Standard APIs were too slow for arbitrage opportunities, requiring microsecond-level execution.",
+        solution: "Built a direct market access (DMA) system using ZeroMQ and optimized Python execution engines for sub-millisecond trade placement.",
+        images: [],
+        link: "#",
+        isLive: true,
+        isConfidential: true,
+        date: "2025-12-05"
+    },
+    {
+        id: 'payflow-secure',
+        title: "PayFlow Secure Ledger",
+        category: 'fintech',
+        techStack: ["Java", "Spring Boot", "PostgreSQL", "Kafka"],
+        description: "Double-entry ledger system for a neo-bank, ensuring 100% financial accuracy and auditability.",
+        challenge: "Handling millions of concurrent transactions without race conditions or balance discrepancies.",
+        solution: "Implemented an immutable ledger system with optimistic locking and event sourcing patterns to guarantee transactional integrity.",
+        images: [],
+        link: "#",
+        isLive: true,
+        isConfidential: true,
+        date: "2025-06-15"
+    },
+
     // Websites
     {
         id: 'summit-drilling',
