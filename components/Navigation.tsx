@@ -14,7 +14,7 @@ export default function Navigation() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
     }
-    
+
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -31,21 +31,19 @@ export default function Navigation() {
   ]
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-out group ${
-      isScrolled 
-        ? 'py-3 bg-black/30 backdrop-blur-xl border-b border-white/10' 
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-out group ${isScrolled
+        ? 'py-3 bg-black/30 backdrop-blur-xl border-b border-white/10'
         : 'py-6 bg-transparent'
-    } hover:backdrop-blur-md`}>
+      } hover:backdrop-blur-md`}>
       {/* Subtle animated background overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/[0.02] to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 ease-out"></div>
-      
+
       {/* Glass effect background when scrolled */}
-      <div className={`absolute inset-0 transition-opacity duration-500 ${
-        isScrolled 
-          ? 'opacity-100 bg-gradient-to-r from-black/20 via-black/30 to-black/20 backdrop-blur-2xl' 
+      <div className={`absolute inset-0 transition-opacity duration-500 ${isScrolled
+          ? 'opacity-100 bg-gradient-to-r from-black/20 via-black/30 to-black/20 backdrop-blur-2xl'
           : 'opacity-0'
-      }`}></div>
-      
+        }`}></div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -54,7 +52,7 @@ export default function Navigation() {
             <div className="relative">
               {!logoError ? (
                 <Image
-                                                src="/images/Nandann-logo-new.png"
+                  src="/images/Nandann-logo-new.png"
                   alt="Nandann Creative Agency"
                   width={150}
                   height={50}
@@ -98,6 +96,11 @@ export default function Navigation() {
                   <div className="absolute left-1/2 -translate-x-1/2 top-full -mt-1 hidden group-hover/portfolio:block z-50">
                     <div className="min-w-[280px] rounded-xl border border-white/10 bg-black/70 backdrop-blur-xl p-3 shadow-xl">
                       <ul className="space-y-1">
+                        <li>
+                          <Link href="/tg-live-chat" className="block px-4 py-2 rounded-lg text-gray-200 hover:text-white hover:bg-white/10 transition">
+                            TG Live Chat
+                          </Link>
+                        </li>
                         <li>
                           <Link href="/reset-file-and-folder-permissions" className="block px-4 py-2 rounded-lg text-gray-200 hover:text-white hover:bg-white/10 transition">
                             File Permissions Plugin
@@ -229,25 +232,21 @@ export default function Navigation() {
             aria-controls="mobile-menu"
           >
             <div className="w-6 h-6 flex flex-col justify-center space-y-1">
-              <span className={`w-full h-0.5 bg-white transition-all duration-300 ${
-                isMobileMenuOpen ? 'rotate-45 translate-y-1' : ''
-              }`}></span>
-              <span className={`w-full h-0.5 bg-white transition-all duration-300 ${
-                isMobileMenuOpen ? 'opacity-0' : ''
-              }`}></span>
-              <span className={`w-full h-0.5 bg-white transition-all duration-300 ${
-                isMobileMenuOpen ? '-rotate-45 -translate-y-1' : ''
-              }`}></span>
+              <span className={`w-full h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-1' : ''
+                }`}></span>
+              <span className={`w-full h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''
+                }`}></span>
+              <span className={`w-full h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-1' : ''
+                }`}></span>
             </div>
           </button>
         </div>
 
         {/* Mobile Menu */}
-        <div 
+        <div
           id="mobile-menu"
-          className={`md:hidden transition-all duration-300 overflow-y-auto ${
-            isMobileMenuOpen ? 'max-h-[80vh] mt-4' : 'max-h-0 overflow-hidden'
-          }`}
+          className={`md:hidden transition-all duration-300 overflow-y-auto ${isMobileMenuOpen ? 'max-h-[80vh] mt-4' : 'max-h-0 overflow-hidden'
+            }`}
         >
           <div className="glass rounded-2xl p-4 space-y-3">
             {navItems.filter((n) => n.href !== '/blog' && n.href !== '/portfolio' && n.href !== '/nextjs').map((item) => (
@@ -271,6 +270,11 @@ export default function Navigation() {
             </button>
             <div id="mobile-portfolio-submenu" className={`overflow-hidden transition-all duration-300 ${showMobilePortfolio ? 'max-h-[500px]' : 'max-h-0'}`}>
               <ul className="pl-3 space-y-1">
+                <li>
+                  <Link href="/tg-live-chat" className="block text-gray-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    TG Live Chat
+                  </Link>
+                </li>
                 <li>
                   <Link href="/reset-file-and-folder-permissions" className="block text-gray-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
                     File Permissions Plugin

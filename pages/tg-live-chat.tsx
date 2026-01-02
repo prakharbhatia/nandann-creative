@@ -1,0 +1,158 @@
+import Head from 'next/head';
+import Navigation from '../components/Navigation';
+import TGLiveChat from '../components/TGLiveChat';
+import Footer from '../components/Footer';
+
+export default function TGLiveChatPage() {
+    const pageTitle = "TG Live Chat - Free WordPress Live Chat Plugin via Telegram | Nandann";
+    const pageDescription = "Chat with website visitors via Telegram. 100% free WordPress live chat plugin. Reply from your phone, no separate app needed. Privacy-first, GDPR compliant, zero monthly fees.";
+    const pageUrl = "https://www.nandann.com/tg-live-chat";
+    const pageImage = "https://www.nandann.com/images/tg-live-chat-banner.png";
+
+    const structuredData = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": `${pageUrl}#webpage`,
+                "url": pageUrl,
+                "name": pageTitle,
+                "description": pageDescription,
+                "inLanguage": "en-US",
+                "isPartOf": {
+                    "@id": "https://www.nandann.com/#website"
+                },
+                "breadcrumb": {
+                    "@id": `${pageUrl}#breadcrumb`
+                },
+                "about": {
+                    "@id": `${pageUrl}#software`
+                },
+                "mainEntity": {
+                    "@id": `${pageUrl}#software`
+                }
+            },
+            {
+                "@type": "BreadcrumbList",
+                "@id": `${pageUrl}#breadcrumb`,
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Home",
+                        "item": "https://www.nandann.com/"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Portfolio",
+                        "item": "https://www.nandann.com/portfolio"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "name": "TG Live Chat"
+                    }
+                ]
+            },
+            {
+                "@type": "SoftwareApplication",
+                "@id": `${pageUrl}#software`,
+                "name": "TG Live Chat",
+                "description": pageDescription,
+                "url": "https://wordpress.org/plugins/tg-live-chat/",
+                "applicationCategory": "WordPress Plugin",
+                "operatingSystem": "Web",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD",
+                    "availability": "https://schema.org/InStock"
+                },
+                "author": {
+                    "@type": "Person",
+                    "name": "Prakhar Bhatia",
+                    "url": "https://www.nandann.com/about"
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Nandann Creative Agency",
+                    "url": "https://www.nandann.com/"
+                },
+                "softwareVersion": "1.0.0",
+                "datePublished": "2026-01-01",
+                "dateModified": "2026-01-02",
+                "downloadUrl": "https://wordpress.org/plugins/tg-live-chat/",
+                "screenshot": pageImage,
+                "softwareRequirements": [
+                    "WordPress 6.0 or higher",
+                    "PHP 7.4 or higher",
+                    "Telegram Bot API Token"
+                ],
+                "featureList": [
+                    "Real-time chat via Telegram",
+                    "Reply from phone without WordPress admin",
+                    "Multiple admin support",
+                    "Customizable widget with 3 skins",
+                    "Privacy-first architecture",
+                    "Auto-delete customer data",
+                    "GDPR compliant",
+                    "Page exclusions",
+                    "Lightweight (~30KB)"
+                ],
+                "keywords": "wordpress live chat, telegram chat plugin, free live chat, customer support, telegram bot, privacy chat plugin"
+            }
+        ]
+    };
+
+    return (
+        <>
+            <Head>
+                <title>{pageTitle}</title>
+                <meta name="description" content={pageDescription} />
+                <meta name="keywords" content="wordpress live chat, telegram chat plugin, free live chat, customer support telegram, telegram bot wordpress, privacy chat plugin, gdpr live chat, free customer support" />
+                <meta name="author" content="Prakhar Bhatia" />
+                <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+                <meta name="last-modified" content="2026-01-02T12:00:00Z" />
+                <meta httpEquiv="last-modified" content="Thu, 02 Jan 2026 12:00:00 GMT" />
+                <link rel="canonical" href={pageUrl} />
+
+                {/* Open Graph */}
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content={pageTitle} />
+                <meta property="og:description" content={pageDescription} />
+                <meta property="og:url" content={pageUrl} />
+                <meta property="og:image" content={pageImage} />
+                <meta property="og:image:secure_url" content={pageImage} />
+                <meta property="og:image:alt" content="TG Live Chat - WordPress Live Chat Plugin via Telegram" />
+                <meta property="og:image:width" content="1024" />
+                <meta property="og:image:height" content="300" />
+                <meta property="og:site_name" content="Nandann Creative Agency" />
+                <meta property="og:locale" content="en_US" />
+
+                {/* Twitter Card */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={pageTitle} />
+                <meta name="twitter:description" content={pageDescription} />
+                <meta name="twitter:image" content={pageImage} />
+                <meta name="twitter:image:alt" content="TG Live Chat - WordPress Live Chat Plugin via Telegram" />
+                <meta name="twitter:creator" content="@nandann" />
+                <meta name="twitter:site" content="@nandann" />
+
+                {/* Structured Data */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+                />
+            </Head>
+
+            <div className="min-h-screen">
+                <Navigation />
+                <TGLiveChat />
+                <Footer />
+            </div>
+        </>
+    );
+}
