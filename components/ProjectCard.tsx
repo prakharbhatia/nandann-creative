@@ -20,12 +20,39 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
                         src={project.images[0]}
                         alt={project.title}
                         fill
-                        className="object-contain transition-transform duration-700 group-hover:scale-105"
+                        className="object-contain transition-transform duration-700 group-hover:scale-110"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                 ) : (
-                    <div className="w-full h-full flex items-center justify-center">
-                        <span className="text-gray-700 font-medium">No Image</span>
+                    <div className="w-full h-full bg-gradient-to-br from-gray-900 via-gray-800 to-black flex flex-col items-center justify-center p-6 relative overflow-hidden">
+                        {/* Decorative Background Elements */}
+                        <div className="absolute top-0 left-0 w-full h-full opacity-10">
+                            <div className="absolute top-[-50%] left-[-50%] w-[200%] h-[200%] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/20 via-transparent to-transparent animate-spin-slow" />
+                        </div>
+
+                        {/* Tech Stack Grid */}
+                        <div className="grid grid-cols-2 gap-3 w-full max-w-[80%] relative z-10">
+                            {project.techStack.slice(0, 4).map((tech, index) => (
+                                <div
+                                    key={tech}
+                                    className={`
+                                        flex items-center justify-center p-3 rounded-xl backdrop-blur-md border border-white/10
+                                        ${index === 0 ? 'bg-blue-500/20 text-blue-300' : ''}
+                                        ${index === 1 ? 'bg-purple-500/20 text-purple-300' : ''}
+                                        ${index === 2 ? 'bg-green-500/20 text-green-300' : ''}
+                                        ${index === 3 ? 'bg-pink-500/20 text-pink-300' : ''}
+                                    `}
+                                >
+                                    <span className="font-bold text-sm md:text-base truncate">{tech}</span>
+                                </div>
+                            ))}
+                        </div>
+
+                        {project.techStack.length > 4 && (
+                            <div className="mt-3 text-xs text-gray-500 font-medium">
+                                +{project.techStack.length - 4} more technologies
+                            </div>
+                        )}
                     </div>
                 )}
 

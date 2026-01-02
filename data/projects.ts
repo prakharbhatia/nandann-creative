@@ -25,7 +25,7 @@ export const projects: Project[] = [
         description: "A powerful CLI tool to automate the migration of Next.js applications to version 16.",
         challenge: "Migrating large Next.js codebases to the latest version involves repetitive and error-prone manual refactoring.",
         solution: "Developed an intelligent codemod tool using AST transformations to automatically update API routes, config files, and deprecated patterns.",
-        images: ["/images/plugin-banner.webp"], // Using generic banner as placeholder
+        images: [], // Empty array to trigger dynamic tech stack banner
         link: "https://www.npmjs.com/package/nextjs16-migrator",
         isLive: true,
         date: "2025-12-20"
