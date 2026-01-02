@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import Navigation from '../components/Navigation';
-import Portfolio from '../components/Portfolio';
+import PortfolioGallery from '../components/PortfolioGallery';
 import Footer from '../components/Footer';
 
 export default function PortfolioPage() {
@@ -13,12 +13,12 @@ export default function PortfolioPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href="https://www.nandann.com/portfolio" />
       </Head>
-      
-      <div className="min-h-screen">
+
+      <div className="min-h-screen bg-black">
         <Navigation />
-        <Portfolio />
+        <PortfolioGallery />
         <Footer />
       </div>
     </>
   );
-} 
+}
