@@ -25,8 +25,8 @@ export default function LocationNavigation({ location, locationShort }: Location
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-        ? 'py-3 bg-white/95 backdrop-blur-xl border-b border-gray-200 shadow-lg'
-        : 'py-6 bg-white/90 backdrop-blur-sm'
+      ? 'py-3 bg-white/95 backdrop-blur-xl border-b border-gray-200 shadow-lg'
+      : 'py-6 bg-white/90 backdrop-blur-sm'
       }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
@@ -164,6 +164,21 @@ export default function LocationNavigation({ location, locationShort }: Location
                     <li>
                       <Link href="/tg-live-chat" className="block px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition">
                         TG Live Chat
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/bhairav-cloud-backup" className="block px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition">
+                        Bhairav Cloud Backup
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/ai-smart-404-redirect" className="block px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition">
+                        AI Smart 404 Redirect
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/core-web-vitals-rum" className="block px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition">
+                        Core Web Vitals RUM
                       </Link>
                     </li>
                     <li>
@@ -348,6 +363,21 @@ export default function LocationNavigation({ location, locationShort }: Location
                 <li>
                   <Link href="/tg-live-chat" className="block text-gray-600 hover:text-blue-600 transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
                     TG Live Chat
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/bhairav-cloud-backup" className="block text-gray-600 hover:text-blue-600 transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    Bhairav Cloud Backup
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/ai-smart-404-redirect" className="block text-gray-600 hover:text-blue-600 transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    AI Smart 404 Redirect
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/core-web-vitals-rum" className="block text-gray-600 hover:text-blue-600 transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    Core Web Vitals RUM
                   </Link>
                 </li>
                 <li>

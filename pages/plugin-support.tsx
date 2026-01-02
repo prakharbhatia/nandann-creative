@@ -12,7 +12,7 @@ export default function PluginSupport() {
         <meta name="keywords" content="plugin support, WordPress plugin support, Nandann plugin help, plugin troubleshooting" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.nandann.com/plugin-support" />
-        
+
         {/* Open Graph */}
         <meta property="og:title" content="Plugin Support Request - Nandann Creative Agency" />
         <meta property="og:description" content="Get support for Nandann Creative plugins. Submit support requests for all our WordPress plugins." />
@@ -20,7 +20,7 @@ export default function PluginSupport() {
         <meta property="og:url" content="https://www.nandann.com/plugin-support" />
         <meta property="og:image" content="https://www.nandann.com/api/og?title=Plugin%20Support&subtitle=Get%20Help%20with%20Nandann%20Plugins" />
         <meta property="og:site_name" content="Nandann Creative" />
-        
+
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Plugin Support Request - Nandann Creative Agency" />
@@ -28,7 +28,7 @@ export default function PluginSupport() {
         <meta name="twitter:image" content="https://www.nandann.com/api/og?title=Plugin%20Support&subtitle=Get%20Help%20with%20Nandann%20Plugins" />
       </Head>
 
-      <StructuredData 
+      <StructuredData
         type="website"
         pageUrl="https://www.nandann.com/plugin-support"
         pageTitle="Plugin Support Request - Nandann Creative Agency"
@@ -36,7 +36,7 @@ export default function PluginSupport() {
       />
 
       <LocationNavigation location="Plugin Support" locationShort="Support" />
-      
+
       <main className="min-h-screen bg-white pt-32">
         {/* Hero Section */}
         <section className="py-20 px-4 sm:px-6 lg:px-8">
@@ -46,7 +46,7 @@ export default function PluginSupport() {
                 Plugin <span className="text-gradient">Support</span>
               </h1>
               <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                Need help with one of our plugins? We're here to assist you. 
+                Need help with one of our plugins? We're here to assist you.
                 Submit a support request and we'll get back to you as soon as possible.
               </p>
             </div>
@@ -70,7 +70,7 @@ import { useAnalytics } from '../hooks/useAnalytics';
 
 function PluginSupportForm() {
   const { trackForm } = useAnalytics();
-  
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -82,7 +82,7 @@ function PluginSupportForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const plugins = [
-    'Scheduled Cloud Backups – Panic Free',
+    'Bhairav Scheduled Cloud Backup',
     'Core Web Vitals - Real User Monitoring (RUM)',
     'Nandann AI Smart 404 Redirects - Auto Fix Broken Links & Typos',
     'Reset file and folder permissions',
@@ -99,10 +99,10 @@ function PluginSupportForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Track form submission
     trackForm('Plugin Support Form');
-    
+
     try {
       // Send email using Formspree
       const response = await fetch('https://formspree.io/f/mrblqbgw', {

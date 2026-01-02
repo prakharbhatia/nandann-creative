@@ -32,16 +32,16 @@ export default function Navigation() {
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-out group ${isScrolled
-        ? 'py-3 bg-black/30 backdrop-blur-xl border-b border-white/10'
-        : 'py-6 bg-transparent'
+      ? 'py-3 bg-black/30 backdrop-blur-xl border-b border-white/10'
+      : 'py-6 bg-transparent'
       } hover:backdrop-blur-md`}>
       {/* Subtle animated background overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/[0.02] to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 ease-out"></div>
 
       {/* Glass effect background when scrolled */}
       <div className={`absolute inset-0 transition-opacity duration-500 ${isScrolled
-          ? 'opacity-100 bg-gradient-to-r from-black/20 via-black/30 to-black/20 backdrop-blur-2xl'
-          : 'opacity-0'
+        ? 'opacity-100 bg-gradient-to-r from-black/20 via-black/30 to-black/20 backdrop-blur-2xl'
+        : 'opacity-0'
         }`}></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -99,6 +99,21 @@ export default function Navigation() {
                         <li>
                           <Link href="/tg-live-chat" className="block px-4 py-2 rounded-lg text-gray-200 hover:text-white hover:bg-white/10 transition">
                             TG Live Chat
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/bhairav-cloud-backup" className="block px-4 py-2 rounded-lg text-gray-200 hover:text-white hover:bg-white/10 transition">
+                            Bhairav Cloud Backup
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/ai-smart-404-redirect" className="block px-4 py-2 rounded-lg text-gray-200 hover:text-white hover:bg-white/10 transition">
+                            AI Smart 404 Redirect
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/core-web-vitals-rum" className="block px-4 py-2 rounded-lg text-gray-200 hover:text-white hover:bg-white/10 transition">
+                            Core Web Vitals RUM
                           </Link>
                         </li>
                         <li>
@@ -273,6 +288,21 @@ export default function Navigation() {
                 <li>
                   <Link href="/tg-live-chat" className="block text-gray-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
                     TG Live Chat
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/bhairav-cloud-backup" className="block text-gray-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    Bhairav Cloud Backup
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/ai-smart-404-redirect" className="block text-gray-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    AI Smart 404 Redirect
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/core-web-vitals-rum" className="block text-gray-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    Core Web Vitals RUM
                   </Link>
                 </li>
                 <li>
