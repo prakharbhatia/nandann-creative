@@ -259,7 +259,7 @@ export const projects: Project[] = [
         category: 'website',
         techStack: ["React", "Three.js", "GSAP"],
         description: "Creative portfolio for a design studio featuring immersive 3D interactions.",
-        images: ["/images/portfolio/superboss.webp"], // Placeholder path
+        images: ["/images/superboss-studio.webp"],
         link: "https://superbossstudio.com",
         isLive: true,
         date: "2024-08-10"
