@@ -283,7 +283,7 @@ export const projects: Project[] = [
         category: 'website',
         techStack: ["Vue.js", "Nuxt", "Shopify Headless"],
         description: "Minimalist fashion e-commerce store with a focus on visual storytelling.",
-        images: ["/images/portfolio/ligne-carre.webp"], // Placeholder path
+        images: ["/images/ligne-carre.webp"],
         link: "https://lignecarre.com",
         isLive: true,
         date: "2024-04-18"

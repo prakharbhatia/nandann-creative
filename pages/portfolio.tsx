@@ -14,9 +14,11 @@ export default function PortfolioPage() {
         <link rel="canonical" href="https://www.nandann.com/portfolio" />
       </Head>
 
-      <div className="min-h-screen bg-black">
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 flex flex-col">
         <Navigation />
-        <PortfolioGallery />
+        <main className="flex-grow">
+          <PortfolioGallery />
+        </main>
         <Footer />
       </div>
     </>
