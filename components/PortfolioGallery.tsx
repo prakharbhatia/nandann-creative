@@ -13,7 +13,14 @@ export default function PortfolioGallery() {
 
     // Extract unique categories
     const categories = useMemo(() => {
-        const cats = new Set(projects.map((p) => p.category));
+        const cats = new Set<string>();
+        projects.forEach((p) => {
+            if (Array.isArray(p.category)) {
+                p.category.forEach(c => cats.add(c));
+            } else {
+                cats.add(p.category);
+            }
+        });
         return Array.from(cats);
     }, []);
 
@@ -29,7 +36,8 @@ export default function PortfolioGallery() {
     // Filter projects
     const filteredProjects = useMemo(() => {
         return projects.filter((project) => {
-            const matchesCategory = activeCategory === 'all' || project.category === activeCategory;
+            const projectCategories = Array.isArray(project.category) ? project.category : [project.category];
+            const matchesCategory = activeCategory === 'all' || projectCategories.includes(activeCategory);
             const matchesTechStack = activeTechStack === 'all' || project.techStack.includes(activeTechStack);
             const matchesSearch =
                 project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||

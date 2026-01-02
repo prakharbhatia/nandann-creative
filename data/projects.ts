@@ -2,7 +2,7 @@ export interface Project {
     id: string;
     title: string;
     clientName?: string;
-    category: 'plugin' | 'website' | 'blockchain' | 'fintech' | 'backend' | 'library';
+    category: 'plugin' | 'website' | 'blockchain' | 'fintech' | 'backend' | 'library' | string[];
     techStack: string[];
     description: string;
     challenge?: string;
@@ -159,7 +159,7 @@ export const projects: Project[] = [
     {
         id: 'defi-algo-platform',
         title: "DeFi Algorithmic Trading Platform",
-        category: 'fintech',
+        category: ['fintech', 'blockchain'],
         techStack: ["Rust", "Solana", "Web3", "React", "Drift Protocol"],
         description: "A permissionless platform for automating Web3 trading strategies with tick-level data precision.",
         challenge: "Traders needed a way to build and execute complex algorithmic strategies on-chain without deep coding knowledge.",

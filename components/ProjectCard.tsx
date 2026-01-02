@@ -69,10 +69,12 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
 
             {/* Content Container */}
             <div className="p-5">
-                <div className="flex items-center gap-2 mb-3">
-                    <span className="px-2.5 py-1 text-xs font-medium bg-blue-500/10 text-blue-300 border border-blue-500/20 rounded-full">
-                        {project.category.charAt(0).toUpperCase() + project.category.slice(1)}
-                    </span>
+                <div className="flex flex-wrap items-center gap-2 mb-3">
+                    {(Array.isArray(project.category) ? project.category : [project.category]).map((cat) => (
+                        <span key={cat} className="px-2.5 py-1 text-xs font-medium bg-blue-500/10 text-blue-300 border border-blue-500/20 rounded-full">
+                            {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                        </span>
+                    ))}
                 </div>
 
                 <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors line-clamp-1">
