@@ -2,7 +2,7 @@ export interface Project {
     id: string;
     title: string;
     clientName?: string;
-    category: 'plugin' | 'website' | 'blockchain' | 'fintech' | 'backend';
+    category: 'plugin' | 'website' | 'blockchain' | 'fintech' | 'backend' | 'library';
     techStack: string[];
     description: string;
     challenge?: string;
@@ -16,6 +16,21 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+    // Libraries
+    {
+        id: 'nextjs16-migrator',
+        title: "Next.js 16 Migrator",
+        category: 'library',
+        techStack: ["Node.js", "AST", "Codemods", "TypeScript"],
+        description: "A powerful CLI tool to automate the migration of Next.js applications to version 16.",
+        challenge: "Migrating large Next.js codebases to the latest version involves repetitive and error-prone manual refactoring.",
+        solution: "Developed an intelligent codemod tool using AST transformations to automatically update API routes, config files, and deprecated patterns.",
+        images: ["/images/plugin-banner.webp"], // Using generic banner as placeholder
+        link: "https://www.npmjs.com/package/nextjs16-migrator",
+        isLive: true,
+        date: "2025-12-20"
+    },
+
     // Plugins
     {
         id: 'tg-live-chat',
