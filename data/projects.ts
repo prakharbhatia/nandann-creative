@@ -157,6 +157,20 @@ export const projects: Project[] = [
 
     // Fintech Projects
     {
+        id: 'defi-algo-platform',
+        title: "DeFi Algorithmic Trading Platform",
+        category: 'fintech',
+        techStack: ["Rust", "Solana", "Web3", "React", "Drift Protocol"],
+        description: "A permissionless platform for automating Web3 trading strategies with tick-level data precision.",
+        challenge: "Traders needed a way to build and execute complex algorithmic strategies on-chain without deep coding knowledge.",
+        solution: "Built a visual strategy editor and LLM-powered DSL that compiles to Rust for execution on the Drift protocol.",
+        images: [],
+        link: "#",
+        isLive: true,
+        isConfidential: true,
+        date: "2025-12-15"
+    },
+    {
         id: 'quantedge-trading',
         title: "QuantEdge Algo Platform",
         category: 'fintech',
@@ -183,6 +197,34 @@ export const projects: Project[] = [
         isLive: true,
         isConfidential: true,
         date: "2025-06-15"
+    },
+    {
+        id: 'block-asset-bridge',
+        title: "Cross-Chain Asset Bridge",
+        category: 'fintech',
+        techStack: ["Solidity", "Go", "TSS", "Ethereum", "Polygon"],
+        description: "Secure bridge for transferring assets between Ethereum and Polygon networks using threshold signature schemes.",
+        challenge: "Existing bridges were centralized and prone to hacks, risking user funds.",
+        solution: "Implemented a decentralized multi-party computation (MPC) network for signing transactions, ensuring no single point of failure.",
+        images: [],
+        link: "#",
+        isLive: true,
+        isConfidential: true,
+        date: "2025-04-20"
+    },
+    {
+        id: 'neo-wealth-dashboard',
+        title: "NeoWealth Investment Dashboard",
+        category: 'fintech',
+        techStack: ["React", "D3.js", "Node.js", "Plaid API"],
+        description: "Comprehensive wealth management dashboard aggregating assets from traditional banks and crypto wallets.",
+        challenge: "Users had to switch between multiple apps to track their net worth and investment performance.",
+        solution: "Integrated Plaid and various crypto APIs to provide a unified real-time view of all assets with interactive performance charts.",
+        images: [],
+        link: "#",
+        isLive: true,
+        isConfidential: true,
+        date: "2025-03-10"
     },
 
     // Websites
