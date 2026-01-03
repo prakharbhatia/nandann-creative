@@ -32,9 +32,7 @@ export const blogPosts: BlogPost[] = [
     contentHtml: `
       <img src="/images/tanstack-ai-switzerland-banner.webp" alt="TanStack AI: The Switzerland of AI Tooling - Nandann Creative Agency" style="width:100%; border-radius:12px; margin-bottom: 2rem;" />
       
-      <div class="alert alert-info" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1)); border-left: 4px solid #3b82f6; padding: 1.5rem; margin: 2rem 0; border-radius: 0.5rem;">
-        <p><strong>🧀 TL;DR:</strong> TanStack AI is an open-source, type-safe, provider-agnostic AI SDK. No vendor lock-in, no proprietary formats, just clean TypeScript. Think of it as Switzerland - neutral, reliable, and everyone can work with it.</p>
-      </div>
+
 
       <p class="lead" style="font-size: 1.25rem; line-height: 1.8; color: #e5e7eb; margin: 2rem 0;">
         Let's be real. Building AI features in 2025 felt like choosing a life partner - except the partner keeps changing their API, raising prices, and occasionally ghosting you during high traffic. You pick OpenAI, great! Until Claude starts looking really attractive. Then Gemini winks at you. And suddenly you're stuck in a dysfunctional relationship because switching means rewriting half your codebase.
