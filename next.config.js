@@ -1,19 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  
+
   // Performance optimizations
   compress: true,
   poweredByHeader: false,
-  
+
   // Compiler optimizations for modern browsers
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
-  
+
   // Turbopack configuration (Next.js 16 default)
   // Turbopack automatically handles modern browser optimizations
-  
+
   // SEO optimizations
   async headers() {
     return [
@@ -31,9 +31,31 @@ const nextConfig = {
         ],
       },
       {
-        source: '/(.*)',
+        // Allow StackBlitz embeds on blog pages
+        source: '/blog/:path*',
         headers: [
-          // Security headers
+          {
+            key: 'Cross-Origin-Embedder-Policy',
+            value: 'credentialless',
+          },
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'origin-when-cross-origin',
+          },
+        ],
+      },
+      {
+        source: '/((?!blog).*)',
+        headers: [
+          // Security headers for non-blog pages
           {
             key: 'X-Frame-Options',
             value: 'DENY',

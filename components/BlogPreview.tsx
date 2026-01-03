@@ -14,6 +14,15 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'tanstack-ai-switzerland-of-ai-tooling',
+    title: 'TanStack AI: The Switzerland of AI Tooling (And Why That\'s Awesome)',
+    excerpt: 'The most comprehensive guide to TanStack AI - the open-source, type-safe, provider-agnostic AI SDK. Learn everything from basic setup to isomorphic tools, streaming, DevTools, and real-world projects with runnable examples.',
+    date: 'Jan 3, 2026',
+    readTime: '30 min read',
+    category: 'AI & Development',
+    coverImage: '/images/tanstack-ai-switzerland-banner.webp'
+  },
+  {
     slug: 'nextjs-16-release-comprehensive-guide',
     title: 'Next.js 16: Complete Guide to Cache Components, Turbopack, and Revolutionary Features',
     excerpt: 'Comprehensive deep-dive into Next.js 16 featuring Cache Components with PPR, stable Turbopack with 5-10x faster builds, proxy.ts replacing middleware, and all breaking changes explained with code examples.',
@@ -131,7 +140,7 @@ export default function BlogPreview() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {featuredPosts.map((post, index) => (
-            <Link 
+            <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
               prefetch={false}
@@ -144,7 +153,12 @@ export default function BlogPreview() {
                       src={post.coverImage}
                       alt={post.title}
                       fill
-                      className={post.slug === 'nextjs-16-release-comprehensive-guide' ? 'object-contain p-4' : 'object-cover'}
+                      className={
+                        post.slug === 'nextjs-16-release-comprehensive-guide' ||
+                          post.slug === 'tanstack-ai-switzerland-of-ai-tooling'
+                          ? 'object-contain p-4'
+                          : 'object-cover'
+                      }
                     />
                   </div>
                 )}
@@ -155,15 +169,15 @@ export default function BlogPreview() {
                     </span>
                     <span className="text-gray-400 text-sm">{post.readTime}</span>
                   </div>
-                  
+
                   <h3 className="text-xl font-bold text-white mb-3 line-clamp-2 group-hover:text-blue-200 transition-colors duration-200">
                     {post.title}
                   </h3>
-                  
+
                   <p className="text-gray-300 mb-4 line-clamp-3">
                     {post.excerpt}
                   </p>
-                  
+
                   <div className="flex items-center justify-between">
                     <span className="text-gray-400 text-sm">{post.date}</span>
                     <span className="text-blue-400 group-hover:text-blue-300 font-medium transition-colors duration-200">

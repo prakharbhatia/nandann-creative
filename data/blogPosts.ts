@@ -21,6 +21,1354 @@ const internalLinks = {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'tanstack-ai-switzerland-of-ai-tooling',
+    title: 'TanStack AI: The Switzerland of AI Tooling (And Why That\'s Awesome)',
+    description: 'The most comprehensive guide to TanStack AI - the open-source, type-safe, provider-agnostic AI SDK. Learn everything from basic setup to isomorphic tools, streaming, DevTools debugging, and complete real-world projects with runnable code examples.',
+    date: '2026-01-03',
+    readTime: '30 min read',
+    category: 'AI & Development',
+    tags: ['TanStack AI', 'AI SDK', 'React AI', 'OpenAI', 'Claude', 'Gemini', 'TypeScript', 'streaming', 'isomorphic tools', 'TanStack', 'Vercel AI SDK alternative', 'chatbot', 'LLM'],
+    coverImage: '/images/tanstack-ai-switzerland-banner.webp',
+    contentHtml: `
+      <img src="/images/tanstack-ai-switzerland-banner.webp" alt="TanStack AI: The Switzerland of AI Tooling - Nandann Creative Agency" style="width:100%; border-radius:12px; margin-bottom: 2rem;" />
+      
+      <div class="alert alert-info" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1)); border-left: 4px solid #3b82f6; padding: 1.5rem; margin: 2rem 0; border-radius: 0.5rem;">
+        <p><strong>🧀 TL;DR:</strong> TanStack AI is an open-source, type-safe, provider-agnostic AI SDK. No vendor lock-in, no proprietary formats, just clean TypeScript. Think of it as Switzerland - neutral, reliable, and everyone can work with it.</p>
+      </div>
+
+      <p class="lead" style="font-size: 1.25rem; line-height: 1.8; color: #e5e7eb; margin: 2rem 0;">
+        Let's be real. Building AI features in 2025 felt like choosing a life partner - except the partner keeps changing their API, raising prices, and occasionally ghosting you during high traffic. You pick OpenAI, great! Until Claude starts looking really attractive. Then Gemini winks at you. And suddenly you're stuck in a dysfunctional relationship because switching means rewriting half your codebase.
+      </p>
+
+      <p>Enter TanStack AI - the "Switzerland of AI tooling." Neutral, type-safe, and refreshingly honest about what it is: just good open-source libraries, no strings attached. In this (admittedly long) guide, we're going to cover <em>everything</em> you need to know about TanStack AI. By the end, you'll either be a convert or at least understand why developers are losing their minds over it.</p>
+
+      <p>Grab some coffee. This is going to be comprehensive.</p>
+
+      <h2>What We'll Cover</h2>
+      <ul>
+        <li>What TanStack AI actually is (and isn't)</li>
+        <li>Core features that make it special</li>
+        <li>Getting started from zero to chat app</li>
+        <li>The isomorphic tools system (the really cool part)</li>
+        <li>DevTools for debugging AI (finally!)</li>
+        <li>Honest comparison with Vercel AI SDK</li>
+        <li>Real-world examples with runnable code</li>
+        <li>The gotchas you should know about</li>
+      </ul>
+
+      <div class="bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/30 p-6 my-8 rounded-xl">
+        <h3 class="text-xl font-bold text-green-300 mb-3">🚀 Interactive Demo: Try It Live!</h3>
+        <p class="text-gray-300 mb-2">Play with TanStack AI right here - no setup required. Edit the code, see results instantly:</p>
+      </div>
+
+      <h3>Live Chat Demo with Streaming</h3>
+      <p class="text-gray-400 mb-4">This is a working TanStack AI chat. Notice how responses stream word-by-word:</p>
+      
+      <div class="my-6 rounded-xl overflow-hidden border border-white/20 bg-slate-900">
+        <iframe 
+          src="https://stackblitz.com/github/prakharbha/tanstack-interactive?embed=1&file=src/app/page.tsx&theme=dark&view=preview"
+          style="width:100%; height:500px; border:0;"
+          title="TanStack AI Chat Demo"
+        ></iframe>
+      </div>
+
+      <details class="bg-slate-800/50 rounded-xl p-4 my-6 border border-white/10">
+        <summary class="cursor-pointer text-blue-300 font-semibold">💻 View the source code</summary>
+        <div class="mt-4 rounded-lg overflow-hidden">
+          <iframe 
+            src="https://stackblitz.com/github/prakharbha/tanstack-interactive?embed=1&file=src/app/page.tsx&theme=dark&view=editor"
+            style="width:100%; height:400px; border:0;"
+            title="TanStack AI Source Code"
+          ></iframe>
+        </div>
+      </details>
+
+      <h3>Switch Between Providers</h3>
+      <p class="text-gray-400 mb-4">See how easy it is to switch between OpenAI, Claude, and Gemini - just one line of code:</p>
+      
+      <div class="my-6 rounded-xl overflow-hidden border border-white/20 bg-slate-900">
+        <iframe 
+          src="https://stackblitz.com/github/prakharbha/tanstack-interactive?embed=1&file=src/app/providers/page.tsx&theme=dark&view=preview"
+          style="width:100%; height:450px; border:0;"
+          title="TanStack AI Provider Switching"
+        ></iframe>
+      </div>
+
+      <div class="bg-yellow-500/10 border-l-4 border-yellow-500 p-4 my-6 rounded-r-lg">
+        <p class="text-gray-300"><strong>💡 Can't see the demos?</strong> Click "Open in new tab" below each demo, or <a href="https://stackblitz.com/github/prakharbha/tanstack-interactive" target="_blank" rel="noopener" class="text-blue-400 hover:underline">open the full project in StackBlitz →</a></p>
+      </div>
+
+      <h2>What is TanStack AI, Really?</h2>
+
+      <p>TanStack AI is an open-source AI SDK created by the same folks who brought you TanStack Query, TanStack Router, and TanStack Table - libraries that collectively power millions of React apps. The alpha was announced on December 3, 2025, by Tanner Linsley, Jack Herrington, and Alem Tuzlak.</p>
+
+      <h3>The 30-Second Explanation</h3>
+
+      <p>Here's what TanStack AI is:</p>
+      <ul>
+        <li><strong>Open-source</strong> - MIT licensed, no hidden fees, no upsells</li>
+        <li><strong>Type-safe</strong> - Full TypeScript with Zod schema inference</li>
+        <li><strong>Provider-agnostic</strong> - Works with OpenAI, Anthropic, Gemini, Mistral, Groq, and Ollama (local models)</li>
+        <li><strong>Framework-agnostic</strong> - React, Solid, Vanilla JS, with Vue/Svelte coming</li>
+        <li><strong>Server-agnostic</strong> - Node, PHP, Python support</li>
+        <li><strong>Tree-shakeable</strong> - Only import what you use, minimal bundle impact</li>
+      </ul>
+
+      <p>And here's what it <em>isn't</em>:</p>
+      <ul>
+        <li>A hosted service (you connect directly to providers)</li>
+        <li>A vendor platform (no lock-in, no middleman)</li>
+        <li>Production-stable yet (it's alpha, friends)</li>
+      </ul>
+
+      <h3>The Philosophy: "Your AI, Your Way"</h3>
+
+      <blockquote style="border-left: 4px solid #3b82f6; padding-left: 1.5rem; margin: 2rem 0; font-style: italic; color: #94a3b8;">
+        "TanStack AI is a pure open-source ecosystem of libraries and standards—not a service. We connect you directly to the AI providers you choose, with no middleman, no service fees, and no vendor lock-in."
+        <br/><small>— Official TanStack AI Website</small>
+      </blockquote>
+
+      <h3>The Team Behind It</h3>
+
+      <p>This matters. TanStack AI isn't some random npm package with 3 stars. It's built by:</p>
+      <ul>
+        <li><strong>Tanner Linsley</strong> - Creator of TanStack Query, Router, Table, and Form. His libraries have ~40M+ npm downloads per month.</li>
+        <li><strong>Jack Herrington</strong> - The "Blue Collar Coder" with a massive YouTube following.</li>
+        <li><strong>Alem Tuzlak</strong> - Core community contributor to the TanStack ecosystem.</li>
+      </ul>
+
+      <h3>Part of the TanStack Ecosystem</h3>
+
+      <div class="comparison-table my-8 overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead class="bg-white/10">
+            <tr>
+              <th class="border border-white/20 p-4 text-left">Library</th>
+              <th class="border border-white/20 p-4 text-left">Purpose</th>
+              <th class="border border-white/20 p-4 text-left">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white/5"><td class="border border-white/20 p-4">TanStack Query</td><td class="border border-white/20 p-4">Async state & caching</td><td class="border border-white/20 p-4">Mature (40M+/month)</td></tr>
+            <tr><td class="border border-white/20 p-4">TanStack Router</td><td class="border border-white/20 p-4">Type-safe routing</td><td class="border border-white/20 p-4">Stable</td></tr>
+            <tr class="bg-white/5"><td class="border border-white/20 p-4">TanStack Table</td><td class="border border-white/20 p-4">Headless data grids</td><td class="border border-white/20 p-4">Mature</td></tr>
+            <tr><td class="border border-white/20 p-4">TanStack Form</td><td class="border border-white/20 p-4">Form state management</td><td class="border border-white/20 p-4">Stable</td></tr>
+            <tr class="bg-white/5"><td class="border border-white/20 p-4"><strong>TanStack AI</strong></td><td class="border border-white/20 p-4"><strong>AI SDK</strong></td><td class="border border-white/20 p-4"><strong>Alpha (Dec 2025)</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Core Features Deep Dive</h2>
+
+      <h3>Type Safety That Actually Works</h3>
+
+      <p>TanStack AI takes type safety seriously with full TypeScript and Zod schema inference:</p>
+
+      <pre><code class="language-typescript">import { chat, toolDefinition } from '@tanstack/ai';
+import { openaiText } from '@tanstack/ai-openai';
+import { z } from 'zod';
+
+const getWeatherDef = toolDefinition({
+  name: 'getWeather',
+  description: 'Get current weather for a city',
+  inputSchema: z.object({
+    city: z.string().describe('The city name'),
+  }),
+  outputSchema: z.object({
+    temperature: z.number(),
+    condition: z.enum(['sunny', 'cloudy', 'rainy', 'snowy']),
+  }),
+});
+
+// TypeScript knows the shape of your input AND output
+const getWeather = getWeatherDef.server(async ({ city }) => {
+  const data = await fetchWeatherAPI(city);
+  return { temperature: data.temp, condition: data.condition };
+});</code></pre>
+
+      <h3>Provider Agnostic: Switch with One Line</h3>
+
+      <p>This is the "Switzerland" part. Switching providers is trivial:</p>
+
+      <pre><code class="language-typescript">// Using OpenAI
+import { openaiText } from '@tanstack/ai-openai';
+chat({ adapter: openaiText(), model: 'gpt-4o', messages });
+
+// Switch to Claude - literally change two lines
+import { anthropicText } from '@tanstack/ai-anthropic';
+chat({ adapter: anthropicText(), model: 'claude-3-opus', messages });
+
+// Try Gemini
+import { geminiText } from '@tanstack/ai-gemini';
+chat({ adapter: geminiText(), model: 'gemini-1.5-pro', messages });
+
+// Run locally with Ollama (no API costs!)
+import { ollamaText } from '@tanstack/ai-ollama';
+chat({ adapter: ollamaText(), model: 'llama3.1', messages });</code></pre>
+
+      <p style="text-align: center; font-size: 1.1rem; font-weight: bold; color: #22c55e; margin: 2rem 0;">Switching providers is as easy as changing socks. Easier, actually.</p>
+
+      <h3>Streaming: The ChatGPT Effect</h3>
+
+      <p>That satisfying word-by-word streaming experience is baked in:</p>
+
+      <pre><code class="language-typescript">import { chat, toStreamResponse } from '@tanstack/ai';
+import { openaiText } from '@tanstack/ai-openai';
+
+export async function POST(request: Request) {
+  const { messages } = await request.json();
+  const stream = chat({ adapter: openaiText(), model: 'gpt-4o', messages });
+  return toStreamResponse(stream);
+}</code></pre>
+
+      <h2>The Package Ecosystem</h2>
+
+      <div class="comparison-table my-8 overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead class="bg-white/10">
+            <tr>
+              <th class="border border-white/20 p-4 text-left">Package</th>
+              <th class="border border-white/20 p-4 text-left">Purpose</th>
+              <th class="border border-white/20 p-4 text-left">When to Use</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white/5"><td class="border border-white/20 p-4"><code>@tanstack/ai</code></td><td class="border border-white/20 p-4">Core AI logic, tool definitions, chat function</td><td class="border border-white/20 p-4">Always - it's the foundation</td></tr>
+            <tr><td class="border border-white/20 p-4"><code>@tanstack/ai-client</code></td><td class="border border-white/20 p-4">Framework-agnostic headless client</td><td class="border border-white/20 p-4">Vanilla JS or custom framework integration</td></tr>
+            <tr class="bg-white/5"><td class="border border-white/20 p-4"><code>@tanstack/ai-react</code></td><td class="border border-white/20 p-4">React hooks (useChat, InferChatMessages)</td><td class="border border-white/20 p-4">React applications</td></tr>
+            <tr><td class="border border-white/20 p-4"><code>@tanstack/ai-solid</code></td><td class="border border-white/20 p-4">SolidJS hooks (useChat)</td><td class="border border-white/20 p-4">SolidJS applications</td></tr>
+            <tr class="bg-white/5"><td class="border border-white/20 p-4"><code>@tanstack/ai-openai</code></td><td class="border border-white/20 p-4">OpenAI adapter (GPT-4, GPT-4o, o1)</td><td class="border border-white/20 p-4">Using OpenAI models</td></tr>
+            <tr><td class="border border-white/20 p-4"><code>@tanstack/ai-anthropic</code></td><td class="border border-white/20 p-4">Anthropic adapter (Claude 3, 3.5)</td><td class="border border-white/20 p-4">Using Claude models</td></tr>
+            <tr class="bg-white/5"><td class="border border-white/20 p-4"><code>@tanstack/ai-gemini</code></td><td class="border border-white/20 p-4">Google adapter (Gemini 1.5, 2.0)</td><td class="border border-white/20 p-4">Using Gemini models</td></tr>
+            <tr><td class="border border-white/20 p-4"><code>@tanstack/ai-ollama</code></td><td class="border border-white/20 p-4">Ollama adapter (Llama, Mistral local)</td><td class="border border-white/20 p-4">Running models locally</td></tr>
+            <tr class="bg-white/5"><td class="border border-white/20 p-4"><code>@tanstack/ai-mistral</code></td><td class="border border-white/20 p-4">Mistral AI adapter</td><td class="border border-white/20 p-4">Using Mistral models</td></tr>
+            <tr><td class="border border-white/20 p-4"><code>@tanstack/ai-groq</code></td><td class="border border-white/20 p-4">Groq adapter (ultra-fast inference)</td><td class="border border-white/20 p-4">When speed is critical</td></tr>
+            <tr class="bg-white/5"><td class="border border-white/20 p-4"><code>@tanstack/ai-devtools-core</code></td><td class="border border-white/20 p-4">DevTools for debugging AI workflows</td><td class="border border-white/20 p-4">Development and debugging</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p><strong>Tree-shakeable by design:</strong> Each adapter is a separate package. You only bundle what you import - using OpenAI? You don't carry Anthropic, Gemini, or Mistral code in your build.</p>
+
+      <h2>Getting Started: Your First Chat App</h2>
+
+      <h3>Installation</h3>
+
+      <pre><code class="language-bash"># For React + OpenAI
+npm install @tanstack/ai @tanstack/ai-react @tanstack/ai-openai</code></pre>
+
+      <h3>Server Setup (Next.js)</h3>
+
+      <pre><code class="language-typescript">// app/api/chat/route.ts
+import { chat, toStreamResponse } from '@tanstack/ai';
+import { openaiText } from '@tanstack/ai-openai';
+
+export async function POST(request: Request) {
+  const { messages } = await request.json();
+  const stream = chat({ adapter: openaiText(), model: 'gpt-4o', messages });
+  return toStreamResponse(stream);
+}</code></pre>
+
+      <h3>Client Component</h3>
+
+      <pre><code class="language-tsx">import { useState } from 'react';
+import { useChat, fetchServerSentEvents } from '@tanstack/ai-react';
+
+export function Chat() {
+  const [input, setInput] = useState('');
+  const { messages, sendMessage, isLoading } = useChat({
+    connection: fetchServerSentEvents('/api/chat'),
+  });
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (input.trim() && !isLoading) {
+      sendMessage(input);
+      setInput('');
+    }
+  };
+  
+  return (
+    &lt;div&gt;
+      {messages.map((msg) =&gt; (
+        &lt;div key={msg.id}&gt;
+          {msg.role}: {msg.parts[0]?.content}
+        &lt;/div&gt;
+      ))}
+      &lt;form onSubmit={handleSubmit}&gt;
+        &lt;input value={input} onChange={(e) =&gt; setInput(e.target.value)} /&gt;
+        &lt;button&gt;{isLoading ? 'Thinking...' : 'Send'}&lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+      <h3>Understanding the useChat Hook</h3>
+
+      <p>The <code>useChat</code> hook is the heart of client-side AI in TanStack. Let's break down what it returns:</p>
+
+      <div class="comparison-table my-8 overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead class="bg-white/10">
+            <tr>
+              <th class="border border-white/20 p-4 text-left">Property</th>
+              <th class="border border-white/20 p-4 text-left">Type</th>
+              <th class="border border-white/20 p-4 text-left">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white/5"><td class="border border-white/20 p-4"><code>messages</code></td><td class="border border-white/20 p-4"><code>Message[]</code></td><td class="border border-white/20 p-4">All messages (user + assistant). Auto-updates during streaming.</td></tr>
+            <tr><td class="border border-white/20 p-4"><code>sendMessage</code></td><td class="border border-white/20 p-4"><code>(content: string) => void</code></td><td class="border border-white/20 p-4">Sends message with optimistic update. Adds to messages immediately.</td></tr>
+            <tr class="bg-white/5"><td class="border border-white/20 p-4"><code>isLoading</code></td><td class="border border-white/20 p-4"><code>boolean</code></td><td class="border border-white/20 p-4">True while waiting for AI response. Perfect for loading states.</td></tr>
+            <tr><td class="border border-white/20 p-4"><code>pendingToolCalls</code></td><td class="border border-white/20 p-4"><code>ToolCall[]</code></td><td class="border border-white/20 p-4">Tools awaiting user approval (if using approveToolCall).</td></tr>
+            <tr class="bg-white/5"><td class="border border-white/20 p-4"><code>approveToolCall</code></td><td class="border border-white/20 p-4"><code>(id: string) => void</code></td><td class="border border-white/20 p-4">Approves a pending tool call for execution.</td></tr>
+            <tr><td class="border border-white/20 p-4"><code>rejectToolCall</code></td><td class="border border-white/20 p-4"><code>(id: string) => void</code></td><td class="border border-white/20 p-4">Rejects a pending tool call.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>The fetchServerSentEvents Helper</h3>
+
+      <p>This utility handles the complex SSE (Server-Sent Events) protocol automatically:</p>
+
+      <pre><code class="language-typescript">import { useChat, fetchServerSentEvents } from '@tanstack/ai-react';
+
+// Basic usage - just point at your API endpoint
+const chat = useChat({
+  connection: fetchServerSentEvents('/api/chat'),
+});
+
+// With custom headers (e.g., for authentication)
+const chatWithAuth = useChat({
+  connection: fetchServerSentEvents('/api/chat', {
+    headers: { Authorization: 'Bearer your-token' },
+  }),
+});</code></pre>
+
+      <p><strong>What it handles for you:</strong> Connection management, automatic reconnection, proper SSE parsing, streaming response handling, and cleanup on unmount. You don't write any of this.</p>
+
+      <h2>Provider-Specific Options with Type Safety</h2>
+
+      <p>This is one of TanStack AI's <em>killer features</em>. Different AI providers offer unique capabilities. TanStack AI lets you access them with full type safety:</p>
+
+      <pre><code class="language-typescript">import { chat } from '@tanstack/ai';
+import { openaiText } from '@tanstack/ai-openai';
+
+// OpenAI-specific: reasoning options for o1 models
+const stream = chat({
+  adapter: openaiText(),
+  model: 'o1-preview',
+  messages,
+  reasoning: {
+    effort: 'medium',   // 'low' | 'medium' | 'high'
+    summary: 'detailed', // Include reasoning summary
+  },
+});</code></pre>
+
+      <p>Here's the magic: when you type <code>reasoning:</code>, your IDE autocompletes with <em>only the options available for that provider and model</em>. If you switch to a model that doesn't support reasoning, TypeScript immediately flags it as an error—<strong>at compile time, not runtime</strong>.</p>
+
+      <pre><code class="language-typescript">// This would give a TypeScript error!
+const stream = chat({
+  adapter: anthropicText(),
+  model: 'claude-3-sonnet',
+  messages,
+  reasoning: { effort: 'medium' }, // ❌ Error: 'reasoning' does not exist
+});</code></pre>
+
+      <h3>Thinking and Reasoning Tokens</h3>
+
+      <p>For models that support "thinking" (like Claude 3.5 or GPT-o1), TanStack AI streams thinking tokens to the client:</p>
+
+      <pre><code class="language-typescript">// Thinking tokens are included in the message stream
+messages.map((msg) => {
+  if (msg.thinking) {
+    console.log('AI is thinking:', msg.thinking);
+  }
+  console.log('AI response:', msg.content);
+});</code></pre>
+
+      <p>This lets you show users what the AI is "reasoning about" before giving its final answer—a transparency feature that builds trust.</p>
+
+      <h2>Isomorphic Tools: The Magic System</h2>
+
+      <p>This is where TanStack AI really shines. Define a tool once, implement it for server OR client:</p>
+
+      <div class="bg-slate-800/50 border border-white/10 rounded-xl p-4 my-6">
+        <a href="https://stackblitz.com/github/prakharbha/tanstack-interactive?file=src/app/tools/page.tsx" target="_blank" rel="noopener" class="flex items-center justify-between text-blue-300 hover:text-blue-200">
+          <span>🛠️ <strong>Try the Isomorphic Tools Demo</strong> - See server vs client execution</span>
+          <span class="text-sm bg-blue-600 text-white px-3 py-1 rounded-full">Open in StackBlitz →</span>
+        </a>
+      </div>
+
+      <h3>Server Tools with Zod Descriptions</h3>
+
+      <p>The <code>.describe()</code> method on Zod schemas is <strong>critical</strong> for AI understanding. It tells the model what each parameter means:</p>
+
+      <pre><code class="language-typescript">const searchProductsDef = toolDefinition({
+  name: 'searchProducts',
+  description: 'Search for products in the catalog by keyword or category',
+  inputSchema: z.object({ 
+    query: z.string().describe('The search query - keywords, product name, or category'),
+    maxResults: z.number().optional().describe('Maximum number of results to return (default: 10)'),
+    sortBy: z.enum(['price', 'rating', 'relevance']).optional().describe('Sort order for results'),
+  }),
+  outputSchema: z.array(z.object({ 
+    id: z.string(), 
+    name: z.string(), 
+    price: z.number() 
+  })),
+});
+
+const searchProducts = searchProductsDef.server(async ({ query, maxResults = 10 }) => {
+  return await db.products.search(query, { limit: maxResults });
+});</code></pre>
+
+      <p><strong>Why this matters:</strong> Without <code>.describe()</code>, the AI only knows parameter <em>names</em>. With descriptions, it understands <em>intent</em>. "query" could mean anything—but "The search query - keywords, product name, or category" tells the AI exactly what to pass.</p>
+
+      <h3>Hybrid Tools (Both Server and Client)</h3>
+
+      <p>Some tools need to work in both environments. TanStack AI supports hybrid tools that can execute on either server or client depending on context:</p>
+
+      <pre><code class="language-typescript">const getUserPreferencesDef = toolDefinition({
+  name: 'getUserPreferences',
+  description: 'Get user preferences for personalization',
+  inputSchema: z.object({}),
+  outputSchema: z.object({
+    theme: z.enum(['light', 'dark']),
+    language: z.string(),
+    timezone: z.string(),
+  }),
+});
+
+// Server implementation - gets from database
+const getUserPreferencesServer = getUserPreferencesDef.server(async () => {
+  return await db.users.getPreferences(userId);
+});
+
+// Client implementation - gets from localStorage
+const getUserPreferencesClient = getUserPreferencesDef.client(async () => {
+  return {
+    theme: localStorage.getItem('theme') || 'dark',
+    language: navigator.language,
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+  };
+});</code></pre>
+
+      <p>The AI runtime decides which implementation to use based on where the tool is registered.</p>
+
+      <h2>How Tool Orchestration Works</h2>
+
+      <p>This is where things get interesting. When you ask a question like "Who is the current F1 champion?", TanStack AI orchestrates a complex multi-step process <em>automatically</em>:</p>
+
+      <div class="bg-slate-800/50 rounded-xl p-6 my-6 border border-white/10">
+        <ol class="space-y-3">
+          <li><strong>1. Client sends message</strong> → Your question goes to the server</li>
+          <li><strong>2. Server forwards to AI</strong> → Along with available tool definitions</li>
+          <li><strong>3. AI analyzes request</strong> → Realizes its knowledge might be outdated</li>
+          <li><strong>4. AI requests tool call</strong> → "I need to search the internet for this"</li>
+          <li><strong>5. TanStack AI intercepts</strong> → Executes the search_internet tool</li>
+          <li><strong>6. Results go back to AI</strong> → Fresh data as additional context</li>
+          <li><strong>7. AI generates answer</strong> → With up-to-date information</li>
+          <li><strong>8. Response streams to client</strong> → Word by word</li>
+        </ol>
+      </div>
+
+      <p>All of this happens automatically. You define the tools and their implementations - TanStack AI handles the complex back-and-forth orchestration.</p>
+
+      <h2>Agentic Cycle Management</h2>
+
+      <p>Beyond simple tool calls, TanStack AI includes an <strong>agentic cycle management system</strong> for building autonomous AI agents that can plan and execute multi-step tasks:</p>
+
+      <pre><code class="language-typescript">import { chat, AgentLoop } from '@tanstack/ai';
+
+// Create an agent with loop control
+const agent = new AgentLoop({
+  adapter: openaiText(),
+  model: 'gpt-4o',
+  tools: [searchProducts, analyzeReviews, compareProducts],
+  maxIterations: 10, // Prevent runaway loops
+});
+
+// Agent can plan and execute multiple steps
+const result = await agent.run({
+  task: 'Find the best laptop under $1000 for programming',
+  onStep: (step) => {
+    console.log(\`Step \${step.iteration}: \${step.action}\`);
+  },
+});
+
+// Result includes the full chain of reasoning and tool calls</code></pre>
+
+      <h3>When to Use Agentic Loops</h3>
+
+      <ul>
+        <li><strong>Research tasks</strong> - "Research competitors and summarize findings"</li>
+        <li><strong>Multi-step analysis</strong> - "Analyze this dataset and create a report"</li>
+        <li><strong>Complex workflows</strong> - "Book a flight, hotel, and car for my trip"</li>
+      </ul>
+
+      <p>These features position TanStack AI as more than a simple wrapper - it's a comprehensive framework for building sophisticated AI systems.</p>
+
+      <h2>The @tanstack/ai-client Package</h2>
+
+      <p>This is the framework-agnostic headless client for managing chat state. If you're not using React or Solid, this is what you import:</p>
+
+      <pre><code class="language-typescript">import { createChat, fetchServerSentEvents } from '@tanstack/ai-client';
+
+const chat = createChat({
+  connection: fetchServerSentEvents('/api/chat'),
+  serverTools: [searchProducts],
+  clientTools: [getCurrentLocation],
+});
+
+// Subscribe to state changes
+chat.subscribe((state) => {
+  console.log('Messages:', state.messages);
+  console.log('Is Loading:', state.isLoading);
+  console.log('Pending Tools:', state.pendingToolCalls);
+});
+
+// Send a message
+chat.sendMessage('Find laptops under $500');</code></pre>
+
+      <h3>What @tanstack/ai-client Provides</h3>
+
+      <ul>
+        <li><strong>Message management</strong> - Full type safety for message handling</li>
+        <li><strong>Streaming support</strong> - Built-in SSE handling</li>
+        <li><strong>Connection adapters</strong> - SSE, HTTP stream, or custom</li>
+        <li><strong>Automatic tool execution</strong> - Both server and client tools</li>
+        <li><strong>Tool approval flow handling</strong> - Human-in-the-loop support</li>
+      </ul>
+
+      <p>This package is what <code>@tanstack/ai-react</code> and <code>@tanstack/ai-solid</code> are built on top of.</p>
+
+      <h3>Tool Approval Flows (Human-in-the-Loop)</h3>
+
+      <p>Some actions shouldn't happen automatically. Adding items to a cart, making purchases, deleting data - these need user approval. TanStack AI has this built in:</p>
+
+      <pre><code class="language-typescript">const addToCartDef = toolDefinition({
+  name: 'addToCart',
+  description: 'Add a product to the shopping cart',
+  inputSchema: z.object({
+    productId: z.string(),
+    quantity: z.number().default(1),
+  }),
+  outputSchema: z.object({
+    success: z.boolean(),
+    cartTotal: z.number(),
+  }),
+  // This is the magic - require user approval before execution
+  requiresApproval: true,
+});
+
+const addToCart = addToCartDef.server(async ({ productId, quantity }) => {
+  // This only runs AFTER user approves
+  await db.cart.add(productId, quantity);
+  const cart = await db.cart.getTotal();
+  return { success: true, cartTotal: cart.total };
+});</code></pre>
+
+      <p>On the client, you handle the approval UI:</p>
+
+      <pre><code class="language-tsx">function Chat() {
+  const { messages, pendingTools, approveToolCall, denyToolCall } = useChat({
+    connection: fetchServerSentEvents('/api/chat'),
+  });
+  
+  return (
+    &lt;div&gt;
+      {/* Show approval UI for pending tools */}
+      {pendingTools.map((tool) =&gt; (
+        &lt;div key={tool.id} className="approval-card"&gt;
+          &lt;p&gt;The AI wants to: &lt;strong&gt;{tool.name}&lt;/strong&gt;&lt;/p&gt;
+          &lt;pre&gt;{JSON.stringify(tool.input, null, 2)}&lt;/pre&gt;
+          &lt;button onClick={() =&gt; approveToolCall(tool.id)}&gt;✅ Approve&lt;/button&gt;
+          &lt;button onClick={() =&gt; denyToolCall(tool.id)}&gt;❌ Deny&lt;/button&gt;
+        &lt;/div&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+      <p>This is crucial for building trustworthy AI applications. Users stay in control of sensitive operations.</p>
+
+      <h2>Streaming Deep Dive: The ChatGPT Effect</h2>
+
+      <p>You know that satisfying experience where ChatGPT types out responses word by word instead of making you wait 10 seconds for a wall of text? That's streaming, and TanStack AI makes it seamless.</p>
+
+      <h3>How Streaming Works Under the Hood</h3>
+
+      <p>TanStack AI uses Server-Sent Events (SSE) to stream responses. The <code>chat()</code> function returns an <code>AsyncIterable</code> that yields chunks as they arrive:</p>
+
+      <pre><code class="language-typescript">// Server: Stream responses as they generate
+const stream = chat({
+  adapter: openaiText(),
+  model: 'gpt-4o',
+  messages,
+});
+
+// Each chunk contains partial content
+for await (const chunk of stream) {
+  // chunk.type can be: 'text', 'thinking', 'tool-call', 'error'
+  if (chunk.type === 'text') {
+    console.log(chunk.content); // Streams word by word
+  }
+}
+
+// Or just use the helper
+return toStreamResponse(stream); // Handles SSE formatting</code></pre>
+
+      <h3>Client-Side Streaming with useChat</h3>
+
+      <p>The <code>useChat</code> hook automatically handles streaming updates:</p>
+
+      <pre><code class="language-tsx">const { messages, isLoading, isStreaming } = useChat({
+  connection: fetchServerSentEvents('/api/chat'),
+});
+
+// messages updates in real-time as tokens arrive
+// isStreaming is true while the response is generating
+// isLoading covers the full request lifecycle</code></pre>
+
+      <h2>Message Parts: Understanding the Response Structure</h2>
+
+      <p>Unlike simpler SDKs that give you a single string response, TanStack AI uses a <strong>parts-based message structure</strong>. This is important because AI responses can contain multiple types of content:</p>
+
+      <pre><code class="language-typescript">interface Message {
+  id: string;
+  role: 'user' | 'assistant' | 'system';
+  parts: MessagePart[];
+}
+
+type MessagePart = 
+  | { type: 'text'; content: string }
+  | { type: 'thinking'; content: string }  // Reasoning models
+  | { type: 'tool-call'; toolName: string; input: unknown }
+  | { type: 'tool-result'; toolName: string; output: unknown }
+  | { type: 'image'; url: string }
+  | { type: 'error'; message: string };</code></pre>
+
+      <h3>Rendering Message Parts</h3>
+
+      <pre><code class="language-tsx">function MessageDisplay({ message }) {
+  return (
+    &lt;div&gt;
+      {message.parts.map((part, idx) =&gt; {
+        switch (part.type) {
+          case 'thinking':
+            return &lt;div key={idx} className="thinking"&gt;💭 {part.content}&lt;/div&gt;;
+          case 'text':
+            return &lt;p key={idx}&gt;{part.content}&lt;/p&gt;;
+          case 'tool-call':
+            return &lt;div key={idx}&gt;🔧 Calling {part.toolName}...&lt;/div&gt;;
+          case 'image':
+            return &lt;img key={idx} src={part.url} alt="AI generated" /&gt;;
+          default:
+            return null;
+        }
+      })}
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+      <p>This structure is especially useful with reasoning models (like o1 or Claude with thinking) where you can show the AI's thought process.</p>
+
+      <h2>Beyond Text: Multimodal Support</h2>
+
+      <p>With the Alpha 2 release (December 18, 2025), TanStack AI added <strong>every modality</strong>:</p>
+
+      <div class="comparison-table my-8 overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead class="bg-white/10">
+            <tr>
+              <th class="border border-white/20 p-4 text-left">Modality</th>
+              <th class="border border-white/20 p-4 text-left">Input</th>
+              <th class="border border-white/20 p-4 text-left">Output</th>
+              <th class="border border-white/20 p-4 text-left">Example Use Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white/5"><td class="border border-white/20 p-4">Text</td><td class="border border-white/20 p-4">✅</td><td class="border border-white/20 p-4">✅</td><td class="border border-white/20 p-4">Chat, summarization, Q&A</td></tr>
+            <tr><td class="border border-white/20 p-4">Images</td><td class="border border-white/20 p-4">✅</td><td class="border border-white/20 p-4">✅</td><td class="border border-white/20 p-4">Vision analysis, DALL-E generation</td></tr>
+            <tr class="bg-white/5"><td class="border border-white/20 p-4">Audio</td><td class="border border-white/20 p-4">✅</td><td class="border border-white/20 p-4">✅</td><td class="border border-white/20 p-4">Transcription, text-to-speech</td></tr>
+            <tr><td class="border border-white/20 p-4">Video</td><td class="border border-white/20 p-4">✅</td><td class="border border-white/20 p-4">-</td><td class="border border-white/20 p-4">Video understanding (Gemini)</td></tr>
+            <tr class="bg-white/5"><td class="border border-white/20 p-4">Documents</td><td class="border border-white/20 p-4">✅</td><td class="border border-white/20 p-4">-</td><td class="border border-white/20 p-4">PDF analysis, document Q&A</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Image Generation Example</h3>
+
+      <pre><code class="language-typescript">import { generateImage } from '@tanstack/ai';
+import { openaiImage } from '@tanstack/ai-openai';
+
+const result = await generateImage({
+  adapter: openaiImage(), // Uses DALL-E
+  prompt: 'A Swiss mountain with code floating in the clouds',
+  size: '1024x1024',
+  quality: 'hd',
+});
+
+console.log(result.url); // URL to generated image</code></pre>
+
+      <h3>Vision Analysis Example</h3>
+
+      <pre><code class="language-typescript">const result = await chat({
+  adapter: openaiText(),
+  model: 'gpt-4o', // Vision-capable model
+  messages: [
+    {
+      role: 'user',
+      parts: [
+        { type: 'text', content: 'What is in this image?' },
+        { type: 'image', url: 'https://example.com/photo.jpg' },
+      ],
+    },
+  ],
+});</code></pre>
+
+      <h2>Alpha 2: Better APIs, Smaller Bundles</h2>
+
+      <p>On December 18, 2025, TanStack AI released Alpha 2 with significant improvements:</p>
+
+      <h3>What Changed</h3>
+
+      <ul>
+        <li><strong>Multimodal support</strong> - Images, audio, video, documents added</li>
+        <li><strong>Improved tree-shaking</strong> - Import only what you use, bundles stay small</li>
+        <li><strong>Better streaming APIs</strong> - Cleaner chunk handling, better error propagation</li>
+        <li><strong>Message parts structure</strong> - Richer response handling</li>
+        <li><strong>Provider adapter refinements</strong> - More consistent behavior across providers</li>
+      </ul>
+
+      <h3>Bundle Size Improvements</h3>
+
+      <pre><code class="language-typescript">// Only import what you need - tree-shakeable
+import { openaiText } from '@tanstack/ai-openai/adapters/text';
+import { openaiImage } from '@tanstack/ai-openai/adapters/image';
+
+// NOT required to import the entire OpenAI adapter
+// Your bundle only includes what you actually use</code></pre>
+
+      <h2>Multi-Language Server Support</h2>
+
+      <p>Unlike JavaScript-only SDKs, TanStack AI supports multiple server languages:</p>
+
+      <h3>PHP Server Example</h3>
+
+      <pre><code class="language-php">&lt;?php
+use TanStack\\AI\\Chat;
+use TanStack\\AI\\Adapters\\OpenAI;
+
+$chat = new Chat([
+    'adapter' => new OpenAI(['model' => 'gpt-4o']),
+]);
+
+$response = $chat->send([
+    ['role' => 'user', 'content' => 'Hello from PHP!']
+]);
+
+echo $response->content;</code></pre>
+
+      <h3>Python Server Example</h3>
+
+      <pre><code class="language-python">from tanstack_ai import chat
+from tanstack_ai.adapters import openai_text
+
+result = await chat(
+    adapter=openai_text(),
+    model="gpt-4o",
+    messages=[
+        {"role": "user", "content": "Hello from Python!"}
+    ]
+)
+
+print(result.content)</code></pre>
+
+      <p>This is huge for teams with mixed stacks. Your PHP backend can serve AI features to your React frontend using the same patterns and type definitions.</p>
+
+      <h2>Real-World Project: Building a Product Assistant</h2>
+
+      <p>Let's build something real - a complete product assistant chatbot with:</p>
+      <ul>
+        <li>Product search (server tool)</li>
+        <li>Add to cart with approval (human-in-the-loop)</li>
+        <li>User location for shipping estimates (client tool)</li>
+        <li>Streaming responses</li>
+      </ul>
+
+      <h3>Step 1: Define Your Tools</h3>
+
+      <pre><code class="language-typescript">// tools/productTools.ts
+import { toolDefinition } from '@tanstack/ai';
+import { z } from 'zod';
+
+export const searchProductsDef = toolDefinition({
+  name: 'searchProducts',
+  description: 'Search for products in the catalog',
+  inputSchema: z.object({
+    query: z.string().describe('Search query'),
+    maxPrice: z.number().optional().describe('Maximum price filter'),
+    category: z.string().optional().describe('Product category'),
+  }),
+  outputSchema: z.array(z.object({
+    id: z.string(),
+    name: z.string(),
+    price: z.number(),
+    description: z.string(),
+    inStock: z.boolean(),
+  })),
+});
+
+export const addToCartDef = toolDefinition({
+  name: 'addToCart',
+  description: 'Add a product to the shopping cart',
+  inputSchema: z.object({
+    productId: z.string(),
+    quantity: z.number().default(1),
+  }),
+  outputSchema: z.object({
+    success: z.boolean(),
+    cartTotal: z.number(),
+    itemCount: z.number(),
+  }),
+  requiresApproval: true, // User must approve
+});
+
+export const getLocationDef = toolDefinition({
+  name: 'getLocation',
+  description: 'Get user location for shipping estimates',
+  inputSchema: z.object({}),
+  outputSchema: z.object({
+    city: z.string(),
+    country: z.string(),
+  }),
+});</code></pre>
+
+      <h3>Step 2: Implement Server Tools</h3>
+
+      <pre><code class="language-typescript">// tools/productTools.server.ts
+import { searchProductsDef, addToCartDef } from './productTools';
+
+export const searchProducts = searchProductsDef.server(async ({ query, maxPrice, category }) => {
+  // In production, this would query your database
+  const products = await db.products.search({ query, maxPrice, category });
+  return products.map(p => ({
+    id: p.id,
+    name: p.name,
+    price: p.price,
+    description: p.description,
+    inStock: p.inventory > 0,
+  }));
+});
+
+export const addToCart = addToCartDef.server(async ({ productId, quantity }) => {
+  const result = await db.cart.add(productId, quantity);
+  const cart = await db.cart.summary();
+  return {
+    success: true,
+    cartTotal: cart.total,
+    itemCount: cart.items.length,
+  };
+});</code></pre>
+
+      <h3>Step 3: Implement Client Tool</h3>
+
+      <pre><code class="language-typescript">// tools/productTools.client.ts
+import { getLocationDef } from './productTools';
+
+export const getLocation = getLocationDef.client(async () => {
+  // Use browser's geolocation API
+  const position = await new Promise&lt;GeolocationPosition&gt;((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+  
+  // Reverse geocode to get city/country
+  const response = await fetch(
+    \`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=\${position.coords.latitude}&longitude=\${position.coords.longitude}\`
+  );
+  const data = await response.json();
+  
+  return {
+    city: data.city || 'Unknown',
+    country: data.countryName || 'Unknown',
+  };
+});</code></pre>
+
+      <h3>Step 4: API Route</h3>
+
+      <pre><code class="language-typescript">// app/api/chat/route.ts
+import { chat, toStreamResponse } from '@tanstack/ai';
+import { openaiText } from '@tanstack/ai-openai';
+import { searchProducts, addToCart } from '@/tools/productTools.server';
+
+export async function POST(request: Request) {
+  const { messages } = await request.json();
+  
+  const stream = chat({
+    adapter: openaiText(),
+    model: 'gpt-4o',
+    messages,
+    system: \`You are a helpful product assistant for our electronics store. 
+You can search for products, help users add items to cart, and estimate shipping.
+Be friendly and concise.\`,
+    tools: [searchProducts, addToCart],
+  });
+  
+  return toStreamResponse(stream);
+}</code></pre>
+
+      <h3>Step 5: Complete Chat Component</h3>
+
+      <pre><code class="language-tsx">// components/ProductAssistant.tsx
+'use client';
+import { useState } from 'react';
+import { useChat, fetchServerSentEvents } from '@tanstack/ai-react';
+import { getLocation } from '@/tools/productTools.client';
+
+export function ProductAssistant() {
+  const [input, setInput] = useState('');
+  
+  const {
+    messages,
+    sendMessage,
+    isLoading,
+    pendingTools,
+    approveToolCall,
+    denyToolCall,
+  } = useChat({
+    connection: fetchServerSentEvents('/api/chat'),
+    clientTools: [getLocation], // Register client-side tools
+  });
+  
+  return (
+    &lt;div className="max-w-2xl mx-auto p-4"&gt;
+      &lt;h1&gt;🛒 Product Assistant&lt;/h1&gt;
+      
+      {/* Messages */}
+      &lt;div className="messages"&gt;
+        {messages.map((msg) =&gt; (
+          &lt;div key={msg.id} className={msg.role}&gt;
+            {msg.parts.map((part, i) =&gt; {
+              if (part.type === 'text') return &lt;p key={i}&gt;{part.content}&lt;/p&gt;;
+              if (part.type === 'tool-call') return (
+                &lt;div key={i} className="tool-badge"&gt;
+                  🔧 Using {part.toolName}
+                &lt;/div&gt;
+              );
+              return null;
+            })}
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+      
+      {/* Approval Requests */}
+      {pendingTools.map((tool) =&gt; (
+        &lt;div key={tool.id} className="approval-card"&gt;
+          &lt;h4&gt;Approve action: {tool.name}&lt;/h4&gt;
+          &lt;pre&gt;{JSON.stringify(tool.input, null, 2)}&lt;/pre&gt;
+          &lt;button onClick={() =&gt; approveToolCall(tool.id)}&gt;✅ Yes, add to cart&lt;/button&gt;
+          &lt;button onClick={() =&gt; denyToolCall(tool.id)}&gt;❌ No thanks&lt;/button&gt;
+        &lt;/div&gt;
+      ))}
+      
+      {/* Input */}
+      &lt;form onSubmit={(e) =&gt; {
+        e.preventDefault();
+        if (input.trim()) {
+          sendMessage(input);
+          setInput('');
+        }
+      }}&gt;
+        &lt;input
+          value={input}
+          onChange={(e) =&gt; setInput(e.target.value)}
+          placeholder="Ask about products..."
+          disabled={isLoading}
+        /&gt;
+        &lt;button type="submit" disabled={isLoading}&gt;
+          {isLoading ? 'Thinking...' : 'Send'}
+        &lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+      <p>This complete example demonstrates all the key TanStack AI features working together: streaming, isomorphic tools, type safety, and human-in-the-loop approval.</p>
+
+      <h2>Error Handling Patterns</h2>
+
+      <p>AI calls can fail. Networks go down, rate limits hit, tokens run out. Here's how to handle errors gracefully:</p>
+
+      <pre><code class="language-typescript">import { chat, TanStackAIError } from '@tanstack/ai';
+
+try {
+  const stream = chat({ adapter, model, messages });
+  
+  for await (const chunk of stream) {
+    if (chunk.type === 'error') {
+      // Handle streaming errors
+      console.error('Stream error:', chunk.message);
+      // Show user-friendly message
+    }
+  }
+} catch (error) {
+  if (error instanceof TanStackAIError) {
+    switch (error.code) {
+      case 'RATE_LIMIT':
+        // Back off and retry
+        break;
+      case 'INVALID_API_KEY':
+        // Check your .env
+        break;
+      case 'CONTEXT_LENGTH_EXCEEDED':
+        // Truncate messages
+        break;
+      default:
+        // Log and show generic error
+    }
+  }
+}</code></pre>
+
+      <h2>TanStack AI vs Vercel AI SDK</h2>
+
+      <div class="comparison-table my-8 overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead class="bg-white/10">
+            <tr>
+              <th class="border border-white/20 p-4 text-left">Aspect</th>
+              <th class="border border-white/20 p-4 text-left">TanStack AI</th>
+              <th class="border border-white/20 p-4 text-left">Vercel AI SDK</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white/5"><td class="border border-white/20 p-4"><strong>Philosophy</strong></td><td class="border border-white/20 p-4">Pure open-source, "Switzerland"</td><td class="border border-white/20 p-4">Open-source, ecosystem-linked</td></tr>
+            <tr><td class="border border-white/20 p-4"><strong>Vendor Lock-in</strong></td><td class="border border-white/20 p-4">None. Zero. Nada.</td><td class="border border-white/20 p-4">Subtle platform integration</td></tr>
+            <tr class="bg-white/5"><td class="border border-white/20 p-4"><strong>Isomorphic Tools</strong></td><td class="border border-white/20 p-4">✅ Server & Client</td><td class="border border-white/20 p-4">Limited</td></tr>
+            <tr><td class="border border-white/20 p-4"><strong>Multi-language</strong></td><td class="border border-white/20 p-4">TS, PHP, Python</td><td class="border border-white/20 p-4">Primarily JavaScript</td></tr>
+            <tr class="bg-white/5"><td class="border border-white/20 p-4"><strong>Maturity</strong></td><td class="border border-white/20 p-4">Alpha (Dec 2025)</td><td class="border border-white/20 p-4">Established, v6+</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>When to Choose TanStack AI</h3>
+      <ul>
+        <li>You value true vendor neutrality</li>
+        <li>Type safety is non-negotiable</li>
+        <li>You already use the TanStack ecosystem</li>
+        <li>You want isomorphic tools (client + server)</li>
+      </ul>
+
+      <h3>When to Choose Vercel AI SDK</h3>
+      <ul>
+        <li>You need wider provider support right now</li>
+        <li>You're deep in the Vercel ecosystem</li>
+        <li>You need production-proven stability today</li>
+      </ul>
+
+      <h2>DevTools: X-Ray Vision for Your AI</h2>
+
+      <p>Remember debugging AI apps by adding <code>console.log</code> everywhere and praying? Those dark days are over. TanStack AI integrates with the same TanStack DevTools you might already use for Query or Router.</p>
+
+      <h3>What You Can See</h3>
+      
+      <p>The DevTools panel gives you real-time visibility into:</p>
+      
+      <ul>
+        <li><strong>Message streams</strong> - Watch tokens arrive in real-time</li>
+        <li><strong>Tool invocations</strong> - See inputs, outputs, and execution time for every tool call</li>
+        <li><strong>Thinking tokens</strong> - For reasoning models (o1, Claude thinking), see the AI's thought process</li>
+        <li><strong>Provider info</strong> - Which model, token counts, response duration</li>
+        <li><strong>State visualization</strong> - Full chat state tree, just like React DevTools</li>
+        <li><strong>Error tracking</strong> - Catch and inspect failures before users see them</li>
+      </ul>
+
+      <h3>Setup</h3>
+
+      <pre><code class="language-bash">npm install @tanstack/devtools</code></pre>
+
+      <pre><code class="language-tsx">// Add to your app root
+import { TanStackAIDevtools } from '@tanstack/devtools';
+
+function App() {
+  return (
+    &lt;&gt;
+      {/* Your app */}
+      &lt;Chat /&gt;
+      
+      {/* DevTools - only shows in development */}
+      &lt;TanStackAIDevtools /&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+
+      <h3>State Visualization</h3>
+
+      <p>The DevTools show a complete tree of your AI state:</p>
+
+      <pre><code class="language-javascript">// What you see in DevTools
+{
+  conversationId: "conv_123",
+  messages: [
+    { id: "msg_1", role: "user", parts: [...] },
+    { id: "msg_2", role: "assistant", parts: [...], isStreaming: true }
+  ],
+  pendingToolCalls: [
+    { id: "tool_1", name: "addToCart", status: "awaiting_approval" }
+  ],
+  provider: "openai",
+  model: "gpt-4o",
+  tokenUsage: { prompt: 1234, completion: 567 }
+}</code></pre>
+
+      <p>You can time-travel through state changes, inspect individual messages, and replay tool calls. It's like having a debugger that actually understands AI workflows.</p>
+
+      <h2>Headless Chatbot Components</h2>
+
+      <p>Here's something the "just build it yourself" crowd will appreciate. TanStack AI is <strong>headless</strong> - it gives you all the logic and state management, but zero opinions on how things look.</p>
+
+      <h3>Why Headless Matters</h3>
+
+      <ul>
+        <li><strong>No fighting CSS</strong> - You use your own design system</li>
+        <li><strong>Full control</strong> - Every element is customizable</li>
+        <li><strong>Component agnostic</strong> - Works with React, Solid, or vanilla JS</li>
+        <li><strong>Bundle savings</strong> - No shipped styles or markup you don't need</li>
+      </ul>
+
+      <h3>Example: Build Your Own Chat UI</h3>
+
+      <pre><code class="language-tsx">// You control every pixel
+function MyCustomChat() {
+  const { messages, sendMessage, isLoading, isStreaming } = useChat({
+    connection: fetchServerSentEvents('/api/chat'),
+  });
+  
+  return (
+    &lt;div className="my-fancy-chat-container"&gt;
+      {/* Your message rendering */}
+      {messages.map((msg) =&gt; (
+        &lt;MyMessageBubble key={msg.id} message={msg} /&gt;
+      ))}
+      
+      {/* Your streaming indicator */}
+      {isStreaming &amp;&amp; &lt;MyTypingAnimation /&gt;}
+      
+      {/* Your input design */}
+      &lt;MyInputWithMentions onSend={sendMessage} /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+      <p>This philosophy extends from the query layer (TanStack Query) down to AI. You get the complex parts done for you, but the UX is 100% yours.</p>
+
+      <h2>TanStack Start Integration</h2>
+
+      <p>If you're using TanStack Start (the full-stack meta-framework from TanStack), integration is even smoother:</p>
+
+      <pre><code class="language-typescript">// TanStack Start: Zero config API routes
+// routes/api/chat.ts
+import { createAPIFileRoute } from '@tanstack/start';
+import { chat, toStreamResponse } from '@tanstack/ai';
+import { openaiText } from '@tanstack/ai-openai';
+
+export const Route = createAPIFileRoute('/api/chat')({
+  POST: async ({ request }) => {
+    const { messages } = await request.json();
+    const stream = chat({
+      adapter: openaiText(),
+      model: 'gpt-4o',
+      messages,
+    });
+    return toStreamResponse(stream);
+  },
+});</code></pre>
+
+      <h3>Why TanStack Start + TanStack AI?</h3>
+
+      <ul>
+        <li><strong>Type-safe from database to UI</strong> - End-to-end TypeScript</li>
+        <li><strong>File-based routing</strong> - Just drop files in routes/</li>
+        <li><strong>SSR-first</strong> - Streaming works seamlessly with server components</li>
+        <li><strong>Single ecosystem</strong> - Query, Router, Form, and now AI all work together</li>
+      </ul>
+
+      <p>You're not locked into TanStack Start - but if you're already there, AI integration is first-class.</p>
+
+      <h2>Architecture: How It All Fits Together</h2>
+
+      <p>Here's the mental model for TanStack AI:</p>
+
+      <div class="bg-slate-800/50 rounded-xl p-6 my-6 border border-white/10">
+        <pre style="font-family: monospace; text-align: center; line-height: 1.4;">
+┌─────────────────────────────────────────────────────────────┐
+│                        YOUR APP                              │
+├─────────────────────────────────────────────────────────────┤
+│   ┌──────────────────┐    ┌──────────────────┐              │
+│   │   React Client   │────│   useChat Hook   │              │
+│   │   (Your UI)      │    │   (@tanstack/    │              │
+│   │                  │    │    ai-react)     │              │
+│   └──────────────────┘    └────────┬─────────┘              │
+│                                     │ SSE                    │
+│   ┌─────────────────────────────────▼─────────────────────┐ │
+│   │              Server (Node / PHP / Python)              │ │
+│   │   ┌──────────────────────────────────────────────┐    │ │
+│   │   │  chat() function     +     Your Tools        │    │ │
+│   │   │  (@tanstack/ai)            (server/client)   │    │ │
+│   │   └──────────────────────────────────────────────┘    │ │
+│   └─────────────────────────────────┬─────────────────────┘ │
+│                                     │                        │
+├─────────────────────────────────────▼────────────────────────┤
+│   ┌──────────────┐ ┌──────────────┐ ┌──────────────┐        │
+│   │   OpenAI     │ │   Claude     │ │   Gemini     │        │
+│   │   Adapter    │ │   Adapter    │ │   Adapter    │        │
+│   └──────────────┘ └──────────────┘ └──────────────┘        │
+├──────────────────────────────────────────────────────────────┤
+│   ┌──────────────┐ ┌──────────────┐ ┌──────────────┐        │
+│   │    OpenAI    │ │   Anthropic  │ │   Google     │        │
+│   │     API      │ │     API      │ │    API       │        │
+│   └──────────────┘ └──────────────┘ └──────────────┘        │
+└──────────────────────────────────────────────────────────────┘
+        </pre>
+      </div>
+
+      <p>The key insight: swap any adapter, and everything above it keeps working. That's the "Switzerland" magic.</p>
+
+
+      <h2>The Gotchas & What You Should Know</h2>
+
+      <h3>It's Alpha, Remember</h3>
+      <ul>
+        <li>Breaking changes are expected</li>
+        <li>Not for production-critical apps yet</li>
+        <li>Documentation is evolving</li>
+      </ul>
+
+      <h3>What's Coming</h3>
+      <ul>
+        <li>More framework adapters (Vue, Svelte)</li>
+        <li>More provider adapters</li>
+        <li>Stable release (timeline TBD)</li>
+      </ul>
+
+      <h2>Getting Involved</h2>
+
+      <ul>
+        <li><strong>GitHub:</strong> <a href="https://github.com/TanStack/ai" target="_blank" rel="noopener">github.com/TanStack/ai</a></li>
+        <li><strong>Discord:</strong> TanStack Discord has a dedicated channel</li>
+        <li><strong>Twitter:</strong> Follow <a href="https://twitter.com/tan_stack" target="_blank" rel="noopener">@tan_stack</a></li>
+      </ul>
+
+      <h2>Runtime Model Switching</h2>
+
+      <p>One of the most underappreciated features: <strong>switch AI models at runtime</strong>. No code changes, no redeployment:</p>
+
+      <pre><code class="language-typescript">// Let users choose their preferred model
+const [selectedModel, setSelectedModel] = useState('gpt-4o');
+const [selectedProvider, setSelectedProvider] = useState('openai');
+
+const getAdapter = (provider: string) => {
+  switch (provider) {
+    case 'openai': return openaiText();
+    case 'anthropic': return anthropicText();
+    case 'gemini': return geminiText();
+    case 'mistral': return mistralText();
+    default: return openaiText();
+  }
+};
+
+// On the server, select adapter dynamically
+const stream = chat({
+  adapter: getAdapter(provider),
+  model: selectedModel,
+  messages,
+});</code></pre>
+
+      <p>Use cases: A/B testing models, cost optimization (switch to cheaper models for simple queries), fallback chains, or letting users pick their preferred provider.</p>
+
+      <h2>Why the Industry Needs This</h2>
+
+      <p>Let's zoom out for a moment. Why does TanStack AI matter beyond just being "another AI SDK"?</p>
+
+      <h3>The Vendor Lock-in Problem</h3>
+
+      <p>Today's AI landscape looks like this:</p>
+      <ul>
+        <li>Vercel AI SDK → Optimized for (surprise!) Vercel hosting</li>
+        <li>LangChain → Python-first, JS as an afterthought</li>
+        <li>OpenAI SDK → Works with... OpenAI only</li>
+        <li>Each cloud provider → Their own proprietary wrappers</li>
+      </ul>
+
+      <p>This fragmentation forces teams to make early platform bets that are expensive to change later.</p>
+
+      <h3>The TanStack Philosophy</h3>
+
+      <blockquote style="border-left: 4px solid #22c55e; padding-left: 1.5rem; margin: 2rem 0; font-style: italic; color: #94a3b8;">
+        "TanStack AI is the Switzerland of AI tooling—neutral, honest, open-source. We don't care if you use OpenAI, Anthropic, or a local model. We just give you the best tools to build with."
+      </blockquote>
+
+      <p>This matters because:</p>
+      <ul>
+        <li><strong>No middleman</strong> - You connect directly to providers. TanStack doesn't sit between you and your API keys.</li>
+        <li><strong>No service fees</strong> - It's MIT licensed. Forever free.</li>
+        <li><strong>No forced migration</strong> - Works with your existing stack. Use Next.js, Remix, TanStack Start, Express—whatever.</li>
+        <li><strong>Community-driven</strong> - Open RFC process, transparent roadmap.</li>
+      </ul>
+
+      <h3>The Numbers (January 2026)</h3>
+
+      <div class="bg-slate-800/50 rounded-xl p-6 my-6 border border-white/10">
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="text-center">
+            <div class="text-4xl font-bold text-blue-400">2,000+</div>
+            <div class="text-gray-400">GitHub Stars</div>
+          </div>
+          <div class="text-center">
+            <div class="text-4xl font-bold text-green-400">40M+</div>
+            <div class="text-gray-400">TanStack Monthly Downloads</div>
+          </div>
+          <div class="text-center">
+            <div class="text-4xl font-bold text-purple-400">6</div>
+            <div class="text-gray-400">AI Providers Supported</div>
+          </div>
+        </div>
+        <p class="text-center text-gray-500 mt-4 text-sm">*TanStack ecosystem total; TanStack AI is in alpha but growing rapidly</p>
+      </div>
+
+      <h2>Conclusion: Should You Use TanStack AI?</h2>
+
+      <p><strong>Yes, if:</strong> You value freedom, type safety, and the TanStack philosophy. You're comfortable being an early adopter.</p>
+
+      <p><strong>Wait, if:</strong> You need production stability right now or a provider TanStack AI doesn't support yet.</p>
+
+      <p>The future of AI SDKs is open. TanStack AI represents a healthier ecosystem where developers aren't locked into a single platform. "Your AI, Your Way" isn't just a tagline - it's a philosophy.</p>
+
+      <div class="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-l-4 border-blue-500 p-6 my-8 rounded-r-lg">
+        <p class="text-lg font-semibold text-blue-300 mb-2">Ready to Build?</p>
+        <p class="text-gray-300 mb-4">If you're looking to integrate AI features into your application and want expert guidance, we're here to help. At Nandann Creative, we specialize in building production-ready AI experiences.</p>
+        <a href="/contact" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-200">
+          Talk to Our AI Development Team
+        </a>
+      </div>
+
+      <p><em>Happy coding!</em> 🚀</p>
+    `,
+    faqs: [
+      { question: 'What is TanStack AI?', answer: 'TanStack AI is an open-source, type-safe AI SDK for building AI-powered applications. It works with OpenAI, Anthropic, Gemini, and Ollama, and is framework-agnostic supporting React, Solid, Node, PHP, and Python.' },
+      { question: 'Is TanStack AI free to use?', answer: 'Yes, TanStack AI is completely free and open-source under the MIT license. There are no service fees or hidden costs.' },
+      { question: 'How does TanStack AI compare to Vercel AI SDK?', answer: 'TanStack AI is a pure open-source alternative focused on vendor neutrality and type safety. It offers unique features like isomorphic tools and multi-language support.' },
+      { question: 'Can I switch AI providers easily?', answer: 'Yes, switching providers is a one-line change using the adapter pattern.' },
+      { question: 'What frameworks does TanStack AI support?', answer: 'React, Solid, Vanilla JS on client. Node.js, PHP, Python on server.' },
+      { question: 'Is TanStack AI production-ready?', answer: 'Currently in alpha (December 2025). Suitable for experimentation, caution advised for production.' },
+      { question: 'What are isomorphic tools?', answer: 'Tools you define once and implement for either server-side or client-side execution.' },
+      { question: 'How do I debug AI interactions?', answer: 'TanStack DevTools provides a dedicated panel for inspecting messages, tool calls, and reasoning tokens.' },
+      { question: 'What AI models work with TanStack AI?', answer: 'OpenAI GPT-4, Anthropic Claude, Google Gemini, and Ollama for local models.' },
+      { question: 'Who created TanStack AI?', answer: 'Tanner Linsley, Jack Herrington, and Alem Tuzlak, announced December 3, 2025.' }
+    ],
+  },
+  {
     slug: 'nextjs-16-release-comprehensive-guide',
     title: 'Next.js 16: Complete Guide to Cache Components, Turbopack, and Revolutionary Features',
     description: 'Comprehensive guide to Next.js 16 featuring Cache Components with PPR, stable Turbopack (5-10x faster), proxy.ts, React Compiler, enhanced routing, and breaking changes with detailed code examples.',
