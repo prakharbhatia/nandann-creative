@@ -67,7 +67,7 @@ export const blogPosts: BlogPost[] = [
       
       <div class="my-6 rounded-xl overflow-hidden border border-white/20 bg-slate-900">
         <iframe 
-          src="https://stackblitz.com/github/prakharbha/tanstack-interactive?embed=1&file=src/app/page.tsx&theme=dark&view=preview&clickToLoad=true"
+          src="https://stackblitz.com/github/prakharbha/tanstack-interactive?embed=1&file=src/app/page.tsx&theme=dark&view=preview&ctl=1"
           style="width:100%; height:500px; border:0;"
           title="TanStack AI Chat Demo"
         ></iframe>
@@ -77,7 +77,7 @@ export const blogPosts: BlogPost[] = [
         <summary class="cursor-pointer text-blue-300 font-semibold">💻 View the source code</summary>
         <div class="mt-4 rounded-lg overflow-hidden">
           <iframe 
-            src="https://stackblitz.com/github/prakharbha/tanstack-interactive?embed=1&file=src/app/page.tsx&theme=dark&view=editor&clickToLoad=true"
+            src="https://stackblitz.com/github/prakharbha/tanstack-interactive?embed=1&file=src/app/page.tsx&theme=dark&view=editor&ctl=1"
             style="width:100%; height:400px; border:0;"
             title="TanStack AI Source Code"
           ></iframe>
@@ -89,7 +89,7 @@ export const blogPosts: BlogPost[] = [
       
       <div class="my-6 rounded-xl overflow-hidden border border-white/20 bg-slate-900">
         <iframe 
-          src="https://stackblitz.com/github/prakharbha/tanstack-interactive?embed=1&file=src/app/providers/page.tsx&theme=dark&view=preview&clickToLoad=true"
+          src="https://stackblitz.com/github/prakharbha/tanstack-interactive?embed=1&file=src/app/providers/page.tsx&theme=dark&view=preview&ctl=1"
           style="width:100%; height:450px; border:0;"
           title="TanStack AI Provider Switching"
         ></iframe>
