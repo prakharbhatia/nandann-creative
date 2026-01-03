@@ -20,7 +20,7 @@ const featuredPosts: BlogPost[] = [
     date: 'Jan 3, 2026',
     readTime: '30 min read',
     category: 'AI & Development',
-    coverImage: '/images/tanstack-ai-switzerland-banner.webp'
+    coverImage: '/images/thumbnail-tanstack.webp'
   },
   {
     slug: 'nextjs-16-release-comprehensive-guide',
