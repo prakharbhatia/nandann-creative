@@ -58,7 +58,8 @@ export const blogPosts: BlogPost[] = [
 
       <div class="bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/30 p-6 my-8 rounded-xl">
         <h3 class="text-xl font-bold text-green-300 mb-3">🚀 Interactive Demo: Try It Live!</h3>
-        <p class="text-gray-300 mb-2">Play with TanStack AI right here - no setup required. Edit the code, see results instantly:</p>
+        <p class="text-gray-300 mb-2">Play with TanStack AI right here. Edit the code and see results instantly:</p>
+        <p class="text-sm text-yellow-500/80 mt-2"><em>Note: Embedded WebContainers require a Chromium-based browser (Chrome, Edge, Brave). Firefox/Safari users may need to open in a new tab.</em></p>
       </div>
 
       <h3>Live Chat Demo with Streaming</h3>
@@ -66,7 +67,7 @@ export const blogPosts: BlogPost[] = [
       
       <div class="my-6 rounded-xl overflow-hidden border border-white/20 bg-slate-900">
         <iframe 
-          src="https://stackblitz.com/github/prakharbha/tanstack-interactive?embed=1&file=src/app/page.tsx&theme=dark&view=preview"
+          src="https://stackblitz.com/github/prakharbha/tanstack-interactive?embed=1&file=src/app/page.tsx&theme=dark&view=preview&clickToLoad=true"
           style="width:100%; height:500px; border:0;"
           title="TanStack AI Chat Demo"
         ></iframe>
@@ -76,7 +77,7 @@ export const blogPosts: BlogPost[] = [
         <summary class="cursor-pointer text-blue-300 font-semibold">💻 View the source code</summary>
         <div class="mt-4 rounded-lg overflow-hidden">
           <iframe 
-            src="https://stackblitz.com/github/prakharbha/tanstack-interactive?embed=1&file=src/app/page.tsx&theme=dark&view=editor"
+            src="https://stackblitz.com/github/prakharbha/tanstack-interactive?embed=1&file=src/app/page.tsx&theme=dark&view=editor&clickToLoad=true"
             style="width:100%; height:400px; border:0;"
             title="TanStack AI Source Code"
           ></iframe>
@@ -88,14 +89,14 @@ export const blogPosts: BlogPost[] = [
       
       <div class="my-6 rounded-xl overflow-hidden border border-white/20 bg-slate-900">
         <iframe 
-          src="https://stackblitz.com/github/prakharbha/tanstack-interactive?embed=1&file=src/app/providers/page.tsx&theme=dark&view=preview"
+          src="https://stackblitz.com/github/prakharbha/tanstack-interactive?embed=1&file=src/app/providers/page.tsx&theme=dark&view=preview&clickToLoad=true"
           style="width:100%; height:450px; border:0;"
           title="TanStack AI Provider Switching"
         ></iframe>
       </div>
 
       <div class="bg-yellow-500/10 border-l-4 border-yellow-500 p-4 my-6 rounded-r-lg">
-        <p class="text-gray-300"><strong>💡 Can't see the demos?</strong> Click "Open in new tab" below each demo, or <a href="https://stackblitz.com/github/prakharbha/tanstack-interactive" target="_blank" rel="noopener" class="text-blue-400 hover:underline">open the full project in StackBlitz →</a></p>
+        <p class="text-gray-300"><strong>💡 Can't see the demos?</strong> <a href="https://stackblitz.com/github/prakharbha/tanstack-interactive" target="_blank" rel="noopener" class="text-blue-400 hover:underline">Open the full project in StackBlitz →</a></p>
       </div>
 
       <h2>What is TanStack AI, Really?</h2>
