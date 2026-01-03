@@ -30,7 +30,7 @@ export const blogPosts: BlogPost[] = [
     tags: ['TanStack AI', 'AI SDK', 'React AI', 'OpenAI', 'Claude', 'Gemini', 'TypeScript', 'streaming', 'isomorphic tools', 'TanStack', 'Vercel AI SDK alternative', 'chatbot', 'LLM'],
     coverImage: '/images/thumbnail-tanstack.webp',
     contentHtml: `
-      <img src="/images/thumbnail-tanstack.webp" alt="TanStack AI: The Switzerland of AI Tooling - Nandann Creative Agency" style="width:100%; border-radius:12px; margin-bottom: 2rem;" />
+      <img src="/images/tanstack-ai-switzerland-banner.webp" alt="TanStack AI: The Switzerland of AI Tooling - Nandann Creative Agency" style="width:100%; border-radius:12px; margin-bottom: 2rem;" />
       
       <div class="alert alert-info" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1)); border-left: 4px solid #3b82f6; padding: 1.5rem; margin: 2rem 0; border-radius: 0.5rem;">
         <p><strong>🧀 TL;DR:</strong> TanStack AI is an open-source, type-safe, provider-agnostic AI SDK. No vendor lock-in, no proprietary formats, just clean TypeScript. Think of it as Switzerland - neutral, reliable, and everyone can work with it.</p>
