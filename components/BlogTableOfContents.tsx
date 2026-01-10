@@ -115,18 +115,18 @@ export default function BlogTableOfContents() {
 
                 {/* Always Visible CTA Section */}
                 <div className="bg-gradient-to-br from-blue-900/40 to-purple-900/40 border border-blue-400/30 rounded-xl p-6 backdrop-blur-sm shadow-lg flex-shrink-0">
-                    <h4 className="text-sm font-semibold text-white mb-2">Need Rust Expertise?</h4>
+                    <h4 className="text-sm font-semibold text-white mb-2">Need Development Help?</h4>
                     <p className="text-xs text-gray-300 mb-4">
-                        Get help with Rust migration, new projects, or legacy system rewrites.
+                        Get expert assistance with your web development, migration, or modernization project.
                     </p>
                     <Link
-                        href="/contact?service=rust-consulting"
+                        href="/contact?service=development-consultation"
                         className="block w-full text-center bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg"
                     >
                         Get Free Consultation →
                     </Link>
                     <p className="text-xs text-gray-400 mt-3 text-center">
-                        Rust, Go, Node.js, Python & more
+                        Next.js, React, Rust, PHP, Node.js & more
                     </p>
                 </div>
             </div>
