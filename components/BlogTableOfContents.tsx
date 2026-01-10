@@ -78,7 +78,8 @@ export default function BlogTableOfContents() {
 
     return (
         <aside className="hidden xl:block">
-            <div className="sticky top-32 bg-white/5 border border-white/10 rounded-xl p-6 backdrop-blur-sm max-h-[calc(100vh-10rem)] overflow-y-auto">
+            {/* Scrollable TOC Section */}
+            <div className="sticky top-32 bg-white/5 border border-white/10 rounded-xl p-6 backdrop-blur-sm max-h-[calc(100vh-22rem)] overflow-y-auto mb-4">
                 <h3 className="text-lg font-bold text-white mb-4">Table of Contents</h3>
 
                 <nav className="space-y-1">
@@ -109,41 +110,41 @@ export default function BlogTableOfContents() {
                     ))}
                 </nav>
 
-                {/* CTA Section */}
-                <div className="mt-8 pt-6 border-t border-white/10">
-                    <h4 className="text-sm font-semibold text-white mb-3">Need Rust Expertise?</h4>
-                    <p className="text-xs text-gray-400 mb-4">
-                        Get help with Rust migration, new projects, or legacy system rewrites.
-                    </p>
-                    <Link
-                        href="/contact?service=rust-consulting"
-                        className="block w-full text-center bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-105"
-                    >
-                        Get Free Consultation →
-                    </Link>
-                    <p className="text-xs text-gray-500 mt-3 text-center">
-                        Rust, Go, Node.js, Python & more
-                    </p>
-                </div>
+                {/* Custom scrollbar styles */}
+                <style jsx>{`
+          div::-webkit-scrollbar {
+            width: 6px;
+          }
+          div::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+          }
+          div::-webkit-scrollbar-thumb {
+            background: rgba(96, 165, 250, 0.5);
+            border-radius: 3px;
+          }
+          div::-webkit-scrollbar-thumb:hover {
+            background: rgba(96, 165, 250, 0.7);
+          }
+        `}</style>
             </div>
 
-            {/* Custom scrollbar styles */}
-            <style jsx>{`
-        aside::-webkit-scrollbar {
-          width: 6px;
-        }
-        aside::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.05);
-          border-radius: 3px;
-        }
-        aside::-webkit-scrollbar-thumb {
-          background: rgba(96, 165, 250, 0.5);
-          border-radius: 3px;
-        }
-        aside::-webkit-scrollbar-thumb:hover {
-          background: rgba(96, 165, 250, 0.7);
-        }
-      `}</style>
+            {/* Always Visible CTA Section - Sticky */}
+            <div className="sticky top-[calc(100vh-18rem)] bg-gradient-to-br from-blue-900/40 to-purple-900/40 border border-blue-400/30 rounded-xl p-6 backdrop-blur-sm shadow-lg">
+                <h4 className="text-sm font-semibold text-white mb-2">Need Rust Expertise?</h4>
+                <p className="text-xs text-gray-300 mb-4">
+                    Get help with Rust migration, new projects, or legacy system rewrites.
+                </p>
+                <Link
+                    href="/contact?service=rust-consulting"
+                    className="block w-full text-center bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg"
+                >
+                    Get Free Consultation →
+                </Link>
+                <p className="text-xs text-gray-400 mt-3 text-center">
+                    Rust, Go, Node.js, Python & more
+                </p>
+            </div>
         </aside>
     );
 }
