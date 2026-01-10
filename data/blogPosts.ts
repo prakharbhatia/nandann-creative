@@ -51,23 +51,27 @@ export const blogPosts: BlogPost[] = [
       <img src="/images/rewriting-in-rust-banner.webp" alt="Rewriting in Rust: When It Makes Sense - Real Examples from Discord, Cloudflare & Amazon" style="width:100%; border-radius:12px; margin-bottom: 2rem;" />
       
       <p class="lead" style="font-size: 1.25rem; line-height: 1.8; color: #e5e7eb; margin: 2rem 0;">
-        [CONTENT PLACEHOLDER - Opening hook about risk of rewrites vs risk of not rewriting]
+        Every engineering team eventually faces the question: "Should we rewrite this in Rust?" It's not a rhetorical question anymore—it's a real business decision with real consequences. When Discord rewrote their Read States service and saw 10x performance improvements, when Cloudflare built Pingora and cut infrastructure costs by 70%, they weren't just chasing the latest hype. They were solving expensive, painful problems that were costing them real money and real reliability.
       </p>
 
-      <p>[CONTENT - Introduction paragraph about Discord, Cloudflare, Dropbox solving real problems]</p>
+      <p>But here's the thing about rewrites: they're risky. Joel Spolsky famously called them "the single worst strategic mistake any software company can make." Yet sometimes, <em>not</em> rewriting is riskier. When your infrastructure bills are spiraling, when garbage collection pauses are killing your latency SLAs, when memory bugs are causing 3AM pages—that's when the conversation starts.</p>
+
+      <p>This isn't a love letter to Rust. It's a practical guide based on real-world migrations from companies that bet their infrastructure on it—and won. We'll look at the actual numbers (like how Dropbox cut CPU usage by 75%), the real challenges (like the learning curve that slowed teams down for months), and most importantly, when Rust makes business sense versus when it's just tech for tech's sake.</p>
 
       <blockquote style="border-left: 4px solid #f97316; padding-left: 1.5rem; margin: 2rem 0; font-style: italic; color: #94a3b8;">
         "By switching to Pingora (built in Rust), we save our customers 434 years of handshake time every day."
         <br/><small>— Cloudflare Engineering Team</small>
       </blockquote>
 
+      <p><strong>Key stat you need to know:</strong> Rust has been voted Stack Overflow's Most Loved Language for 9 consecutive years. But developer love doesn't pay the bills—business results do. Let's talk numbers, ROI, and when this makes sense for <em>your</em> bottom line.</p>
+
       <h2>What We'll Cover</h2>
       <ul>
-        <li>Why Rust over C++, Go, and Python (decision matrix included)</li>
+        <li>Why Rust over C++, Go, and Python (with decision matrix)</li>
         <li>8 real-world case studies with concrete metrics</li>
         <li>4 proven migration patterns with architecture diagrams</li>
         <li>The business case: ROI calculations and cost frameworks</li>
-        <li>When NOT to rewrite in Rust (anti-patterns & failure stories)</li>
+        <li>When <strong>NOT</strong> to rewrite in Rust (anti-patterns & failure stories)</li>
         <li>Essential tooling for successful migration</li>
         <li>Step-by-step decision framework</li>
       </ul>
@@ -75,29 +79,836 @@ export const blogPosts: BlogPost[] = [
       <h2>The $Million Question: Should We Rewrite in Rust?</h2>
       
       <h3>The Hidden Cost of Legacy Systems</h3>
-      <p><em>[CONTENT: Quantify costs - infrastructure spend, incident response, security patches, developer time]</em></p>
+      
+      <p>Let's start with something uncomfortable: your legacy system is probably costing you more than you think. Not just in cloud bills (though those are easier to measure), but in all the hidden costs that don't show up on a spreadsheet.</p>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <h4 style="margin-top: 0; color: #f97316;">The Real Cost Breakdown</h4>
+        
+        <p><strong>1. Infrastructure Spend (The Obvious One)</strong></p>
+        <p>This one's measurable. If your system is using more CPU, memory, or network than it should, you're paying for it every month. At scale, even small inefficiencies add up fast.</p>
+        <ul>
+          <li><strong>Example:</strong> A service handling 10M requests/day at 100ms average latency needs X machines. Cut that to 10ms, and you might only need X/3 machines.</li>
+          <li><strong>Dropbox case:</strong> 75% CPU reduction = estimated $1M+ annual savings</li>
+        </ul>
+
+        <p><strong>2. Incident Response (The Expensive One)</strong></p>
+        <p>Every production incident has a cost:</p>
+        <ul>
+          <li>Engineer time @ $150-200/hour (loaded cost)</li>
+          <li>Opportunity cost (they're not building features)</li>
+          <li>Reputation damage if customers are affected</li>
+          <li>SLA credits if you have them</li>
+        </ul>
+        <p>A single critical incident can cost $50K-$500K when you factor everything in. If memory bugs are causing one major incident per quarter, that's $200K-$2M annually.</p>
+
+        <p><strong>3. Security Patches (The Endless One)</strong></p>
+        <p>Memory safety vulnerabilities account for <strong>70% of security bugs</strong> according to Microsoft. Every CVE means:</p>
+        <ul>
+          <li>Triage and assessment time</li>
+          <li>Patch development and testing</li>
+          <li>Emergency deployment coordination</li>
+          <li>Customer notifications</li>
+        </ul>
+        <p>Budget 2-5 engineering weeks per serious vulnerability. At 3-4 vulnerabilities per year, that's 6-20 weeks of eng time just putting out fires.</p>
+
+        <p><strong>4. Developer Velocity Tax (The Sneaky One)</strong></p>
+        <p>This is the hardest to measure but potentially the most expensive:</p>
+        <ul>
+          <li><strong>"Is this thread-safe?"</strong> discussions in every code review</li>
+          <li>Fear of refactoring because "if it works, don't touch it"</li>
+          <li>Debugging race conditions that only show up in production</li>
+          <li>Time spent understanding cryptic error messages</li>
+        </ul>
+        <p>If your team is 10-15% slower because they're constantly worried about memory bugs or concurrency issues, that's effectively losing 1-2 engineers worth of output.</p>
+      </div>
+
+      <p><strong>Quick math:</strong> A team of 10 engineers costs ~$2M/year (loaded). If legacy issues slow them down by 15%, that's $300K/year in lost productivity. Add infrastructure overcost ($200K), incident response ($200K), and security patches ($100K), and you're looking at $800K/year in hidden costs.</p>
+
+      <p>Suddenly, a 6-12 month migration with 3-4 engineers doesn't look so expensive anymore.</p>
 
       <h3>Why Rewrites Are Rare (But Sometimes Unavoidable)</h3>
-      <p><em>[CONTENT: Risks of rewrites, opportunity cost, when status quo costs more]</em></p>
+      
+      <p>Joel Spolsky's famous essay "Things You Should Never Do, Part I" argues that rewriting code from scratch is a strategic mistake. And he's mostly right. Here's why rewrites fail:</p>
+
+      <div style="background: #7c2d12; border-left: 4px solid #dc2626; padding: 1rem; margin: 1rem 0; border-radius: 4px;">
+        <p><strong>⚠️ The Classic Rewrite Failure Pattern:</strong></p>
+        <ol>
+          <li><strong>Underestimating complexity:</strong> "This old code is spaghetti. We can do it cleaner in 3 months." (Narrator: they couldn't.)</li>
+          <li><strong>Feature freeze:</strong> While rewriting, you can't ship new features. Competitors pull ahead.</li>
+          <li><strong>Hidden business logic:</strong> That "ugly hack" was actually solving a critical edge case you didn't know about.</li>
+          <li><strong>Team burnout:</strong> 18 months in, still not at feature parity, morale crashes.</li>
+          <li><strong>Sunk cost fallacy:</strong> Too late to turn back, but migration is failing.</li>
+        </ol>
+      </div>
+
+      <p><strong>So when is a rewrite worth the risk?</strong></p>
+
+      <p>The answer: <strong>When the status quo costs more than the migration.</strong> Here are the scenarios where rewrites start making sense:</p>
+
+      <table style="width: 100%; border-collapse: collapse; margin: 1.5rem 0;">
+        <thead>
+          <tr style="background: #334155; color: #e5e7eb;">
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Scenario</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Cost of Status Quo</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Rewrite Trigger</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Scaling Bottleneck</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Infrastructure costs growing faster than revenue</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Can't optimize current system further</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Security Liability</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Constant CVEs, failed audits, compliance risk</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Memory safety issues can't be fixed incrementally</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Technical Debt</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Can't ship features without breaking things</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Refactoring is riskier than rewriting</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Reliability Issues</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Regular incidents, SLA breaches</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Root causes are language-level issues (GC, memory bugs)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p><strong>Key insight:</strong> Successful rewrites are usually <em>incremental</em>, not "big bang." You don't rewrite the entire system; you identify the hot path, the security-critical component, or the scaling bottleneck—and rewrite <em>that</em>. We'll cover specific patterns later.</p>
 
       <h3>Why Rust Keeps Entering These Conversations</h3>
-      <p><em>[CONTENT: Memory safety + performance promise, growing enterprise adoption]</em></p>
+      
+      <p>So if rewrites are risky, why is Rust the language that keeps coming up in these discussions? It's not just hype—there are specific technical properties that make Rust uniquely suited for certain rewrites.</p>
+
+      <p><strong>The Rust Promise (and why it's different)</strong></p>
+
+      <p>Every language makes trade-offs. Python trades performance for developer productivity. C++ trades safety for control. Go trades fine-grained control for simplicity. Rust's value proposition is that it <em>doesn't make you choose</em> between performance and safety.</p>
+
+      <div style="background: #065f46; border-left: 4px solid #10b981; padding: 1rem; margin: 1rem 0; border-radius: 4px;">
+        <p><strong>💡 The Rust Trade-off Triangle</strong></p>
+        <p>Most languages let you pick two:</p>
+        <ul>
+          <li><strong>Performance + Safety:</strong> Java, Go (but you get GC pauses)</li>
+          <li><strong>Performance + Control:</strong> C, C++ (but you get memory bugs)</li>
+          <li><strong>Safety + Productivity:</strong> Python, Ruby (but you get slow execution)</li>
+        </ul>
+        <p>Rust promises all three: <strong>Performance + Safety + Control</strong> (but you pay with learning curve)</p>
+      </div>
+
+      <p><strong>Why this matters for rewrites:</strong></p>
+
+      <ol>
+        <li>
+          <p><strong>Memory Safety Without Garbage Collection</strong></p>
+          <p>If your current problem is "GC pauses are killing our latency" (Discord's problem), Rust gives you predictable performance without manual memory management.</p>
+          <p><strong>Concrete example:</strong> Discord's Read States service in Go had GC pauses every 2 minutes causing latency spikes. Rust eliminated these entirely because there's no GC—memory is freed deterministically when values go out of scope.</p>
+        </li>
+
+        <li>
+          <p><strong>Fearless Concurrency</strong></p>
+          <p>If your problem is "our concurrency bugs only show up in production under load," Rust's compiler catches data races at compile time.</p>
+          <p><strong>How it works:</strong> Rust's ownership system makes it impossible to have two threads writing to the same memory without synchronization. This isn't a runtime check—it's a compile-time guarantee. Code with data races <em>won't compile</em>.</p>
+        </li>
+
+        <li>
+          <p><strong>Zero-Cost Abstractions</strong></p>
+          <p>If you're rewriting for performance, Rust lets you write high-level code that compiles down to the same machine code you'd get from hand-optimized C.</p>
+          <p><strong>Example:</strong> Iterators in Rust are just as fast as manual loops, but more readable and composable.</p>
+        </li>
+
+        <li>
+          <p><strong>Growing Enterprise Adoption</strong></p>
+          <p>It's not just startups anymore. When Microsoft, Google, Amazon, and Meta are betting on Rust for production systems, that's a signal that it's ready for serious use cases.</p>
+        </li>
+      </ol>
+
+      <p><strong>The timeline of maturity:</strong></p>
+      <ul>
+        <li><strong>2015:</strong> Rust 1.0 released. Early adopters only.</li>
+        <li><strong>2018-2019:</strong> Mozilla, Dropbox start production use</li>
+        <li><strong>2020-2021:</strong> Discord, Cloudflare go all-in</li>
+        <li><strong>2022-2023:</strong> Microsoft adopts Rust for Windows kernel, Linux kernel adds Rust support</li>
+        <li><strong>2024-2025:</strong> Mainstream adoption—if you're considering Rust now, you're not early. You're in the pragmatic majority.</li>
+      </ul>
+
+      <p><strong>Bottom line:</strong> Rust isn't the right choice for every rewrite. But if your problems are performance, reliability, or security—and you can afford the learning curve—it's worth serious consideration. The rest of this guide will help you decide if it's right for <em>your</em> specific situation.</p>
 
       <h2>Why Rust Over Alternatives?</h2>
 
-      <p><em>[CONTENT: Full comparison section with tables for Rust vs C++, Rust vs Go, Rust vs Python, decision matrix]</em></p>
+      <p>Before you commit to a Rust migration, you need to understand what you're gaining—and what you're trading. Let's compare Rust head-to-head with the most common alternative languages for systems programming and backend services.</p>
+
+      <h3>Rust vs C++: Safety Without Compromising Performance</h3>
+
+      <p>C++ is the incumbent. It's been the go-to language for performance-critical systems for decades. So why would you choose Rust over mature, battle-tested C++?</p>
+
+     
+
+ <table style="width: 100%; border-collapse: collapse; margin: 1.5rem 0;">
+        <thead>
+          <tr style="background: #334155; color: #e5e7eb;">
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Aspect</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Rust</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">C++</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Performance</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">⚡ Native, zero-cost abstractions<br/><small>Within 5% of C++ for most workloads</small></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">⚡ Native, as close to metal as it gets</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Memory Safety</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ <strong>Guaranteed at compile-time</strong><br/><small>No null pointers, no buffer overflows, no use-after-free</small></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">❌ Manual<br/><small>Easy to make mistakes; requires discipline</small></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Concurrency</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ <strong>Thread safety guaranteed</strong><br/><small>Data races won't compile</small></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">❌ Error-prone<br/><small>Data races are easy to introduce</small></td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Build System</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ Cargo (built-in, modern)<br/><small>Package management + build + test unified</small></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">⚠️ CMake, Make, Bazel, etc.<br/><small>Complex, fragmented ecosystem</small></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Learning Curve</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">⚠️ <strong>Steep</strong> (3-6 months to productive)<br/><small>Borrow checker takes getting used to</small></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">⚠️ <strong>Very steep</strong><br/><small>Easy to learn basics, hard to master safely</small></td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Ecosystem</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">⚠️ Growing (crates.io)<br/><small>Modern but smaller than C++</small></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ Massive and mature<br/><small>Decades of libraries</small></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p><strong>When to choose Rust over C++:</strong></p>
+      <ul>
+        <li>✅ Starting a <strong>new project</strong> where memory safety is critical</li>
+        <li>✅ You can afford the team <strong>learning curve</strong> (3-6 months)</li>
+        <li>✅ Security is a top priority (eliminating CVEs is worth the investment)</li>
+        <li>✅ You want modern tooling (Cargo vs CMake is night and day)</li>
+      </ul>
+
+      <p><strong>When to stick with C++:</strong></p>
+      <ul>
+        <li>❌ You have a <strong>massive existing C++ codebase</strong> (interop is possible but adds complexity)</li>
+        <li>❌ You need <strong>specific C++ libraries</strong> with no Rust equivalent</li>
+        <li>❌ Your team is C++ experts and can maintain memory safety discipline</li>
+        <li>❌ You're on a tight deadline and can't afford the learning curve</li>
+      </ul>
+
+      <h3>Rust vs Go: Control vs Convenience</h3>
+
+      <p>Go is beloved for its simplicity and fast development time. But there are trade-offs. Here's what you gain and lose by choosing Rust:</p>
+
+      <table style="width: 100%; border-collapse: collapse; margin: 1.5rem 0;">
+        <thead>
+          <tr style="background: #334155; color: #e5e7eb;">
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Aspect</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Rust</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Go</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Performance</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">⚡⚡⚡ <strong>Native, predictable</strong><br/><small>No GC pauses, deterministic latency</small></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">⚡⚡ <strong>Fast, but with GC pauses</strong><br/><small>Can cause latency spikes</small></td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Memory Management</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Manual ownership, compile-time checked<br/><small>Fine-grained control</small></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Automatic (garbage collection)<br/><small>Easier but less control</small></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Development Speed</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">⚠️ Slower initially<br/><small>Borrow checker slows you down at first</small></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ <strong>Very fast</strong><br/><small>Simple syntax, quick iteration</small></td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Concurrency Model</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ Safe by default<br/><small>Compiler enforces thread safety</small></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ Goroutines (simple)<br/><small>Easy to use but data races possible</small></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Compile Times</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">⚠️ <strong>Slow</strong> (minutes for large projects)<br/><small>Incremental compilation helps</small></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ <strong>Very fast</strong> (seconds)<br/><small>One of Go's best features</small></td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Best Use Cases</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Systems programming, hot paths, latency-critical services</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Web services, microservices, CLIs, APIs</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <h4 style="margin-top: 0; color: #f97316;">Real-World Example: Discord's Migration from Go to Rust</h4>
+        <p><strong>The Problem:</strong> Discord's Read States service (tracks which messages you've read) was written in Go. It worked fine at small scale, but as they grew to millions of concurrent users, Go's garbage collector became a bottleneck.</p>
+        <p><strong>The Symptom:</strong> Every 2 minutes, GC would pause the service for 10-50ms. For 99.9% of users this was fine, but for power users with thousands of servers, latency would spike unpredictably.</p>
+        <p><strong>The Solution:</strong> Rewrote the service in Rust. Because Rust has no GC, memory is freed immediately when it goes out of scope. Result: <strong>10x performance increase</strong>, <strong>50% latency reduction</strong>,  and <strong>GC pauses completely eliminated</strong>.</p>
+        <p><strong>Trade-off:</strong> Development was slower initially (Rust learning curve), but once the team was up to speed, velocity actually <em>increased</em> because they spent less time debugging production issues.</p>
+      </div>
+
+      <p><strong>When to choose Rust over Go:</strong></p>
+      <ul>
+        <li>✅ GC pauses are <strong>unacceptable</strong> for your latency requirements</li>
+        <li>✅ You need <strong>predictable, consistent performance</strong> (no pauses)</li>
+        <li>✅ You're CPU or memory constrained and need <strong>maximum efficiency</strong></li>
+        <li>✅ You're willing to trade development speed for runtime performance</li>
+      </ul>
+
+      <p><strong>When to stick with Go:</strong></p>
+      <ul>
+        <li>✅ <strong>Rapid development</strong> is more important than peak performance</li>
+        <li>✅ GC pauses (typically 1-10ms) are <strong>acceptable</strong> for your use case</li>
+        <li>✅ You're building typical <strong>web services</strong> or CRUD APIs</li>
+        <li>✅ You want a simpler language with faster compile times</li>
+      </ul>
+
+      <h3>Rust vs Python: Native Speed for Hot Paths</h3>
+
+      <p>Python and Rust aren't usually direct competitors—they solve different problems. But there's a powerful pattern: <strong>Use Python for glue code, Rust for compute.</strong></p>
+
+      <table style="width: 100%; border-collapse: collapse; margin: 1.5rem 0;">
+        <thead>
+          <tr style="background: #334155; color: #e5e7eb;">
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Aspect</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Rust</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Python</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Performance</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">⚡⚡⚡⚡⚡ <strong>10-100x faster</strong><br/><small>For CPU-bound tasks</small></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">⚠️ Interpreted<br/><small>Great for I/O, slow for compute</small></td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Development Speed</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">⚠️ Slower<br/><small>Compile times + type system</small></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ <strong>Very fast</strong><br/><small>Dynamic typing, no compilation</small></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Use Case</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">CPU-intensive operations<br/><small>Parsing, encoding, encryption, data processing</small></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Orchestration, APIs, data science<br/><small>Prototyping, scripting, glue code</small></td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>FFI (Calling from Python)</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ Excellent (<code>PyO3</code> crate)<br/><small>Easy to expose Rust functions to Python</small></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">N/A</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="background: #065f46; border-left: 4px solid #10b981; padding: 1rem; margin: 1rem 0; border-radius: 4px;">
+        <p><strong>💡 The Winning Pattern: Python + Rust Hybrid</strong></p>
+        <p>Don't rewrite your entire Python app. Instead:</p>
+        <ol>
+          <li><strong>Profile</strong> your Python code to find hot paths (functions taking >80% of CPU time)</li>
+          <li><strong>Rewrite only those functions</strong> in Rust</li>
+          <li><strong>Expose them to Python</strong> using PyO3</li>
+          <li><strong>Keep everything else</strong> in Python for productivity</li>
+        </ol>
+        <p><strong>Real example:</strong> Dropbox uses Python for orchestration and Rust for the file sync engine (CPU-intensive hashing, compression). Result: <strong>75% CPU reduction</strong> while keeping Python's developer productivity.</p>
+      </div>
+
+      <p><strong>Code Example: Calling Rust from Python</strong></p>
+
+      <pre style="background: #1e293b; padding: 1rem; border-radius: 4px; overflow-x: auto;"><code style="color: #e5e7eb;"># Rust code (using PyO3)
+use pyo3::prelude::*;
+
+#[pyfunction]
+fn process_data(data: Vec&lt;u8&gt;) -&gt; PyResult&lt;Vec&lt;u8&gt;&gt; {
+    // Your performance-critical Rust code here
+    // This runs at native speed
+    Ok(data.iter().map(|x| x * 2).collect())
+}
+
+#[pymodule]
+fn my_rust_module(_py: Python, m: &PyModule) -&gt; PyResult&lt;()&gt; {
+    m.add_function(wrap_pyfunction!(process_data, m)?)?;
+    Ok(())
+}
+
+# Python code
+import my_rust_module
+
+# Call Rust function as if it's native Python
+result = my_rust_module.process_data([1, 2, 3, 4, 5])
+# Runs 50-100x faster than pure Python!</code></pre>
+
+      <p><strong>When to use Rust with Python:</strong></p>
+      <ul>
+        <li>✅ You have <strong>CPU-bound bottlenecks</strong> (profiling shows 1-2 functions taking 80%+ time)</li>
+        <li>✅ You want to keep Python's <strong>productivity</strong> for the rest of your codebase</li>
+        <li>✅ You're doing heavy <strong>data processing</strong>, parsing, encoding, or cryptography</li>
+        <li>✅ NumPy isn't fast enough (Rust can be 10x faster than NumPy for custom logic)</li>
+      </ul>
+
+      <p><strong>When pure Python is fine:</strong></p>
+      <ul>
+        <li>✅ Your bottleneck is <strong>I/O</strong> (databases, network), not CPU</li>
+        <li>✅ Performance is <strong>"good enough"</strong> for your use case</li>
+        <li>✅ Development speed is more important than execution speed</li>
+        <li>✅ You're in early stages and priorities may change</li>
+      </ul>
+
+      <h3>Decision Matrix: Which Language Should You Choose?</h3>
+
+      <p>Here's a quick reference to help you decide. Find your priority in theLeft column, see which language wins:</p>
+
+      <table style="width: 100%; border-collapse: collapse; margin: 1.5rem 0;">
+        <thead>
+          <tr style="background: #334155; color: #e5e7eb;">
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Your Priority</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">Rust</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">C++</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">Go</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">Python</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Max Performance + Safety</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center; background: #065f46;">✅</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">⚠️</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">❌</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">❌</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Existing large C++ codebase</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">⚠️</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center; background: #065f46;">✅</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">❌</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">❌</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Rapid web development</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">❌</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">❌</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center; background: #065f46;">✅</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">✅</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Systems programming</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center; background: #065f46;">✅</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">✅</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">❌</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">❌</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>No GC pauses acceptable</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center; background: #065f46;">✅</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">✅</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">❌</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">❌</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Fast compile times</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">❌</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">❌</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center; background: #065f46;">✅</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">N/A</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Scripting / automation</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">❌</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">❌</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">✅</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center; background: #065f46;">✅</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Security-critical applications</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center; background: #065f46;">✅</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">⚠️</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">✅</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">❌</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p><strong>Key takeaway:</strong> There's no "always right" answer. The best language depends on your constraints, team, and priorities. Rust shines when you need <em>both</em> performance <em>and</em> safety, but it comes with a learning curve trade-off.</p>
+
 
       <h2>What "Rewrite in Rust" Actually Means</h2>
       
-      <p><em>[CONTENT: Full vs incremental vs hybrid, spectrum diagram, myths]</em></p>
+      <p>When engineers say "let's rewrite in Rust," they could mean very different things. Understanding the spectrum of options is critical because your approach determines your risk profile, timeline, and ROI.</p>
+
+      <h3>The Rewrite Spectrum: From Big Bang to Gradual</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <h4 style="margin-top: 0; color: #f97316;">4 Approaches to Rust Migration</h4>
+        
+        <p><strong>1. Complete Rewrite (Highest Risk)</strong></p>
+        <ul>
+          <li><strong>What it is:</strong> Throw away the old system, build new in Rust from scratch</li>
+          <li><strong>Timeline:</strong> 12-24+ months</li>
+          <li><strong>Risk:</strong> Very high - feature freeze, scope creep, sunk cost fallacy</li>
+          <li><strong>When to consider:</strong> System is beyond salvaging, tech debt is overwhelming</li>
+          <li><strong>Success rate:</strong> Low (~30%) - most fail or take 2-3x longer than planned</li>
+        </ul>
+
+        <p><strong>2. Microservice Replacement (Moderate Risk)</strong></p>
+        <ul>
+          <li><strong>What it is:</strong> Rewrite one complete service in Rust, keep rest of system unchanged</li>
+          <li><strong>Timeline:</strong> 3-6 months per service</li>
+          <li><strong>Risk:</strong> Medium - clear boundaries, easier rollback</li>
+          <li><strong>When to use:</strong> You have microservices architecture with clear service boundaries</li>
+          <li><strong>Example:</strong> Discord rewrote their Read States service (Go → Rust)</li>
+        </ul>
+
+        <p><strong>3. Hot Path Replacement (Recommended for Most)</strong></p>
+        <ul>
+          <li><strong>What it is:</strong> Identify CPU/memory bottlenecks, rewrite only those functions in Rust</li>
+          <li><strong>Timeline:</strong> 4-12 weeks</li>
+          <li><strong>Risk:</strong> Low - small scope, easy to validate, simple rollback</li>
+          <li><strong>When to use:</strong> Profiling shows 80% time spent in 20% of code</li>
+          <li><strong>Example:</strong> Dropbox rewrote file sync hot paths (Python → Rust via FFI)</li>
+        </ul>
+
+        <p><strong>4. Strangler Fig Pattern (Lowest Risk)</strong></p>
+        <ul>
+          <li><strong>What it is:</strong> Gradually replace modules one by one, old and new systems run side-by-side</li>
+          <li><strong>Timeline:</strong> 12-24 months total, but incremental value delivery</li>
+          <li><strong>Risk:</strong> Very low - always have a working system</li>
+          <li><strong>When to use:</strong> Large monolith, can't afford downtime, need continuous delivery</li>
+          <li><strong>Pattern:</strong> New Rust modules handle traffic, old system as fallback</li>
+        </ul>
+      </div>
+
+      <p><strong>Which approach should you choose?</strong> Start with the lowest-risk option that solves your problem. Most successful migrations we've seen follow this pattern:</p>
+
+      <ol>
+        <li><strong>Start with hot path replacement</strong> (prove Rust works for your team)</li>
+        <li><strong>Expand to microservice replacement</strong> if hot path succeeds</li>
+        <li><strong>Consider full rewrite</strong> only after multiple successful migrations</li>
+      </ol>
+
+      <h3>Rust as a Replacement vs. Rust as FFI</h3>
+
+      <p>Another critical decision: Are you <em>replacing</em> your existing system, or <em>augmenting</em> it?</p>
+
+      <table style="width: 100%; border-collapse: collapse; margin: 1.5rem 0;">
+        <thead>
+          <tr style="background: #334155; color: #e5e7eb;">
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Aspect</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Full Replacement</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">FFI Integration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Approach</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Rewrite entire component/service in Rust</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Call Rust functions from existing codebase</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Risk</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Higher (need feature parity)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Lower (surgical changes only)</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Timeline</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Months</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Weeks</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Best For</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Standalone services, clear boundaries</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Monoliths, Python/Node apps, tight coupling</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Example</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Discord: Rewrote Go service → standalone Rust service</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Dropbox: Python calls Rust via PyO3 for hot paths</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p><strong>FFI (Foreign Function Interface) is your friend.</strong> Modern Rust has excellent FFI support for calling Rust from:</p>
+      <ul>
+        <li><strong>Python</strong> → PyO3 crate</li>
+        <li><strong>Node.js</strong> → Neon bindings</li>
+        <li><strong>Ruby</strong> → Helix</li>
+        <li><strong>C/C++</strong> → Direct FFI via <code>extern "C"</code></li>
+      </ul>
+
+      <p>This means you can get 80% of Rust's performance benefits by rewriting 20% of your code, without the risk of a full rewrite.</p>
+
+      <h3>Common Myths About Rewrites (Debunked)</h3>
+
+      <div style="background: #7c2d12; border-left: 4px solid #dc2626; padding: 1rem; margin: 1rem 0; border-radius: 4px;">
+        <p><strong>❌ Myth #1: "We need to rewrite everything to get benefits"</strong></p>
+        <p><strong>Reality:</strong> The 80/20 rule applies. Most systems have hot paths (20% of code using 80% of resources). Rewrite <em>those</em> first.</p>
+      </div>
+
+      <div style="background: #7c2d12; border-left: 4px solid #dc2626; padding: 1rem; margin: 1rem 0; border-radius: 4px;">
+        <p><strong>❌ Myth #2: "Rust is only for systems programming"</strong></p>
+        <p><strong>Reality:</strong> Rust excels at web services (Actix, Axum frameworks), CLI tools, data processing, anywhere performance or reliability matters.</p>
+      </div>
+
+      <div style="background: #7c2d12; border-left: 4px solid #dc2626; padding: 1rem; margin: 1rem 0; border-radius: 4px;">
+        <p><strong>❌ Myth #3: "The learning curve makes it impractical"</strong></p>
+        <p><strong>Reality:</strong> Initial productivity dip (2-3 months), but teams report <em>higher</em> long-term velocity due to fewer bugs and fearless refactoring.</p>
+      </div>
+
+      <p><strong>Key takeaway:</strong> "Rewrite in Rust" doesn't have to be all-or-nothing. The most successful migrations are gradual, targeted, and driven by measurable pain points.</p>
 
       <h2>The Problems Costing You Money (That Rust Solves)</h2>
       
-      <p><em>[CONTENT: Memory safety benefits, performance gains, concurrency improvements]</em></p>
+      <p>Let's get concrete. What specific, expensive problems does Rust solve? And how do those translate to dollars saved or incidents prevented?</p>
+
+      <h3>Problem #1: Memory Safety = Fewer 3AM Pages</h3>
+
+      <p>Memory bugs aren't just theoretical—they're the leading cause of production incidents and security vulnerabilities.</p>
+
+      <div style="background: #7c2d12; border-left: 4px solid #dc2626; padding: 1rem; margin: 1rem 0; border-radius: 4px;">
+        <p><strong>⚠️ The Real Cost of Memory Bugs</strong></p>
+        <p><strong>Microsoft's data:</strong> 70% of all security vulnerabilities are memory safety issues<br/>
+        <strong>Google Chrome:</strong> 70% of security bugs over the past decade were memory safety issues<br/>
+        <strong>Android:</strong> Memory bugs account for majority of high-severity vulnerabilities</p>
+      </div>
+
+      <p><strong>Classes of bugs Rust eliminates at compile-time:</strong></p>
+
+      <table style="width: 100%; border-collapse: collapse; margin: 1.5rem 0;">
+        <thead>
+          <tr style="background: #334155; color: #e5e7eb;">
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Bug Type</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">C/C++ Reality</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Rust Guarantee</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Null pointer dereference</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">❌ Runtime crash (segfault)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ Won't compile - no null pointers exist</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Buffer overflow</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">❌ Memory corruption, exploitable</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ Bounds checked, panics rather than corrupts</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Use-after-free</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">❌ Undefined behavior, hard to debug</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ Won't compile - ownership system prevents it</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Data races</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">❌ Heisenbug hell (only in production)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ Won't compile - thread safety enforced</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Iterator invalidation</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">❌ Crashes when modifying during iteration</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ Won't compile - borrow checker catches it</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p><strong>Real-world impact:</strong></p>
+      <ul>
+        <li><strong>Cloudflare:</strong> "Dramatically fewer security incidents" after Pingora migration</li>
+        <li><strong>1Password:</strong> "Immediate reduction in crash reports" after Rust adoption</li>
+        <li><strong>Discord:</strong> "60% reduction in PagerDuty alerts" for Rust services vs. Go services</li>
+      </ul>
+
+      <p><strong>Cost calculation:</strong> If your team has 1 major memory-related incident per quarter, that's:</p>
+      <ul>
+        <li>4 incidents/year × $100K average cost = <strong>$400K/year</strong></li>
+        <li>Rust eliminates this entire class of bugs = <strong>$400K saved</strong></li>
+        <li>Plus: reduced oncall burden, better sleep for engineers (priceless)</li>
+      </ul>
+
+      <h3>Problem #2: Predictable Performance = Lower Infrastructure Costs</h3>
+
+      <p>Garbage collection pauses and inefficient memory usage directly translate to higher cloud bills. Rust's zero-overhead abstractions and lack of GC mean you can do more with less hardware.</p>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; border: 1px solid #475569;">
+        <h4 style="margin-top: 0;">💰 Infrastructure Savings Calculator</h4>
+        <p><strong>Example scenario:</strong> Web service handling 100M requests/day</p>
+        
+        <p><strong>Before (Go/Java with GC):</strong></p>
+        <ul>
+          <li>200 EC2 instances (c5.2xlarge @ $0.34/hr)</li>
+          <li>Cost: 200 × $0.34 × 24 × 365 = <strong>$595,680/year</strong></li>
+        </ul>
+
+        <p><strong>After (Rust, 50% fewer instances due to no GC + better memory efficiency):</strong></p>
+        <ul>
+          <li>100 EC2 instances (same type)</li>
+          <li>Cost: 100 × $0.34 × 24 × 365 = <strong>$297,840/year</strong></li>
+        </ul>
+
+        <p><strong>Annual Savings: $297,840</strong></p>
+        <p><small>These numbers are conservative - Cloudflare saw 70% CPU reduction, Dropbox saw 75%</small></p>
+      </div>
+
+      <p><strong>Why Rust is more efficient:</strong></p>
+      <ol>
+        <li><strong>No garbage collection overhead:</strong> GC typically uses 10-30% of CPU time just for memory management</li>
+        <li><strong>Better memory layout:</strong> Rust's ownership system encourages stack allocation over heap, reducing memory fragmentation</li>
+        <li><strong>Zero-cost abstractions:</strong> High-level code compiles down to the same machine code as hand-optimized C</li>
+        <li><strong>Predictable latency:</strong> No GC pauses means you can handle more traffic with same hardware</li>
+      </ol>
+
+      <p><strong>Real examples:</strong></p>
+      <ul>
+        <li><strong>Cloudflare Pingora:</strong> 70% less CPU, 67% less memory vs. NGINX</li>
+        <li><strong>Dropbox:</strong> 75% CPU reduction for file sync hot paths</li>
+        <li><strong>Discord:</strong> 30% less memory for Read States service</li>
+      </ul>
+
+      <h3>Problem #3: Concurrency Without Fear = Ship Faster</h3>
+
+      <p>Concurrency bugs are notoriously hard to find and fix. They only show up under load, they're non-deterministic, and they can corrupt data in subtle ways. Rust makes data races <em>impossible</em> at compile-time.</p>
+
+      <p><strong>The traditional concurrency nightmare:</strong></p>
+      <ul>
+        <li>❌ "Is this variable thread-safe?" - every code review</li>
+        <li>❌ Race conditions that only appear in production under high load</li>
+        <li>❌ Hours debugging with thread sanitizers and race detectors</li>
+        <li>❌ Fear of parallelizing code because "what if we introduce a race?"</li>
+      </ul>
+
+      <p><strong>The Rust concurrency experience:</strong></p>
+      <ul>
+        <li>✅ If it compiles, it's thread-safe - guaranteed</li>
+        <li>✅ Fearlessly add parallelism - compiler catches mistakes</li>
+        <li>✅ Code reviews focus on logic, not thread safety gotchas</li>
+        <li>✅ Refactor multi-threaded code without fear</li>
+      </ul>
+
+      <p><strong>How it works (simplified):</strong></p>
+      <pre style="background: #1e293b; padding: 1rem; border-radius: 4px; overflow-x: auto;"><code style="color: #e5e7eb;">// This WON'T compile - data race detected!
+let mut data = vec![1, 2, 3];
+
+thread::spawn(|| {
+    data.push(4);  // ❌ Can't mutate data from multiple threads
+});
+
+data.push(5);  // ❌ Compiler error: "data moved into closure"
+
+// This WILL compile - proper synchronization
+let data = Arc::new(Mutex::new(vec![1, 2, 3]));
+let data_clone = data.clone();
+
+thread::spawn(move || {
+    let mut d = data_clone.lock().unwrap();
+    d.push(4);  // ✅ Synchronized access
+});
+
+let mut d = data.lock().unwrap();
+d.push(5);  // ✅ No data race possible</code></pre>
+
+      <p><strong>Productivity impact:</strong></p>
+      <ul>
+        <li><strong>Faster code reviews:</strong> No "is this thread-safe?" discussions</li>
+        <li><strong>Fearless refactoring:</strong> Massive code changes don't introduce subtle concurrency bugs</li>
+        <li><strong>Less debugging time:</strong> Entire class of bugs caught at compile time</li>
+        <li><strong>Team velocity:</strong> Discord reports developers are <em>faster</em> in Rust after learning curve, despite slower compile times</li>
+      </ul>
+
+      <p><strong>Bottom line:</strong> If your team spends even 10% of their time dealing with concurrency bugs (debugging, testing, code review overhead),  and you have 10 engineers at $200K loaded cost, that's <strong>$200K/year in lost productivity</strong>. Rust eliminates this tax.</p>
 
       <h2>Security: More Than Just Memory Safety</h2>
       
-      <p><em>[CONTENT: CVE elimination data, compliance benefits, supply chain security with Microsoft 70% stat]</em></p>
+      <p>We've talked about memory safety, but Rust's security benefits go deeper. When Microsoft says "70% of security vulnerabilities are memory safety issues," they're pointing to the tip of the iceberg.</p>
+
+      <h3>CVE Elimination by the Numbers</h3>
+
+      <div style="background: #1e293b; padding: 1rem; margin: 1rem 0; border-radius: 8px;">
+        <h4 style="margin-top: 0; color: #10b981;">The Hard Data</h4>
+        <ul>
+          <li><strong>Microsoft:</strong> "~70% of the vulnerabilities Microsoft assigns a CVE each year continue to be memory safety issues"</li>
+          <li><strong>Google Chrome:</strong> "around 70% of our serious security bugs are memory safety problems"</li>
+          <li><strong>Android (Google):</strong> After introducing Rust, memory safety vulnerabilities dropped dramatically in new code</li>
+          <li><strong>Cloudflare:</strong> "Rust helps us write more secure code with fewer vulnerabilities"</li>
+        </ul>
+      </div>
+
+      <p><strong>What does this mean for you?</strong> If you're a C/C++ shop dealing with security patches regularly, Rust could eliminate 70% of your CVE workload.</p>
+
+      <h3>Classes of Vulnerabilities Eliminated</h3>
+
+      <p>These vulnerability types simply <em>cannot exist</em> in safe Rust code:</p>
+
+      <table style="width: 100%; border-collapse: collapse; margin: 1.5rem 0;">
+        <thead>
+          <tr style="background: #334155; color: #e5e7eb;">
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Vulnerability</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Common in C/C++?</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Possible in Rust?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Buffer overflow (CWE-120)</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">❌ Very common</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ Prevented (bounds checking)</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Use-after-free (CWE-416)</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">❌ Common, exploitable</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ Prevented (ownership)</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Null pointer dereference (CWE-476)</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">❌ Extremely common</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ Prevented (no null)</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Double-free (CWE-415)</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">❌ Common</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ Prevented (ownership)</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Data race (CWE-362)</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">❌ Hard to detect</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ Prevented (Send/Sync)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Compliance & Audit Benefits</h3>
+
+      <p>Security audits get easier when entire classes of vulnerabilities are impossible:</p>
+
+      <ul>
+        <li><strong>Faster audits:</strong> Security researchers can focus on business logic, not memory bugs</li>
+        <li><strong>Fewer pen test findings:</strong> Memory corruption exploits are off the table</li>
+        <li><strong>Better SBOM (Software Bill of Materials):</strong> Cargo.lock provides precise dependency versions</li>
+        <li><strong>Compliance frameworks:</strong> Easier to demonstrate secure coding practices</li>
+      </ul>
+
+      <p><strong>Real example:</strong> 1Password chose Rust specifically because their security model requires absolute confidence in memory safety. They can't afford a single memory corruption bug in a password manager.</p>
+
+      <h3>Supply Chain Security</h3>
+
+      <p>Rust's tooling makes supply chain security more manageable:</p>
+
+      <ul>
+        <li><strong>cargo audit:</strong> Automatically checks dependencies for known vulnerabilities</li>
+        <li><strong>cargo-deny:</strong> Enforces license compliance and blocks problematic dependencies</li>
+        <li><strong>Smaller attack surface:</strong> No runtime dependencies (static linking by default)</li>
+        <li><strong>Reproducible builds:</strong> Cargo.lock ensures identical dependency resolution</li>
+      </ul>
+
+      <p><strong>Cost savings:</strong> A single serious security incident can cost $500K-$5M+ (breach response, legal, customer notifications, reputation damage). If Rust's memory safety prevents even one serious vulnerability over 3 years, it's paid for itself many times over.</p>
+
 
       <h2>Why Teams Move Away from Existing Stacks</h2>
       
