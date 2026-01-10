@@ -21,6 +21,271 @@ const internalLinks = {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'rewriting-in-rust-when-it-makes-sense',
+    title: 'Rewriting in Rust: When It Makes Sense (With Real Examples from Discord, Cloudflare & Amazon)',
+    description: 'Should you rewrite in Rust? Learn from Discord, Cloudflare & Dropbox\'s real migrations. Complete guide to benefits, risks, and when Rust makes business sense.',
+    date: '2026-01-10',
+    readTime: '35 min read',
+    category: 'Engineering',
+    tags: [
+      'Rust',
+      'Rewrite in Rust',
+      'Rust vs C++',
+      'Rust vs Go',
+      'System Programming',
+      'Memory Safety',
+      'Performance Optimization',
+      'Migration Strategy',
+      'Discord',
+      'Cloudflare',
+      'Dropbox',
+      'Case Studies',
+      'Engineering Leadership',
+      'Technical Decision Making',
+      '1Password',
+      'npm',
+      'Microsoft'
+    ],
+    coverImage: '/images/rewriting-in-rust-thumbnail.webp',
+    contentHtml: `
+      <img src="/images/rewriting-in-rust-banner.webp" alt="Rewriting in Rust: When It Makes Sense - Real Examples from Discord, Cloudflare & Amazon" style="width:100%; border-radius:12px; margin-bottom: 2rem;" />
+      
+      <p class="lead" style="font-size: 1.25rem; line-height: 1.8; color: #e5e7eb; margin: 2rem 0;">
+        [CONTENT PLACEHOLDER - Opening hook about risk of rewrites vs risk of not rewriting]
+      </p>
+
+      <p>[CONTENT - Introduction paragraph about Discord, Cloudflare, Dropbox solving real problems]</p>
+
+      <blockquote style="border-left: 4px solid #f97316; padding-left: 1.5rem; margin: 2rem 0; font-style: italic; color: #94a3b8;">
+        "By switching to Pingora (built in Rust), we save our customers 434 years of handshake time every day."
+        <br/><small>— Cloudflare Engineering Team</small>
+      </blockquote>
+
+      <h2>What We'll Cover</h2>
+      <ul>
+        <li>Why Rust over C++, Go, and Python (decision matrix included)</li>
+        <li>8 real-world case studies with concrete metrics</li>
+        <li>4 proven migration patterns with architecture diagrams</li>
+        <li>The business case: ROI calculations and cost frameworks</li>
+        <li>When NOT to rewrite in Rust (anti-patterns & failure stories)</li>
+        <li>Essential tooling for successful migration</li>
+        <li>Step-by-step decision framework</li>
+      </ul>
+
+      <h2>The $Million Question: Should We Rewrite in Rust?</h2>
+      
+      <h3>The Hidden Cost of Legacy Systems</h3>
+      <p><em>[CONTENT: Quantify costs - infrastructure spend, incident response, security patches, developer time]</em></p>
+
+      <h3>Why Rewrites Are Rare (But Sometimes Unavoidable)</h3>
+      <p><em>[CONTENT: Risks of rewrites, opportunity cost, when status quo costs more]</em></p>
+
+      <h3>Why Rust Keeps Entering These Conversations</h3>
+      <p><em>[CONTENT: Memory safety + performance promise, growing enterprise adoption]</em></p>
+
+      <h2>Why Rust Over Alternatives?</h2>
+
+      <p><em>[CONTENT: Full comparison section with tables for Rust vs C++, Rust vs Go, Rust vs Python, decision matrix]</em></p>
+
+      <h2>What "Rewrite in Rust" Actually Means</h2>
+      
+      <p><em>[CONTENT: Full vs incremental vs hybrid, spectrum diagram, myths]</em></p>
+
+      <h2>The Problems Costing You Money (That Rust Solves)</h2>
+      
+      <p><em>[CONTENT: Memory safety benefits, performance gains, concurrency improvements]</em></p>
+
+      <h2>Security: More Than Just Memory Safety</h2>
+      
+      <p><em>[CONTENT: CVE elimination data, compliance benefits, supply chain security with Microsoft 70% stat]</em></p>
+
+      <h2>Why Teams Move Away from Existing Stacks</h2>
+      
+      <p><em>[CONTENT: C/C++ limitations, Go trade-offs, Java GC issues, Python scaling]</em></p>
+
+      <h2>Real-World Systems Rewritten in Rust</h2>
+
+      <h3>🌐 Cloudflare: Pingora Proxy</h3>
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; border-left: 4px solid #f97316;">
+        <p><strong>Results:</strong> 70% CPU reduction, 67% memory savings, 434 years of handshake time saved/day</p>
+        <p><em>[CONTENT: Full case study with challenge, approach, architecture diagram]</em></p>
+      </div>
+
+      <h3>💬 Discord: Read States Service</h3>
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; border-left: 4px solid #5865f2;">
+        <p><strong>Results:</strong> 10x faster, 30% less memory, 50% latency reduction</p>
+        <p><em>[CONTENT: Full case study]</em></p>
+      </div>
+
+      <h3>🧠 Dropbox: File Sync Engine</h3>
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; border-left: 4px solid #0061ff;">
+        <p><strong>Results:</strong> 75% CPU reduction, $1M+ annual savings</p>
+        <p><em>[CONTENT: Full case study]</em></p>
+      </div>
+
+      <h3>🔐 1Password: Native Apps</h3>
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; border-left: 4px solid #0094f5;">
+        <p><strong>Results:</strong> 63% Rust core, quick crash reduction</p>
+        <p><em>[CONTENT: Full case study]</em></p>
+      </div>
+
+      <h3>📦 npm: Authorization Service</h3>
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; border-left: 4px solid #cc3534;">
+        <p><strong>Results:</strong> 10x faster, sub-millisecond latency</p>
+        <p><em>[CONTENT: Full case study]</em></p>
+      </div>
+
+      <h3>🪟 Microsoft: Windows & Azure</h3>
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; border-left: 4px solid #00a4ef;">
+        <p><strong>Key Stat:</strong> "70% of security vulnerabilities are memory safety issues"</p>
+        <p><em>[CONTENT: Full case study]</em></p>
+      </div>
+
+      <h2>The Developer Experience Revolution</h2>
+      
+      <p><em>[CONTENT: Before/after pain points, operational impact, team feedback quotes, tooling wins]</em></p>
+
+      <h2>Beyond Performance: The Full ROI Picture</h2>
+      
+      <p><em>[CONTENT: Fewer incidents, maintenance reduction, security advantage, talent attraction]</em></p>
+
+      <h2>When a Rewrite in Rust Makes Sense</h2>
+      
+      <p><em>[CONTENT: Strong signals (✅), yellow flags (⚠️), red flags (🛑), decision checklist]</em></p>
+
+      <h2>When a Rewrite Is a Bad Idea</h2>
+      
+      <p><em>[CONTENT: Early-stage products, stable systems, team constraints, alternatives]</em></p>
+
+      <h2>Migration Strategies That Actually Work</h2>
+      
+      <p><em>[CONTENT: 4 patterns with diagrams - hot paths, microservices, WASM, strangler fig. Timeline expectations]</em></p>
+
+      <h2>How to Measure Success: Benchmarking Your Migration</h2>
+      
+      <p><em>[CONTENT: Metrics to track, tools (cargo bench, hyperfine, flamegraph), fair comparison setup]</em></p>
+
+      <h2>Essential Tools for Rust Migration</h2>
+      
+      <p><em>[CONTENT: Development (cargo, rust-analyzer), testing (criterion), migration helpers (bindgen, pyo3), security (cargo audit)]</em></p>
+
+      <h2>Production Challenges & Solutions</h2>
+      
+      <h3>Learning Curve</h3>
+      <p><em>[CONTENT: Reality check, mitigation strategies]</em></p>
+
+      <h3>Compile Times</h3>
+      <p><em>[CONTENT: Problem and solutions]</em></p>
+
+      <h3>Hiring</h3>
+      <p><em>[CONTENT: Market reality, alternatives]</em></p>
+
+      <h3>Anti-Patterns to Avoid</h3>
+      
+      <h4>❌ Big Bang Rewrite</h4>
+      <div style="background: #7c2d12; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+        <p><strong>Result:</strong> 18 months, $2M+ loss, team burnout</p>
+        <p><strong>Lesson:</strong> Incremental migration is almost always better</p>
+      </div>
+
+      <p><em>[CONTENT: 3 more anti-patterns - Rust for everything, junior engineers + complex domain, no rollback plan]</em></p>
+
+      <h2>The Business Case for Rust (With Real Numbers)</h2>
+      
+      <p><em>[CONTENT: ROI calculation framework, cost vs benefit factors, real company results table, timeline to ROI]</em></p>
+
+      <h2>Who's Betting on Rust Today?</h2>
+      
+      <p><em>[CONTENT: By industry - Infrastructure, Cloud, Security, Finance, Gaming, Developer Tools]</em></p>
+
+      <h2>How to Decide (Step-by-Step Framework)</h2>
+      
+      <p><em>[CONTENT: 4 phases - Problem validation (Week 1), PoC (Weeks 2-4), Team readiness (Week 5), Go/No-Go (Week 6)]</em></p>
+
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>Is Rust faster than C++?</h3>
+      <p>Comparable in performance—within 5% for most workloads. Rust's advantage is memory safety at compile time.</p>
+
+      <h3>How long does it take to learn Rust?</h3>
+      <p>2-3 months to be productive, 6-12 months for advanced patterns.</p>
+
+      <h3>Can I use Rust with my existing codebase?</h3>
+      <p>Yes. Excellent FFI support for Python, Node.js, Go, Ruby, etc.</p>
+
+      <h3>Is Rust production-ready?</h3>
+      <p>Absolutely. Used in production by Discord, Cloudflare, Microsoft, Amazon, Google.</p>
+
+      <h3>What are the downsides of Rust?</h3>
+      <p>Learning curve, compile times, smaller ecosystem, hiring challenges. Avoid for early-stage startups and rapid prototyping.</p>
+
+      <h3>How much does it cost to migrate to Rust?</h3>
+      <p>$50K-$500K depending on scope. Positive ROI within 12-18 months for most teams.</p>
+
+      <p><em>[CONTENT: 2 more FAQs - Should we rewrite everything?, Hiring challenges]</em></p>
+
+      <h2>Rust vs C++ vs Go: Quick Comparison</h2>
+      
+      <p><em>[CONTENT: Comprehensive comparison table]</em></p>
+
+      <h2>Thinking About Rewriting in Rust?</h2>
+
+      <h3>🎯 Free Rust Feasibility Assessment (45 min)</h3>
+      <p><a href="${internalLinks.contact}?service=rust-assessment" style="display:inline-block; background:#f97316; color:#fff; padding:0.75rem 1.5rem; border-radius:6px; text-decoration:none; font-weight:600;">Book Your Free Assessment →</a></p>
+
+      <h3>📋 Rust Migration Roadmap</h3>
+      <p><a href="${internalLinks.contact}?service=rust-roadmap" style="display:inline-block; background:#f97316; color:#fff; padding:0.75rem 1.5rem; border-radius:6px; text-decoration:none; font-weight:600;">Get Your Custom Roadmap →</a></p>
+
+      <h3>🚀 Done-With-You Migration</h3>
+      <p><a href="${internalLinks.contact}?service=rust-migration" style="display:inline-block; background:#f97316; color:#fff; padding:0.75rem 1.5rem; border-radius:6px; text-decoration:none; font-weight:600;">Talk to Our Rust Team →</a></p>
+
+      <h2>Resources & Further Reading</h2>
+      
+      <p><em>[CONTENT: Official Rust resources, company engineering blogs, learning materials]</em></p>
+
+      <p style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #475569;">
+        <strong>Ready to explore Rust for your project?</strong> 
+        <a href="${internalLinks.contact}" style="color:#f97316; text-decoration:underline;">Get in touch</a> 
+        and let's discuss whether Rust makes business sense for your specific use case.
+      </p>
+    `,
+    faqs: [
+      {
+        question: 'Is Rust faster than C++?',
+        answer: 'Rust and C++ have comparable performance—benchmarks show them within 5% of each other for most workloads. Rust\'s advantage isn\'t raw speed; it\'s memory safety without garbage collection. The real win is that Rust catches memory bugs at compile time that would be runtime crashes in C++.'
+      },
+      {
+        question: 'How long does it take to learn Rust?',
+        answer: 'For experienced developers: 2-3 months to be productive, 6-12 months to feel comfortable with advanced patterns. The fastest path is for those with C++ or systems programming background plus focused learning.'
+      },
+      {
+        question: 'Can I use Rust with my existing codebase?',
+        answer: 'Yes. Rust has excellent FFI (Foreign Function Interface) support. You can call Rust from Python, Node.js, Go, Ruby, etc. This makes incremental migration possible—you don\'t have to rewrite everything at once.'
+      },
+      {
+        question: 'Is Rust production-ready?',
+        answer: 'Absolutely. Companies like Discord, Cloudflare, Microsoft, Amazon, and Google use Rust in production for critical infrastructure serving billions of requests. If Microsoft is using Rust in Windows, it\'s production-ready for anyone.'
+      },
+      {
+        question: 'What are the downsides of Rust?',
+        answer: 'Main challenges: (1) Steep learning curve, especially with ownership/borrowing, (2) Longer compile times than Go or Python, (3) Smaller ecosystem than JavaScript/Python, (4) Harder to hire for. When to avoid: Early-stage startups, rapid prototyping, simple CRUD apps.'
+      },
+      {
+        question: 'How much does it cost to migrate to Rust?',
+        answer: 'Typical range: $50K-$500K depending on system complexity, team size, and migration scope (full vs incremental). ROI timeline: Most teams see positive ROI within 12-18 months through reduced infrastructure costs and incidents. Dropbox\'s 75% CPU reduction alone saved an estimated $1M+ annually.'
+      },
+      {
+        question: 'Should we rewrite everything in Rust?',
+        answer: 'No! The most successful migrations are incremental. Start with hot paths (CPU-intensive functions), performance-critical services, or security-sensitive components. Keep your existing stack for the rest. This "hybrid architecture" approach reduces risk and delivers value faster.'
+      },
+      {
+        question: 'What if we can\'t find Rust developers?',
+        answer: 'Hire strong C++ or systems programmers and train them in Rust. Budget 3 months ramp-up time. Many companies find that experienced engineers become 2x more productive after the learning curve. The investment in skill development also improves retention.'
+      }
+    ]
+  },
+
+  {
     slug: 'tanstack-ai-switzerland-of-ai-tooling',
     title: 'TanStack AI: The Switzerland of AI Tooling (And Why That\'s Awesome)',
     description: 'The most comprehensive guide to TanStack AI - the open-source, type-safe, provider-agnostic AI SDK. Learn everything from basic setup to isomorphic tools, streaming, DevTools debugging, and complete real-world projects with runnable code examples.',
