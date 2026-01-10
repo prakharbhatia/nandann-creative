@@ -3462,11 +3462,341 @@ cargo watch -x test   # Run tests on change</code></pre>
 
       <h2>Who's Betting on Rust Today?</h2>
       
-      <p><em>[CONTENT: By industry - Infrastructure, Cloud, Security, Finance, Gaming, Developer Tools]</em></p>
+      <p>Rust adoption is accelerating across industries. Here's who's using Rust and why it matters for your sector.</p>
+
+      <h3>🌐 Infrastructure & Cloud</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <p><strong>Why they chose Rust:</strong> Performance at scale, reliability under load, cost optimization</p>
+        
+        <p><strong>Major players:</strong></p>
+        <ul>
+          <li><strong>Cloudflare:</strong> Pingora proxy (70% CPU reduction, serves 20%+ of internet traffic)</li>
+          <li><strong>AWS:</strong> Firecracker (serverless infrastructure), Bottlerocket (container OS)</li>
+          <li><strong>Fastly:</strong> Edge compute platform (Lucet WASM runtime)</li>
+          <li><strong>Datadog:</strong> High-performance data ingestion pipelines</li>
+          <li><strong>Google:</strong> Android (memory-safe components), Fuchsia OS</li>
+        </ul>
+
+        <p><strong>What this means for you:</strong> If you're building infrastructure, CDN, or cloud services, Rust is becoming the industry standard for new projects. Performance and reliability are non-negotiable at scale.</p>
+      </div>
+
+      <h3>🔒 Security & Cryptography</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <p><strong>Why they chose Rust:</strong> Memory safety = fewer vulnerabilities, critical for security-sensitive code</p>
+        
+        <p><strong>Major players:</strong></p>
+        <ul>
+          <li><strong>1Password:</strong> Password manager core (63% Rust, cross-platform)</li>
+          <li><strong>Signal:</strong> End-to-end encryption (libsignal rewritten in Rust)</li>
+          <li><strong>Let's Encrypt:</strong> Certificate authority infrastructure</li>
+          <li><strong>Tor Project:</strong> Rewriting components in Rust for memory safety</li>
+          <li><strong>Microsoft:</strong> Security components in Windows/Azure</li>
+        </ul>
+
+        <p><strong>What this means for you:</strong> If security is existential (finance, healthcare, auth, crypto), Rust's compile-time guarantees eliminate entire vulnerability classes. This is why password managers and encryption tools are adopting it.</p>
+      </div>
+
+      <h3>💰 Finance & Trading</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <p><strong>Why they chose Rust:</strong> Low-latency trading, deterministic performance (no GC pauses), security</p>
+        
+        <p><strong>Major players:</strong></p>
+        <ul>
+          <li><strong>Figma:</strong> Real-time multiplayer (rewritten from C++ to Rust)</li>
+          <li><strong>Solana:</strong> High-performance blockchain (700K+ transactions/sec)</li>
+          <li><strong>Polkadot:</strong> Blockchain infrastructure</li>
+          <li><strong>Multiple HFT firms:</strong> Low-latency trading systems (not publicly disclosed)</li>
+        </ul>
+
+        <p><strong>What this means for you:</strong> If microseconds matter (trading, real-time systems), Rust's predictable performance without GC pauses is crucial. Growing adoption in fintech.</p>
+      </div>
+
+      <h3>🎮 Gaming</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <p><strong>Why they chose Rust:</strong> Performance, memory safety (fewer crashes), cross-platform</p>
+        
+        <p><strong>Major players:</strong></p>
+        <ul>
+          <li><strong>Embark Studios:</strong> Game engine written in Rust</li>
+          <li><strong>Ready at Dawn:</strong> Using Rust for game development</li>
+          <li><strong>Bevy:</strong> Fast-growing Rust game engine (open source)</li>
+          <li><strong>Unity:</strong> Rust-based DOTS (Data-Oriented Tech Stack)</li>
+        </ul>
+
+        <p><strong>What this means for you:</strong> Game developers are exploring Rust for performance-critical systems and tools. Not yet mainstream for full games, but growing in engine/tooling space.</p>
+      </div>
+
+      <h3>🛠️ Developer Tools</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <p><strong>Why they chose Rust:</strong> Performance (fast builds, fast runtime), reliability, single-binary deployment</p>
+        
+        <p><strong>Major players:</strong></p>
+        <ul>
+          <li><strong>Figma:</strong> Multiplayer sync engine</li>
+          <li><strong>npm:</strong> Authorization and package registry improvements</li>
+          <li><strong>Deno:</strong> Secure JavaScript/TypeScript runtime (built in Rust)</li>
+          <li><strong>Rome/Biome:</strong> Fast JavaScript toolchain</li>
+          <li><strong>SWC:</strong> Super-fast JavaScript/TypeScript compiler (20x faster than Babel)</li>
+          <li><strong>Turbopack:</strong> Next.js bundler (700x faster than Webpack)</li>
+        </ul>
+
+        <p><strong>What this means for you:</strong> The developer tools Rust are replacing Node.js/Go tools because Rust is simply faster. If you're building CLI tools, compilers, or dev tooling, Rust is becoming the default choice.</p>
+      </div>
+
+      <h3>📊 Databases & Analytics</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <p><strong>Why they chose Rust:</strong> Performance, memory efficiency, safe concurrency</p>
+        
+        <p><strong>Major players:</strong></p>
+        <ul>
+          <li><strong>TiKV:</strong> Distributed key-value database (CNCF project)</li>
+          <li><strong>InfluxDB:</strong> Rewriting storage engine in Rust</li>
+          <li><strong>Databend:</strong> Cloud data warehouse in Rust</li>
+          <li><strong>Polars:</strong> DataFrame library (10-20x faster than pandas)</li>
+        </ul>
+
+        <p><strong>What this means for you:</strong> If you're building data-intensive applications, Rust's performance + safety makes it ideal for databases and analytics engines.</p>
+      </div>
+
+      <h3>🚀 Embedded & IoT</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <p><strong>Why they chose Rust:</strong> Memory safety without garbage collection, small binary size, low-level control</p>
+        
+        <p><strong>Major players:</strong></p>
+        <ul>
+          <li><strong>Oxide Computer:</strong> Server hardware firmware</li>
+          <li><strong>Espressif:</strong> ESP32 microcontroller support</li>
+          <li><strong>Arm:</strong> Rust support for embedded systems</li>
+        </ul>
+
+        <p><strong>What this means for you:</strong> Embedded systems traditionally used C/C++. Rust offers same performance with memory safety—critical when debugging hardware is expensive.</p>
+      </div>
+
+      <h3>The Pattern: From Mature Companies, Not Startups</h3>
+
+      <div style="background: #065f46; border-left: 4px solid #10b981; padding: 1.5rem; margin: 1.5rem 0; border-radius: 4px;">
+        <p><strong>Key observation:</strong> Most Rust adopters are established companies with proven products, not early-stage startups.</p>
+        
+        <p><strong>Why?</strong></p>
+        <ul>
+          <li>They have performance/cost problems that Rust solves</li>
+          <li>They can afford the learning curve investment</li>
+          <li>They have mature products, not rapidly pivoting MVPs</li>
+        </ul>
+
+        <p><strong>Lesson:</strong> Rust is for optimization phase, not discovery phase. Build your product in Python/Go/JS, then optimize performance-critical parts in Rust when scale demands it.</p>
+      </div>
 
       <h2>How to Decide (Step-by-Step Framework)</h2>
       
-      <p><em>[CONTENT: 4 phases - Problem validation (Week 1), PoC (Weeks 2-4), Team readiness (Week 5), Go/No-Go (Week 6)]</em></p>
+      <p>Don't guess. Use this 6-week framework to make a data-driven decision about Rust migration.</p>
+
+      <h3>Phase 1: Problem Validation (Week 1)</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <h4 style="margin-top: 0; color: #10b981;">Goal: Confirm you have a problem Rust actually solves</h4>
+        
+        <p><strong>Tasks:</strong></p>
+        <ol>
+          <li><strong>Quantify current pain:</strong>
+            <ul>
+              <li>What's your monthly infrastructure cost? (baseline)</li>
+              <li>How many production incidents last quarter? (memory/concurrency bugs specifically)</li>
+              <li>What's your p99 latency? (is GC causing spikes?)</li>
+              <li>CPU/memory utilization under load? (headroom?)</li>
+            </ul>
+          </li>
+          <li><strong>Calculate cost of status quo:</strong>
+            <ul>
+              <li>Infrastructure: $X/month × 12 = annual cost</li>
+              <li>Incidents: # per year × $50K = incident cost</li>
+              <li>Scaling: Can you 10x traffic on current system? What would it cost?</li>
+            </ul>
+          </li>
+          <li><strong>Set success criteria:</strong>
+            <ul>
+              <li>Example: "50% infrastructure cost reduction" or "Eliminate GC pauses"</li>
+              <li>Must be measurable and valuable</li>
+            </ul>
+          </li>
+        </ol>
+
+        <p><strong>Decision checkpoint:</strong></p>
+        <ul>
+          <li>✅ <strong>Proceed</strong> if annual cost of problem >$100K</li>
+          <li>❌ <strong>Stop</strong> if no quantifiable problem ("Rust sounds cool" is not a problem)</li>
+        </ul>
+      </div>
+
+      <h3>Phase 2: Proof of Concept (Weeks 2-4)</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <h4 style="margin-top: 0; color: #10b981;">Goal: Prove Rust actually solves your problem</h4>
+        
+        <p><strong>Tasks:</strong></p>
+        <ol>
+          <li><strong>Identify PoC scope:</strong>
+            <ul>
+              <li>Pick smallest meaningful component (1 microservice, or 1 hot function)</li>
+              <li>Must have measurable performance baseline</li>
+              <li>Should take 2-3 weeks for experienced engineer</li>
+            </ul>
+          </li>
+          <li><strong>Build Rust equivalent:</strong>
+            <ul>
+              <li>Match API exactly (drop-in replacement)</li>
+              <li>Don't over-engineer (PoC, not production)</li>
+              <li>Use well-supported libraries (don't reinvent)</li>
+            </ul>
+          </li>
+          <li><strong>Benchmark rigorously:</strong>
+            <ul>
+              <li>Same hardware, same workload</li>
+              <li>Measure: throughput, latency (p50, p95, p99), CPU, memory</li>
+              <li>Use tools: Criterion, hyperfine, flamegraphs</li>
+            </ul>
+          </li>
+        </ol>
+
+        <p><strong>Decision checkpoint:</strong></p>
+        <ul>
+          <li>✅ <strong>Proceed</strong> if PoC shows 30%+ improvement in target metric</li>
+          <li>⚠️ <strong>Pause</strong> if improvement is marginal (10-20%). Maybe optimize existing code first?</li>
+          <li>❌ <strong>Stop</strong> if no measurable improvement. Rust isn't the solution.</li>
+        </ul>
+      </div>
+
+      <h3>Phase 3: Team Readiness Assessment (Week 5)</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <h4 style="margin-top: 0; color: #10b981;">Goal: Determine if your team can execute migration</h4>
+        
+        <p><strong>Tasks:</strong></p>
+        <ol>
+          <li><strong>Evaluate team skillset:</strong>
+            <ul>
+              <li>Any Rust experience? (if not, who will learn?)</li>
+              <li>Background in systems programming (C++/C)? (faster learning curve)</li>
+              <li>Team size: Can you dedicate 2-3 engineers for 6 months?</li>
+            </ul>
+          </li>
+          <li><strong>Check capacity:</strong>
+            <ul>
+              <li>Any major releases in next 6 months? (don't migrate during crunch)</li>
+              <li>Can team absorb 20% productivity dip for 3 months?</li>
+              <li>Hiring plan: Add Rust expertise or upskill internally?</li>
+            </ul>
+          </li>
+          <li><strong>Assess risk tolerance:</strong>
+            <ul>
+              <li>Can you run old & new systems in parallel? (rollback plan)</li>
+              <li>Is incremental migration possible? (hot path first, full rewrite later)</li>
+            </ul>
+          </li>
+        </ol>
+
+        <p><strong>Decision checkpoint:</strong></p>
+        <ul>
+          <li>✅ <strong>Proceed</strong> if you have capacity + ability to start small</li>
+          <li>⚠️ <strong>Delay</strong> if team at 100% capacity. Wait for natural lull.</li>
+          <li>❌ <strong>Hire first</strong> if zero Rust experience and can't afford learning curve</li>
+        </ul>
+      </div>
+
+      <h3>Phase 4: ROI Calculation (Week 6)</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <h4 style="margin-top: 0; color: #10b981;">Goal: Build business case for leadership</h4>
+        
+        <p><strong>Tasks:</strong></p>
+        <ol>
+          <li><strong>Calculate migration investment:</strong>
+            <ul>
+              <li>Engineering time: # engineers × months × $15K (loaded cost)</li>
+              <li>Productivity dip: 30% slower for 3 months</li>
+              <li>Training: $2K per engineer</li>
+              <li><strong>Total one-time cost</strong></li>
+            </ul>
+          </li>
+          <li><strong>Project annual benefits:</strong>
+            <ul>
+              <li>Infrastructure savings: (PoC showed 50% reduction) × current cost</li>
+              <li>Incident reduction: # avoided × $50K per incident</li>
+              <li>Maintenance efficiency: 10% time saved × team size × salary</li>
+            </ul>
+          </li>
+          <li><strong>Calculate ROI:</strong>
+            <ul>
+              <li>Payback period: Investment / Annual benefits</li>
+              <li>3-year ROI: (3 × Annual benefits - Investment) / Investment</li>
+            </ul>
+          </li>
+        </ol>
+
+        <p><strong>Example output:</strong></p>
+        <div style="background: #0f1419; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+          <p style="color: #10b981; font-family: monospace;">Investment: $316K (one-time)</p>
+          <p style="color: #10b981; font-family: monospace;">Annual benefit: $400K/year</p>
+          <p style="color: #10b981; font-family: monospace;">Payback: 9.5 months</p>
+          <p style="color: #10b981; font-family: monospace;">3-year ROI: 280%</p>
+        </div>
+      </div>
+
+      <h3>Go/No-Go Decision Matrix</h3>
+
+      <table style="width: 100%; border-collapse: collapse; margin: 1.5rem 0;">
+        <thead>
+          <tr style="background: #334155; color: #e5e7eb;">
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Criteria</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">Go (Proceed)</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">No-Go (Don't Migrate)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Problem validation</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">Clear, quantified problem (>$100K annual cost)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">No measurable problem</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>PoC results</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">30%+ improvement in target metric</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;"><10% improvement</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Team readiness</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">Capacity + can start small</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">100% capacity, no slack</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>ROI</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">Payback <18 months, ROI >100%</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem; text-align: center;">Payback >24 months or negative ROI</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="background: #065f46; border-left: 4px solid #10b981; padding: 1.5rem; margin: 1.5rem 0; border-radius: 4px;">
+        <h4 style="margin-top: 0;">Final Recommendation</h4>
+        
+        <p><strong>Proceed if:</strong></p>
+        <ul>
+          <li>All 4 criteria are "Go"</li>
+          <li>PoC demonstrated clear value</li>
+          <li>Leadership approves ROI calculation</li>
+        </ul>
+
+        <p><strong>Start with:</strong> Smallest component that has measurable impact. Prove value. Then expand.</p>
+        
+        <p><strong>Success pattern:</strong> Discord started with ONE service. Proved value. Now most new services are Rust. That's the winning approach.</p>
+      </div>
 
       <h2>Frequently Asked Questions</h2>
 
@@ -3507,7 +3837,107 @@ cargo watch -x test   # Run tests on change</code></pre>
 
       <h2>Resources & Further Reading</h2>
       
-      <p><em>[CONTENT: Official Rust resources, company engineering blogs, learning materials]</em></p>
+      <p>Continue your Rust journey with these curated resources.</p>
+
+      <h3>📚 Official Rust Resources</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <p><strong>Learning Materials</strong></p>
+        <ul>
+          <li><a href="https://doc.rust-lang.org/book/" target="_blank" rel="noopener" style="color: #60a5fa;">The Rust Programming Language</a> ("The Book") - Start here, chapters 1-10 for basics</li>
+          <li><a href="https://doc.rust-lang.org/rust-by-example/" target="_blank" rel="noopener" style="color: #60a5fa;">Rust by Example</a> - Learn by doing with runnable examples</li>
+          <li><a href="https://github.com/rust-lang/rustlings" target="_blank" rel="noopener" style="color: #60a5fa;">Rustlings</a> - Small exercises to get you used to reading and writing Rust</li>
+          <li><a href="https://doc.rust-lang.org/nomicon/" target="_blank" rel="noopener" style="color: #60a5fa;">The Rustonomicon</a> - Advanced: unsafe Rust, FFI, advanced patterns</li>
+        </ul>
+
+        <p><strong>Tools & Ecosystem</strong></p>
+        <ul>
+          <li><a href="https://crates.io/" target="_blank" rel="noopener" style="color: #60a5fa;">crates.io</a> - Official package registry (like npm for Rust)</li>
+          <li><a href="https://docs.rs/" target="_blank" rel="noopener" style="color: #60a5fa;">docs.rs</a> - Documentation for all published crates</li>
+          <li><a href="https://lib.rs/" target="_blank" rel="noopener" style="color: #60a5fa;">lib.rs</a> - Curated catalog of Rust libraries</li>
+        </ul>
+      </div>
+
+      <h3>🏭 Company Engineering Blogs (Real Migration Stories)</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <ul>
+          <li><a href="https://blog.cloudflare.com/how-we-built-pingora-the-proxy-that-connects-cloudflare-to-the-internet/" target="_blank" rel="noopener" style="color: #60a5fa;">Cloudflare: How We Built Pingora</a> - 70% CPU reduction story</li>
+          <li><a href="https://discord.com/blog/why-discord-is-switching-from-go-to-rust" target="_blank" rel="noopener" style="color: #60a5fa;">Discord: Why We're Switching from Go to Rust</a> - GC pause elimination</li>
+          <li><a href="https://dropbox.tech/infrastructure/rewriting-the-heart-of-our-sync-engine" target="_blank" rel="noopener" style="color: #60a5fa;">Dropbox: Rewriting the Heart of Our Sync Engine</a> - Python to Rust via FFI</li>
+          <li><a href="https://blog.1password.com/1password-8-the-story-so-far/" target="_blank" rel="noopener" style="color: #60a5fa;">1Password: Cross-Platform with Rust</a> - 63% code sharing case study</li>
+          <li><a href="https://blog.npmjs.org/post/141577284765/kik-left-right-and-npm" target="_blank" rel="noopener" style="color: #60a5fa;">npm: Rust for Authorization</a> - 10x performance improvement</li>
+          <li><a href="https://msrc.microsoft.com/blog/2019/07/a-proactive-approach-to-more-secure-code/" target="_blank" rel="noopener" style="color: #60a5fa;">Microsoft: 70% of CVEs are Memory Safety Issues</a> - Why they're investing in Rust</li>
+        </ul>
+      </div>
+
+      <h3>🎓 Advanced Learning Paths</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <p><strong>For Systems Programmers (C/C++ background)</strong></p>
+        <ul>
+          <li><a href="https://google.github.io/comprehensive-rust/" target="_blank" rel="noopener" style="color: #60a5fa;">Comprehensive Rust (by Google)</a> - 4-day Android team course</li>
+          <li>Focus on: Ownership, borrowing, zero-cost abstractions vs C++</li>
+        </ul>
+
+        <p><strong>For Application Developers (Go/Python/JS background)</strong></p>
+        <ul>
+          <li>Start with: The Book chapters 1-15</li>
+          <li>Then: Build a CLI tool (use <code>clap</code> for args, <code>serde</code> for JSON)</li>
+          <li>Finally: Small web service (use <code>axum</code> or <code>actix-web</code>)</li>
+        </ul>
+
+        <p><strong>For Architects/Tech Leads</strong></p>
+        <ul>
+          <li>Read: Company blog posts above (understand tradeoffs from real teams)</li>
+          <li>Watch: <a href="https://www.youtube.com/c/RustVideos" target="_blank" rel="noopener" style="color: #60a5fa;">RustConf talks</a> on YouTube</li>
+          <li>Focus: ROI calculations, team onboarding strategies, incremental adoption</li>
+        </ul>
+      </div>
+
+      <h3>🛠️ Practical Guides for Migration</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <ul>
+          <li><a href="https://github.com/PyO3/pyo3" target="_blank" rel="noopener" style="color: #60a5fa;">PyO3 Documentation</a> - Python + Rust integration guide</li>
+          <li><a href="https://neon-bindings.com/" target="_blank" rel="noopener" style="color: #60a5fa;">Neon Bindings</a> - Node.js + Rust integration</li>
+          <li><a href="https://rust-lang.github.io/rust-bindgen/" target="_blank" rel="noopener" style="color: #60a5fa;">rust-bindgen User Guide</a> - C/C++ interop</li>
+          <li><a href="https://rustwasm.github.io/docs/book/" target="_blank" rel="noopener" style="color: #60a5fa;">Rust and WebAssembly</a> - Complete WASM guide</li>
+        </ul>
+      </div>
+
+      <h3>📊 Benchmarking & Profiling</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <ul>
+          <li><a href="https://github.com/bheisler/criterion.rs" target="_blank" rel="noopener" style="color: #60a5fa;">Criterion.rs</a> - Statistical benchmarking framework</li>
+          <li><a href="https://github.com/flamegraph-rs/flamegraph" target="_blank" rel="noopener" style="color: #60a5fa;">cargo-flamegraph</a> - Profiling visualizations</li>
+          <li><a href="https://blog.rust-lang.org/inside-rust/2020/02/25/intro-rustc-self-profile.html" target="_blank" rel="noopener" style="color: #60a5fa;">Rust Performance Book</a> - Official performance profiling guide</li>
+        </ul>
+      </div>
+
+      <h3>👥 Community & Getting Help</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <ul>
+          <li><a href="https://users.rust-lang.org/" target="_blank" rel="noopener" style="color: #60a5fa;">Rust Users Forum</a> - Ask questions, get help from community</li>
+          <li><a href="https://www.reddit.com/r/rust/" target="_blank" rel="noopener" style="color: #60a5fa;">r/rust on Reddit</a> - News, discussions, showcases</li>
+          <li><a href="https://discord.gg/rust-lang" target="_blank" rel="noopener" style="color: #60a5fa;">Rust Discord</a> - Real-time help and community chat</li>
+          <li><a href="https://this-week-in-rust.org/" target="_blank" rel="noopener" style="color: #60a5fa;">This Week in Rust</a> - Weekly newsletter (stay up-to-date)</li>
+        </ul>
+      </div>
+
+      <div style="background: #065f46; border-left: 4px solid #10b981; padding: 1.5rem; margin: 1.5rem 0; border-radius: 4px;">
+        <p><strong>💡 Pro Tip for Learning:</strong></p>
+        <p>Don't try to learn everything at once. Follow this path:</p>
+        <ol>
+          <li><strong>Week 1-2:</strong> The Book chapters 1-10 (basics + ownership)</li>
+          <li><strong>Week 3-4:</strong> Build something real (CLI tool or small API)</li>
+          <li><strong>Month 2:</strong> Contribute to open source or migrate one function at work</li>
+          <li><strong>Month 3+:</strong> Tackle async Rust and advanced patterns as needed</li>
+        </ol>
+        <p>Hands-on practice beats theory. Start building ASAP.</p>
+      </div>
 
       <p style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #475569;">
         <strong>Ready to explore Rust for your project?</strong> 
