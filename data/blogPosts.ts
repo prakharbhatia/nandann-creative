@@ -2206,15 +2206,672 @@ def sync_file(file_path):
 
       <h2>When a Rewrite Is a Bad Idea</h2>
       
-      <p><em>[CONTENT: Early-stage products, stable systems, team constraints, alternatives]</em></p>
+      <p>Just as important as knowing when to rewrite is knowing when <strong>NOT</strong> to. Here are scenarios where Rust migration will likely fail or deliver negative ROI.</p>
+
+      <h3>🚫 Anti-Pattern #1: Early-Stage Product Development</h3>
+
+      <div style="background: #7c2d12; border-left: 4px solid #dc2626; padding: 1.5rem; margin: 1.5rem 0; border-radius: 4px;">
+        <h4 style="margin-top: 0;">The Scenario</h4>
+        <p>You're a startup trying to find product-market fit. You haven't validated your core assumptions yet. You might pivot next quarter.</p>
+
+        <h4>Why Rust is Wrong</h4>
+        <ul>
+          <li><strong>Speed to market matters more than performance:</strong> Getting to users fast > running efficiently</li>
+          <li><strong>You'll rewrite anyway when you pivot:</strong> Rust's learning curve wasted on throwaway code</li>
+          <li><strong>Hiring is harder:</strong> Rust talent pool is smaller than Python/Node/Go</li>
+          <li><strong>Iteration speed critical:</strong> Need to ship features daily, not fight the borrow checker</li>
+        </ul>
+
+        <h4>What to Do Instead</h4>
+        <ul>
+          <li>✅ Use Python/Node/Go for rapid prototyping</li>
+          <li>✅ Focus on validation, not optimization</li>
+          <li>✅ If you find PMF and performance becomes an issue, <em>then</em> consider Rust for hot paths</li>
+        </ul>
+
+        <h4>Real Example</h4>
+        <p>Most successful startups iterated quickly in high-level languages, then optimized specific components later. Instagram was built in Python and only optimized critical paths as they scaled.</p>
+      </div>
+
+      <h3>🚫 Anti-Pattern #2: Rewriting a Stable, Working System</h3>
+
+      <div style="background: #7c2d12; border-left: 4px solid #dc2626; padding: 1.5rem; margin: 1.5rem 0; border-radius: 4px;">
+        <h4 style="margin-top: 0;">The Scenario</h4>
+        <p>Your C++ system has been running in production for 5 years. It works. Users are happy. No incidents. Infrastructure costs are acceptable.</p>
+
+        <h4>Why Rust is Wrong</h4>
+        <ul>
+          <li><strong>Joel Spolsky was right:</strong> "Things You Should Never Do, Part I" - rewrites are risky</li>
+          <li><strong>Hidden complexity:</strong> That 5-year-old code has subtle edge cases you've forgotten about</li>
+          <li><strong>Opportunity cost:</strong> 6-12 months of engineering time could build new features instead</li>
+          <li><strong>"If it ain't broke...":</strong> You're introducing risk for theoretical benefits</li>
+        </ul>
+
+        <h4>What to Do Instead</h4>
+        <ul>
+          <li>✅ Keep the working system running</li>
+          <li>✅ Build new features in Rust if you want to adopt it</li>
+          <li>✅ Only rewrite if there's <em>measurable</em> pain (costs, incidents, scaling issues)</li>
+        </ul>
+
+        <h4>Exception</h4>
+        <p>If you're spending significant time/money on memory bugs or security issues, then the "stable" system isn't actually stable. In that case, Rust makes sense.</p>
+      </div>
+
+      <h3>🚫 Anti-Pattern #3: Team Can't Afford Learning Curve</h3>
+
+      <div style="background: #7c2d12; border-left: 4px solid #dc2626; padding: 1.5rem; margin: 1.5rem 0; border-radius: 4px;">
+        <h4 style="margin-top: 0;">The Scenario</h4>
+        <p>Your team is at 100% capacity shipping features. You have aggressive roadmap commitments. No slack time for learning.</p>
+
+        <h4>Why Rust is Wrong</h4>
+        <ul>
+          <li><strong>3-6 month productivity dip:</strong> Team will be slower while learning</li>
+          <li><strong>Roadmap will slip:</strong> Can't hit deadlines if team is fighting the borrow checker</li>
+          <li><strong>Frustration risk:</strong> If team is burnt out, adding learning curve increases turnover risk</li>
+          <li><strong>No time for best practices:</strong> Will cut corners, defeating Rust's safety benefits</li>
+        </ul>
+
+        <h4>What to Do Instead</h4>
+        <ul>
+          <li>✅ Wait for a natural lull in the roadmap</li>
+          <li>✅ Or hire 1-2 Rust-experienced engineers to bootstrap the team</li>
+          <li>✅ Or start very small (single library, not critical path) to build expertise slowly</li>
+        </ul>
+
+        <h4>Warning Signs</h4>
+        <p>If your team is already working weekends and struggling to meet deadlines, adding Rust will make things worse, not better.</p>
+      </div>
+
+      <h3>🚫 Anti-Pattern #4: Chasing Hype Instead of Solving Problems</h3>
+
+      <div style="background: #7c2d12; border-left: 4px solid #dc2626; padding: 1.5rem; margin: 1.5rem 0; border-radius: 4px;">
+        <h4 style="margin-top: 0;">The Scenario</h4>
+        <p>"Rust is trending on Hacker News. Other companies are using it. We should too!" But you don't have performance, security, or reliability problems.</p>
+
+        <h4>Why This is Wrong</h4>
+        <ul>
+          <li><strong>No measurable benefit:</strong> If you're not solving a specific problem, ROI is negative</li>
+          <li><strong>Resume-driven development:</strong> Team wants Rust on their résumé, not business value</li>
+          <li><strong>Distraction from real issues:</strong> Maybe your problem is product-market fit, not tech stack</li>
+          <li><strong>Cargo cult programming:</strong> "Discord did it" doesn't mean you should</li>
+        </ul>
+
+        <h4>How to Avoid</h4>
+        <p>Before any migration decision, answer:</p>
+        <ol>
+          <li>What specific, measurable problem are we solving?</li>
+          <li>How will we measure success?</li>
+          <li>What's the alternative solution (e.g., optimize existing code)?</li>
+          <li>What's the ROI calculation?</li>
+        </ol>
+
+        <p>If you can't answer these clearly, you're not ready to migrate.</p>
+      </div>
+
+      <h3>Alternatives to Consider First</h3>
+
+      <p>Before committing to a Rust rewrite, try these lower-risk alternatives:</p>
+
+      <table style="width: 100%; border-collapse: collapse; margin: 1.5rem 0;">
+        <thead>
+          <tr style="background: #334155; color: #e5e7eb;">
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Problem</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Try This First</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">If That Fails, Then Rust</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">High infrastructure costs</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Profile & optimize hot paths, add caching, upgrade algorithms</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Rewrite hot paths in Rust</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;">GC pauses</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Tune GC settings, reduce allocations, use off-heap structures</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Migrate to Rust</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Memory bugs</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Add sanitizers (ASan, TSan), increase testing, use static analysis</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Rewrite in Rust for compile-time guarantees</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Scaling issues</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Horizontal scaling, caching, database optimization</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Rust for vertical scaling efficiency</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p><strong>Key principle:</strong> Exhaust cheaper alternatives before committing to a rewrite. Rust should be the solution to a problem you've already tried to solve other ways.</p>
 
       <h2>Migration Strategies That Actually Work</h2>
       
-      <p><em>[CONTENT: 4 patterns with diagrams - hot paths, microservices, WASM, strangler fig. Timeline expectations]</em></p>
+      <p>The <em>how</em> of rewriting matters as much as the <em>why</em>. Here are 4 proven patterns from successful Rust migrations, with implementation details and timelines.</p>
+
+      <h3>Pattern 1: Hot Path Replacement (Lowest Risk)</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; border-left: 4px solid #10b981;">
+        <h4 style="margin-top: 0;">What It Is</h4>
+        <p>Identify the 20% of code consuming 80% of resources. Rewrite <em>only that</em> in Rust. Keep everything else in the original language.</p>
+
+        <h4>When to Use</h4>
+        <ul>
+          <li>✅ Python/Node apps with CPU-bound bottlenecks</li>
+          <li>✅ Clear hot path identified via profiling</li>
+          <li>✅ Want quick wins without full migration</li>
+          <li>✅ Testing Rust adoption before full commitment</li>
+        </ul>
+
+        <h4>Implementation Steps</h4>
+        <ol>
+          <li><strong>Profile thoroughly:</strong> Use flamegraphs, perf, or language-specific profilers</li>
+          <li><strong>Identify hot functions:</strong> Look for functions taking >10% of total CPU time</li>
+          <li><strong>Write Rust equivalent:</strong> Implement just those functions in Rust</li>
+          <li><strong>Create FFI bindings:</strong> Expose Rust functions to your main language
+            <ul>
+              <li>Python: PyO3</li>
+              <li>Node: Neon or N-API</li>
+              <li>Ruby: Helix</li>
+            </ul>
+          </li>
+          <li><strong>A/B test:</strong> Compare old vs. new implementation</li>
+          <li><strong>Gradual rollout:</strong> 1% → 10% → 50% → 100% of traffic</li>
+        </ol>
+
+        <h4>Timeline</h4>
+        <p><strong>4-12 weeks</strong> depending on complexity</p>
+
+        <h4>Success Example: Dropbox</h4>
+        <p>Rewrote file sync hot paths (hashing, compression) from Python to Rust via FFI. 75% CPU reduction, kept Python for everything else.</p>
+
+        <h4>Code Pattern</h4>
+        <pre style="background: #0f1419; padding: 1rem; border-radius: 4px; overflow-x: auto; font-size: 0.875rem;"><code style="color: #e5e7eb;"># Python (orchestration)
+import rust_hotpath
+
+def process_file(path):
+    # Slow parts moved to Rust
+    hash = rust_hotpath.compute_hash(path)  # ⚡ Rust
+    compressed = rust_hotpath.compress(data)  # ⚡ Rust
+    
+    # Fast parts stay in Python
+    upload_to_cloud(compressed)
+    update_database(hash)</code></pre>
+      </div>
+
+      <h3>Pattern 2: Microservice Replacement (Moderate Risk)</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; border-left: 4px solid #f59e0b;">
+        <h4 style="margin-top: 0;">What It Is</h4>
+        <p>Rewrite one complete microservice in Rust. Maintain API compatibility so other services don't change.</p>
+
+        <h4>When to Use</h4>
+        <ul>
+          <li>✅ Already have microservices architecture</li>
+          <li>✅ Clear service boundaries</li>
+          <li>✅ One service has performance/reliability issues</li>
+          <li>✅ Can deploy new service alongside old one</li>
+        </ul>
+
+        <h4>Implementation Steps</h4>
+        <ol>
+          <li><strong>Choose the right service:</strong> Start with one that has:
+            <ul>
+              <li>Clear, stable API contract</li>
+              <li>Measurable performance issues</li>
+              <li>Not business-critical (or has good fallback)</li>
+            </ul>
+          </li>
+          <li><strong>Build Rust equivalent:</strong> Match API exactly
+            <ul>
+              <li>Use Actix-web, Axum, or Rocket for HTTP</li>
+              <li>Use tonic for gRPC</li>
+              <li>Match response formats byte-for-byte</li>
+            </ul>
+          </li>
+          <li><strong>Shadow traffic:</strong> Send copies of production traffic to Rust service, compare responses</li>
+          <li><strong>Gradual cutover:</strong> Route increasing % of live traffic to Rust service</li>
+          <li><strong>Monitor closely:</strong> Latency, error rate, resource usage</li>
+          <li><strong>Keep old service running:</strong> Easy rollback for 2-4 weeks</li>
+        </ol>
+
+        <h4>Timeline</h4>
+        <p><strong>3-6 months</strong> for typical microservice</p>
+
+        <h4>Success Example: Discord</h4>
+        <p>Rewrote Read States service from Go to Rust. Maintained gRPC API compatibility. 10x performance, 50% latency reduction.</p>
+
+        <h4>Architecture Pattern</h4>
+        <pre style="background: #0f1419; padding: 1rem; border-radius: 4px; overflow-x: auto; font-size: 0.875rem;"><code style="color: #e5e7eb;">┌─────────────┐
+│   Gateway   │
+└──────┬──────┘
+       │
+       ├─────────────┐
+       │             │
+   ┌───▼───┐    ┌───▼───┐
+   │Go Svc │    │Rust   │  ⟵ New, monitors performance
+   │(old)  │    │Svc    │
+   └───────┘    └───────┘
+   
+   Gradually shift traffic from left to right
+   Keep old service for rollback</code></pre>
+      </div>
+
+      <h3>Pattern 3: WebAssembly Bridge (Hybrid Approach)</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; border-left: 4px solid #8b5cf6;">
+        <h4 style="margin-top: 0;">What It Is</h4>
+        <p>Compile Rust to WebAssembly (WASM), run it in browser or server-side WASM runtime. Keep rest of stack unchanged.</p>
+
+        <h4>When to Use</h4>
+        <ul>
+          <li>✅ Need performance in browser (client-side computation)</li>
+          <li>✅ Want language interop (Rust + JS/Python/Any language)</li>
+          <li>✅ Building plugins or sandboxed extensions</li>
+          <li>✅ Cross-platform deployment (WASM runs anywhere)</li>
+        </ul>
+
+        <h4>Use Cases</h4>
+        <ul>
+          <li><strong>Client-side:</strong> Image processing, video encoding, cryptography in browser</li>
+          <li><strong>Server-side:</strong> Serverless functions (Cloudflare Workers, Fastly Compute@Edge)</li>
+          <li><strong>Plugins:</strong> User-provided code that needs sandboxing</li>
+        </ul>
+
+        <h4>Implementation</h4>
+        <pre style="background: #0f1419; padding: 1rem; border-radius: 4px; overflow-x: auto; font-size: 0.875rem;"><code style="color: #e5e7eb;">// Rust code
+use wasm_bindgen::prelude::*;
+
+#[wasm_bindgen]
+pub fn process_image(data: &[u8]) -> Vec<u8> {
+    // Heavy image processing in Rust
+    // Compiles to WASM, runs in browser
+}
+
+// JavaScript usage
+import init, { process_image } from './pkg/my_wasm.js';
+
+await init();
+const result = process_image(imageData); // ⚡ Rust speed in browser!</code></pre>
+
+        <h4>Timeline</h4>
+        <p><strong>2-8 weeks</strong> depending on complexity</p>
+
+        <h4>Tools</h4>
+        <ul>
+          <li><code>wasm-pack</code>: Build Rust to WASM easily</li>
+          <li><code>wasm-bindgen</code>: JS ↔ Rust interop</li>
+          <li><code>wasmtime</code>/<code>wasmer</code>: Server-side WASM runtimes</li>
+        </ul>
+      </div>
+
+      <h3>Pattern 4: Strangler Fig (Gradual, Safest)</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; border-left: 4px solid #06b6d4;">
+        <h4 style="margin-top: 0;">What It Is</h4>
+        <p>Gradually replace modules of a monolith one by one. Old and new systems run side-by-side. "Strangler" metaphor: new system slowly strangles the old one.</p>
+
+        <h4>When to Use</h4>
+        <ul>
+          <li>✅ Large monolith that can't afford downtime</li>
+          <li>✅ No clear microservice boundaries</li>
+          <li>✅ Want continuous value delivery during migration</li>
+          <li>✅ Risk-averse organization</li>
+        </ul>
+
+        <h4>Implementation Strategy</h4>
+        <ol>
+          <li><strong>Identify modules:</strong> Break monolith into logical modules</li>
+          <li><strong>Pick first module:</strong> Choose one that's:
+            <ul>
+              <li>Self-contained (few dependencies on other modules)</li>
+              <li>Has measurable pain point</li>
+              <li>Not mission-critical (lower risk)</li>
+            </ul>
+          </li>
+          <li><strong>Build Rust version:</strong> Implement module in Rust as separate binary/library</li>
+          <li><strong>Proxy/router layer:</strong> Route requests to old or new implementation
+            <ul>
+              <li>Can use feature flags</li>
+              <li>Can use load balancer routing</li>
+              <li>Can use API gateway</li>
+            </ul>
+          </li>
+          <li><strong>Gradual migration:</strong> Shift traffic module by module over months</li>
+          <li><strong>Repeat:</strong> Once one module succeeds, migrate next</li>
+        </ol>
+
+        <h4>Timeline</h4>
+        <p><strong>12-24 months</strong> for full migration, but incremental value from month 3-4</p>
+
+        <h4>Architecture Evolution</h4>
+        <pre style="background: #0f1419; padding: 1rem; border-radius: 4px; overflow-x: auto; font-size: 0.875rem;"><code style="color: #e5e7eb;">Month 1-3:         Month 6:           Month 12:
+┌──────────┐       ┌──────────┐       ┌──────────┐
+│          │       │  50% old │       │  10% old │
+│  100%    │       │          │       │          │
+│   Old    │  →    │  Proxy   │  →    │  Proxy   │
+│  System  │       │          │       │          │
+│          │       │  50% new │       │  90% new │
+└──────────┘       │  (Rust)  │       │  (Rust)  │
+                   └──────────┘       └──────────┘</code></pre>
+
+        <h4>Benefits</h4>
+        <ul>
+          <li>✅ Always have working system (low risk)</li>
+          <li>✅ Can pause/resume migration as needed</li>
+          <li>✅ Easy rollback (just route traffic back)</li>
+          <li>✅ Learn as you go</li>
+        </ul>
+
+        <h4>Considerations</h4>
+        <ul>
+          <li>⚠️ Running two systems simultaneously (temporary cost increase)</li>
+          <li>⚠️ Need good testing to ensure feature parity</li>
+          <li>⚠️ Long timeline (months to years)</li>
+        </ul>
+      </div>
+
+      <h3>Choosing Your Pattern</h3>
+
+      <table style="width: 100%; border-collapse: collapse; margin: 1.5rem 0;">
+        <thead>
+          <tr style="background: #334155; color: #e5e7eb;">
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Your Situation</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Recommended Pattern</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Python/Node with CPU bottleneck</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Hot Path Replacement</strong> (lowest risk, fastest ROI)</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Microservices with one problematic service</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Microservice Replacement</strong></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Need browser performance</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>WebAssembly Bridge</strong></td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Large monolith, can't afford downtime</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Strangler Fig</strong> (safest, slowest)</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">First time using Rust</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Hot Path Replacement</strong> (prove value quickly)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p><strong>Pro tip:</strong> Whatever pattern you choose, start even smaller than you think. Discord's first Rust migration was a single service. Dropbox started with one hot function. Prove the value, build expertise, then expand.</p>
 
       <h2>How to Measure Success: Benchmarking Your Migration</h2>
       
-      <p><em>[CONTENT: Metrics to track, tools (cargo bench, hyperfine, flamegraph), fair comparison setup]</em></p>
+      <p>"What gets measured gets managed." Before, during, and after migration, you need clear metrics to validate that Rust is delivering the expected benefits.</p>
+
+      <h3>Metrics to Track</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <h4 style="margin-top: 0; color: #f97316;">1. Performance Metrics</h4>
+        
+        <p><strong>Throughput (requests/second or operations/second)</strong></p>
+        <ul>
+          <li>Measure: How many requests the system handles per second</li>
+          <li>Tool: <code>wrk</code>, <code>ab</code> (Apache Bench), <code>autocannon</code></li>
+          <li>Target: 2-10x improvement is typical for Rust migrations</li>
+        </ul>
+
+        <p><strong>Latency (p50, p95, p99, p999)</strong></p>
+        <ul>
+          <li>Measure: Response time at different percentiles</li>
+          <li>Tool: <code>hyperfine</code>, custom instrumentation</li>
+          <li>Why percentiles matter: Average hides GC pauses and outliers</li>
+          <li>Target: 30-70% reduction, especially at p99</li>
+        </ul>
+
+        <p><strong>Resource Usage</strong></p>
+        <ul>
+          <li><strong>CPU:</
+</strong> Track CPU utilization under load</li>
+          <li><strong>Memory:</strong> Peak/average memory consumption</li>
+          <li><strong>Network:</strong> Bytes sent/received per request</li>
+          <li>Tool: <code>htop</code>, <code>prometheus</code>, cloud provider metrics</li>
+          <li>Target: 30-75% reduction common</li>
+        </ul>
+      </div>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <h4 style="margin-top: 0; color: #f97316;">2. Reliability Metrics</h4>
+        
+        <p><strong>Incident Frequency</strong></p>
+        <ul>
+          <li>Count: Memory bugs, crashes, security issues per month</li>
+          <li>Source: PagerDuty, incident tracking system</li>
+          <li>Target: 50-100% reduction in memory-related incidents</li>
+        </ul>
+
+        <p><strong>Error Rate</strong></p>
+        <ul>
+          <li>Measure: 4xx/5xx errors per 1000 requests</li>
+          <li>Should stay same or improve (not regress)</li>
+        </ul>
+
+        <p><strong>Uptime/Availability</strong></p>
+        <ul>
+          <li>Track: Percentage uptime (e.g., 99.9% → 99.95%)</li>
+          <li>Even small improvements are valuable at scale</li>
+        </ul>
+      </div>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <h4 style="margin-top: 0; color: #f97316;">3. Business Metrics</h4>
+        
+        <p><strong>Infrastructure Costs</strong></p>
+        <ul>
+          <li>Track: Monthly cloud spend for this service</li>
+          <li>Calculate: Cost per million requests</li>
+          <li>Target: 30-70% reduction typical</li>
+        </ul>
+
+        <p><strong>Development Velocity</strong></p>
+        <ul>
+          <li>Measure: Story points per sprint, features shipped per quarter</li>
+          <li>Expect: Dip for first 3-6 months, then improvement</li>
+        </ul>
+
+        <p><strong>Time to Deploy</strong></p>
+        <ul>
+          <li>Measure: How long from code commit to production</li>
+          <li>Rust: Longer compile, but fewer failed deploys</li>
+        </ul>
+      </div>
+
+      <h3>Essential Tools for Benchmarking</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <h4 style="margin-top: 0;">Cargo Bench (Built-in Microbenchmarks)</h4>
+        
+        <p><strong>What it does:</strong> Measure performance of specific functions in isolation</p>
+        
+        <p><strong>When to use:</strong> Comparing old vs. new implementation of a hot function</p>
+
+        <p><strong>Example:</strong></p>
+        <pre style="background: #0f1419; padding: 1rem; border-radius: 4px; overflow-x: auto; font-size: 0.875rem;"><code style="color: #e5e7eb;">#[bench]
+fn bench_old_hash(b: &mut Bencher) {
+    let data = vec![0u8; 1024];
+    b.iter(|| old_hash_function(&data));
+}
+
+#[bench]
+fn bench_new_rust_hash(b: &mut Bencher) {
+    let data = vec![0u8; 1024];
+    b.iter(|| new_rust_hash(&data));
+}
+
+// Run: cargo bench
+// Output:
+// test bench_old_hash      ... bench:   1,234 ns/iter
+// test bench_new_rust_hash ... bench:     234 ns/iter
+//                                          ↑ 5.3x faster!</code></pre>
+      </div>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <h4 style="margin-top: 0;">Hyperfine (Command-line Benchmarking)</h4>
+        
+        <p><strong>What it does:</strong> Compare execution time of complete programs</p>
+        
+        <p><strong>When to use:</strong> Benchmarking CLI tools or services</p>
+
+        <p><strong>Example:</strong></p>
+        <pre style="background: #0f1419; padding: 1rem; border-radius: 4px; overflow-x: auto; font-size: 0.875rem;"><code style="color: #e5e7eb;"># Compare Python vs Rust implementation
+hyperfine --warmup 3 \
+  'python old_script.py input.txt' \
+  './rust_binary input.txt'
+
+# Output:
+Benchmark 1: python old_script.py
+  Time (mean ± σ):      2.347 s ±  0.042 s
+ 
+Benchmark 2: ./rust_binary
+  Time (mean ± σ):      0.234 s ±  0.003 s
+ 
+Summary
+  './rust_binary' ran 10.03x faster</code></pre>
+      </div>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <h4 style="margin-top: 0;">Flamegraphs (Profiling)</h4>
+        
+        <p><strong>What it does:</strong> Visualize where time is spent in your code</p>
+        
+        <p><strong>When to use:</strong> Finding hot paths, validating optimizations worked</p>
+
+        <p><strong>Tools:</strong></p>
+        <ul>
+          <li><code>cargo flamegraph</code>: Generate flamegraphs for Rust code</li>
+          <li><code>perf</code> + <code>flamegraph.pl</code>: For any compiled binary</li>
+        </ul>
+
+        <p><strong>Workflow:</strong></p>
+        <ol>
+          <li>Profile old system → identify functions taking most time</li>
+          <li>Rewrite those functions in Rust</li>
+          <li>Profile again → validate those functions now take <10% of time</li>
+        </ol>
+      </div>
+
+      <h3>Setting Up Fair Comparisons</h3>
+
+      <div style="background: #7c2d12; border-left: 4px solid #f97316; padding: 1.5rem; margin: 1.5rem 0; border-radius: 4px;">
+        <h4 style="margin-top: 0;">⚠️ Common Benchmarking Mistakes</h4>
+        
+        <p><strong>Mistake #1: Different Hardware</strong></p>
+        <ul>
+          <li>❌ Running old system on 2 vCPU, Rust on 8 vCPU</li>
+          <li>✅ Use identical hardware/VM specs for comparison</li>
+        </ul>
+
+        <p><strong>Mistake #2: Cold Start vs. Warm</strong></p>
+        <ul>
+          <li>❌ Measuring first request (includes cold start)</li>
+          <li>✅ Warm up system with traffic before measuring</li>
+        </ul>
+
+        <p><strong>Mistake #3: Different Workloads</strong></p>
+        <ul>
+          <li>❌ Old system handling prod traffic, Rust handling synthetic</li>
+          <li>✅ Shadow prod traffic to both, or use identical replay</li>
+        </ul>
+
+        <p><strong>Mistake #4: Ignoring Outliers</strong></p>
+        <ul>
+          <li>❌ Only looking at average latency</li>
+          <li>✅ Measure p95, p99, p999 - this is where Rust shines (no GC pauses)</li>
+        </ul>
+      </div>
+
+      <h3>Example Measurement Plan</h3>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; border: 2px solid #10b981;">
+        <h4 style="margin-top: 0; color: #10b981;">Real Example: API Service Migration</h4>
+        
+        <p><strong>Baseline (Before Rust):</strong></p>
+        <ul>
+          <li>Throughput: 5,000 req/sec</li>
+          <li>Latency p50: 12ms, p99: 85ms (GC spikes)</li>
+          <li>CPU: 70% utilization on 8 cores</li>
+          <li>Memory: 4GB average, 6GB peak</li>
+          <li>Cost: $2,400/month (EC2 instances)</li>
+          <li>Incidents: 2 memory leaks per quarter</li>
+        </ul>
+
+        <p><strong>Target (After Rust):</strong></p>
+        <ul>
+          <li>Throughput: >10,000 req/sec (2x)</li>
+          <li>Latency p99: <30ms (eliminate GC pauses)</li>
+          <li>CPU: <50% on same hardware</li>
+          <li>Memory: <2GB peak</li>
+          <li>Cost: <$1,500/month (fewer/smaller instances)</li>
+          <li>Incidents: 0 memory-related issues</li>
+        </ul>
+
+        <p><strong>Measurement Approach:</strong></p>
+        <ol>
+          <li>Week 1-2: Establish baseline with load testing (wrk, consistent test data)</li>
+          <li>Week 8-10: Build Rust version, benchmark in staging</li>
+          <li>Week 11: Shadow production traffic, compare metrics side-by-side</li>
+          <li>Week 12: Route 10% traffic, monitor for 1 week</li>
+          <li>Week 13-16: Gradually increase to 100%, track metrics</li>
+          <li>Month 6: Retrospective - measure vs. targets</li>
+        </ol>
+
+        <p><strong>Success Criteria:</strong></p>
+        <ul>
+          <li>✅ Hit 80%+ of performance targets</li>
+          <li>✅ Zero regression in error rates</li>
+          <li>✅ ROI positive within 12 months</li>
+        </ul>
+      </div>
+
+      <h3>Reporting Results</h3>
+
+      <p>When presenting migration success to stakeholders, focus on business impact:</p>
+
+      <table style="width: 100%; border-collapse: collapse; margin: 1.5rem 0;">
+        <thead>
+          <tr style="background: #334155; color: #e5e7eb;">
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Metric</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Before</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">After</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Infrastructure Cost</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">$2,400/mo</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">$1,200/mo</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>$14,400/year saved</strong></td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;">P99 Latency</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">85ms</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">22ms</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>74% improvement → better UX</strong></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Production Incidents</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">2/quarter</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">0/quarter</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>~$100K/year avoided incident costs</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p><strong>Key principle:</strong> Translate technical metrics into business value. "50% CPU reduction" becomes "$14K/year in infrastructure savings." This is how you justify the migration investment.</p>
 
       <h2>Essential Tools for Rust Migration</h2>
       
