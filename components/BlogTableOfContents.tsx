@@ -82,7 +82,7 @@ export default function BlogTableOfContents({ slug }: { slug: string }) {
     if (headings.length === 0) return null;
 
     return (
-        <aside className="hidden xl:block fixed top-32 right-8 w-80 h-[calc(100vh-10rem)] z-10">
+        <aside className="hidden xl:block fixed top-32 right-8 w-80 h-[calc(100vh-20rem)] z-10">
             {/* Wrapper with flex layout */}
             <div className="flex flex-col gap-4 h-full">
                 {/* Scrollable TOC Section */}
