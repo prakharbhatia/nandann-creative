@@ -78,73 +78,76 @@ export default function BlogTableOfContents() {
 
     return (
         <aside className="hidden xl:block">
-            {/* Scrollable TOC Section */}
-            <div className="sticky top-32 bg-white/5 border border-white/10 rounded-xl p-6 backdrop-blur-sm max-h-[calc(100vh-22rem)] overflow-y-auto mb-4">
-                <h3 className="text-lg font-bold text-white mb-4">Table of Contents</h3>
+            {/* Wrapper with sticky positioning - stays at top when scrolling */}
+            <div className="sticky top-32 flex flex-col gap-4 max-h-[calc(100vh-10rem)]">
+                {/* Scrollable TOC Section */}
+                <div className="bg-white/5 border border-white/10 rounded-xl p-6 backdrop-blur-sm overflow-y-auto flex-1">
+                    <h3 className="text-lg font-bold text-white mb-4">Table of Contents</h3>
 
-                <nav className="space-y-1">
-                    {headings.map((heading) => (
-                        <button
-                            key={heading.id}
-                            onClick={() => scrollToHeading(heading.id)}
-                            className={`
-                block w-full text-left text-sm transition-colors duration-200
-                ${heading.level === 2 ? 'font-medium' : 'pl-4 text-xs'}
-                ${activeId === heading.id
-                                    ? 'text-blue-400 font-semibold'
-                                    : 'text-gray-400 hover:text-blue-300'
-                                }
-              `}
-                            style={{
-                                paddingTop: '0.375rem',
-                                paddingBottom: '0.375rem',
-                            }}
-                        >
-                            <span className={`
-                ${activeId === heading.id ? 'border-l-2 border-blue-400 pl-3' : 'pl-3'}
-                block
-              `}>
-                                {heading.text}
-                            </span>
-                        </button>
-                    ))}
-                </nav>
+                    <nav className="space-y-1">
+                        {headings.map((heading) => (
+                            <button
+                                key={heading.id}
+                                onClick={() => scrollToHeading(heading.id)}
+                                className={`
+                  block w-full text-left text-sm transition-colors duration-200
+                  ${heading.level === 2 ? 'font-medium' : 'pl-4 text-xs'}
+                  ${activeId === heading.id
+                                        ? 'text-blue-400 font-semibold'
+                                        : 'text-gray-400 hover:text-blue-300'
+                                    }
+                `}
+                                style={{
+                                    paddingTop: '0.375rem',
+                                    paddingBottom: '0.375rem',
+                                }}
+                            >
+                                <span className={`
+                  ${activeId === heading.id ? 'border-l-2 border-blue-400 pl-3' : 'pl-3'}
+                  block
+                `}>
+                                    {heading.text}
+                                </span>
+                            </button>
+                        ))}
+                    </nav>
+                </div>
 
-                {/* Custom scrollbar styles */}
-                <style jsx>{`
-          div::-webkit-scrollbar {
-            width: 6px;
-          }
-          div::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 3px;
-          }
-          div::-webkit-scrollbar-thumb {
-            background: rgba(96, 165, 250, 0.5);
-            border-radius: 3px;
-          }
-          div::-webkit-scrollbar-thumb:hover {
-            background: rgba(96, 165, 250, 0.7);
-          }
-        `}</style>
+                {/* Always Visible CTA Section */}
+                <div className="bg-gradient-to-br from-blue-900/40 to-purple-900/40 border border-blue-400/30 rounded-xl p-6 backdrop-blur-sm shadow-lg flex-shrink-0">
+                    <h4 className="text-sm font-semibold text-white mb-2">Need Rust Expertise?</h4>
+                    <p className="text-xs text-gray-300 mb-4">
+                        Get help with Rust migration, new projects, or legacy system rewrites.
+                    </p>
+                    <Link
+                        href="/contact?service=rust-consulting"
+                        className="block w-full text-center bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg"
+                    >
+                        Get Free Consultation →
+                    </Link>
+                    <p className="text-xs text-gray-400 mt-3 text-center">
+                        Rust, Go, Node.js, Python & more
+                    </p>
+                </div>
             </div>
 
-            {/* Always Visible CTA Section - Sticky */}
-            <div className="sticky top-[calc(100vh-18rem)] bg-gradient-to-br from-blue-900/40 to-purple-900/40 border border-blue-400/30 rounded-xl p-6 backdrop-blur-sm shadow-lg">
-                <h4 className="text-sm font-semibold text-white mb-2">Need Rust Expertise?</h4>
-                <p className="text-xs text-gray-300 mb-4">
-                    Get help with Rust migration, new projects, or legacy system rewrites.
-                </p>
-                <Link
-                    href="/contact?service=rust-consulting"
-                    className="block w-full text-center bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg"
-                >
-                    Get Free Consultation →
-                </Link>
-                <p className="text-xs text-gray-400 mt-3 text-center">
-                    Rust, Go, Node.js, Python & more
-                </p>
-            </div>
+            {/* Custom scrollbar styles */}
+            <style jsx>{`
+        aside div::-webkit-scrollbar {
+          width: 6px;
+        }
+        aside div::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 3px;
+        }
+        aside div::-webkit-scrollbar-thumb {
+          background: rgba(96, 165, 250, 0.5);
+          border-radius: 3px;
+        }
+        aside div::-webkit-scrollbar-thumb:hover {
+          background: rgba(96, 165, 250, 0.7);
+        }
+      `}</style>
         </aside>
     );
 }
