@@ -77,8 +77,8 @@ export default function BlogTableOfContents() {
     if (headings.length === 0) return null;
 
     return (
-        <aside className="hidden xl:block fixed top-32 right-8 w-80 max-h-[calc(100vh-10rem)] overflow-y-auto">
-            <div className="bg-white/5 border border-white/10 rounded-xl p-6 backdrop-blur-sm">
+        <aside className="hidden xl:block">
+            <div className="sticky top-32 bg-white/5 border border-white/10 rounded-xl p-6 backdrop-blur-sm max-h-[calc(100vh-10rem)] overflow-y-auto">
                 <h3 className="text-lg font-bold text-white mb-4">Table of Contents</h3>
 
                 <nav className="space-y-1">

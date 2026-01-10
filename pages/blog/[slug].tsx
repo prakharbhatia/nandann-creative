@@ -215,58 +215,61 @@ export default function BlogPostPage({ post }: Props) {
       <div className="min-h-screen">
         <Navigation />
 
-        {/* Main container with TOC sidebar */}
-        <div className="relative">
-          <article className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-4xl xl:max-w-5xl mx-auto">
-            <header className="mb-8">
-              <p className="text-blue-300 text-sm mb-2">{post.category} • {post.readTime}</p>
-              <h1
-                className="text-4xl font-bold text-white mb-3"
-                style={{ fontSize: 'clamp(2rem, 5vw, 2.5rem)' }}
-              >
-                {post.title}
-              </h1>
-              <div className="flex items-center gap-4 text-sm text-gray-400">
-                <span>Published on {new Date(post.date).toLocaleDateString()}</span>
-                <span>•</span>
-                <span>By Prakhar Bhatia</span>
-              </div>
-            </header>
-
-            <ContentRenderer contentHtml={post.contentHtml} />
-
-            {post.faqs && post.faqs.length > 0 && (
-              <section className="mt-16">
-                <h2 className="text-3xl font-bold text-white mb-6">FAQs</h2>
-                <div className="space-y-4">
-                  {post.faqs.map((f, i) => (
-                    <details key={i} className="bg-white/5 border border-white/10 rounded-xl p-5">
-                      <summary className="cursor-pointer text-blue-300 font-semibold leading-6">{f.question}</summary>
-                      <p className="text-gray-300 mt-3 leading-relaxed">{f.answer}</p>
-                    </details>
-                  ))}
+        {/* Main container with proper grid layout for article + TOC */}
+        <div className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto xl:grid xl:grid-cols-[1fr_320px] xl:gap-8">
+            {/* Article content - takes left column on xl screens */}
+            <article className="max-w-4xl">
+              <header className="mb-8">
+                <p className="text-blue-300 text-sm mb-2">{post.category} • {post.readTime}</p>
+                <h1
+                  className="text-4xl font-bold text-white mb-3"
+                  style={{ fontSize: 'clamp(2rem, 5vw, 2.5rem)' }}
+                >
+                  {post.title}
+                </h1>
+                <div className="flex items-center gap-4 text-sm text-gray-400">
+                  <span>Published on {new Date(post.date).toLocaleDateString()}</span>
+                  <span>•</span>
+                  <span>By Prakhar Bhatia</span>
                 </div>
-              </section>
-            )}
+              </header>
 
-            <hr className="my-10 border-white/10" />
+              <ContentRenderer contentHtml={post.contentHtml} />
 
-            <nav className="flex justify-between text-blue-300">
-              {prev ? (
-                <Link href={`/blog/${prev.slug}`} prefetch={false} className="hover:text-blue-200">← {prev.title}</Link>
-              ) : <span />}
-              {next ? (
-                <Link href={`/blog/${next.slug}`} prefetch={false} className="hover:text-blue-200">{next.title} →</Link>
-              ) : <span />}
-            </nav>
+              {post.faqs && post.faqs.length > 0 && (
+                <section className="mt-16">
+                  <h2 className="text-3xl font-bold text-white mb-6">FAQs</h2>
+                  <div className="space-y-4">
+                    {post.faqs.map((f, i) => (
+                      <details key={i} className="bg-white/5 border border-white/10 rounded-xl p-5">
+                        <summary className="cursor-pointer text-blue-300 font-semibold leading-6">{f.question}</summary>
+                        <p className="text-gray-300 mt-3 leading-relaxed">{f.answer}</p>
+                      </details>
+                    ))}
+                  </div>
+                </section>
+              )}
 
-            <div className="mt-12">
-              <Link href="/blog" prefetch={false} className="text-blue-400 hover:text-blue-300">← Back to Blog</Link>
-            </div>
-          </article>
+              <hr className="my-10 border-white/10" />
 
-          {/* Table of Contents Sidebar */}
-          <BlogTableOfContents />
+              <nav className="flex justify-between text-blue-300">
+                {prev ? (
+                  <Link href={`/blog/${prev.slug}`} prefetch={false} className="hover:text-blue-200">← {prev.title}</Link>
+                ) : <span />}
+                {next ? (
+                  <Link href={`/blog/${next.slug}`} prefetch={false} className="hover:text-blue-200">{next.title} →</Link>
+                ) : <span />}
+              </nav>
+
+              <div className="mt-12">
+                <Link href="/blog" prefetch={false} className="text-blue-400 hover:text-blue-300">← Back to Blog</Link>
+              </div>
+            </article>
+
+            {/* Table of Contents Sidebar - takes right column on xl screens */}
+            <BlogTableOfContents />
+          </div>
         </div>
 
         <Footer />
