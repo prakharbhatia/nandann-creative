@@ -912,7 +912,226 @@ d.push(5);  // ✅ No data race possible</code></pre>
 
       <h2>Why Teams Move Away from Existing Stacks</h2>
       
-      <p><em>[CONTENT: C/C++ limitations, Go trade-offs, Java GC issues, Python scaling]</em></p>
+      <p>Understanding why teams leave their current language is just as important as understanding why they choose Rust. Let's look at the specific pain points that drive migration decisions.</p>
+
+      <h3>C/C++: Performance Power, Safety Cost</h3>
+
+      <p>C and C++ have dominated systems programming for decades. They're fast, give you complete control, and have massive ecosystems. So why are teams moving away?</p>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <h4 style="margin-top: 0; color: #f97316;">The C/C++ Pain Points</h4>
+        
+        <p><strong>1. Manual Memory Management = Constant Security Holes</strong></p>
+        <p>Every <code>malloc()</code> needs a matching <code>free()</code>. Every pointer needs careful lifetime management. Miss one, and you have:</p>
+        <ul>
+          <li>Memory leaks (slow death)</li>
+          <li>Use-after-free (security nightmare)</li>
+          <li>Double-free (undefined behavior)</li>
+          <li>Buffer overflows (the classic exploit)</li>
+        </ul>
+        <p><strong>Cost:</strong> Microsoft and Google both report 70% of their CVEs are memory safety issues in C/C++ code.</p>
+
+        <p><strong>2. Undefined Behavior = Production Mysteries</strong></p>
+        <p>C/C++ has extensive undefined behavior. Your code might work in dev, fail in staging, and cause corruption in production. Examples:</p>
+        <ul>
+          <li>Integer overflow</li>
+          <li>Null pointer dereference</li>
+          <li>Data races in multi-threaded code</li>
+          <li>Array out of bounds</li>
+        </ul>
+        <p><strong>Impact:</strong> Bugs that only appear under specific conditions (compiler, optimization level, hardware) are nearly impossible to debug.</p>
+
+        <p><strong>3. Legacy Build Systems = Developer Friction</strong></p>
+        <p>C++ has no standard package manager or build system. You're choosing between:</p>
+        <ul>
+          <li>CMake (complex, verbose)</li>
+          <li>Make (ancient, brittle)</li>
+          <li>Bazel (powerful but heavyweight)</li>
+          <li>Meson, SCons, etc. (fragmentation)</li>
+        </ul>
+        <p><strong>Developer pain:</strong> New engineers spend days just getting the build working. Dependency management is manual and error-prone.</p>
+
+        <p><strong>4. Concurrency Is Treacherous</strong></p>
+        <p>There's nothing stopping you from having data races in C++. Thread sanitizers can catch some issues, but:</p>
+        <ul>
+          <li>Only at runtime</li>
+          <li>Only if your tests trigger the race</li>
+          <li>Performance overhead means you can't run them in production</li>
+        </ul>
+        <p><strong>Reality:</strong> Most C++ shops have race conditions they don't know about.</p>
+      </div>
+
+      <p><strong>When teams leave C++ for Rust:</strong></p>
+      <ul>
+        <li>✅ Security is critical (cryptography, auth, payments)</li>
+        <li>✅ Memory bugs causing production incidents</li>
+        <li>✅ Starting a greenfield project where Rust's better tooling pays off</li>
+        <li>✅ Team is spending excessive time on memory-related debugging</li>
+      </ul>
+
+      <p><strong>Real example:</strong> Microsoft is gradually rewriting parts of Windows in Rust because 70% of Windows vulnerabilities are memory safety issues that Rust prevents at compile time.</p>
+
+      <h3>Go: Simplicity vs Control Trade-offs</h3>
+
+      <p>Go was designed for simplicity and fast iteration. It excels at web services and microservices. But there are scenarios where Go's simplifications become limitations.</p>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <h4 style="margin-top: 0; color: #f97316;">The Go Pain Points</h4>
+        
+        <p><strong>1. Garbage Collection Pauses = Latency Unpredictability</strong></p>
+        <p>This is the #1 reason teams migrate from Go to Rust. Go's GC is good, but it has fundamental limits:</p>
+        <ul>
+          <li><strong>Stop-the-world pauses:</strong> Typically 1-10ms, can be 50ms+ under load</li>
+          <li><strong>Non-deterministic:</strong> Happens when heap pressure builds, not when you want</li>
+          <li><strong>Tuning tradeoffs:</strong> Lower pause times = higher CPU overhead</li>
+        </ul>
+        <p><strong>When this matters:</strong> If you need p99 latency under 10ms, GC pauses will wreck your SLA.</p>
+        <p><strong>Discord's experience:</strong> Their Go service had GC pauses every 2 minutes causing latency spikes. Rust eliminated this completely.</p>
+
+        <p><strong>2. No Fine-Grained Control = CPU/Memory Waste</strong></p>
+        <p>Go makes decisions for you:</p>
+        <ul>
+          <li>Everything heap-allocated (can't force stack allocation)</li>
+          <li>No control over memory layout (cache misses)</li>
+          <li>Can't use custom allocators for specialized workloads</li>
+        </ul>
+        <p><strong>Impact:</strong> For CPU-intensive or memory-constrained workloads, you're leaving 30-50% performance on the table.</p>
+
+        <p><strong>3. Simplicity Has Limits</strong></p>
+        <p>Go deliberately lacks features that complex systems sometimes need:</p>
+        <ul>
+          <li>No generics (added in Go 1.18, but still limited)</li>
+          <li>No const generics or compile-time computation</li>
+          <li>Limited type system (no sum types, pattern matching)</li>
+        </ul>
+        <p><strong>Developer experience:</strong> You end up writing more boilerplate or using <code>interface{}</code> and losing type safety.</p>
+
+        <p><strong>4. Error Handling Verbosity</strong></p>
+        <pre style="background: #0f1419; padding: 1rem; border-radius: 4px; overflow-x: auto;"><code style="color: #e5e7eb;">// Go: Every function returns (value, error)
+result, err := doSomething()
+if err != nil {
+    return nil, err
+}
+
+data, err := processResult(result)
+if err != nil {
+    return nil, err
+}
+
+final, err := transform(data)
+if err != nil {
+    return nil, err
+}
+
+// Repetitive, hard to miss a check</code></pre>
+      </div>
+
+      <p><strong>When teams leave Go for Rust:</strong></p>
+      <ul>
+        <li>✅ GC pauses are unacceptable for latency SLAs</li>
+        <li>✅ CPU or memory constraints require maximum efficiency</li>
+        <li>✅ Need predictable, consistent performance under load</li>
+        <li>✅ Compute-heavy workloads where Go's simplicity doesn't help</li>
+      </ul>
+
+      <h3>Java: The GC Problem, Amplified</h3>
+
+      <p>Java pioneered managed memory and has a mature ecosystem. But for certain workloads, its design becomes a liability.</p>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <h4 style="margin-top: 0; color: #f97316;">The Java Pain Points</h4>
+        
+        <p><strong>1. GC Pauses Can Be Brutal</strong></p>
+        <p>Java's GC is more sophisticated than Go's, but also more problematic:</p>
+        <ul>
+          <li><strong>Stop-the-world phases:</strong> Can be 100ms-1s+ for large heaps</li>
+          <li><strong>Heap size pressure:</strong> Larger heaps = longer pause times</li>
+          <li><strong>Complex tuning:</strong> Need GC experts to configure properly</li>
+        </ul>
+        <p><strong>Real impact:</strong> Teams often over-provision servers just to keep heap small enough for acceptable GC pause times.</p>
+
+        <p><strong>2. Memory Overhead</strong></p>
+        <p>JVM memory overhead is significant:</p>
+        <ul>
+          <li>Object headers (8-16 bytes per object)</li>
+          <li>Heap fragmentation</li>
+          <li>JVM itself consumes 100-500MB</li>
+        </ul>
+        <p><strong>Cost:</strong> You might need 2-3x the RAM compared to a native implementation.</p>
+
+        <p><strong>3. Startup Time</strong></p>
+        <p>JVM startup can take seconds, which matters for:</p>
+        <ul>
+          <li>Serverless/Lambda functions</li>
+          <li>CLI tools</li>
+          <li>Container orchestration (slow scaling)</li>
+        </ul>
+      </div>
+
+      <p><strong>When teams leave Java for Rust:</strong></p>
+      <ul>
+        <li>✅ GC pauses killing latency-sensitive services</li>
+        <li>✅ Memory costs spiraling (cloud bills)</li>
+        <li>✅ Need fast startup for serverless or containers</li>
+        <li>✅ CPU-intensive workloads where JVM overhead hurts</li>
+      </ul>
+
+      <h3>Python: The Scaling Ceiling</h3>
+
+      <p>Python is amazing for productivity. But there's a performance ceiling that eventually becomes painful.</p>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <h4 style="margin-top: 0; color: #f97316;">The Python Pain Points</h4>
+        
+        <p><strong>1. The Global Interpreter Lock (GIL)</strong></p>
+        <p>Python's GIL means only one thread executes at a time, even on multi-core systems:</p>
+        <ul>
+          <li>Multi-threading doesn't help CPU-bound tasks</li>
+          <li>Must use multiprocessing (heavier, IPC overhead)</li>
+          <li>Can't share memory between processes easily</li>
+        </ul>
+        <p><strong>Impact:</strong> Modern 64-core servers sit mostly idle running Python.</p>
+
+        <p><strong>2. Interpreted = Slow</strong></p>
+        <p>Python is 10-100x slower than native code for compute-heavy tasks:</p>
+        <ul>
+          <li>Data processing pipelines</li>
+          <li>Cryptography</li>
+          <li>Video/image encoding</li>
+          <li>Numerical computation (why NumPy exists)</li>
+        </ul>
+        <p><strong>Cost:</strong> You pay for CPU time that you wouldn't need with compiled code.</p>
+
+        <p><strong>3. Scaling Hits a Wall</strong></p>
+        <p>As traffic grows, Python services need:</p>
+        <ul>
+          <li>More instances (higher costs)</li>
+          <li>Async frameworks (adds complexity)</li>
+          <li>Caching layers (more infrastructure)</li>
+        </ul>
+        <p><strong>Alternative:</strong> Rewrite hot paths in Rust, keep Python for orchestration. Best of both worlds.</p>
+      </div>
+
+      <p><strong>When teams augment Python with Rust:</strong></p>
+      <ul>
+        <li>✅ Profiling shows 80% time in 20% of code</li>
+        <li>✅ CPU-bound bottlenecks (parsing, encoding, computation)</li>
+        <li>✅ Want to keep Python's productivity for most code</li>
+        <li>✅ Infrastructure costs growing faster than revenue</li>
+      </ul>
+
+      <p><strong>Real example:</strong> Dropbox rewrote their file sync engine hot paths from Python to Rust (via FFI), achieving 75% CPU reduction while keeping Python for everything else.</p>
+
+      <div style="background: #065f46; border-left: 4px solid #10b981; padding: 1rem; margin: 1.5rem 0; border-radius: 4px;">
+        <p><strong>💡 Key Pattern:</strong> Notice that teams don't always <em>replace</em> their entire stack. Often they:</p>
+        <ol>
+          <li>Identify the pain point (GC pauses, memory bugs, CPU bottleneck)</li>
+          <li>Rewrite only the problematic component in Rust</li>
+          <li>Keep the rest in their existing language</li>
+        </ol>
+        <p>This hybrid approach delivers most of the benefits with much less risk.</p>
+      </div>
+
 
       <h2>Real-World Systems Rewritten in Rust</h2>
 
