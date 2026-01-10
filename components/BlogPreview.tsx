@@ -14,6 +14,15 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'rewriting-in-rust-when-it-makes-sense',
+    title: 'Rewriting in Rust: When It Makes Sense (With Real Examples from Discord, Cloudflare & Amazon)',
+    excerpt: 'Should you rewrite in Rust? Learn from Discord, Cloudflare & Dropbox\'s real migrations. Complete guide to benefits, risks, and when Rust makes business sense.',
+    date: 'Jan 10, 2026',
+    readTime: '35 min read',
+    category: 'Engineering',
+    coverImage: '/images/rewriting-in-rust-thumbnail.webp'
+  },
+  {
     slug: 'tanstack-ai-switzerland-of-ai-tooling',
     title: 'TanStack AI: The Switzerland of AI Tooling (And Why That\'s Awesome)',
     excerpt: 'The most comprehensive guide to TanStack AI - the open-source, type-safe, provider-agnostic AI SDK. Learn everything from basic setup to isomorphic tools, streaming, DevTools, and real-world projects with runnable examples.',
