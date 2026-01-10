@@ -215,8 +215,8 @@ export default function BlogPostPage({ post }: Props) {
       <div className="min-h-screen">
         <Navigation />
 
-        {/* Article content - centered with right padding on XL to avoid sidebar overlap */}
-        <article className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto xl:pr-96">
+        {/* Article content - balanced layout on XL with sidebar */}
+        <article className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto xl:ml-8 xl:pr-96">
           <header className="mb-8">
             <p className="text-blue-300 text-sm mb-2">{post.category} • {post.readTime}</p>
             <h1
