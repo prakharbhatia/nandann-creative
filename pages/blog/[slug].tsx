@@ -4,6 +4,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import Navigation from '../../components/Navigation';
 import Footer from '../../components/Footer';
 import ContentRenderer from '../../components/ContentRenderer';
+import BlogTableOfContents from '../../components/BlogTableOfContents';
 import { blogPosts, getPostBySlug, getAllPosts, type BlogPost } from '../../data/blogPosts';
 
 type Props = { post: BlogPost };
@@ -77,96 +78,96 @@ export default function BlogPostPage({ post }: Props) {
         <meta name="author" content="Prakhar Bhatia" />
         <meta name="robots" content="index, follow" />
         <meta name="referrer" content="strict-origin-when-cross-origin" />
-        
+
         {/* Canonical URL */}
         <link rel="canonical" href={canonicalUrl} />
-        
-            {/* Preload LCP image for Core Web Vitals post */}
-            {post.slug === 'ace-core-web-vitals-2025-inp-requirements' && (
-              <link 
-                rel="preload" 
-                as="image" 
-                type="image/webp"
-                href="/images/core-web-vitals-improve-nandann-creative-tablet.webp"
-              />
-            )}
-            
-            {/* Preload LCP image for PHP 8.5 post */}
-            {post.slug === 'php-8-5-launch-major-updates' && (
-              <link 
-                rel="preload" 
-                as="image" 
-                type="image/webp"
-                href="/images/php-8-5-nandann-creative-agency(1)-tablet.webp"
-              />
-            )}
-            
-            {/* Preload LCP image for Next.js 16 post */}
-            {post.slug === 'nextjs-16-release-comprehensive-guide' && (
-              <link 
-                rel="preload" 
-                as="image" 
-                type="image/webp"
-                href="/images/nextjs-16-nandann-creative-tablet.webp"
-                fetchPriority="high"
-              />
-            )}
-        
+
+        {/* Preload LCP image for Core Web Vitals post */}
+        {post.slug === 'ace-core-web-vitals-2025-inp-requirements' && (
+          <link
+            rel="preload"
+            as="image"
+            type="image/webp"
+            href="/images/core-web-vitals-improve-nandann-creative-tablet.webp"
+          />
+        )}
+
+        {/* Preload LCP image for PHP 8.5 post */}
+        {post.slug === 'php-8-5-launch-major-updates' && (
+          <link
+            rel="preload"
+            as="image"
+            type="image/webp"
+            href="/images/php-8-5-nandann-creative-agency(1)-tablet.webp"
+          />
+        )}
+
+        {/* Preload LCP image for Next.js 16 post */}
+        {post.slug === 'nextjs-16-release-comprehensive-guide' && (
+          <link
+            rel="preload"
+            as="image"
+            type="image/webp"
+            href="/images/nextjs-16-nandann-creative-tablet.webp"
+            fetchPriority="high"
+          />
+        )}
+
         {/* Preload LCP image for mobile-first design post */}
         {post.slug === 'mobile-first-design-principles' && (
           <>
-            <link 
-              rel="preload" 
-              as="image" 
+            <link
+              rel="preload"
+              as="image"
               href="/images/optimized/mobile-first-design-principles-nandann-creative-mobile.avif"
               media="(max-width: 640px) and (max-resolution: 1dppx)"
               fetchPriority="high"
             />
-            <link 
-              rel="preload" 
-              as="image" 
+            <link
+              rel="preload"
+              as="image"
               href="/images/optimized/mobile-first-design-principles-nandann-creative-tablet.avif"
               media="(max-width: 640px) and (min-resolution: 2dppx)"
               fetchPriority="high"
             />
-            <link 
-              rel="preload" 
-              as="image" 
+            <link
+              rel="preload"
+              as="image"
               href="/images/optimized/mobile-first-design-principles-nandann-creative-tablet.avif"
               media="(min-width: 641px) and (max-width: 1024px) and (max-resolution: 1dppx)"
               fetchPriority="high"
             />
-            <link 
-              rel="preload" 
-              as="image" 
+            <link
+              rel="preload"
+              as="image"
               href="/images/optimized/mobile-first-design-principles-nandann-creative-desktop.avif"
               media="(min-width: 641px) and (max-width: 1024px) and (min-resolution: 2dppx)"
               fetchPriority="high"
             />
-            <link 
-              rel="preload" 
-              as="image" 
+            <link
+              rel="preload"
+              as="image"
               href="/images/optimized/mobile-first-design-principles-nandann-creative-desktop.avif"
               media="(min-width: 1025px) and (max-width: 1440px) and (max-resolution: 1dppx)"
               fetchPriority="high"
             />
-            <link 
-              rel="preload" 
-              as="image" 
+            <link
+              rel="preload"
+              as="image"
               href="/images/optimized/mobile-first-design-principles-nandann-creative-large.avif"
               media="(min-width: 1025px) and (max-width: 1440px) and (min-resolution: 2dppx)"
               fetchPriority="high"
             />
-            <link 
-              rel="preload" 
-              as="image" 
+            <link
+              rel="preload"
+              as="image"
               href="/images/optimized/mobile-first-design-principles-nandann-creative-large.avif"
               media="(min-width: 1441px)"
               fetchPriority="high"
             />
           </>
         )}
-        
+
         {/* Open Graph / Facebook / LinkedIn */}
         <meta property="og:type" content="article" />
         <meta property="og:site_name" content="Nandann Creative Agency" />
@@ -184,7 +185,7 @@ export default function BlogPostPage({ post }: Props) {
         <meta property="og:article:author" content="Prakhar Bhatia" />
         <meta property="og:article:section" content={post.category} />
         <meta property="og:article:tag" content={post.tags.join(', ')} />
-        
+
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@nandanncreative" />
@@ -193,19 +194,19 @@ export default function BlogPostPage({ post }: Props) {
         <meta name="twitter:description" content={post.description} />
         <meta name="twitter:image" content={ogImageUrl} />
         <meta name="twitter:image:alt" content={`${post.title} – Nandann Creative`} />
-        
+
         {/* LinkedIn specific */}
         <meta property="linkedin:owner" content="nandann-creative" />
         <meta property="linkedin:title" content={post.title} />
         <meta property="linkedin:description" content={post.description} />
         <meta property="linkedin:image" content={ogImageUrl} />
-        
+
         {/* Additional meta for better social sharing */}
         <meta name="article:published_time" content={post.date} />
         <meta name="article:author" content="Prakhar Bhatia" />
         <meta name="article:section" content={post.category} />
         <meta name="article:tag" content={post.tags.join(', ')} />
-        
+
         {/* Structured Data */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
@@ -214,53 +215,59 @@ export default function BlogPostPage({ post }: Props) {
       <div className="min-h-screen">
         <Navigation />
 
-        <article className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-4xl xl:max-w-5xl mx-auto">
-          <header className="mb-8">
-            <p className="text-blue-300 text-sm mb-2">{post.category} • {post.readTime}</p>
-            <h1 
-              className="text-4xl font-bold text-white mb-3"
-              style={{ fontSize: 'clamp(2rem, 5vw, 2.5rem)' }}
-            >
-              {post.title}
-            </h1>
-            <div className="flex items-center gap-4 text-sm text-gray-400">
-              <span>Published on {new Date(post.date).toLocaleDateString()}</span>
-              <span>•</span>
-              <span>By Prakhar Bhatia</span>
-            </div>
-          </header>
-
-          <ContentRenderer contentHtml={post.contentHtml} />
-
-          {post.faqs && post.faqs.length > 0 && (
-            <section className="mt-16">
-              <h2 className="text-3xl font-bold text-white mb-6">FAQs</h2>
-              <div className="space-y-4">
-                {post.faqs.map((f, i) => (
-                  <details key={i} className="bg-white/5 border border-white/10 rounded-xl p-5">
-                    <summary className="cursor-pointer text-blue-300 font-semibold leading-6">{f.question}</summary>
-                    <p className="text-gray-300 mt-3 leading-relaxed">{f.answer}</p>
-                  </details>
-                ))}
+        {/* Main container with TOC sidebar */}
+        <div className="relative">
+          <article className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-4xl xl:max-w-5xl mx-auto">
+            <header className="mb-8">
+              <p className="text-blue-300 text-sm mb-2">{post.category} • {post.readTime}</p>
+              <h1
+                className="text-4xl font-bold text-white mb-3"
+                style={{ fontSize: 'clamp(2rem, 5vw, 2.5rem)' }}
+              >
+                {post.title}
+              </h1>
+              <div className="flex items-center gap-4 text-sm text-gray-400">
+                <span>Published on {new Date(post.date).toLocaleDateString()}</span>
+                <span>•</span>
+                <span>By Prakhar Bhatia</span>
               </div>
-            </section>
-          )}
+            </header>
 
-          <hr className="my-10 border-white/10" />
+            <ContentRenderer contentHtml={post.contentHtml} />
 
-          <nav className="flex justify-between text-blue-300">
-            {prev ? (
-              <Link href={`/blog/${prev.slug}`} prefetch={false} className="hover:text-blue-200">← {prev.title}</Link>
-            ) : <span />}
-            {next ? (
-              <Link href={`/blog/${next.slug}`} prefetch={false} className="hover:text-blue-200">{next.title} →</Link>
-            ) : <span />}
-          </nav>
+            {post.faqs && post.faqs.length > 0 && (
+              <section className="mt-16">
+                <h2 className="text-3xl font-bold text-white mb-6">FAQs</h2>
+                <div className="space-y-4">
+                  {post.faqs.map((f, i) => (
+                    <details key={i} className="bg-white/5 border border-white/10 rounded-xl p-5">
+                      <summary className="cursor-pointer text-blue-300 font-semibold leading-6">{f.question}</summary>
+                      <p className="text-gray-300 mt-3 leading-relaxed">{f.answer}</p>
+                    </details>
+                  ))}
+                </div>
+              </section>
+            )}
 
-          <div className="mt-12">
-            <Link href="/blog" prefetch={false} className="text-blue-400 hover:text-blue-300">← Back to Blog</Link>
-          </div>
-        </article>
+            <hr className="my-10 border-white/10" />
+
+            <nav className="flex justify-between text-blue-300">
+              {prev ? (
+                <Link href={`/blog/${prev.slug}`} prefetch={false} className="hover:text-blue-200">← {prev.title}</Link>
+              ) : <span />}
+              {next ? (
+                <Link href={`/blog/${next.slug}`} prefetch={false} className="hover:text-blue-200">{next.title} →</Link>
+              ) : <span />}
+            </nav>
+
+            <div className="mt-12">
+              <Link href="/blog" prefetch={false} className="text-blue-400 hover:text-blue-300">← Back to Blog</Link>
+            </div>
+          </article>
+
+          {/* Table of Contents Sidebar */}
+          <BlogTableOfContents />
+        </div>
 
         <Footer />
       </div>
