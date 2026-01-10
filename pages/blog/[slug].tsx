@@ -265,7 +265,7 @@ export default function BlogPostPage({ post }: Props) {
         </article>
 
         {/* Fixed Table of Contents Sidebar */}
-        <BlogTableOfContents />
+        <BlogTableOfContents slug={post.slug} />
 
         <Footer />
       </div>

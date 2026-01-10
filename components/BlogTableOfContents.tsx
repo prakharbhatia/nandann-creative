@@ -7,7 +7,7 @@ interface TocItem {
     level: number;
 }
 
-export default function BlogTableOfContents() {
+export default function BlogTableOfContents({ slug }: { slug: string }) {
     const [headings, setHeadings] = useState<TocItem[]>([]);
     const [activeId, setActiveId] = useState<string>('');
 
@@ -16,49 +16,54 @@ export default function BlogTableOfContents() {
         const article = document.querySelector('article');
         if (!article) return;
 
-        const headingElements = article.querySelectorAll('h2, h3');
-        const headingData: TocItem[] = Array.from(headingElements).map((heading) => {
-            const id = heading.id || heading.textContent?.toLowerCase().replace(/[^\w]+/g, '-') || '';
+        // Small delay to ensure content is rendered
+        const timer = setTimeout(() => {
+            const headingElements = article.querySelectorAll('h2, h3');
+            const headingData: TocItem[] = Array.from(headingElements).map((heading) => {
+                const id = heading.id || heading.textContent?.toLowerCase().replace(/[^\w]+/g, '-') || '';
 
-            // Add ID to heading if it doesn't have one
-            if (!heading.id) {
-                heading.id = id;
-            }
+                // Add ID to heading if it doesn't have one
+                if (!heading.id) {
+                    heading.id = id;
+                }
 
-            return {
-                id,
-                text: heading.textContent || '',
-                level: parseInt(heading.tagName.substring(1)),
-            };
-        });
-
-        setHeadings(headingData);
-
-        // Scroll spy with Intersection Observer
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setActiveId(entry.target.id);
-                    }
-                });
-            },
-            {
-                rootMargin: '-100px 0px -66%',
-                threshold: 1,
-            }
-        );
-
-        headingElements.forEach((heading) => {
-            observer.observe(heading);
-        });
-
-        return () => {
-            headingElements.forEach((heading) => {
-                observer.unobserve(heading);
+                return {
+                    id,
+                    text: heading.textContent || '',
+                    level: parseInt(heading.tagName.substring(1)),
+                };
             });
-        };
-    }, []);
+
+            setHeadings(headingData);
+
+            // Scroll spy with Intersection Observer
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            setActiveId(entry.target.id);
+                        }
+                    });
+                },
+                {
+                    rootMargin: '-100px 0px -66%',
+                    threshold: 1,
+                }
+            );
+
+            headingElements.forEach((heading) => {
+                observer.observe(heading);
+            });
+
+            return () => {
+                headingElements.forEach((heading) => {
+                    observer.unobserve(heading);
+                });
+            };
+        }, 100);
+
+        return () => clearTimeout(timer);
+    }, [slug]);
 
     const scrollToHeading = (id: string) => {
         const element = document.getElementById(id);
