@@ -3818,11 +3818,141 @@ cargo watch -x test   # Run tests on change</code></pre>
       <h3>How much does it cost to migrate to Rust?</h3>
       <p>$50K-$500K depending on scope. Positive ROI within 12-18 months for most teams.</p>
 
-      <p><em>[CONTENT: 2 more FAQs - Should we rewrite everything?, Hiring challenges]</em></p>
+      <h3>Should we rewrite everything in Rust?</h3>
+      <p><strong>No.</strong> Start with hot paths or performance-critical components. Full rewrites are risky and expensive. Incremental migration (strangler fig pattern) is the proven approach. Discord, Dropbox, and Cloudflare all started with ONE component, proved value, then expanded.</p>
+
+      <h3>What about hiring Rust developers?</h3>
+      <p>Rust talent pool is smaller but growing. Best approach: <strong>upskill existing team</strong> (especially C++ developers who learn Rust fastest). Budget 3-6 months for team to become productive. Alternatively, hire one Rust expert to bootstrap the team, or use contractors for initial phase. "We use Rust" is actually a recruiting advantage—attracts top engineers.</p>
 
       <h2>Rust vs C++ vs Go: Quick Comparison</h2>
       
-      <p><em>[CONTENT: Comprehensive comparison table]</em></p>
+      <p>Still deciding between languages? Here's how they compare for systems programming and backend services.</p>
+
+      <table style="width: 100%; border-collapse: collapse; margin: 1.5rem 0;">
+        <thead>
+          <tr style="background: #334155; color: #e5e7eb;">
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Criterion</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">C++</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Go</th>
+            <th style="border: 1px solid #475569; padding: 0.75rem; text-align: left;">Rust</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Performance</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Excellent (baseline)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Good (slower due to GC)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Excellent (comparable to C++)</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Memory Safety</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">❌ Manual (70% of CVEs)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ GC handles it</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ Compile-time guarantees</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Concurrency</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Powerful but unsafe (data races possible)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Excellent (goroutines, channels)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Excellent + safe (won't compile if data races)</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>GC Pauses</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">None (manual memory)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">❌ Yes (10-100ms+ possible)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">None (no GC)</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Learning Curve</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Steep (complex, many footguns)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Gentle (simple, productive quickly)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Steep initially, but safer than C++</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Compile Times</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Slow (large projects)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Fast (seconds)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Slow (but catches bugs at compile time)</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Build System</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Fragmented (CMake, Make, Bazel...)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Simple (go build)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Unified (Cargo - excellent)</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Package Ecosystem</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Huge but fragmented</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Good (standard library covers a lot)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Growing fast (crates.io)</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Error Handling</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Exceptions (can be missed)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Explicit but verbose (if err != nil)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Result type (compiler enforces handling)</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Null Safety</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">❌ nullptr crashes</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">❌ nil panics</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">✅ Option type (no null)</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Talent Pool</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Large (established)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Very large (popular for backends)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Small but growing (highest developer satisfaction)</td>
+          </tr>
+          <tr style="background: #1e293b;">
+            <td style="border: 1px solid #475569; padding: 0.75rem;"><strong>Best For</strong></td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Legacy systems, game engines, embedded (if you must)</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">Microservices, web APIs, CRUD apps, rapid development</td>
+            <td style="border: 1px solid #475569; padding: 0.75rem;">High-perf systems, infrastructure, security-critical, replacing C++</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="background: #1e293b; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+        <h4 style="margin-top: 0;">Decision Helper</h4>
+        
+        <p><strong>Choose C++ if:</strong></p>
+        <ul>
+          <li>Maintaining existing large C++ codebase</li>
+          <li>Need specific C++ libraries with no alternatives</li>
+          <li>Team has deep C++ expertise and no capacity to learn new language</li>
+        </ul>
+
+        <p><strong>Choose Go if:</strong></p>
+        <ul>
+          <li>Building web services, microservices, or APIs</li>
+          <li>Speed to market is critical (prototyping, MVPs)</li>
+          <li>Workload is I/O-bound (databases, network calls)</li>
+          <li>GC pauses are acceptable (p99 latency >10ms is fine)</li>
+          <li>Team wants simple, productive language</li>
+        </ul>
+
+        <p><strong>Choose Rust if:</strong></p>
+        <ul>
+          <li>Performance is critical (CPU-bound workloads)</li>
+          <li>Memory safety is essential (security, finance, embedded)</li>
+          <li>Need predictable latency (p99 <10ms, no GC pauses)</li>
+          <li>Replacing C/C++ and want memory safety</li>
+          <li>Infrastructure costs are high and 30-70% reduction would be valuable</li>
+          <li>Building long-lived systems where correctness matters</li>
+        </ul>
+      </div>
+
+      <div style="background: #065f46; border-left: 4px solid #10b981; padding: 1.5rem; margin: 1.5rem 0; border-radius: 4px;">
+        <p><strong>💡 The Hybrid Approach (Most Common)</strong></p>
+        <p>Many teams use <strong>Go for APIs/services + Rust for hot paths.</strong></p>
+        <p><strong>Example:</strong></p>
+        <ul>
+          <li>Go: HTTP handlers, business logic, database queries (fast to write, good enough performance)</li>
+          <li>Rust: CPU-intensive operations, cryptography, data processing (maximum performance)</li>
+        </ul>
+        <p>This gives you Go's productivity where it matters and Rust's performance where it's needed. Best of both worlds.</p>
+      </div>
 
       <h2>Thinking About Rewriting in Rust?</h2>
 
