@@ -99,7 +99,7 @@ export default function BlogTableOfContents({ slug }: { slug: string }) {
                   ${heading.level === 2 ? 'font-medium' : 'pl-4 text-xs'}
                   ${activeId === heading.id
                                         ? 'text-blue-400 font-semibold'
-                                        : 'text-gray-400 hover:text-blue-300'
+                                        : 'text-gray-200 hover:text-blue-300'
                                     }
                 `}
                                 style={{
