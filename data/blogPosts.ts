@@ -3798,32 +3798,6 @@ cargo watch -x test   # Run tests on change</code></pre>
         <p><strong>Success pattern:</strong> Discord started with ONE service. Proved value. Now most new services are Rust. That's the winning approach.</p>
       </div>
 
-      <h2>Frequently Asked Questions</h2>
-
-      <h3>Is Rust faster than C++?</h3>
-      <p>Comparable in performance—within 5% for most workloads. Rust's advantage is memory safety at compile time.</p>
-
-      <h3>How long does it take to learn Rust?</h3>
-      <p>2-3 months to be productive, 6-12 months for advanced patterns.</p>
-
-      <h3>Can I use Rust with my existing codebase?</h3>
-      <p>Yes. Excellent FFI support for Python, Node.js, Go, Ruby, etc.</p>
-
-      <h3>Is Rust production-ready?</h3>
-      <p>Absolutely. Used in production by Discord, Cloudflare, Microsoft, Amazon, Google.</p>
-
-      <h3>What are the downsides of Rust?</h3>
-      <p>Learning curve, compile times, smaller ecosystem, hiring challenges. Avoid for early-stage startups and rapid prototyping.</p>
-
-      <h3>How much does it cost to migrate to Rust?</h3>
-      <p>$50K-$500K depending on scope. Positive ROI within 12-18 months for most teams.</p>
-
-      <h3>Should we rewrite everything in Rust?</h3>
-      <p><strong>No.</strong> Start with hot paths or performance-critical components. Full rewrites are risky and expensive. Incremental migration (strangler fig pattern) is the proven approach. Discord, Dropbox, and Cloudflare all started with ONE component, proved value, then expanded.</p>
-
-      <h3>What about hiring Rust developers?</h3>
-      <p>Rust talent pool is smaller but growing. Best approach: <strong>upskill existing team</strong> (especially C++ developers who learn Rust fastest). Budget 3-6 months for team to become productive. Alternatively, hire one Rust expert to bootstrap the team, or use contractors for initial phase. "We use Rust" is actually a recruiting advantage—attracts top engineers.</p>
-
       <h2>Rust vs C++ vs Go: Quick Comparison</h2>
       
       <p>Still deciding between languages? Here's how they compare for systems programming and backend services.</p>
