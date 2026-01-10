@@ -77,9 +77,9 @@ export default function BlogTableOfContents() {
     if (headings.length === 0) return null;
 
     return (
-        <aside className="hidden xl:block">
-            {/* Wrapper with sticky positioning - stays at top when scrolling */}
-            <div className="sticky top-32 flex flex-col gap-4 max-h-[calc(100vh-10rem)]">
+        <aside className="hidden xl:block fixed top-32 right-8 w-80 h-[calc(100vh-10rem)] z-10">
+            {/* Wrapper with flex layout */}
+            <div className="flex flex-col gap-4 h-full">
                 {/* Scrollable TOC Section */}
                 <div className="bg-white/5 border border-white/10 rounded-xl p-6 backdrop-blur-sm overflow-y-auto flex-1">
                     <h3 className="text-lg font-bold text-white mb-4">Table of Contents</h3>
