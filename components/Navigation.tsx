@@ -121,6 +121,11 @@ export default function Navigation() {
                             Reset File and Folder Permissions
                           </Link>
                         </li>
+                        <li>
+                          <Link href="/hungry-resource-monitor" className="block px-4 py-2 rounded-lg text-gray-200 hover:text-white hover:bg-white/10 transition">
+                            Hungry Resource Monitor
+                          </Link>
+                        </li>
                         <li className="pt-1 mt-1 border-t border-white/10">
                           <Link href="/portfolio" className="block px-4 py-2 rounded-lg text-blue-300 hover:text-white hover:bg-white/10 transition">
                             View all projects →
@@ -308,6 +313,11 @@ export default function Navigation() {
                 <li>
                   <Link href="/reset-file-and-folder-permissions" className="block text-gray-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
                     File Permissions Plugin
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/hungry-resource-monitor" className="block text-gray-300 hover:text-white transition py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                    Hungry Resource Monitor
                   </Link>
                 </li>
                 <li className="pt-1 mt-1 border-t border-white/10">

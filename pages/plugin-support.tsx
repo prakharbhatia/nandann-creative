@@ -84,6 +84,7 @@ function PluginSupportForm() {
   const plugins = [
     'Bhairav Scheduled Cloud Backup',
     'Core Web Vitals - Real User Monitoring (RUM)',
+    'Hungry Resource Monitor',
     'Nandann AI Smart 404 Redirects - Auto Fix Broken Links & Typos',
     'Reset File and Folder Permissions',
     'TG Live Chat - Reply from Telegram'

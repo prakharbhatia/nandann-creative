@@ -14,6 +14,15 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'hungry-resource-monitor',
+    title: 'Hungry Resource Monitor - WordPress Performance Plugin',
+    excerpt: 'Monitor memory, CPU, and resource usage in WordPress. Detect bloat from plugins, themes, and database. Database cleanup, cron management, and weekly performance reports.',
+    date: 'Jan 12, 2026',
+    readTime: 'Free Plugin',
+    category: 'WordPress Plugin',
+    coverImage: '/images/hungry-resource-monitor-banner.webp'
+  },
+  {
     slug: 'rewriting-in-rust-when-it-makes-sense',
     title: 'Rewriting in Rust: When It Makes Sense (With Real Examples from Discord, Cloudflare & Amazon)',
     excerpt: 'Should you rewrite in Rust? Learn from Discord, Cloudflare & Dropbox\'s real migrations. Complete guide to benefits, risks, and when Rust makes business sense.',
