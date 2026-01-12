@@ -10,6 +10,7 @@ interface BlogPost {
   readTime: string;
   category: string;
   coverImage?: string;
+  href?: string;
 }
 
 const featuredPosts: BlogPost[] = [
@@ -20,7 +21,8 @@ const featuredPosts: BlogPost[] = [
     date: 'Jan 12, 2026',
     readTime: 'Free Plugin',
     category: 'WordPress Plugin',
-    coverImage: '/images/hungry-resource-monitor-banner.webp'
+    coverImage: '/images/hungry-resource-monitor-banner.webp',
+    href: '/hungry-resource-monitor'
   },
   {
     slug: 'rewriting-in-rust-when-it-makes-sense',
@@ -160,7 +162,7 @@ export default function BlogPreview() {
           {featuredPosts.map((post, index) => (
             <Link
               key={post.slug}
-              href={`/blog/${post.slug}`}
+              href={post.href || `/blog/${post.slug}`}
               prefetch={false}
               className="block group"
             >
