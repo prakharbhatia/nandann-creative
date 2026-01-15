@@ -100,6 +100,82 @@ export default function CoreWebVitalsRUMPage() {
                     "Sample rate control for high-traffic sites"
                 ],
                 "keywords": "core web vitals, rum, real user monitoring, lcp, inp, cls, fcp, ttfb, performance monitoring, google analytics 4, ga4"
+            },
+            {
+                "@type": "FAQPage",
+                "@id": `${pageUrl}#faq`,
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "What metrics does it track?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "All 5 Core Web Vitals: LCP, INP, CLS, FCP, and TTFB from real users."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Does it integrate with Google Analytics?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Yes. Optional GA4 integration sends metrics as custom events for deeper analysis."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Will it slow down my site?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "No. Uses web-vitals library (~2KB) and sample rate control for high-traffic sites."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Is it GDPR compliant?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Yes. IP anonymization, no cookies, no personal data stored."
+                        }
+                    }
+                ]
+            },
+            {
+                "@type": "HowTo",
+                "@id": `${pageUrl}#howto`,
+                "name": "How to Set Up Core Web Vitals RUM",
+                "description": "Monitor real user performance",
+                "step": [
+                    {
+                        "@type": "HowToStep",
+                        "position": 1,
+                        "name": "Install and Activate",
+                        "text": "Install from WordPress.org. Tracking starts immediately."
+                    },
+                    {
+                        "@type": "HowToStep",
+                        "position": 2,
+                        "name": "Configure Sample Rate",
+                        "text": "Set percentage of visitors to track (100% default, lower for high traffic)."
+                    },
+                    {
+                        "@type": "HowToStep",
+                        "position": 3,
+                        "name": "Optional GA4 Setup",
+                        "text": "Enter GA4 Measurement ID to send metrics to Google Analytics."
+                    },
+                    {
+                        "@type": "HowToStep",
+                        "position": 4,
+                        "name": "Set Alerts",
+                        "text": "Configure email alerts when vitals exceed thresholds."
+                    },
+                    {
+                        "@type": "HowToStep",
+                        "position": 5,
+                        "name": "Review Dashboard",
+                        "text": "Check per-page breakdowns and device/browser analysis."
+                    }
+                ]
             }
         ]
     };

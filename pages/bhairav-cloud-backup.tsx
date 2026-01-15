@@ -99,6 +99,82 @@ export default function BhairavCloudBackupPage() {
                     "Secure credential storage"
                 ],
                 "keywords": "wordpress backup, cloud backup, aws s3 backup, google drive backup, dropbox backup, scheduled backup, multi-cloud, auto backup"
+            },
+            {
+                "@type": "FAQPage",
+                "@id": `${pageUrl}#faq`,
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "Is Bhairav Cloud Backup really free?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Yes, 100% free. No premium tiers. Uses your own cloud storage."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Which cloud providers are supported?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "AWS S3, Google Drive, Dropbox, and OneDrive. Run multiple destinations simultaneously."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Are there file size limits?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "No. Uses chunked uploads to handle large sites without timeouts."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "How does auto-cleanup work?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Set retention rules. Old backups are automatically deleted to save storage."
+                        }
+                    }
+                ]
+            },
+            {
+                "@type": "HowTo",
+                "@id": `${pageUrl}#howto`,
+                "name": "How to Set Up Bhairav Cloud Backup",
+                "description": "Configure automated WordPress backups",
+                "step": [
+                    {
+                        "@type": "HowToStep",
+                        "position": 1,
+                        "name": "Install the Plugin",
+                        "text": "Download from WordPress.org or search 'Bhairav Cloud Backup' in plugins."
+                    },
+                    {
+                        "@type": "HowToStep",
+                        "position": 2,
+                        "name": "Connect Cloud Storage",
+                        "text": "Add S3 credentials or OAuth for Google Drive/Dropbox. Test connection."
+                    },
+                    {
+                        "@type": "HowToStep",
+                        "position": 3,
+                        "name": "Set Schedule",
+                        "text": "Choose daily, weekly, or monthly. Set preferred time."
+                    },
+                    {
+                        "@type": "HowToStep",
+                        "position": 4,
+                        "name": "Configure Retention",
+                        "text": "Set how many backups to keep. Old ones are auto-deleted."
+                    },
+                    {
+                        "@type": "HowToStep",
+                        "position": 5,
+                        "name": "Run First Backup",
+                        "text": "Click Run Now to verify. Enable email notifications."
+                    }
+                ]
             }
         ]
     };

@@ -3,13 +3,20 @@ export type BlogPost = {
   title: string;
   description: string;
   date: string; // ISO
+  lastUpdated?: string; // ISO - for dateModified tracking
   readTime: string;
   category: string;
   tags: string[];
   coverImage?: string;
   contentHtml: string; // pre-rendered HTML string
   faqs?: { question: string; answer: string }[];
+  howTo?: {
+    name: string;
+    description?: string;
+    steps: { name: string; text: string }[];
+  };
 };
+
 
 // Helper for internal links used in multiple posts
 const internalLinks = {
@@ -4082,7 +4089,19 @@ cargo watch -x test   # Run tests on change</code></pre>
         question: 'What if we can\'t find Rust developers?',
         answer: 'Hire strong C++ or systems programmers and train them in Rust. Budget 3 months ramp-up time. Many companies find that experienced engineers become 2x more productive after the learning curve. The investment in skill development also improves retention.'
       }
-    ]
+    ],
+    howTo: {
+      name: 'How to Decide If You Should Rewrite in Rust',
+      description: 'A systematic approach to evaluating whether a Rust migration makes business sense',
+      steps: [
+        { name: 'Identify Performance Bottlenecks', text: 'Profile your application to find CPU-intensive hot paths, memory issues, or latency problems that affect business metrics.' },
+        { name: 'Calculate Current Costs', text: 'Document infrastructure costs, incident response time, and developer productivity issues with your current stack.' },
+        { name: 'Assess Team Readiness', text: 'Evaluate your team\'s systems programming experience and budget 3 months for Rust learning curve.' },
+        { name: 'Start with a Proof of Concept', text: 'Rewrite one isolated, performance-critical component as a POC to measure real improvement.' },
+        { name: 'Plan Incremental Migration', text: 'Use FFI or microservices to gradually introduce Rust components while keeping existing stack running.' },
+        { name: 'Measure and Iterate', text: 'Track CPU, memory, latency, and incidents after each migration phase to validate ROI.' }
+      ]
+    },
   },
 
   {
@@ -5431,6 +5450,17 @@ const stream = chat({
       { question: 'What AI models work with TanStack AI?', answer: 'OpenAI GPT-4, Anthropic Claude, Google Gemini, and Ollama for local models.' },
       { question: 'Who created TanStack AI?', answer: 'Tanner Linsley, Jack Herrington, and Alem Tuzlak, announced December 3, 2025.' }
     ],
+    howTo: {
+      name: 'How to Use TanStack AI',
+      description: 'Get started with TanStack AI for building AI-powered applications',
+      steps: [
+        { name: 'Install Dependencies', text: 'Run npm install @tanstack/react-ai or the equivalent for your framework.' },
+        { name: 'Configure AI Provider', text: 'Set up your chosen AI provider adapter (OpenAI, Anthropic, Gemini, or Ollama).' },
+        { name: 'Create Chat Instance', text: 'Use useChat hook to create a chat instance with streaming support.' },
+        { name: 'Define Isomorphic Tools', text: 'Create tools that can run on both client and server for enhanced capabilities.' },
+        { name: 'Add DevTools', text: 'Enable TanStack DevTools to debug AI interactions, messages, and tool calls.' }
+      ]
+    },
   },
   {
     slug: 'nextjs-16-release-comprehensive-guide',
@@ -6789,7 +6819,19 @@ export default nextConfig;</code></pre>
         question: "What happened to AMP support?",
         answer: "AMP support has been completely removed in Next.js 16. Google no longer prioritizes AMP in search rankings, and modern responsive design with good Core Web Vitals achieves the same goals. If you were using AMP, focus on optimizing your regular pages for performance using Next.js's built-in optimizations, Cache Components, and Turbopack. Most sites no longer need AMP."
       }
-    ]
+    ],
+    howTo: {
+      name: 'How to Upgrade to Next.js 16',
+      description: 'Complete migration guide from Next.js 15 to Next.js 16',
+      steps: [
+        { name: 'Run the Upgrade Codemod', text: 'Run npx @next/codemod@canary upgrade latest to automatically update dependencies and handle common migrations.' },
+        { name: 'Update React to 19.2+', text: 'Ensure you are on React 19.2 or later as Next.js 16 requires it for Server Components.' },
+        { name: 'Rename Middleware to Proxy', text: 'Rename middleware.ts to proxy.ts and update the exported function from middleware to proxy.' },
+        { name: 'Make Params Async', text: 'Update page components to use async/await for params and searchParams props.' },
+        { name: 'Enable Cache Components', text: 'Add useCache: true to next.config.ts and start using the "use cache" directive for explicit caching.' },
+        { name: 'Test and Deploy', text: 'Run your test suite, check production build, and deploy with Turbopack for faster builds.' }
+      ]
+    },
   },
   {
     slug: 'php-8-5-launch-major-updates',
@@ -7894,6 +7936,18 @@ Stack trace:
       { question: 'What\'s the learning curve for the new features?', answer: 'The learning curve is minimal for most features. Property hooks and the pipe operator are intuitive and can be adopted gradually. The new attributes (#[Deprecated], #[NoDiscard]) are simple to use and provide immediate benefits.' },
       { question: 'How does PHP 8.5 compare to other backend languages in 2025?', answer: 'PHP 8.5 brings PHP up to par with modern languages like Python, Node.js, and Go in terms of developer experience. The pipe operator provides functional programming capabilities, while property hooks offer clean OOP patterns. Performance is now competitive with compiled languages for web applications.' }
     ],
+    howTo: {
+      name: 'How to Upgrade to PHP 8.5',
+      description: 'Step-by-step guide to safely migrate your PHP application to PHP 8.5',
+      steps: [
+        { name: 'Backup Everything', text: 'Create complete backups of your database, files, and configuration before starting the upgrade process.' },
+        { name: 'Set Up Test Environment', text: 'Install PHP 8.5 in a staging environment to test your application without affecting production.' },
+        { name: 'Check Dependencies', text: 'Verify all your packages and dependencies support PHP 8.5 using composer check-platform-reqs.' },
+        { name: 'Run Static Analysis', text: 'Use tools like PHPStan or Psalm to identify potential compatibility issues in your codebase.' },
+        { name: 'Execute Test Suite', text: 'Run your full test suite including unit tests, integration tests, and performance benchmarks.' },
+        { name: 'Deploy to Production', text: 'After successful staging tests, deploy PHP 8.5 to production with monitoring in place.' }
+      ]
+    },
   },
   {
     slug: 'ace-core-web-vitals-2025-inp-requirements',
@@ -8553,7 +8607,20 @@ function processDataInChunks(data, chunkSize = 100) {
         question: "How often should I monitor my Core Web Vitals?",
         answer: "Monitor Core Web Vitals weekly using Google Search Console and PageSpeed Insights. Set up automated monitoring with tools like Google Analytics or third-party services to get alerts when scores drop. Check after any major website changes, new feature launches, or third-party integrations to ensure performance doesn't degrade."
       }
-    ]
+    ],
+    howTo: {
+      name: 'How to Improve Core Web Vitals',
+      description: '7 proven techniques to improve your Core Web Vitals scores without rebuilding your website',
+      steps: [
+        { name: 'Optimize for INP', text: 'Break long JavaScript tasks into smaller chunks using requestIdleCallback or setTimeout. Use Web Workers for heavy computations to keep the main thread responsive.' },
+        { name: 'Fix Largest Contentful Paint', text: 'Preload your LCP image, use modern formats like WebP/AVIF, implement responsive images, and ensure server response time is under 200ms.' },
+        { name: 'Eliminate Layout Shifts', text: 'Always set explicit width and height on images and videos. Reserve space for ads and dynamic content. Use transform animations instead of layout-affecting properties.' },
+        { name: 'Optimize First Contentful Paint', text: 'Inline critical CSS, defer non-critical JavaScript, and preconnect to important third-party origins.' },
+        { name: 'Load Third-Party Scripts Efficiently', text: 'Defer or async load analytics, chat widgets, and marketing scripts. Load them after user interaction when possible.' },
+        { name: 'Implement Resource Hints', text: 'Use preload for critical resources, prefetch for next-page resources, and preconnect for third-party domains.' },
+        { name: 'Set Up Monitoring', text: 'Configure Real User Monitoring (RUM) to track Core Web Vitals in production. Use PageSpeed Insights and Search Console for ongoing analysis.' }
+      ]
+    },
   },
   {
     slug: 'get-ready-2025-holiday-sales-traffic',
@@ -10331,6 +10398,18 @@ print(response.data[0].embedding)</code></pre>
       { question: 'Can I host WebSockets?', answer: 'Yes on Fly.io/containers easily; serverless varies by provider—validate support and consider a separate sockets service if needed.' },
       { question: 'How do I keep costs predictable?', answer: 'Prefer containers with reserved min instances for steady load; use serverless for bursty traffic; always set budgets and alerts for egress and DB usage.' }
     ],
+    howTo: {
+      name: 'How to Choose Python Hosting',
+      description: 'Select the best hosting platform for your Django, FastAPI, or Flask application',
+      steps: [
+        { name: 'Assess Your Workload', text: 'Determine if you need serverless (bursty traffic), containers (steady load), or VMs (full control).' },
+        { name: 'Choose ASGI vs WSGI', text: 'Use ASGI (Uvicorn) for FastAPI/async apps or WSGI (Gunicorn) for traditional Django/Flask.' },
+        { name: 'Consider Data Locality', text: 'Co-locate your database with your app. Use managed Postgres from Fly.io, Render, or your cloud provider.' },
+        { name: 'Containerize Your App', text: 'Build with a slim Python base image, use multi-stage builds, and add health/readiness probes.' },
+        { name: 'Set Up CDN and Caching', text: 'Place a CDN in front for static assets and enable Brotli compression for better performance.' },
+        { name: 'Add Monitoring', text: 'Instrument with structured logs, metrics, and traces. Set alerts for p95 latency and error rates.' }
+      ]
+    },
   },
   {
     slug: 'nextjs-hosting-options-comparison',
@@ -10836,6 +10915,18 @@ print(response.data[0].embedding)</code></pre>
       { question: 'Do CDNs fix everything?', answer: 'They help, but you still need correct caching headers, optimized assets, and minimal JavaScript to see big wins.' },
       { question: 'Are Web Vitals enough?', answer: 'They are a great baseline. We complement them with RUM, waterfalls, and user journey timings for a full picture.' }
     ],
+    howTo: {
+      name: 'How to Optimize Web Performance',
+      description: 'Hit green Core Web Vitals scores on modern stacks',
+      steps: [
+        { name: 'Optimize Images', text: 'Convert to AVIF/WebP, use responsive sizes, and preload hero images with the priority flag.' },
+        { name: 'Speed Up Fonts', text: 'Preload one critical font file, use font-display: swap, and subset character ranges.' },
+        { name: 'Reduce JavaScript', text: 'Code-split by route, tree-shake dependencies, use Server Components, and defer third-party scripts.' },
+        { name: 'Choose Rendering Strategy', text: 'Use SSG for marketing pages, ISR for frequently updating content, and SSR only for truly dynamic pages.' },
+        { name: 'Set Up Caching', text: 'Configure immutable 1-year cache for hashed assets and stale-while-revalidate for HTML.' },
+        { name: 'Monitor Performance', text: 'Set up RUM for Core Web Vitals, run Lighthouse CI on PRs, and alert on regressions.' }
+      ]
+    },
   },
   {
     slug: 'react-vs-nextjs-which-to-choose',
@@ -10956,6 +11047,17 @@ print(response.data[0].embedding)</code></pre>
       { question: 'Does Next.js help with SEO?', answer: 'Server rendering, metadata handling, image optimization, and hybrid caching give Next.js a strong SEO advantage over SPAs.' },
       { question: 'Is Next.js overkill for small sites?', answer: 'Not necessarily—SSG with a few routes is simple and fast. The framework scales with you when the site grows.' }
     ],
+    howTo: {
+      name: 'How to Choose Between React and Next.js',
+      description: 'Make the right framework choice for your project',
+      steps: [
+        { name: 'Evaluate SEO Requirements', text: 'If you need SEO, choose Next.js for its built-in SSR/SSG. SPAs have limited SEO benefits.' },
+        { name: 'Assess Rendering Needs', text: 'Static marketing site? Use Next.js SSG. Dynamic dashboard? Either works. Mixed content? Next.js hybrid.' },
+        { name: 'Consider Team Experience', text: 'If your team excels at build tooling, React gives flexibility. If you prefer conventions, Next.js removes decisions.' },
+        { name: 'Check Deployment Options', text: 'Next.js works best on Vercel but deploys anywhere. React SPAs deploy to any static host easily.' },
+        { name: 'Start Building', text: 'For most projects, start with Next.js. You can always eject complexity if the framework constraints become limiting.' }
+      ]
+    },
   },
   {
     slug: 'website-security-essentials',
@@ -11067,6 +11169,18 @@ print(response.data[0].embedding)</code></pre>
       { question: 'How do you handle secrets?', answer: 'Secrets live in managed stores (e.g., AWS Secrets Manager). Access is scoped per service and rotated regularly.' },
       { question: 'What about 3rd‑party scripts?', answer: 'We allowlist domains via CSP and load non‑critical scripts after interaction/idle to reduce both risk and performance impact.' }
     ],
+    howTo: {
+      name: 'How to Secure Your Website',
+      description: 'Essential security steps every business should implement',
+      steps: [
+        { name: 'Enable HTTPS Everywhere', text: 'Configure HTTPS with HSTS, modern TLS ciphers, and redirect all HTTP to HTTPS.' },
+        { name: 'Implement Security Headers', text: 'Add CSP (start in report-only), frame-ancestors, X-Content-Type-Options, Referrer-Policy, and Permissions-Policy.' },
+        { name: 'Secure Secrets', text: 'Store secrets in managed stores, use OIDC workload identity, and scope IAM with MFA.' },
+        { name: 'Protect Against Injection', text: 'Use prepared statements/ORM, validate on server-side, and add CSRF tokens for state-changing requests.' },
+        { name: 'Add Infrastructure Protection', text: 'Deploy WAF, rate-limits, and DDoS mitigation. Keep admin behind VPN/IAP.' },
+        { name: 'Monitor and Respond', text: 'Centralize logs, alert on auth anomalies, and test incident runbooks regularly.' }
+      ]
+    },
   },
   {
     slug: 'mobile-first-design-principles',

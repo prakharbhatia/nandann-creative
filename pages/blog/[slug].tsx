@@ -22,7 +22,7 @@ export default function BlogPostPage({ post }: Props) {
     '@type': 'Article',
     headline: post.title,
     datePublished: post.date,
-    dateModified: post.date,
+    dateModified: post.lastUpdated || post.date,
     description: post.description,
     image: ogImageUrl,
     author: {
@@ -63,6 +63,34 @@ export default function BlogPostPage({ post }: Props) {
       { '@type': 'ListItem', position: 3, name: post.title, item: canonicalUrl },
     ],
   };
+
+  // FAQ Schema for posts with FAQs
+  const faqJsonLd = post.faqs && post.faqs.length > 0 ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: post.faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer
+      }
+    }))
+  } : null;
+
+  // HowTo Schema for step-by-step guides
+  const howToJsonLd = post.howTo ? {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: post.howTo.name,
+    description: post.howTo.description || post.description,
+    step: post.howTo.steps.map((step, index) => ({
+      '@type': 'HowToStep',
+      position: index + 1,
+      name: step.name,
+      text: step.text
+    }))
+  } : null;
 
   const all = getAllPosts();
   const currentIndex = all.findIndex((p) => p.slug === post.slug);
@@ -203,6 +231,7 @@ export default function BlogPostPage({ post }: Props) {
 
         {/* Additional meta for better social sharing */}
         <meta name="article:published_time" content={post.date} />
+        <meta name="article:modified_time" content={post.lastUpdated || post.date} />
         <meta name="article:author" content="Prakhar Bhatia" />
         <meta name="article:section" content={post.category} />
         <meta name="article:tag" content={post.tags.join(', ')} />
@@ -210,6 +239,12 @@ export default function BlogPostPage({ post }: Props) {
         {/* Structured Data */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+        {faqJsonLd && (
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+        )}
+        {howToJsonLd && (
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} />
+        )}
       </Head>
 
       <div className="min-h-screen">
