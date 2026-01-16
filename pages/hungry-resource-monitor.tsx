@@ -103,44 +103,7 @@ export default function HungryResourceMonitorPage() {
         ]
     };
 
-    const faqSchema = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "What does it monitor?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Memory usage, queries, top 5 resource-heavy plugins/themes, database bloat, and cron jobs."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Will it slow down my site?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "No. Runs only in admin. No frontend impact."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Can it clean up my database?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Yes. Remove revisions, transients, spam, and auto-drafts with one click."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "How do I get weekly reports?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Enable email reports in settings. Get weekly summaries of resource usage."
-                }
-            }
-        ]
-    };
+
 
     const howToSchema = {
         "@context": "https://schema.org",
@@ -222,10 +185,7 @@ export default function HungryResourceMonitorPage() {
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
                 />
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-                />
+
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}

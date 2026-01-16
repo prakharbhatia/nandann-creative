@@ -109,45 +109,6 @@ export default function WordPressPluginPage() {
     ]
   };
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What permissions does it set?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "755 for directories (rwxr-xr-x) and 644 for files (rw-r--r--). These are WordPress recommended defaults."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is it safe to use?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. Includes safety confirmations, batch processing, and only works within wp-content."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "When do I need this?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "After site migrations, plugin installation errors, or when you see permission denied messages."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does it work on shared hosting?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, as long as PHP has chmod() access. Works on most common hosting setups."
-        }
-      }
-    ]
-  };
-
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
@@ -222,10 +183,7 @@ export default function WordPressPluginPage() {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-        />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}

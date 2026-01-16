@@ -104,45 +104,6 @@ export default function CoreWebVitalsRUMPage() {
         ]
     };
 
-    const faqSchema = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "What metrics does it track?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "All 5 Core Web Vitals: LCP, INP, CLS, FCP, and TTFB from real users."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Does it integrate with Google Analytics?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Yes. Optional GA4 integration sends metrics as custom events for deeper analysis."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Will it slow down my site?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "No. Uses web-vitals library (~2KB) and sample rate control for high-traffic sites."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Is it GDPR compliant?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Yes. IP anonymization, no cookies, no personal data stored."
-                }
-            }
-        ]
-    };
-
     const howToSchema = {
         "@context": "https://schema.org",
         "@type": "HowTo",
@@ -221,10 +182,7 @@ export default function CoreWebVitalsRUMPage() {
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
                 />
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-                />
+
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}

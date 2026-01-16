@@ -111,45 +111,6 @@ export default function AISmartRedirectPage() {
         ]
     };
 
-    const faqSchema = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "How does AI matching work?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Uses Levenshtein distance algorithm for typo detection and smart URL pattern matching with configurable confidence thresholds."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Will it slow down my site?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "No. Only runs on 404 pages. Matching is cached for performance."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Can I see which links are broken?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Yes. Full analytics dashboard shows 404s by URL, referrer, and time."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Does it work with custom post types?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Yes. Indexes all public post types including WooCommerce products."
-                }
-            }
-        ]
-    };
-
     const howToSchema = {
         "@context": "https://schema.org",
         "@type": "HowTo",
@@ -228,10 +189,7 @@ export default function AISmartRedirectPage() {
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
                 />
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-                />
+
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
