@@ -80,8 +80,8 @@ export default function TGLiveChatPage() {
                     "url": "https://www.nandann.com/"
                 },
                 "softwareVersion": "1.0.0",
-                "datePublished": "2026-01-01",
-                "dateModified": "2026-01-02",
+                "datePublished": "2026-01-01T00:00:00Z",
+                "dateModified": "2026-01-02T00:00:00Z",
                 "downloadUrl": "https://wordpress.org/plugins/tg-live-chat/",
                 "screenshot": pageImage,
                 "softwareRequirements": [

@@ -81,8 +81,8 @@ export default function CoreWebVitalsRUMPage() {
                     "url": "https://www.nandann.com/"
                 },
                 "softwareVersion": "1.0.0",
-                "datePublished": "2025-12-15",
-                "dateModified": "2026-01-02",
+                "datePublished": "2025-12-15T00:00:00Z",
+                "dateModified": "2026-01-02T00:00:00Z",
                 "downloadUrl": "https://wordpress.org/plugins/core-web-vitals-real-user-monitoring-rum/",
                 "screenshot": pageImage,
                 "softwareRequirements": [

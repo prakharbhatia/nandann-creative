@@ -81,8 +81,8 @@ export default function AISmartRedirectPage() {
                     "url": "https://www.nandann.com/"
                 },
                 "softwareVersion": "1.0.0",
-                "datePublished": "2025-12-01",
-                "dateModified": "2026-01-02",
+                "datePublished": "2025-12-01T00:00:00Z",
+                "dateModified": "2026-01-02T00:00:00Z",
                 "downloadUrl": "https://wordpress.org/plugins/nandann-ai-smart-404-redirect/",
                 "screenshot": pageImage,
                 "softwareRequirements": [

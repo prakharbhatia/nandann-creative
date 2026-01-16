@@ -21,8 +21,8 @@ export default function BlogPostPage({ post }: Props) {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: post.title,
-    datePublished: post.date,
-    dateModified: post.lastUpdated || post.date,
+    datePublished: `${post.date}T00:00:00Z`,
+    dateModified: `${post.lastUpdated || post.date}T00:00:00Z`,
     description: post.description,
     image: ogImageUrl,
     author: {

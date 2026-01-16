@@ -80,8 +80,8 @@ export default function HungryResourceMonitorPage() {
                     "url": "https://www.nandann.com/"
                 },
                 "softwareVersion": "1.0.1",
-                "datePublished": "2026-01-10",
-                "dateModified": "2026-01-12",
+                "datePublished": "2026-01-10T00:00:00Z",
+                "dateModified": "2026-01-15T00:00:00Z",
                 "downloadUrl": "https://wordpress.org/plugins/hungry-resource-monitor/",
                 "screenshot": pageImage,
                 "softwareRequirements": [

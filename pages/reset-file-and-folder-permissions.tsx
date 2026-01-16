@@ -87,8 +87,8 @@ export default function WordPressPluginPage() {
           "url": "https://www.nandann.com/"
         },
         "softwareVersion": "1.2.0",
-        "datePublished": "2025-08-19",
-        "dateModified": "2025-09-09",
+        "datePublished": "2025-08-19T00:00:00Z",
+        "dateModified": "2025-09-09T00:00:00Z",
         "downloadUrl": "https://wordpress.org/plugins/reset-file-and-folder-permissions/",
         "screenshot": "https://www.nandann.com/images/plugin-banner.webp",
         "softwareRequirements": [
