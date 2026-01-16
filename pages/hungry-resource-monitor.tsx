@@ -99,82 +99,84 @@ export default function HungryResourceMonitorPage() {
                     "Admin toolbar widget"
                 ],
                 "keywords": "wordpress performance, resource monitor, memory monitor, database cleanup, cron management, wordpress optimization, performance plugin"
+            }
+        ]
+    };
+
+    const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What does it monitor?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Memory usage, queries, top 5 resource-heavy plugins/themes, database bloat, and cron jobs."
+                }
             },
             {
-                "@type": "FAQPage",
-                "@id": `${pageUrl}#faq`,
-                "mainEntity": [
-                    {
-                        "@type": "Question",
-                        "name": "What does it monitor?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "Memory usage, queries, top 5 resource-heavy plugins/themes, database bloat, and cron jobs."
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "Will it slow down my site?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "No. Runs only in admin. No frontend impact."
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "Can it clean up my database?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "Yes. Remove revisions, transients, spam, and auto-drafts with one click."
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "How do I get weekly reports?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "Enable email reports in settings. Get weekly summaries of resource usage."
-                        }
-                    }
-                ]
+                "@type": "Question",
+                "name": "Will it slow down my site?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. Runs only in admin. No frontend impact."
+                }
             },
             {
-                "@type": "HowTo",
-                "@id": `${pageUrl}#howto`,
-                "name": "How to Use Hungry Resource Monitor",
-                "description": "Find and fix WordPress performance issues",
-                "step": [
-                    {
-                        "@type": "HowToStep",
-                        "position": 1,
-                        "name": "Install and Activate",
-                        "text": "Download from WordPress.org. Dashboard widget appears immediately."
-                    },
-                    {
-                        "@type": "HowToStep",
-                        "position": 2,
-                        "name": "Check Top Consumers",
-                        "text": "See which plugins and themes use the most memory and queries."
-                    },
-                    {
-                        "@type": "HowToStep",
-                        "position": 3,
-                        "name": "Clean Database",
-                        "text": "Use cleanup tools to remove bloat (revisions, transients, etc.)."
-                    },
-                    {
-                        "@type": "HowToStep",
-                        "position": 4,
-                        "name": "Manage Cron Jobs",
-                        "text": "Review scheduled tasks. Remove orphaned crons."
-                    },
-                    {
-                        "@type": "HowToStep",
-                        "position": 5,
-                        "name": "Enable Reports",
-                        "text": "Set up weekly email digests to track improvements."
-                    }
-                ]
+                "@type": "Question",
+                "name": "Can it clean up my database?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Remove revisions, transients, spam, and auto-drafts with one click."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I get weekly reports?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Enable email reports in settings. Get weekly summaries of resource usage."
+                }
+            }
+        ]
+    };
+
+    const howToSchema = {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Use Hungry Resource Monitor",
+        "description": "Find and fix WordPress performance issues",
+        "step": [
+            {
+                "@type": "HowToStep",
+                "position": 1,
+                "name": "Install and Activate",
+                "text": "Download from WordPress.org. Dashboard widget appears immediately."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 2,
+                "name": "Check Top Consumers",
+                "text": "See which plugins and themes use the most memory and queries."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 3,
+                "name": "Clean Database",
+                "text": "Use cleanup tools to remove bloat (revisions, transients, etc.)."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 4,
+                "name": "Manage Cron Jobs",
+                "text": "Review scheduled tasks. Remove orphaned crons."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 5,
+                "name": "Enable Reports",
+                "text": "Set up weekly email digests to track improvements."
             }
         ]
     };
@@ -219,6 +221,14 @@ export default function HungryResourceMonitorPage() {
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+                />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+                />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
                 />
             </Head>
 

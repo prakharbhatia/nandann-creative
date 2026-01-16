@@ -105,76 +105,78 @@ export default function WordPressPluginPage() {
           "Responsive Admin Interface"
         ],
         "keywords": "wordpress permissions, file permissions, chmod, wordpress security, site migration, permission errors"
+      }
+    ]
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What permissions does it set?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "755 for directories (rwxr-xr-x) and 644 for files (rw-r--r--). These are WordPress recommended defaults."
+        }
       },
       {
-        "@type": "FAQPage",
-        "@id": `${pageUrl}#faq`,
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "What permissions does it set?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "755 for directories (rwxr-xr-x) and 644 for files (rw-r--r--). These are WordPress recommended defaults."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Is it safe to use?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. Includes safety confirmations, batch processing, and only works within wp-content."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "When do I need this?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "After site migrations, plugin installation errors, or when you see permission denied messages."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Does it work on shared hosting?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes, as long as PHP has chmod() access. Works on most common hosting setups."
-            }
-          }
-        ]
+        "@type": "Question",
+        "name": "Is it safe to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Includes safety confirmations, batch processing, and only works within wp-content."
+        }
       },
       {
-        "@type": "HowTo",
-        "@id": `${pageUrl}#howto`,
-        "name": "How to Fix WordPress Permission Errors",
-        "description": "Reset file and folder permissions in one click",
-        "step": [
-          {
-            "@type": "HowToStep",
-            "position": 1,
-            "name": "Install the Plugin",
-            "text": "Download from WordPress.org or search 'Reset File and Folder Permissions'."
-          },
-          {
-            "@type": "HowToStep",
-            "position": 2,
-            "name": "Select Directory",
-            "text": "Choose which directory to fix (wp-content, themes, plugins, uploads)."
-          },
-          {
-            "@type": "HowToStep",
-            "position": 3,
-            "name": "Confirm and Run",
-            "text": "Click Reset Permissions. Watch real-time progress."
-          },
-          {
-            "@type": "HowToStep",
-            "position": 4,
-            "name": "Verify Fix",
-            "text": "Check that your original error is resolved."
-          }
-        ]
+        "@type": "Question",
+        "name": "When do I need this?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "After site migrations, plugin installation errors, or when you see permission denied messages."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it work on shared hosting?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, as long as PHP has chmod() access. Works on most common hosting setups."
+        }
+      }
+    ]
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Fix WordPress Permission Errors",
+    "description": "Reset file and folder permissions in one click",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Install the Plugin",
+        "text": "Download from WordPress.org or search 'Reset File and Folder Permissions'."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "Select Directory",
+        "text": "Choose which directory to fix (wp-content, themes, plugins, uploads)."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Confirm and Run",
+        "text": "Click Reset Permissions. Watch real-time progress."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 4,
+        "name": "Verify Fix",
+        "text": "Check that your original error is resolved."
       }
     ]
   };
@@ -219,6 +221,14 @@ export default function WordPressPluginPage() {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
         />
       </Head>
 

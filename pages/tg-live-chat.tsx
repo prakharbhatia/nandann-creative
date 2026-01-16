@@ -101,82 +101,84 @@ export default function TGLiveChatPage() {
                     "Lightweight (~30KB)"
                 ],
                 "keywords": "wordpress live chat, telegram chat plugin, free live chat, customer support, telegram bot, privacy chat plugin"
+            }
+        ]
+    };
+
+    const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Is TG Live Chat really free?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, 100% free forever. No premium tiers, no hidden costs. The plugin uses Telegram's free Bot API."
+                }
             },
             {
-                "@type": "FAQPage",
-                "@id": `${pageUrl}#faq`,
-                "mainEntity": [
-                    {
-                        "@type": "Question",
-                        "name": "Is TG Live Chat really free?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "Yes, 100% free forever. No premium tiers, no hidden costs. The plugin uses Telegram's free Bot API."
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "Do I need to keep WordPress open to reply?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "No. You reply directly from Telegram on your phone or desktop. No need to access WordPress admin."
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "Is it GDPR compliant?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "Yes. Messages are stored on your server and can be auto-deleted. No third-party analytics or tracking."
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "Can multiple team members receive chats?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "Yes. Add multiple Telegram Chat IDs to receive notifications. All team members can reply."
-                        }
-                    }
-                ]
+                "@type": "Question",
+                "name": "Do I need to keep WordPress open to reply?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. You reply directly from Telegram on your phone or desktop. No need to access WordPress admin."
+                }
             },
             {
-                "@type": "HowTo",
-                "@id": `${pageUrl}#howto`,
-                "name": "How to Set Up TG Live Chat",
-                "description": "Install and configure TG Live Chat in 5 minutes",
-                "step": [
-                    {
-                        "@type": "HowToStep",
-                        "position": 1,
-                        "name": "Install the Plugin",
-                        "text": "Download from WordPress.org or search 'TG Live Chat' in your WordPress plugins."
-                    },
-                    {
-                        "@type": "HowToStep",
-                        "position": 2,
-                        "name": "Create a Telegram Bot",
-                        "text": "Message @BotFather on Telegram and use /newbot to create a bot. Copy the API token."
-                    },
-                    {
-                        "@type": "HowToStep",
-                        "position": 3,
-                        "name": "Get Your Chat ID",
-                        "text": "Message @userinfobot or @RawDataBot on Telegram to get your Chat ID."
-                    },
-                    {
-                        "@type": "HowToStep",
-                        "position": 4,
-                        "name": "Configure the Plugin",
-                        "text": "Enter your Bot Token and Chat ID in the plugin settings. Customize widget appearance."
-                    },
-                    {
-                        "@type": "HowToStep",
-                        "position": 5,
-                        "name": "Start Chatting",
-                        "text": "The widget appears on your site. Visitors can chat and you reply via Telegram."
-                    }
-                ]
+                "@type": "Question",
+                "name": "Is it GDPR compliant?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Messages are stored on your server and can be auto-deleted. No third-party analytics or tracking."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can multiple team members receive chats?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Add multiple Telegram Chat IDs to receive notifications. All team members can reply."
+                }
+            }
+        ]
+    };
+
+    const howToSchema = {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Set Up TG Live Chat",
+        "description": "Install and configure TG Live Chat in 5 minutes",
+        "step": [
+            {
+                "@type": "HowToStep",
+                "position": 1,
+                "name": "Install the Plugin",
+                "text": "Download from WordPress.org or search 'TG Live Chat' in your WordPress plugins."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 2,
+                "name": "Create a Telegram Bot",
+                "text": "Message @BotFather on Telegram and use /newbot to create a bot. Copy the API token."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 3,
+                "name": "Get Your Chat ID",
+                "text": "Message @userinfobot or @RawDataBot on Telegram to get your Chat ID."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 4,
+                "name": "Configure the Plugin",
+                "text": "Enter your Bot Token and Chat ID in the plugin settings. Customize widget appearance."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 5,
+                "name": "Start Chatting",
+                "text": "The widget appears on your site. Visitors can chat and you reply via Telegram."
             }
         ]
     };
@@ -221,6 +223,14 @@ export default function TGLiveChatPage() {
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+                />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+                />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
                 />
             </Head>
 

@@ -107,82 +107,84 @@ export default function AISmartRedirectPage() {
                     "bestRating": "5",
                     "worstRating": "1"
                 }
+            }
+        ]
+    };
+
+    const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How does AI matching work?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Uses Levenshtein distance algorithm for typo detection and smart URL pattern matching with configurable confidence thresholds."
+                }
             },
             {
-                "@type": "FAQPage",
-                "@id": `${pageUrl}#faq`,
-                "mainEntity": [
-                    {
-                        "@type": "Question",
-                        "name": "How does AI matching work?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "Uses Levenshtein distance algorithm for typo detection and smart URL pattern matching with configurable confidence thresholds."
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "Will it slow down my site?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "No. Only runs on 404 pages. Matching is cached for performance."
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "Can I see which links are broken?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "Yes. Full analytics dashboard shows 404s by URL, referrer, and time."
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "Does it work with custom post types?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "Yes. Indexes all public post types including WooCommerce products."
-                        }
-                    }
-                ]
+                "@type": "Question",
+                "name": "Will it slow down my site?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. Only runs on 404 pages. Matching is cached for performance."
+                }
             },
             {
-                "@type": "HowTo",
-                "@id": `${pageUrl}#howto`,
-                "name": "How to Set Up AI Smart 404 Redirect",
-                "description": "Configure intelligent 404 handling",
-                "step": [
-                    {
-                        "@type": "HowToStep",
-                        "position": 1,
-                        "name": "Install and Activate",
-                        "text": "Install from WordPress.org. The plugin starts working immediately."
-                    },
-                    {
-                        "@type": "HowToStep",
-                        "position": 2,
-                        "name": "Build the Index",
-                        "text": "Index your content for AI matching. Runs automatically on changes."
-                    },
-                    {
-                        "@type": "HowToStep",
-                        "position": 3,
-                        "name": "Set Confidence Threshold",
-                        "text": "Choose minimum match score (0-100%) for auto-redirects."
-                    },
-                    {
-                        "@type": "HowToStep",
-                        "position": 4,
-                        "name": "Configure Notifications",
-                        "text": "Enable email digests for 404 reports (daily/weekly/monthly)."
-                    },
-                    {
-                        "@type": "HowToStep",
-                        "position": 5,
-                        "name": "Review Analytics",
-                        "text": "Check dashboard for broken links and redirect performance."
-                    }
-                ]
+                "@type": "Question",
+                "name": "Can I see which links are broken?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Full analytics dashboard shows 404s by URL, referrer, and time."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Does it work with custom post types?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Indexes all public post types including WooCommerce products."
+                }
+            }
+        ]
+    };
+
+    const howToSchema = {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Set Up AI Smart 404 Redirect",
+        "description": "Configure intelligent 404 handling",
+        "step": [
+            {
+                "@type": "HowToStep",
+                "position": 1,
+                "name": "Install and Activate",
+                "text": "Install from WordPress.org. The plugin starts working immediately."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 2,
+                "name": "Build the Index",
+                "text": "Index your content for AI matching. Runs automatically on changes."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 3,
+                "name": "Set Confidence Threshold",
+                "text": "Choose minimum match score (0-100%) for auto-redirects."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 4,
+                "name": "Configure Notifications",
+                "text": "Enable email digests for 404 reports (daily/weekly/monthly)."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 5,
+                "name": "Review Analytics",
+                "text": "Check dashboard for broken links and redirect performance."
             }
         ]
     };
@@ -225,6 +227,14 @@ export default function AISmartRedirectPage() {
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+                />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+                />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
                 />
             </Head>
 
