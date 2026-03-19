@@ -1,4 +1,4 @@
-'use client'; // not needed for Pages Router but harmless
+'use client';
 import React, { useState, useEffect, useMemo } from 'react';
 
 interface ScheduleCallProps {
@@ -9,18 +9,31 @@ export default function ScheduleCall({ onClose }: ScheduleCallProps) {
   const [slots, setSlots] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [selectedDate, setSelectedDate] = useState(''); // local date string YYYY-MM-DD
-  const [selectedSlot, setSelectedSlot] = useState(''); // UTC ISO
-  const [form, setForm] = useState({ name: '', email: '', topic: '' });
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedSlot, setSelectedSlot] = useState('');
+  const [form, setForm] = useState({ name: '', email: '', phone: '' });
   const [submitting, setSubmitting] = useState(false);
   const [booked, setBooked] = useState(false);
   const [bookError, setBookError] = useState('');
+  const [calendarMonth, setCalendarMonth] = useState(() => {
+    const d = new Date();
+    d.setDate(1);
+    return d;
+  });
 
   // Detect user timezone
   const userTz = useMemo(() => Intl.DateTimeFormat().resolvedOptions().timeZone, []);
-  const tzAbbr = useMemo(() => {
-    const d = new Date();
-    return d.toLocaleTimeString('en-US', { timeZone: userTz, timeZoneName: 'short' }).split(' ').pop() || '';
+
+  const tzDisplay = useMemo(() => {
+    const abbr = new Date()
+      .toLocaleTimeString('en-US', { timeZone: userTz, timeZoneName: 'short' })
+      .split(' ')
+      .pop() || '';
+    const fullName =
+      new Intl.DateTimeFormat('en-US', { timeZone: userTz, timeZoneName: 'long' })
+        .formatToParts(new Date())
+        .find(p => p.type === 'timeZoneName')?.value || userTz;
+    return { abbr, fullName };
   }, [userTz]);
 
   useEffect(() => {
@@ -36,59 +49,96 @@ export default function ScheduleCall({ onClose }: ScheduleCallProps) {
       });
   }, []);
 
-  // Group slots by local date
+  // Group slots by local date YYYY-MM-DD
   const slotsByDate = useMemo(() => {
     const map: Record<string, string[]> = {};
     for (const iso of slots) {
-      const localDate = new Date(iso).toLocaleDateString('en-CA', { timeZone: userTz }); // YYYY-MM-DD
+      const localDate = new Date(iso).toLocaleDateString('en-CA', { timeZone: userTz });
       if (!map[localDate]) map[localDate] = [];
       map[localDate].push(iso);
     }
     return map;
   }, [slots, userTz]);
 
-  const availableDates = useMemo(() => Object.keys(slotsByDate).sort(), [slotsByDate]);
+  const availableDateSet = useMemo(() => new Set(Object.keys(slotsByDate)), [slotsByDate]);
 
-  // Auto-select first available date
-  useEffect(() => {
-    if (availableDates.length > 0 && !selectedDate) {
-      setSelectedDate(availableDates[0]);
-    }
-  }, [availableDates, selectedDate]);
+  // Calendar grid helpers
+  const calYear = calendarMonth.getFullYear();
+  const calMonth = calendarMonth.getMonth();
+  const firstDayOfWeek = new Date(calYear, calMonth, 1).getDay();
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
 
-  const slotsForDate = slotsByDate[selectedDate] || [];
+  const calCells: (number | null)[] = [
+    ...Array(firstDayOfWeek).fill(null),
+    ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
+  ];
+  while (calCells.length % 7 !== 0) calCells.push(null);
 
-  // Split into morning and evening based on local hour
-  const morningSlots = slotsForDate.filter(iso => {
-    const h = parseInt(new Date(iso).toLocaleTimeString('en-US', { timeZone: userTz, hour: 'numeric', hour12: false }));
-    return h < 12;
-  });
-  const eveningSlots = slotsForDate.filter(iso => {
-    const h = parseInt(new Date(iso).toLocaleTimeString('en-US', { timeZone: userTz, hour: 'numeric', hour12: false }));
-    return h >= 12;
-  });
+  function getDateStr(day: number) {
+    return `${calYear}-${String(calMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+  }
+
+  function isPast(day: number) {
+    const d = new Date(calYear, calMonth, day);
+    d.setHours(23, 59, 59, 999);
+    return d < new Date();
+  }
+
+  function isToday(day: number) {
+    const d = new Date(calYear, calMonth, day);
+    return d.toDateString() === new Date().toDateString();
+  }
+
+  function isSelected(day: number) {
+    if (!selectedDate) return false;
+    return (
+      selectedDate.getFullYear() === calYear &&
+      selectedDate.getMonth() === calMonth &&
+      selectedDate.getDate() === day
+    );
+  }
+
+  function isAvailable(day: number) {
+    return availableDateSet.has(getDateStr(day));
+  }
+
+  function selectDay(day: number) {
+    if (isPast(day) || !isAvailable(day)) return;
+    setSelectedDate(new Date(calYear, calMonth, day));
+    setSelectedSlot('');
+  }
+
+  // Slots for the selected date
+  const selectedDateStr = selectedDate
+    ? selectedDate.toLocaleDateString('en-CA', { timeZone: userTz })
+    : '';
+  const slotsForDate = slotsByDate[selectedDateStr] || [];
 
   function formatTime(iso: string) {
-    return new Date(iso).toLocaleTimeString('en-US', {
-      timeZone: userTz,
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true,
+    return (
+      new Date(iso).toLocaleTimeString('en-US', {
+        timeZone: userTz,
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true,
+      }) +
+      ' ' +
+      tzDisplay.abbr
+    );
+  }
+
+  function formatSelectedDateHeader() {
+    if (!selectedDate) return '';
+    return selectedDate.toLocaleDateString('en-US', {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
     });
   }
 
-  function formatDateLabel(dateStr: string) {
-    const [y, m, d] = dateStr.split('-').map(Number);
-    const date = new Date(y, m - 1, d);
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-    if (date.toDateString() === today.toDateString()) return { day: 'Today', date: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) };
-    if (date.toDateString() === tomorrow.toDateString()) return { day: 'Tomorrow', date: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) };
-    return {
-      day: date.toLocaleDateString('en-US', { weekday: 'short' }),
-      date: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-    };
+  function canGoToPrevMonth() {
+    const now = new Date();
+    return calYear > now.getFullYear() || calMonth > now.getMonth();
   }
 
   async function handleBook(e: React.FormEvent) {
@@ -100,14 +150,18 @@ export default function ScheduleCall({ onClose }: ScheduleCallProps) {
       const res = await fetch('/api/book', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slotTime: selectedSlot, ...form }),
+        body: JSON.stringify({
+          slotTime: selectedSlot,
+          name: form.name,
+          email: form.email,
+          topic: form.phone ? `Phone: ${form.phone}` : '',
+        }),
       });
       const data = await res.json();
       if (res.ok) {
         setBooked(true);
       } else {
         setBookError(data.error || 'Booking failed. Please try another slot.');
-        // Remove the slot from list if it was just taken
         if (res.status === 409) {
           setSlots(prev => prev.filter(s => s !== selectedSlot));
           setSelectedSlot('');
@@ -120,21 +174,32 @@ export default function ScheduleCall({ onClose }: ScheduleCallProps) {
     }
   }
 
-  // SUCCESS STATE
+  // Success screen
   if (booked) {
     return (
-      <div className="text-center py-8">
-        <div className="w-16 h-16 rounded-full bg-green-500/20 border-2 border-green-500/50 flex items-center justify-center text-3xl mx-auto mb-4">✓</div>
-        <h3 className="text-2xl font-bold text-white mb-2">You&apos;re booked!</h3>
-        <p className="text-gray-300 mb-1">
-          <span className="text-white font-semibold">{formatTime(selectedSlot)}</span>
-          {' '}{tzAbbr}{' — '}
-          {new Date(selectedSlot).toLocaleDateString('en-US', { timeZone: userTz, weekday: 'long', month: 'long', day: 'numeric' })}
+      <div className="flex flex-col items-center justify-center py-20 px-8 text-center">
+        <div
+          className="w-16 h-16 rounded-full flex items-center justify-center text-2xl mb-5"
+          style={{ background: '#f0fdf4', color: '#16a34a', fontSize: '1.5rem' }}
+        >
+          ✓
+        </div>
+        <h3 className="text-2xl font-bold text-gray-900 mb-2">You&apos;re booked!</h3>
+        <p className="text-gray-600 mb-1">
+          <span className="font-semibold text-gray-900">{formatSelectedDateHeader()}</span>
+          {' at '}
+          <span className="font-semibold text-gray-900">{formatTime(selectedSlot)}</span>
         </p>
-        <p className="text-gray-400 text-sm mt-3 mb-6">We&apos;ll send a confirmation to <span className="text-blue-300">{form.email}</span></p>
+        <p className="text-sm text-gray-500 mt-1 mb-8">
+          Confirmation sent to{' '}
+          <span className="text-blue-600 font-medium">{form.email}</span>
+        </p>
         {onClose && (
-          <button onClick={onClose} className="px-6 py-2 rounded-xl text-white font-semibold" style={{ background: 'linear-gradient(135deg, #3b82f6, #2563eb)' }}>
-            Close
+          <button
+            onClick={onClose}
+            className="px-8 py-3 rounded-xl bg-gray-900 text-white font-semibold hover:bg-gray-700 transition-colors text-sm"
+          >
+            Done
           </button>
         )}
       </div>
@@ -142,146 +207,202 @@ export default function ScheduleCall({ onClose }: ScheduleCallProps) {
   }
 
   return (
-    <div>
-      <div className="mb-6">
-        <h3 className="text-2xl font-bold text-white mb-1">Schedule a Free 30-Min Call</h3>
-        <p className="text-gray-400 text-sm">All times shown in your timezone: <span className="text-blue-300">{userTz} ({tzAbbr})</span></p>
+    <div className="flex flex-col sm:flex-row min-h-[520px]">
+      {/* LEFT PANEL — Calendar */}
+      <div className="sm:w-72 shrink-0 p-7 border-b sm:border-b-0 sm:border-r border-gray-200">
+        <h2 className="text-lg font-bold text-gray-900 mb-1">Talk to us</h2>
+        <p className="text-sm text-gray-500 leading-relaxed mb-1">
+          Select a date to view our availability.
+        </p>
+        <p className="text-xs text-gray-400 mb-6">
+          All times shown in{' '}
+          <span className="font-medium text-gray-600">{tzDisplay.fullName}</span>
+        </p>
+
+        {loading ? (
+          <div className="flex justify-center py-10">
+            <div className="w-6 h-6 border-2 border-gray-200 border-t-gray-800 rounded-full animate-spin" />
+          </div>
+        ) : error ? (
+          <p className="text-red-500 text-sm">{error}</p>
+        ) : (
+          <>
+            {/* Month navigation */}
+            <div className="flex items-center justify-between mb-4">
+              <button
+                onClick={() =>
+                  setCalendarMonth(m => new Date(m.getFullYear(), m.getMonth() - 1, 1))
+                }
+                disabled={!canGoToPrevMonth()}
+                className="w-7 h-7 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-lg leading-none"
+                aria-label="Previous month"
+              >
+                ‹
+              </button>
+              <span className="text-sm font-semibold text-gray-900">
+                {calendarMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+              </span>
+              <button
+                onClick={() =>
+                  setCalendarMonth(m => new Date(m.getFullYear(), m.getMonth() + 1, 1))
+                }
+                className="w-7 h-7 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100 transition-colors text-lg leading-none"
+                aria-label="Next month"
+              >
+                ›
+              </button>
+            </div>
+
+            {/* Day-of-week headers */}
+            <div className="grid grid-cols-7 mb-1">
+              {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(d => (
+                <div
+                  key={d}
+                  className="text-center text-xs text-gray-400 font-medium py-1"
+                >
+                  {d}
+                </div>
+              ))}
+            </div>
+
+            {/* Date grid */}
+            <div className="grid grid-cols-7 gap-y-1">
+              {calCells.map((day, i) => {
+                if (!day) return <div key={`e-${i}`} />;
+                const past = isPast(day);
+                const avail = isAvailable(day);
+                const sel = isSelected(day);
+                const tod = isToday(day);
+                const clickable = !past && avail;
+                return (
+                  <button
+                    key={day}
+                    onClick={() => clickable && selectDay(day)}
+                    disabled={!clickable}
+                    className={[
+                      'aspect-square w-full flex items-center justify-center text-xs rounded-full transition-colors',
+                      sel
+                        ? 'bg-gray-900 text-white font-bold'
+                        : tod
+                        ? 'bg-gray-100 text-gray-900 font-semibold'
+                        : clickable
+                        ? 'text-gray-900 hover:bg-gray-100 cursor-pointer font-medium'
+                        : 'text-gray-300 cursor-not-allowed',
+                    ]
+                      .filter(Boolean)
+                      .join(' ')}
+                  >
+                    {day}
+                  </button>
+                );
+              })}
+            </div>
+          </>
+        )}
       </div>
 
-      {loading && (
-        <div className="flex items-center justify-center py-12">
-          <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
-        </div>
-      )}
-
-      {error && <p className="text-red-400 text-center py-8">{error}</p>}
-
-      {!loading && !error && (
-        <>
-          {/* Date selector */}
-          <div className="flex gap-2 overflow-x-auto pb-2 mb-6 scrollbar-hide">
-            {availableDates.map(dateStr => {
-              const label = formatDateLabel(dateStr);
-              const isSelected = dateStr === selectedDate;
-              return (
-                <button
-                  key={dateStr}
-                  onClick={() => { setSelectedDate(dateStr); setSelectedSlot(''); }}
-                  className={`shrink-0 flex flex-col items-center px-4 py-3 rounded-xl border transition-all duration-150 min-w-[72px] ${
-                    isSelected
-                      ? 'text-white border-blue-500'
-                      : 'text-gray-400 border-white/10 hover:border-white/30 hover:text-white'
-                  }`}
-                  style={isSelected ? { background: 'rgba(59,130,246,0.15)' } : { background: 'rgba(255,255,255,0.03)' }}
-                >
-                  <span className="text-xs font-medium">{label.day}</span>
-                  <span className="text-sm font-bold mt-0.5">{label.date}</span>
-                </button>
-              );
-            })}
+      {/* RIGHT PANEL — Time slots + form */}
+      <div className="flex-1 p-7 overflow-y-auto">
+        {!selectedDate ? (
+          <div className="flex items-center justify-center h-full min-h-[200px]">
+            <p className="text-gray-400 text-sm">
+              Select a date on the left to see available times
+            </p>
           </div>
+        ) : (
+          <>
+            {/* Date header */}
+            <h3 className="text-xl font-bold text-gray-900 mb-0.5">
+              {formatSelectedDateHeader()}
+            </h3>
+            <p className="text-sm text-gray-500 mb-5">
+              {tzDisplay.fullName}{' '}
+              <span className="font-semibold text-gray-700">({tzDisplay.abbr})</span>
+            </p>
 
-          {/* Time slots */}
-          {slotsForDate.length === 0 && <p className="text-gray-500 text-sm py-4">No slots available on this day.</p>}
-
-          {morningSlots.length > 0 && (
-            <div className="mb-4">
-              <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Morning</p>
-              <div className="flex flex-wrap gap-2">
-                {morningSlots.map(iso => (
+            {slotsForDate.length === 0 ? (
+              <p className="text-gray-400 text-sm">No available slots on this day.</p>
+            ) : (
+              <div className="grid grid-cols-2 gap-2.5 mb-6">
+                {slotsForDate.map(iso => (
                   <button
                     key={iso}
                     onClick={() => setSelectedSlot(iso === selectedSlot ? '' : iso)}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium border transition-all duration-150 ${
+                    className={[
+                      'py-3 px-3 rounded-2xl border text-sm font-medium transition-all duration-150',
                       iso === selectedSlot
-                        ? 'text-white border-blue-500'
-                        : 'text-gray-300 border-white/10 hover:border-white/30 hover:text-white'
-                    }`}
-                    style={iso === selectedSlot ? { background: 'rgba(59,130,246,0.2)' } : { background: 'rgba(255,255,255,0.04)' }}
+                        ? 'bg-gray-900 text-white border-gray-900'
+                        : 'bg-white text-gray-800 border-gray-200 hover:border-gray-400',
+                    ].join(' ')}
                   >
                     {formatTime(iso)}
                   </button>
                 ))}
               </div>
-            </div>
-          )}
+            )}
 
-          {eveningSlots.length > 0 && (
-            <div className="mb-6">
-              <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Evening</p>
-              <div className="flex flex-wrap gap-2">
-                {eveningSlots.map(iso => (
-                  <button
-                    key={iso}
-                    onClick={() => setSelectedSlot(iso === selectedSlot ? '' : iso)}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium border transition-all duration-150 ${
-                      iso === selectedSlot
-                        ? 'text-white border-blue-500'
-                        : 'text-gray-300 border-white/10 hover:border-white/30 hover:text-white'
-                    }`}
-                    style={iso === selectedSlot ? { background: 'rgba(59,130,246,0.2)' } : { background: 'rgba(255,255,255,0.04)' }}
-                  >
-                    {formatTime(iso)}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Booking form — shown when a slot is selected */}
-          {selectedSlot && (
-            <form onSubmit={handleBook} className="border-t border-white/10 pt-6 mt-2">
-              <p className="text-sm text-blue-300 mb-4 font-medium">
-                Selected: {formatTime(selectedSlot)} {tzAbbr} —{' '}
-                {new Date(selectedSlot).toLocaleDateString('en-US', { timeZone: userTz, weekday: 'long', month: 'long', day: 'numeric' })}
-              </p>
-              <div className="space-y-4">
+            {/* Booking form — appears after selecting a slot */}
+            {selectedSlot && (
+              <form
+                onSubmit={handleBook}
+                className="space-y-3 border-t border-gray-100 pt-5"
+              >
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">Your Name *</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Name <span className="text-red-500">*</span>
+                  </label>
                   <input
                     type="text"
                     required
                     value={form.name}
                     onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
                     placeholder="Jane Smith"
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:border-gray-400 transition-colors"
                   />
                 </div>
+
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">Email Address *</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Email Address <span className="text-red-500">*</span>
+                  </label>
                   <input
                     type="email"
                     required
                     value={form.email}
                     onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-                    placeholder="jane@example.com"
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
+                    placeholder="you@example.com"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:border-gray-400 transition-colors"
                   />
                 </div>
+
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">What would you like to discuss?</label>
-                  <textarea
-                    rows={3}
-                    value={form.topic}
-                    onChange={e => setForm(f => ({ ...f, topic: e.target.value }))}
-                    placeholder="e.g. WordPress 7.0 migration, new website build, plugin development..."
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors resize-none"
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Phone Number{' '}
+                    <span className="text-gray-400 font-normal">(optional)</span>
+                  </label>
+                  <input
+                    type="tel"
+                    value={form.phone}
+                    onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
+                    placeholder="+1 (555) 000-0000"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:border-gray-400 transition-colors"
                   />
                 </div>
-                {bookError && <p className="text-red-400 text-sm">{bookError}</p>}
+
+                {bookError && <p className="text-red-500 text-sm">{bookError}</p>}
+
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full py-3 rounded-xl font-semibold text-white transition-all duration-200 hover:scale-[1.01] disabled:opacity-50 disabled:cursor-not-allowed"
-                  style={{ background: 'linear-gradient(135deg, #3b82f6, #2563eb)', boxShadow: '0 4px 15px rgba(59,130,246,0.35)' }}
+                  className="w-full py-3 rounded-xl bg-gray-900 hover:bg-gray-700 text-white font-semibold text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {submitting ? 'Booking...' : 'Confirm Booking'}
                 </button>
-              </div>
-            </form>
-          )}
-        </>
-      )}
+              </form>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 }
