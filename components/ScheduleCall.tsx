@@ -232,7 +232,7 @@ export default function ScheduleCall({ onClose }: ScheduleCallProps) {
     <div className="flex flex-col sm:flex-row min-h-[520px]">
       {/* LEFT PANEL — Calendar */}
       <div className="sm:w-72 shrink-0 p-7 border-b sm:border-b-0 sm:border-r border-gray-200">
-        <h2 className="text-lg font-bold text-gray-900 mb-1">Talk to us</h2>
+        <h2 className="text-lg font-bold text-gray-900 mb-1">Book a Strategy Call</h2>
         <p className="text-sm text-gray-500 leading-relaxed mb-1">
           Select a date to view our availability.
         </p>

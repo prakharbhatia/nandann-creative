@@ -88,7 +88,7 @@ export default function Contact({ onScheduleCall }: ContactProps) {
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-white text-lg transition-all duration-200 hover:scale-105"
               style={{ background: 'linear-gradient(135deg, #3b82f6, #2563eb)', boxShadow: '0 4px 20px rgba(59,130,246,0.4)' }}
             >
-              📅 Schedule a Free 30-Min Call
+              📅 Book a 30-Min Strategy Call
             </button>
           )}
         </div>
