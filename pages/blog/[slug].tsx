@@ -283,6 +283,82 @@ export default function BlogPostPage({ post }: Props) {
             </section>
           )}
 
+          {/* CTA Block */}
+          {post.category === 'WordPress' ? (
+            <div className="mt-16 rounded-2xl overflow-hidden" style={{ background: 'linear-gradient(135deg, #1e1b4b 0%, #0f172a 50%, #1a1a2e 100%)', border: '1px solid rgba(99,102,241,0.3)' }}>
+              <div className="p-8 sm:p-10">
+                <div className="flex items-start gap-4">
+                  <div className="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-2xl" style={{ background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)' }}>
+                    🛠️
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-xs font-semibold tracking-widest uppercase mb-2" style={{ color: '#818cf8' }}>WordPress Development & Maintenance</p>
+                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                      Need help with your WordPress site?
+                    </h3>
+                    <p className="text-gray-300 leading-relaxed mb-2">
+                      Whether you're upgrading to WordPress 7.0, building a new site from scratch, or need someone to keep things running smoothly — we handle the technical side so you can focus on your business.
+                    </p>
+                    <p className="text-gray-400 leading-relaxed mb-8">
+                      Custom plugin development, theme builds, performance tuning, security hardening, ongoing maintenance retainers — we've done it all.
+                    </p>
+                    <div className="flex flex-wrap gap-4">
+                      <Link
+                        href="/contact"
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-200 hover:scale-105"
+                        style={{ background: 'linear-gradient(135deg, #6366f1, #4f46e5)', boxShadow: '0 4px 15px rgba(99,102,241,0.4)' }}
+                      >
+                        Get in Touch →
+                      </Link>
+                      <Link
+                        href="/services"
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-200 hover:bg-white/10"
+                        style={{ color: '#a5b4fc', border: '1px solid rgba(99,102,241,0.4)' }}
+                      >
+                        View Services
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="mt-16 rounded-2xl overflow-hidden" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)', border: '1px solid rgba(59,130,246,0.25)' }}>
+              <div className="p-8 sm:p-10">
+                <div className="flex items-start gap-4">
+                  <div className="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-2xl" style={{ background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.3)' }}>
+                    🚀
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-xs font-semibold tracking-widest uppercase mb-2" style={{ color: '#60a5fa' }}>Work with us</p>
+                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                      Let's build something together
+                    </h3>
+                    <p className="text-gray-300 leading-relaxed mb-8">
+                      We build fast, modern websites and applications using Next.js, React, WordPress, Rust, and more. If you have a project in mind or just want to talk through an idea, we'd love to hear from you.
+                    </p>
+                    <div className="flex flex-wrap gap-4">
+                      <Link
+                        href="/contact"
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-200 hover:scale-105"
+                        style={{ background: 'linear-gradient(135deg, #3b82f6, #2563eb)', boxShadow: '0 4px 15px rgba(59,130,246,0.4)' }}
+                      >
+                        Start a Project →
+                      </Link>
+                      <Link
+                        href="/services"
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-200 hover:bg-white/10"
+                        style={{ color: '#93c5fd', border: '1px solid rgba(59,130,246,0.3)' }}
+                      >
+                        View Services
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           <hr className="my-10 border-white/10" />
 
           <nav className="flex justify-between text-blue-300">
