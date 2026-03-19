@@ -15,6 +15,15 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'wordpress-7-developer-guide',
+    title: 'WordPress 7.0: The Complete Developer Guide to Every Breaking Change and New API',
+    excerpt: 'WordPress 7.0 ships April 9, 2026. Complete developer guide to WP AI Client, Connectors API, Abilities API, MCP Adapter, always-on iframed editor, PHP 7.4 minimum, DataViews, real-time collaboration, and the 14-step migration checklist.',
+    date: 'Mar 19, 2026',
+    readTime: '35 min read',
+    category: 'WordPress',
+    coverImage: '/images/wordpress-7-0-complete-developer-guide-nandann-creative-thumbnail.webp'
+  },
+  {
     slug: 'hungry-resource-monitor',
     title: 'Hungry Resource Monitor - WordPress Performance Plugin',
     excerpt: 'Monitor memory, CPU, and resource usage in WordPress. Detect bloat from plugins, themes, and database. Database cleanup, cron management, and weekly performance reports.',
