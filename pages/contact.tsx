@@ -34,19 +34,7 @@ export default function ContactPage() {
 
       <div className="min-h-screen">
         <Navigation />
-
-        {/* Schedule a Call button */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 flex justify-center">
-          <button
-            onClick={() => setModalOpen(true)}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-200 hover:scale-105"
-            style={{ background: 'linear-gradient(135deg, #3b82f6, #2563eb)', boxShadow: '0 4px 15px rgba(59,130,246,0.35)' }}
-          >
-            📅 Schedule a Call
-          </button>
-        </div>
-
-        <Contact />
+        <Contact onScheduleCall={() => setModalOpen(true)} />
         <Footer />
       </div>
 

@@ -4,7 +4,11 @@ import Image from 'next/image'
 import FAQ from './FAQ';
 import { useAnalytics } from '../hooks/useAnalytics';
 
-export default function Contact() {
+interface ContactProps {
+  onScheduleCall?: () => void;
+}
+
+export default function Contact({ onScheduleCall }: ContactProps) {
   const { trackForm } = useAnalytics();
   
   const [formData, setFormData] = useState({
@@ -74,10 +78,19 @@ export default function Contact() {
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
             Let's <span className="text-gradient">Connect</span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Ready to transform your ideas into reality? Let's discuss your project 
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+            Ready to transform your ideas into reality? Let's discuss your project
             and create something amazing together.
           </p>
+          {onScheduleCall && (
+            <button
+              onClick={onScheduleCall}
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-white text-lg transition-all duration-200 hover:scale-105"
+              style={{ background: 'linear-gradient(135deg, #3b82f6, #2563eb)', boxShadow: '0 4px 20px rgba(59,130,246,0.4)' }}
+            >
+              📅 Schedule a Free 30-Min Call
+            </button>
+          )}
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16">
