@@ -213,8 +213,9 @@ export default function ScheduleCall({ onClose }: ScheduleCallProps) {
           <span className="font-semibold text-gray-900">{formatTime(selectedSlot)}</span>
         </p>
         <p className="text-sm text-gray-500 mt-1 mb-8">
-          Confirmation sent to{' '}
-          <span className="text-blue-600 font-medium">{form.email}</span>
+          Our team will send a meeting invite to{' '}
+          <span className="text-blue-600 font-medium">{form.email}</span>{' '}
+          shortly.
         </p>
         {onClose && (
           <button
