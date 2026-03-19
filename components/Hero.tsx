@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+
+const ShaderBackground = dynamic(() => import('./ui/shader-background'), { ssr: false });
 
 export default function Hero() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -29,12 +32,8 @@ export default function Hero() {
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
-      {/* Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/3 left-1/5 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-1/3 right-1/5 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl animate-float" style={{animationDelay: '3s'}}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-pink-400/20 rounded-full blur-3xl animate-float" style={{animationDelay: '1.5s'}}></div>
-      </div>
+      {/* Shader Background */}
+      <ShaderBackground />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <div className="animate-slide-up">
