@@ -1,19 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { GooeyText } from './ui/gooey-text-morphing';
 
 const ShaderBackground = dynamic(() => import('./ui/shader-background'), { ssr: false });
 
-const morphingWords = [
-  'Experiences',
-  'Solutions',
-  'Products',
-  'Platforms',
-  'Applications',
-];
-
 export default function Hero() {
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const slidingWords = [
+    "Experiences",
+    "Solutions",
+    "Products",
+    "Platforms",
+    "Applications"
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsAnimating(true);
+
+      setTimeout(() => {
+        setCurrentWordIndex((prev) => (prev + 1) % slidingWords.length);
+        setIsAnimating(false);
+      }, 300);
+
+    }, 3500);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
       {/* Shader Background */}
@@ -23,27 +39,23 @@ export default function Hero() {
         <div className="animate-slide-up">
           {/* Main Heading */}
           <h1
-            className="font-bold mb-8 leading-tight text-center"
+            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight text-center"
             style={{ fontSize: 'clamp(3rem, 8vw, 6rem)' }}
           >
-            <span className="block text-white mb-10">
-              Crafting Digital
+            <span className="block text-white mb-4">
+              Crafting <span className="text-white">Digital</span>
             </span>
-
-            <span className="block relative h-24 sm:h-28 lg:h-32 w-full">
-              <GooeyText
-                texts={morphingWords}
-                morphTime={1.2}
-                cooldownTime={2.5}
-                className="absolute inset-0 w-full h-full"
-                textClassName="font-bold w-full"
-                textStyle={{
-                  fontSize: 'clamp(3rem, 8vw, 6rem)',
-                  color: '#c084fc',
-                  textShadow:
-                    '0 0 30px rgba(192, 132, 252, 0.95), 0 0 70px rgba(139, 92, 246, 0.7), 0 0 120px rgba(109, 40, 217, 0.4)',
-                }}
-              />
+            <span className="block relative h-20 md:h-24 lg:h-28 flex items-center justify-center overflow-visible" style={{color: 'rgb(147, 51, 234)'}}>
+              <span
+                key={currentWordIndex}
+                className={`absolute inset-0 flex items-center justify-center text-center transition-all duration-700 ease-in-out z-20 ${
+                  isAnimating
+                    ? 'animate-slideOutUp'
+                    : 'animate-slideInUp'
+                }`}
+              >
+                {slidingWords[currentWordIndex]}
+              </span>
             </span>
           </h1>
 
