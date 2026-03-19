@@ -74,19 +74,19 @@ export const blogPosts: BlogPost[] = [
 <p>With PHP 7.4 as the minimum, you can now use four features in plugin and theme code without writing backwards-compatible fallbacks: typed class properties, arrow functions, the null coalescing assignment operator (<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">??=</code>), and array spread syntax in expressions.</p>
 <p>These are not obscure language features. They are things developers coming from other modern languages expect to be able to use, and they make PHP code meaningfully easier to read and maintain. Here is the same code written for PHP 7.2 and then rewritten for 7.4.</p>
 <p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">php</p>
-<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code><?php
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>&lt;?php
 // Before (PHP 7.2-compatible)
 class PostMeta {
     public $title;
     public $views;
 
     public function __construct( $title, $views ) {
-        $this->title = $title;
-        $this->views = $views;
+        $this-&gt;title = $title;
+        $this-&gt;views = $views;
     }
 
     public function getViews() {
-        $result = isset( $this->views ) ? $this->views : 0;
+        $result = isset( $this-&gt;views ) ? $this-&gt;views : 0;
         return $result;
     }
 }
@@ -99,12 +99,12 @@ class PostMeta {
     public int $views = 0;
 
     public function getViews(): int {
-        return $this->views;
+        return $this-&gt;views;
     }
 }
 
 // Arrow function
-$getLabel = fn( $post ) => strtoupper( $post->post_title );
+$getLabel = fn( $post ) =&gt; strtoupper( $post-&gt;post_title );
 
 // Null coalescing assignment
 $meta = get_post_meta( $post_id, '_views', true );
@@ -125,16 +125,16 @@ $all_tags = [...$base_tags, ...$extra_tags];</code></pre></div>
 <p>You initialize the client once during the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">init</code> hook, then call it from wherever your plugin needs it. The client returns either a response object or a <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">WP_Error</code>, so the error handling pattern will be familiar if you have written any REST API code before.</p>
 <p>Here is a minimal example that registers a REST endpoint to summarize post content. This is the kind of thing you might wire up to a sidebar panel in the block editor.</p>
 <p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">php</p>
-<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code><?php
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>&lt;?php
 add_action( 'init', function() {
     WordPress\\AI_Client\\AI_Client::init();
 } );
 
 add_action( 'rest_api_init', function() {
     register_rest_route( 'myplugin/v1', '/summarize', [
-        'methods'  => 'POST',
-        'callback' => 'myplugin_summarize_content',
-        'permission_callback' => function() {
+        'methods'  =&gt; 'POST',
+        'callback' =&gt; 'myplugin_summarize_content',
+        'permission_callback' =&gt; function() {
             return current_user_can( 'edit_posts' );
         },
     ] );
@@ -143,16 +143,16 @@ add_action( 'rest_api_init', function() {
 function myplugin_summarize_content( WP_REST_Request $request ) {
     $ai = WordPress\\AI_Client\\AI_Client::get_instance();
 
-    $response = $ai->generate_text( [
-        'prompt'      => 'Summarize the following in two sentences: ' . $request->get_param( 'content' ),
-        'max_tokens'  => 150,
+    $response = $ai-&gt;generate_text( [
+        'prompt'      =&gt; 'Summarize the following in two sentences: ' . $request-&gt;get_param( 'content' ),
+        'max_tokens'  =&gt; 150,
     ] );
 
     if ( is_wp_error( $response ) ) {
         return $response;
     }
 
-    return rest_ensure_response( [ 'summary' => $response->get_text() ] );
+    return rest_ensure_response( [ 'summary' =&gt; $response-&gt;get_text() ] );
 }</code></pre></div>
 <h3>How to Use It in JavaScript</h3>
 <p>On the JavaScript side, you are just calling the REST endpoint you registered in PHP. There is no separate JS SDK to learn. Use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">fetch</code> with a nonce header the same way you would call any other WordPress REST endpoint.</p>
@@ -184,12 +184,12 @@ export function SummarizeButton({ content }) {
     }
 
     return (
-        <>
-            <Button onClick={handleClick} isBusy={loading} variant="primary">
+        &lt;&gt;
+            &lt;Button onClick={handleClick} isBusy={loading} variant="primary"&gt;
                 Summarize with AI
-            </Button>
-            {summary && <Textarea value={summary} readOnly />}
-        </>
+            &lt;/Button&gt;
+            {summary &amp;&amp; &lt;Textarea value={summary} readOnly /&gt;}
+        &lt;/&gt;
     );
 }</code></pre></div>
 <h3>The Three Official Provider Plugins</h3>
@@ -204,7 +204,7 @@ export function SummarizeButton({ content }) {
 <h3>Setting Up API Keys</h3>
 <p>You have three ways to provide credentials. Pick the one that fits your deployment setup.</p>
 <p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">php</p>
-<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code><?php
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>&lt;?php
 // Option 1: environment variable (recommended for production)
 // In your server config or .env file:
 // CONNECTOR_OPENAI_API_KEY=sk-your-key-here
@@ -212,33 +212,33 @@ export function SummarizeButton({ content }) {
 // Option 2: PHP constant in wp-config.php
 define( 'CONNECTOR_ANTHROPIC_API_KEY', 'your-key-here' );
 
-// Option 3: stored in the database (done via the Settings > Connectors UI)
+// Option 3: stored in the database (done via the Settings &gt; Connectors UI)
 // WordPress auto-generates the option name: connectors_ai_openai_api_key</code></pre></div>
 <p>Option 1 is the recommended approach for production environments. When you set the key as an environment variable, it never touches the database, which reduces the risk of it showing up in database backups or being exposed through a SQL injection.</p>
 <h3>How to Register a Custom Connector</h3>
 <p>Plugins can register their own connector types, and the architecture is not limited to AI providers. You can register any external service your plugin needs to talk to, whether that is a CRM, a payment processor, or a third-party data source.</p>
 <p>That said, the admin UI for non-AI connectors is limited in 7.0. The settings panel will display your registered fields, but the richer UI features are currently scoped to AI connectors. That is expected to expand in a future release.</p>
 <p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">php</p>
-<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code><?php
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>&lt;?php
 add_action( 'wp_register_connectors', function( $registry ) {
-    $registry->register( [
-        'id'          => 'my-crm',
-        'label'       => 'My CRM Service',
-        'description' => 'Connect to My CRM to sync contacts.',
-        'auth_type'   => 'api_key',
-        'fields'      => [
+    $registry-&gt;register( [
+        'id'          =&gt; 'my-crm',
+        'label'       =&gt; 'My CRM Service',
+        'description' =&gt; 'Connect to My CRM to sync contacts.',
+        'auth_type'   =&gt; 'api_key',
+        'fields'      =&gt; [
             [
-                'key'         => 'api_key',
-                'label'       => 'API Key',
-                'type'        => 'password',
-                'required'    => true,
+                'key'         =&gt; 'api_key',
+                'label'       =&gt; 'API Key',
+                'type'        =&gt; 'password',
+                'required'    =&gt; true,
             ],
             [
-                'key'         => 'base_url',
-                'label'       => 'Base URL',
-                'type'        => 'url',
-                'required'    => true,
-                'default'     => 'https://api.mycrm.com/v2',
+                'key'         =&gt; 'base_url',
+                'label'       =&gt; 'Base URL',
+                'type'        =&gt; 'url',
+                'required'    =&gt; true,
+                'default'     =&gt; 'https://api.mycrm.com/v2',
             ],
         ],
     ] );
@@ -254,23 +254,23 @@ add_action( 'wp_register_connectors', function( $registry ) {
 <p>Registering an ability happens on <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">init</code>. The first argument is a unique ID using a <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">namespace/action</code> pattern, which helps avoid collisions between plugins. The second argument is a configuration array that describes the ability, defines its parameters, and provides the callback that runs when it is invoked.</p>
 <p>It is worth noting the guard check at the top. Because <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">wp_register_ability</code> is new in 7.0, wrapping your registration in a <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">function_exists</code> check keeps your plugin from throwing a fatal error on older WordPress versions.</p>
 <p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">php</p>
-<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code><?php
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>&lt;?php
 add_action( 'init', function() {
     if ( ! function_exists( 'wp_register_ability' ) ) {
         return;
     }
 
     wp_register_ability( 'myplugin/generate-alt-text', [
-        'label'       => 'Generate Alt Text',
-        'description' => 'Generates accessible alt text for an image using AI.',
-        'parameters'  => [
-            'attachment_id' => [
-                'type'        => 'integer',
-                'description' => 'The ID of the attachment to generate alt text for.',
-                'required'    => true,
+        'label'       =&gt; 'Generate Alt Text',
+        'description' =&gt; 'Generates accessible alt text for an image using AI.',
+        'parameters'  =&gt; [
+            'attachment_id' =&gt; [
+                'type'        =&gt; 'integer',
+                'description' =&gt; 'The ID of the attachment to generate alt text for.',
+                'required'    =&gt; true,
             ],
         ],
-        'callback'    => function( array $params ) {
+        'callback'    =&gt; function( array $params ) {
             $attachment_id = (int) $params['attachment_id'];
             $image_url = wp_get_attachment_url( $attachment_id );
 
@@ -279,16 +279,16 @@ add_action( 'init', function() {
             }
 
             $ai = WordPress\\AI_Client\\AI_Client::get_instance();
-            $result = $ai->generate_text( [
-                'prompt' => 'Write a short, descriptive alt text for this image: ' . $image_url,
-                'max_tokens' => 80,
+            $result = $ai-&gt;generate_text( [
+                'prompt' =&gt; 'Write a short, descriptive alt text for this image: ' . $image_url,
+                'max_tokens' =&gt; 80,
             ] );
 
             if ( is_wp_error( $result ) ) {
                 return $result;
             }
 
-            return [ 'alt_text' => trim( $result->get_text() ) ];
+            return [ 'alt_text' =&gt; trim( $result-&gt;get_text() ) ];
         },
     ] );
 } );</code></pre></div>
@@ -324,9 +324,9 @@ export function AltTextGenerator({ attachmentId, onGenerated }) {
     }
 
     return (
-        <Button onClick={generate} isBusy={loading} variant="secondary">
+        &lt;Button onClick={generate} isBusy={loading} variant="secondary"&gt;
             Generate Alt Text
-        </Button>
+        &lt;/Button&gt;
     );
 }</code></pre></div>
 <h3>Hybrid Abilities</h3>
@@ -367,13 +367,13 @@ export function AltTextGenerator({ attachmentId, onGenerated }) {
 <p>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">sync_providers</code> filter lets hosts and plugins replace the default HTTP polling with a WebSocket provider. This is useful if your editorial team is large, edits frequently at the same time, and is noticing visible lag in cursor position updates.</p>
 <p>Your WebSocket provider needs to implement the sync provider interface and be registered before the editor initializes. The filter receives the current array of registered providers and expects an updated array in return.</p>
 <p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">php</p>
-<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code><?php
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>&lt;?php
 add_filter( 'sync_providers', function( array $providers ) {
     // Register a custom WebSocket sync provider
     $providers['websocket'] = [
-        'label'    => 'WebSocket Sync',
-        'handler'  => 'MyPlugin\\Sync\\WebSocketProvider',
-        'priority' => 10,
+        'label'    =&gt; 'WebSocket Sync',
+        'handler'  =&gt; 'MyPlugin\\Sync\\WebSocketProvider',
+        'priority' =&gt; 10,
     ];
     return $providers;
 } );</code></pre></div>
@@ -397,7 +397,7 @@ add_filter( 'sync_providers', function( array $providers ) {
 <p>Scripts that need to run inside the editor context need to be enqueued via the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">enqueue_block_editor_assets</code> action, not <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">wp_enqueue_scripts</code> or <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">admin_enqueue_scripts</code>. The difference is straightforward: <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">enqueue_block_editor_assets</code> targets the editor iframe, and the other two target the admin top frame.</p>
 <p>If your script legitimately needs to run in both places (for example, it controls a sidebar panel that is visible outside the editor), you need two separate enqueue calls with separate script handles. Trying to share one script across both contexts is what causes the hard-to-debug failures.</p>
 <p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">php</p>
-<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code><?php
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>&lt;?php
 // Wrong: script runs in the admin top frame, cannot reach the editor
 add_action( 'admin_enqueue_scripts', function() {
     wp_enqueue_script(
@@ -419,7 +419,7 @@ add_action( 'enqueue_block_editor_assets', function() {
 <p>Classic meta boxes cannot be synced inside the iframed editor. The recommended migration is to convert meta box functionality to registered post meta using <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">register_post_meta()</code> with <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">show_in_rest</code> set to <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">true</code>. Once the meta is accessible via the REST API, you can use the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">PluginSidebar</code> component from <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">@wordpress/edit-post</code> to build the same UI inside the editor without any iframe compatibility issues.</p>
 <p>Here is a before and after showing a simple subtitle field. The PHP side handles registration. The JavaScript side handles the UI.</p>
 <p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">php</p>
-<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code><?php
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>&lt;?php
 // Before: classic meta box
 add_action( 'add_meta_boxes', function() {
     add_meta_box(
@@ -432,8 +432,8 @@ add_action( 'add_meta_boxes', function() {
 } );
 
 function myplugin_render_meta_box( WP_Post $post ) {
-    $value = get_post_meta( $post->ID, '_myplugin_subtitle', true );
-    echo '<input type="text" name="myplugin_subtitle" value="' . esc_attr( $value ) . '">';
+    $value = get_post_meta( $post-&gt;ID, '_myplugin_subtitle', true );
+    echo '&lt;input type="text" name="myplugin_subtitle" value="' . esc_attr( $value ) . '"&gt;';
 }
 
 add_action( 'save_post', function( int $post_id ) {
@@ -445,10 +445,10 @@ add_action( 'save_post', function( int $post_id ) {
 // After: register_post_meta + block editor sidebar (PHP side)
 add_action( 'init', function() {
     register_post_meta( 'post', '_myplugin_subtitle', [
-        'show_in_rest' => true,
-        'single'       => true,
-        'type'         => 'string',
-        'auth_callback' => function() {
+        'show_in_rest' =&gt; true,
+        'single'       =&gt; true,
+        'type'         =&gt; 'string',
+        'auth_callback' =&gt; function() {
             return current_user_can( 'edit_posts' );
         },
     ] );
@@ -464,15 +464,15 @@ function MyPluginSidebar() {
     const subtitle = meta._myplugin_subtitle || '';
 
     return (
-        <PluginSidebar name="myplugin-sidebar" title="Post Details">
-            <TextControl
+        &lt;PluginSidebar name="myplugin-sidebar" title="Post Details"&gt;
+            &lt;TextControl
                 label="Subtitle"
                 value={subtitle}
-                onChange={(value) =>
+                onChange={(value) =&gt;
                     setMeta({ ...meta, _myplugin_subtitle: value })
                 }
-            />
-        </PluginSidebar>
+            /&gt;
+        &lt;/PluginSidebar&gt;
     );
 }
 
@@ -494,18 +494,18 @@ registerPlugin('myplugin-sidebar', {
 <p>Under the hood, the block is powered by <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">WP_Icons_Registry</code>. The block saves only the icon name as a block attribute, and the registry resolves that name to an SVG on the server at render time. This means the actual SVG markup never ends up in post content, which keeps the stored HTML clean. There is also a REST API endpoint at <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">/wp/v2/icons</code> that you can query to get a list of registered icons.</p>
 <p>External icon registration is not yet supported, but it is planned for a future release through <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">WP_Icons_Registry</code>. For now, here is how you can query the icons endpoint programmatically from PHP:</p>
 <p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">php</p>
-<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code><?php
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>&lt;?php
 // Query the icons REST endpoint programmatically
 $response = wp_remote_get( rest_url( 'wp/v2/icons' ), [
-    'headers' => [
-        'X-WP-Nonce' => wp_create_nonce( 'wp_rest' ),
+    'headers' =&gt; [
+        'X-WP-Nonce' =&gt; wp_create_nonce( 'wp_rest' ),
     ],
 ] );
 
 if ( ! is_wp_error( $response ) ) {
     $icons = json_decode( wp_remote_retrieve_body( $response ), true );
     foreach ( $icons as $icon ) {
-        echo esc_html( $icon['name'] ) . '<br>';
+        echo esc_html( $icon['name'] ) . '&lt;br&gt;';
     }
 }</code></pre></div>
 <h3>Breadcrumbs Block</h3>
@@ -613,8 +613,8 @@ const fields = [
         label: 'Title',
         type: 'text',
         Edit: 'text',
-        validate: (value) => {
-            if (!value || value.length < 3) {
+        validate: (value) =&gt; {
+            if (!value || value.length &lt; 3) {
                 return 'Title must be at least 3 characters.';
             }
         },
@@ -634,12 +634,12 @@ const fields = [
 
 function MyForm({ data, onChange }) {
     return (
-        <DataForm
+        &lt;DataForm
             data={data}
             fields={fields}
             form={{ type: 'regular', fields: ['title', 'status'] }}
             onChange={onChange}
-        />
+        /&gt;
     );
 }</code></pre></div>
 <hr style="border: none; border-top: 1px solid #1e293b; margin: 2.5rem 0;" />
@@ -660,7 +660,7 @@ const { state, actions } = store('my-plugin/router', {
     callbacks: {
         trackNavigation() {
             // watch() runs whenever the watched state changes
-            watch(() => {
+            watch(() =&gt; {
                 const { url } = store('core/router').state;
 
                 if (url !== state.previousUrl) {
@@ -731,23 +731,23 @@ const { state, actions } = store('my-plugin/router', {
 <h3>Registering a Custom Block Binding Source</h3>
 <p>To make a custom block attribute bindable, you register it using the Block Bindings API. Once registered, it appears as an option in the editor when a user tries to bind a block attribute in a pattern.</p>
 <p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">php</p>
-<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code><?php
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>&lt;?php
 add_action( 'init', function() {
     register_block_bindings_source( 'myplugin/post-field', [
-        'label'              => 'Post Field',
-        'get_value_callback' => function( array $source_args, WP_Block $block_instance ) {
+        'label'              =&gt; 'Post Field',
+        'get_value_callback' =&gt; function( array $source_args, WP_Block $block_instance ) {
             $field = $source_args['key'] ?? '';
 
             switch ( $field ) {
                 case 'custom_subtitle':
                     return get_post_meta(
-                        $block_instance->context['postId'],
+                        $block_instance-&gt;context['postId'],
                         '_myplugin_subtitle',
                         true
                     );
                 case 'reading_time':
                     return myplugin_calculate_reading_time(
-                        $block_instance->context['postId']
+                        $block_instance-&gt;context['postId']
                     );
                 default:
                     return '';
@@ -8327,7 +8327,7 @@ $formattedPrice = Example::PRICE_FORMATTER(99.99); // "$99.99"</code></pre>
       
       <pre><code>class UserService {
     private $validator = static function($data) {
-        return isset($data['email']) && isset($data['name']);
+        return isset($data['email']) &amp;&amp; isset($data['name']);
     };
     
     private $formatter = static function($user) {
@@ -8923,7 +8923,7 @@ Stack trace:
       <pre><code>// ❌ BAD: Blocking JavaScript that hurts INP
 function processLargeDataset(data) {
   // This blocks the main thread
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i &lt; data.length; i++) {
     // Heavy computation
     data[i] = complexCalculation(data[i]);
   }
@@ -8940,7 +8940,7 @@ worker.onmessage = function(e) {
 
 // data-processor.js
 self.onmessage = function(e) {
-  const processedData = e.data.map(item => complexCalculation(item));
+  const processedData = e.data.map(item =&gt; complexCalculation(item));
   self.postMessage(processedData);
 };
 
@@ -8952,11 +8952,11 @@ function processDataInChunks(data, chunkSize = 100) {
     const chunk = data.slice(index, index + chunkSize);
     
     // Process chunk
-    chunk.forEach(item => processItem(item));
+    chunk.forEach(item =&gt; processItem(item));
     
     index += chunkSize;
     
-    if (index < data.length) {
+    if (index &lt; data.length) {
       // Yield control back to browser
       setTimeout(processChunk, 0);
     }
@@ -10934,7 +10934,7 @@ Text("Modernized UI")
     "https://www.linkedin.com/company/nandann",
     "https://twitter.com/nandann"
   ],
-  "serviceType": "WordPress Security & File Permission Auditing",
+  "serviceType": "WordPress Security &amp; File Permission Auditing",
   "areaServed": { "@type": "Country", "name": "Global" }
 }
 &lt;/script&gt;</code></pre>
@@ -13426,7 +13426,7 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
   const products = await fetchAllProducts();
-  const paths = products.map((product) => ({
+  const paths = products.map((product) =&gt; ({
     params: { id: product.id.toString() },
   }));
   
@@ -13825,11 +13825,11 @@ import { useState, useEffect } from 'react';
 export default function DynamicPage() {
   const [data, setData] = useState(null);
   
-  useEffect(() => {
+  useEffect(() =&gt; {
     fetchData().then(setData);
   }, []);
   
-  return <div>{data ? <Content data={data} /> : <Loading />}</div>;
+  return &lt;div&gt;{data ? &lt;Content data={data} /&gt; : &lt;Loading /&gt;}&lt;/div&gt;;
 }</code></pre>
       </div>
 
@@ -13842,7 +13842,7 @@ export default function DynamicPage() {
 
 export default function ProductImage({ src, alt, width, height }) {
   return (
-    <Image
+    &lt;Image
       src={src}
       alt={alt}
       width={width}
@@ -13851,7 +13851,7 @@ export default function ProductImage({ src, alt, width, height }) {
       blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQ..."
       priority={false}
       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-    />
+    /&gt;
   );
 }</code></pre>
       </div>
