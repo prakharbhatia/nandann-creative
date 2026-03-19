@@ -441,7 +441,7 @@ export default function NextJS16Migrator() {
                 Install Now
               </Link>
               <Link 
-                href="/contact" 
+                href="/contact?ref=nextjs" 
                 className="bg-gray-800 hover:bg-gray-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
               >
                 Get Professional Help

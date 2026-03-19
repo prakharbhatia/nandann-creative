@@ -83,7 +83,7 @@ export default function Services() {
               
               <div className="mt-6 pt-6 border-t border-white/10">
                 <Link
-                  href="/contact"
+                  href="/contact?ref=services"
                   className="text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200"
                 >
                   Learn More →

@@ -199,7 +199,7 @@ export default function LocationNavigation({ location, locationShort }: Location
             <Link href="/about" className="text-gray-700 hover:text-blue-600 transition-colors">
               About
             </Link>
-            <Link href="/contact" className="text-gray-700 hover:text-blue-600 transition-colors">
+            <Link href="/contact?ref=location" className="text-gray-700 hover:text-blue-600 transition-colors">
               Contact
             </Link>
           </div>
@@ -207,7 +207,7 @@ export default function LocationNavigation({ location, locationShort }: Location
           {/* CTA Button */}
           <div className="hidden md:block">
             <Link
-              href="/contact"
+              href="/contact?ref=location"
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-6 py-3 rounded-full text-white font-medium hover-lift hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300"
             >
               Start Project
@@ -401,14 +401,14 @@ export default function LocationNavigation({ location, locationShort }: Location
               About
             </Link>
             <Link
-              href="/contact"
+              href="/contact?ref=location"
               className="block text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Contact
             </Link>
             <Link
-              href="/contact"
+              href="/contact?ref=location"
               className="block bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-4 py-3 rounded-lg text-white font-medium text-center mt-4 transition-all duration-300"
             >
               Start Project

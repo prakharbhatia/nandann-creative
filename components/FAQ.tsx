@@ -150,7 +150,7 @@ export default function FAQ({ title = "Frequently Asked Questions", faqs = defau
                 We'd love to discuss your project and answer any specific questions you might have.
               </p>
               <Link
-                href="/contact"
+                href="/contact?ref=faq"
                 className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 px-8 py-3 rounded-lg text-white font-medium transition-all duration-300 transform hover:scale-105 inline-block"
               >
                 Get in Touch

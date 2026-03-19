@@ -152,7 +152,7 @@ export default function WebDevelopmentPennsylvania() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/contact"
+              href="/contact?ref=location"
               className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg"
             >
               Let's Build Something Amazing!
@@ -461,7 +461,7 @@ export default function WebDevelopmentPennsylvania() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/contact"
+              href="/contact?ref=location"
               className="bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors"
             >
               Get Your Free Quote

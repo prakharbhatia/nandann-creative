@@ -370,7 +370,7 @@ export default function WordPressPlugin() {
               </a>
               
               <Link 
-                href="/contact" 
+                href="/contact?ref=wordpress-plugin" 
                 className="bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 px-8 py-4 rounded-full text-white font-medium transition-all duration-300 backdrop-blur-sm"
               >
                 Need Help? Contact Us

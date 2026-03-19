@@ -444,7 +444,7 @@ export default function NextJSVsWordPressPerformanceBenchmark() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link
-                    href="/contact"
+                    href="/contact?ref=nextjs"
                     className="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg text-white font-semibold text-lg transition-all duration-300 transform hover:scale-105"
                   >
                     Start Performance Migration

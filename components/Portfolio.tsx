@@ -236,7 +236,7 @@ export default function Portfolio() {
 
                 <div className="flex items-center justify-between">
                   <Link
-                    href="/contact"
+                    href="/contact?ref=portfolio"
                     className="text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200"
                   >
                     Get Quote →
@@ -262,7 +262,7 @@ export default function Portfolio() {
               We're here to bring your vision to life.
             </p>
             <Link
-              href="/contact"
+              href="/contact?ref=portfolio"
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-full text-white font-semibold text-lg hover-lift hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 inline-block"
             >
               Get Started Today

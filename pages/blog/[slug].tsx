@@ -304,7 +304,7 @@ export default function BlogPostPage({ post }: Props) {
                     </p>
                     <div className="flex flex-wrap gap-4">
                       <Link
-                        href="/contact"
+                        href="/contact?ref=wordpress-blog"
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-200 hover:scale-105"
                         style={{ background: 'linear-gradient(135deg, #6366f1, #4f46e5)', boxShadow: '0 4px 15px rgba(99,102,241,0.4)' }}
                       >
@@ -339,7 +339,7 @@ export default function BlogPostPage({ post }: Props) {
                     </p>
                     <div className="flex flex-wrap gap-4">
                       <Link
-                        href="/contact"
+                        href="/contact?ref=blog"
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-200 hover:scale-105"
                         style={{ background: 'linear-gradient(135deg, #3b82f6, #2563eb)', boxShadow: '0 4px 15px rgba(59,130,246,0.4)' }}
                       >

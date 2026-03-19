@@ -169,7 +169,7 @@ export default function IowaPage() {
                   that capture Iowa's spirit and drive real results in the Hawkeye State.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/contact" className="bg-gradient-to-r from-yellow-600 to-yellow-800 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-yellow-700 hover:to-yellow-900 transition-all duration-300 transform hover:scale-105 text-center">
+                  <Link href="/contact?ref=location" className="bg-gradient-to-r from-yellow-600 to-yellow-800 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-yellow-700 hover:to-yellow-900 transition-all duration-300 transform hover:scale-105 text-center">
                     Get Your Free Quote
                   </Link>
                   <Link href="/portfolio" className="border-2 border-yellow-600 text-yellow-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-yellow-600 hover:text-white transition-all duration-300 text-center">
@@ -629,10 +629,10 @@ export default function IowaPage() {
               Join hundreds of Iowa businesses that trust Nandann Creative with their digital success—from Des Moines to Davenport, go hawks!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact" className="bg-white text-yellow-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
+              <Link href="/contact?ref=location" className="bg-white text-yellow-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
                 Start Your Project Today
               </Link>
-              <Link href="/contact" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-yellow-600 transition-all duration-300 text-center">
+              <Link href="/contact?ref=location" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-yellow-600 transition-all duration-300 text-center">
                 Schedule a Consultation
               </Link>
             </div>

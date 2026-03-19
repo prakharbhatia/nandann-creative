@@ -116,7 +116,7 @@ export default function GeorgiaWebDevelopment() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
-              href="/contact" 
+              href="/contact?ref=location" 
               className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition duration-300"
             >
               Get Your Free Quote
@@ -438,7 +438,7 @@ export default function GeorgiaWebDevelopment() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
-              href="/contact" 
+              href="/contact?ref=location" 
               className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg text-lg font-semibold transition duration-300"
             >
               Start Your Project Today

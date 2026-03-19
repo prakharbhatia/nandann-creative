@@ -168,7 +168,7 @@ export default function AlabamaPage() {
                   that capture Alabama's spirit and drive real results in the Heart of Dixie.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/contact" className="bg-gradient-to-r from-red-600 to-red-800 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-red-700 hover:to-red-900 transition-all duration-300 transform hover:scale-105 text-center">
+                  <Link href="/contact?ref=location" className="bg-gradient-to-r from-red-600 to-red-800 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-red-700 hover:to-red-900 transition-all duration-300 transform hover:scale-105 text-center">
                     Get Your Free Quote
                   </Link>
                   <Link href="/portfolio" className="border-2 border-red-600 text-red-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gradient-to-r from-red-600 to-red-800 hover:text-white transition-all duration-300 text-center">
@@ -628,10 +628,10 @@ export default function AlabamaPage() {
               Join hundreds of Alabama businesses that trust Nandann Creative with their digital success—from Birmingham to Mobile, roll tide!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact" className="bg-white text-red-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
+              <Link href="/contact?ref=location" className="bg-white text-red-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
                 Start Your Project Today
               </Link>
-              <Link href="/contact" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-red-600 transition-all duration-300 text-center">
+              <Link href="/contact?ref=location" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-red-600 transition-all duration-300 text-center">
                 Schedule a Consultation
               </Link>
             </div>
