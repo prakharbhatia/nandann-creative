@@ -40,8 +40,30 @@ export default function ScheduleCall({ onClose }: ScheduleCallProps) {
     fetch('/api/slots')
       .then(r => r.json())
       .then(data => {
-        setSlots(data.slots || []);
+        const incoming: string[] = data.slots || [];
+        setSlots(incoming);
         setLoading(false);
+
+        // Auto-select today if it has slots, otherwise first available date
+        if (incoming.length > 0) {
+          const todayStr = new Date().toLocaleDateString('en-CA', {
+            timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          });
+          const map: Record<string, boolean> = {};
+          for (const iso of incoming) {
+            const d = new Date(iso).toLocaleDateString('en-CA', {
+              timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            });
+            map[d] = true;
+          }
+          const firstDate = map[todayStr]
+            ? todayStr
+            : Object.keys(map).sort()[0];
+          if (firstDate) {
+            const [y, m, d] = firstDate.split('-').map(Number);
+            setSelectedDate(new Date(y, m - 1, d));
+          }
+        }
       })
       .catch(() => {
         setError('Could not load available times. Please try again.');
