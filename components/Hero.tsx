@@ -26,17 +26,11 @@ export default function Hero() {
             className="font-bold mb-8 leading-tight text-center"
             style={{ fontSize: 'clamp(3rem, 8vw, 6rem)' }}
           >
-            <span className="block text-white mb-4">
+            <span className="block text-white mb-10">
               Crafting Digital
             </span>
 
-            {/*
-              GooeyText container — height must match text size so the
-              absolutely-positioned spans don't collapse the layout.
-              clamp(3rem, 8vw, 6rem) → use h-[4rem] sm:h-[5rem] lg:h-[6rem]
-              Add extra headroom for the blur glow: +1rem on each size.
-            */}
-            <span className="block relative h-20 sm:h-24 lg:h-28 w-full">
+            <span className="block relative h-24 sm:h-28 lg:h-32 w-full">
               <GooeyText
                 texts={morphingWords}
                 morphTime={1.2}
@@ -45,9 +39,9 @@ export default function Hero() {
                 textClassName="font-bold w-full"
                 textStyle={{
                   fontSize: 'clamp(3rem, 8vw, 6rem)',
-                  color: '#ffffff',
+                  color: '#c084fc',
                   textShadow:
-                    '0 0 40px rgba(192, 132, 252, 0.9), 0 0 80px rgba(139, 92, 246, 0.6)',
+                    '0 0 30px rgba(192, 132, 252, 0.95), 0 0 70px rgba(139, 92, 246, 0.7), 0 0 120px rgba(109, 40, 217, 0.4)',
                 }}
               />
             </span>
