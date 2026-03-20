@@ -15,6 +15,15 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'rust-pyo3-python-extensions-guide',
+    title: 'PyO3 v0.28 and maturin: Writing Python Extensions in Rust That Actually Ship',
+    excerpt: 'PyO3 v0.28 adds full support for free-threaded Python 3.14 and the GIL release API. This guide covers building, packaging, and shipping Python extensions in Rust with maturin — from first function to published PyPI wheel.',
+    date: 'Mar 21, 2026',
+    readTime: '26 min read',
+    category: 'Rust',
+    coverImage: '/images/rust-pyo3-python-nandann-creative.webp'
+  },
+  {
     slug: 'wordpress-7-developer-guide',
     title: 'WordPress 7.0: The Complete Developer Guide to Every Breaking Change and New API',
     excerpt: 'WordPress 7.0 ships April 9, 2026. Complete developer guide to WP AI Client, Connectors API, Abilities API, MCP Adapter, always-on iframed editor, PHP 7.4 minimum, DataViews, real-time collaboration, and the 14-step migration checklist.',

@@ -28,6 +28,566 @@ const internalLinks = {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'rust-pyo3-python-extensions-guide',
+    title: 'PyO3 v0.28 and maturin: Writing Python Extensions in Rust That Actually Ship',
+    description: 'PyO3 v0.28 adds full support for free-threaded Python 3.14 and the GIL release API. This guide covers building, packaging, and shipping Python extensions in Rust with maturin — from first function to published PyPI wheel.',
+    date: '2026-03-21',
+    readTime: '26 min read',
+    category: 'Rust',
+    tags: [
+      'PyO3',
+      'PyO3 v0.28',
+      'Rust',
+      'Python',
+      'maturin',
+      'Python extensions',
+      'Rust Python extension',
+      'GIL',
+      'free-threaded Python',
+      'Python 3.14',
+      'PyPI wheel',
+      'maturin build',
+      'Rust pip wheel',
+      'pyo3 class example',
+      'Python performance',
+      'Rust Rust performance',
+      'Rayon',
+      'cpython bindings',
+    ],
+    coverImage: '/images/rust-pyo3-python-nandann-creative.webp',
+    contentHtml: `<picture>
+  <source media="(min-width: 1px)" srcset="/images/rust-pyo3-python-nandann-creative.webp 1x, /images/rust-pyo3-python-nandann-creative-2x.webp 2x" type="image/webp" />
+  <img src="/images/rust-pyo3-python-nandann-creative.webp" alt="PyO3 v0.28 and Maturin: Rust &amp; Python Extensions - Building High-Performance Extensions for Python 3.14 and Beyond - Nandann Creative" style="width:100%; border-radius:12px; margin-bottom: 2rem;" loading="eager" width="1200" height="630" />
+</picture>
+ 
+<h2>Introduction</h2>
+<p>Polars, Ruff, Pydantic v2, Hugging Face tokenizers, orjson. All Python libraries. All written in Rust under the hood with PyO3. They didn't rewrite everything. They moved the 5% of code causing 95% of the slowdown into Rust, kept their Python API exactly as it was, and shipped pip-installable wheels. You can do the same.</p>
+<p>This guide covers PyO3 v0.28 and maturin 1.8 specifically. The API has changed substantially since v0.20 and most tutorials online are out of date. Everything here uses the current <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Bound&lt;'py, T&gt;</code> API, the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">IntoPyObject</code> trait, and the free-threaded Python 3.14 support that landed in v0.23 and matured through v0.28. Every code example is written to compile against <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">pyo3 = "0.28"</code>.</p>
+ 
+<hr style="border: none; border-top: 1px solid #1e293b; margin: 2.5rem 0;" />
+ 
+<h2>Why PyO3, Why Now</h2>
+<h3>The Problem With Pure Python Performance</h3>
+<p>Python has three serious performance ceilings. The first is raw execution speed: CPython interprets bytecode, which is roughly 10–100x slower than compiled native code depending on the workload. The second is the GIL: even with multiple threads, only one thread executes Python bytecode at a time. The third is memory layout: Python objects are heap-allocated, reference-counted boxes, which kills CPU cache efficiency for numeric workloads.</p>
+<p>For I/O-bound code, none of this matters. But for CPU-bound work such as parsing, numeric computation, text processing, compression, or cryptography, you're leaving a significant amount of performance on the table.</p>
+<p>The older solutions each have problems. Cython requires a <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">.pyx</code> dialect that's not plain Python or plain C. <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">ctypes</code> works but the ergonomics are terrible. C extensions require you to manually manage Python reference counts. CFFI is better than ctypes but still requires hand-written binding code.</p>
+ 
+<h3>What PyO3 Actually Is</h3>
+<p>PyO3 is a set of Rust bindings for the CPython API. It works in both directions: Rust code calling Python (embedding), and Python code calling Rust (extensions). You write Rust functions and structs, annotate them with PyO3 macros, compile to a native <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">.so</code> or <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">.pyd</code> file, and import the result like any other Python module.</p>
+<p>Production users include Polars, Ruff, Pydantic v2, orjson, cryptography, and Hugging Face tokenizers. These are not toy projects.</p>
+ 
+<h3>The 95/5 Rule</h3>
+<p>Before writing a single line of Rust, profile. Use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">py-spy</code> to record a flamegraph:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>pip install py-spy
+py-spy record -o profile.svg -- python your_script.py
+# or quick function-level breakdown:
+python -m cProfile -s cumulative your_script.py | head -30</code></pre></div>
+<p>Find the top one to three functions that consume the most CPU time. Those are your Rust candidates. Everything else stays in Python.</p>
+ 
+<h3>PyO3 vs. Cython vs. ctypes vs. cffi</h3>
+<div style="overflow-x: auto; margin: 1.5rem 0;"><table style="width:100%; border-collapse: collapse; font-size: 0.9rem;"><thead><tr style="background: #1e293b;"><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Tool</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Raw Speed</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Call Overhead</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Safety</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Ergonomics</th></tr></thead><tbody><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0; font-weight:600;">PyO3</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">C-level</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Low</td><td style="padding: 0.75rem 1rem; color: #4ade80;">Memory-safe</td><td style="padding: 0.75rem 1rem; color: #4ade80;">Excellent</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Cython</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">C-level</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Very low</td><td style="padding: 0.75rem 1rem; color: #fb923c;">Unsafe</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Moderate</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">ctypes</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">C-level</td><td style="padding: 0.75rem 1rem; color: #fb923c;">High (libffi)</td><td style="padding: 0.75rem 1rem; color: #fb923c;">Unsafe</td><td style="padding: 0.75rem 1rem; color: #fb923c;">Poor</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">cffi</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">C-level</td><td style="padding: 0.75rem 1rem; color: #fb923c;">High</td><td style="padding: 0.75rem 1rem; color: #fb923c;">Unsafe</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Moderate</td></tr></tbody></table></div>
+ 
+<hr style="border: none; border-top: 1px solid #1e293b; margin: 2.5rem 0;" />
+ 
+<h2>Part 1: Setting Up Your Environment</h2>
+<h3>Prerequisites</h3>
+<p>You need Rust 1.83 or later and Python 3.9 or later. Install Rust via rustup, then create a virtualenv and install maturin:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+rustup toolchain install stable
+ 
+python -m venv .venv
+source .venv/bin/activate
+pip install maturin==1.8.3
+maturin --version  # maturin 1.8.3</code></pre></div>
+ 
+<h3>Initializing a New Project</h3>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>maturin new --bindings pyo3 my_extension
+cd my_extension</code></pre></div>
+<p>The generated structure:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">text</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>my_extension/
+├── Cargo.toml
+├── pyproject.toml
+└── src/
+    └── lib.rs</code></pre></div>
+<p>The critical parts of <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Cargo.toml</code>:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">toml</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>[package]
+name = "my_extension"
+version = "0.1.0"
+edition = "2021"
+ 
+[lib]
+name = "my_extension"
+crate-type = ["cdylib"]
+ 
+[dependencies]
+pyo3 = { version = "0.28", features = ["extension-module"] }</code></pre></div>
+<p>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">crate-type = ["cdylib"]</code> line is required. It tells Rust to compile a C-compatible shared library instead of a Rust library. The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">extension-module</code> feature disables PyO3's default behavior of linking against <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">libpython</code>.</p>
+ 
+<hr style="border: none; border-top: 1px solid #1e293b; margin: 2.5rem 0;" />
+ 
+<h2>Part 2: Your First PyO3 Extension</h2>
+<h3>The Core Macros</h3>
+<p>PyO3 uses Rust macros to annotate your code. Three macros cover almost everything:</p>
+<ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">#[pyfunction]</code> — marks a Rust function as callable from Python</li>
+<li><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">#[pymodule]</code> — marks a function as the module entry point</li>
+<li><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">#[pyclass]</code> / <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">#[pymethods]</code> — exposes a Rust struct as a Python type</li>
+</ul>
+ 
+<h3>Writing and Exposing a Function</h3>
+<p>A complete <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">src/lib.rs</code> that exposes a word-count function:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>use pyo3::prelude::*;
+ 
+#[pyfunction]
+fn word_count(text: &amp;str) -&gt; usize {
+    text.split_whitespace().count()
+}
+ 
+#[pyfunction]
+fn sum_as_string(a: usize, b: usize) -&gt; PyResult&lt;String&gt; {
+    Ok((a + b).to_string())
+}
+ 
+#[pymodule]
+fn my_extension(m: &amp;Bound&lt;'_, PyModule&gt;) -&gt; PyResult&lt;()&gt; {
+    m.add_function(wrap_pyfunction!(word_count, m)?)?;
+    m.add_function(wrap_pyfunction!(sum_as_string, m)?)?;
+    Ok(())
+}</code></pre></div>
+<p>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Bound&lt;'_, PyModule&gt;</code> type is the v0.21+ API. If you see tutorials using <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">&amp;PyModule</code>, they are out of date.</p>
+ 
+<h3>Building and Testing</h3>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>maturin develop           # debug build
+maturin develop --release  # release build for benchmarking</code></pre></div>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">python</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>import my_extension
+ 
+print(my_extension.word_count("hello world foo"))  # 3
+print(my_extension.sum_as_string(10, 20))          # "30"</code></pre></div>
+<p><strong>Debug builds can be 10–20x slower than release builds</strong> for compute-intensive code. Never measure performance against a debug build.</p>
+ 
+<hr style="border: none; border-top: 1px solid #1e293b; margin: 2.5rem 0;" />
+ 
+<h2>Part 3: Exposing Rust Structs as Python Classes</h2>
+<p><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">#[pyclass]</code> on a Rust struct generates a Python type. <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">#[pymethods]</code> attaches methods. Here is a complete <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">WordCounter</code> class:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>use pyo3::prelude::*;
+use std::collections::HashMap;
+ 
+#[pyclass]
+struct WordCounter {
+    text: String,
+}
+ 
+#[pymethods]
+impl WordCounter {
+    #[new]
+    fn new(text: String) -&gt; PyResult&lt;Self&gt; {
+        if text.is_empty() {
+            return Err(pyo3::exceptions::PyValueError::new_err(
+                "text cannot be empty"
+            ));
+        }
+        Ok(WordCounter { text })
+    }
+ 
+    fn count(&amp;self) -&gt; usize {
+        self.text.split_whitespace().count()
+    }
+ 
+    fn most_common(&amp;self, n: usize) -&gt; Vec&lt;(String, usize)&gt; {
+        let mut freq: HashMap&lt;&amp;str, usize&gt; = HashMap::new();
+        for word in self.text.split_whitespace() {
+            *freq.entry(word).or_insert(0) += 1;
+        }
+        let mut pairs: Vec&lt;(String, usize)&gt; = freq
+            .into_iter()
+            .map(|(k, v)| (k.to_string(), v))
+            .collect();
+        pairs.sort_by(|a, b| b.1.cmp(&amp;a.1));
+        pairs.truncate(n);
+        pairs
+    }
+ 
+    #[getter]
+    fn text(&amp;self) -&gt; &amp;str { &amp;self.text }
+ 
+    #[setter]
+    fn set_text(&amp;mut self, value: String) -&gt; PyResult&lt;()&gt; {
+        if value.is_empty() {
+            return Err(pyo3::exceptions::PyValueError::new_err("text cannot be empty"));
+        }
+        self.text = value;
+        Ok(())
+    }
+ 
+    fn __repr__(&amp;self) -&gt; String { format!("WordCounter({} words)", self.count()) }
+    fn __len__(&amp;self) -&gt; usize { self.count() }
+}</code></pre></div>
+<p>From Python:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">python</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>from my_extension import WordCounter
+ 
+c = WordCounter("the quick brown fox the fox")
+print(c.count())          # 6
+print(c.most_common(2))   # [("fox", 2), ("the", 2)]
+print(len(c))             # 6
+c.text = "hello world"
+print(c.count())          # 2</code></pre></div>
+<p>For types that need concurrent mutation, put the mutable state behind <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Arc&lt;Mutex&lt;Inner&gt;&gt;</code>. <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">#[pyclass]</code> structs use interior mutability and PyO3 enforces the borrow rules at runtime.</p>
+ 
+<hr style="border: none; border-top: 1px solid #1e293b; margin: 2.5rem 0;" />
+ 
+<h2>Part 4: PyO3 v0.28 API Changes</h2>
+<h3>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Bound&lt;'py, T&gt;</code> API</h3>
+<p>The single most important change across the v0.21–v0.28 range was the shift from "GIL Refs" to <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Bound&lt;'py, T&gt;</code>. Old code used <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">&amp;PyList</code> (a GIL Ref without an explicit lifetime). The current v0.28 API:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// Current v0.28 API
+fn process(py: Python&lt;'_&gt;, list: &amp;Bound&lt;'_, PyList&gt;) -&gt; PyResult&lt;()&gt; {
+    for item in list.iter() {
+        let s: String = item.extract()?;
+        println!("{}", s);
+    }
+    Ok(())
+}</code></pre></div>
+<p>The lifetime <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">'py</code> is tied to the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Python&lt;'py&gt;</code> token that proves you hold the GIL. <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Py&lt;T&gt;</code> is the GIL-independent counterpart for storing objects in structs or across threads.</p>
+ 
+<h3><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">GILOnceCell</code> Replaced With <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">OnceLock</code></h3>
+<p>In v0.23+, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">GILOnceCell</code> was replaced with <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">OnceLock&lt;Py&lt;T&gt;&gt;</code> for module-level cached values:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>use std::sync::OnceLock;
+ 
+static CACHED_REGEX: OnceLock&lt;Py&lt;PyAny&gt;&gt; = OnceLock::new();
+ 
+fn get_compiled_regex(py: Python&lt;'_&gt;) -&gt; PyResult&lt;Bound&lt;'_, PyAny&gt;&gt; {
+    let compiled = CACHED_REGEX.get_or_try_init(|| {
+        let re = py.import("re")?;
+        let compiled = re.call_method1("compile", (r"\w+",))?;
+        Ok::&lt;Py&lt;PyAny&gt;, PyErr&gt;(compiled.unbind())
+    })?;
+    Ok(compiled.bind(py).clone())
+}</code></pre></div>
+ 
+<hr style="border: none; border-top: 1px solid #1e293b; margin: 2.5rem 0;" />
+ 
+<h2>Part 5: Error Handling</h2>
+<p><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">PyResult&lt;T&gt;</code> is an alias for <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Result&lt;T, PyErr&gt;</code>. The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">?</code> operator propagates errors automatically. All standard Python exception types live in <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">pyo3::exceptions</code>:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>use pyo3::exceptions::PyValueError;
+ 
+#[pyfunction]
+fn parse_positive(s: &amp;str) -&gt; PyResult&lt;i64&gt; {
+    let n: i64 = s.parse().map_err(|_| {
+        PyValueError::new_err(format!("'{}' is not a valid integer", s))
+    })?;
+    if n &lt;= 0 {
+        return Err(PyValueError::new_err("value must be positive"));
+    }
+    Ok(n)
+}</code></pre></div>
+<p>For custom exception classes, use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">create_exception!</code>. For larger codebases, implement <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">From&lt;MyError&gt; for PyErr</code> so the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">?</code> operator handles conversion automatically throughout your call stack.</p>
+ 
+<hr style="border: none; border-top: 1px solid #1e293b; margin: 2.5rem 0;" />
+ 
+<h2>Part 6: The GIL and Free-Threaded Python 3.14</h2>
+<h3>Releasing the GIL: <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">py.allow_threads()</code></h3>
+<p>Call <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">py.allow_threads()</code> to release the GIL while your Rust code runs. Do not access any Python objects inside the closure — the compiler enforces this:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>#[pyfunction]
+fn parallel_sum(py: Python&lt;'_&gt;, data: Vec&lt;f64&gt;) -&gt; PyResult&lt;f64&gt; {
+    let result = py.allow_threads(|| {
+        data.iter().map(|x| x * x).sum::&lt;f64&gt;().sqrt()
+    });
+    Ok(result)
+}
+ 
+// With Rayon for multi-core parallelism:
+use rayon::prelude::*;
+ 
+#[pyfunction]
+fn parallel_sqrt_sum(py: Python&lt;'_&gt;, data: Vec&lt;f64&gt;) -&gt; f64 {
+    py.allow_threads(|| data.par_iter().map(|x| x.sqrt()).sum())
+}</code></pre></div>
+ 
+<h3>Free-Threaded Python 3.14</h3>
+<p>PEP 779, accepted for Python 3.14, removes the GIL entirely as a supported configuration. PyO3 has supported free-threaded Python since v0.23. To declare your module thread-safe:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>#[pymodule(gil_used = false)]
+fn my_extension(m: &amp;Bound&lt;'_, PyModule&gt;) -&gt; PyResult&lt;()&gt; {
+    m.add_function(wrap_pyfunction!(parallel_sum, m)?)?;
+    Ok(())
+}</code></pre></div>
+<p>This sets the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Py_MOD_GIL_NOT_USED</code> slot. Every <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">#[pyclass]</code> must implement <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Send + Sync</code> — the compiler enforces this. For types that genuinely cannot be thread-safe, use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">#[pyclass(unsendable)]</code>.</p>
+ 
+<hr style="border: none; border-top: 1px solid #1e293b; margin: 2.5rem 0;" />
+ 
+<h2>Part 7: Working With Python Types</h2>
+<h3>Type Conversion Cheatsheet</h3>
+<div style="overflow-x: auto; margin: 1.5rem 0;"><table style="width:100%; border-collapse: collapse; font-size: 0.9rem;"><thead><tr style="background: #1e293b;"><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Rust Type</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Python Type</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Notes</th></tr></thead><tbody><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">i32, i64, i128</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">int</td><td style="padding: 0.75rem 1rem; color: #94a3b8;"></td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">f32, f64</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">float</td><td style="padding: 0.75rem 1rem; color: #94a3b8;"></td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">String, &amp;str</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">str</td><td style="padding: 0.75rem 1rem; color: #94a3b8;">&amp;str is zero-copy</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Vec&lt;T&gt;</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">list</td><td style="padding: 0.75rem 1rem; color: #94a3b8;">Copies elements</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">HashMap&lt;K, V&gt;</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">dict</td><td style="padding: 0.75rem 1rem; color: #94a3b8;">Copies entries</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Option&lt;T&gt;</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">T or None</td><td style="padding: 0.75rem 1rem; color: #94a3b8;">None maps to None</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Vec&lt;u8&gt;</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">bytes</td><td style="padding: 0.75rem 1rem; color: #94a3b8;"></td></tr></tbody></table></div>
+<p>For duck typing, accept <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Bound&lt;'py, PyAny&gt;</code> and call <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">.extract::&lt;T&gt;()</code> to attempt conversion. If extraction fails, it returns <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Err(PyTypeError)</code> automatically.</p>
+ 
+<hr style="border: none; border-top: 1px solid #1e293b; margin: 2.5rem 0;" />
+ 
+<h2>Part 8: A Real-World Example — Fast CSV Parser</h2>
+<p>A complete, realistic example: a fast CSV row parser exposed to Python, demonstrating full project structure with error handling, struct exposure, and type conversions.</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">toml (Cargo.toml)</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>[package]
+name = "fastcsv"
+version = "0.1.0"
+edition = "2021"
+ 
+[lib]
+name = "fastcsv"
+crate-type = ["cdylib"]
+ 
+[dependencies]
+pyo3 = { version = "0.28", features = ["extension-module"] }
+csv = "1.3"</code></pre></div>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust (src/lib.rs)</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>use pyo3::prelude::*;
+use pyo3::types::{PyDict, PyList};
+use pyo3::exceptions::PyValueError;
+ 
+#[pyclass]
+struct CsvParser { delimiter: u8, has_header: bool }
+ 
+#[pymethods]
+impl CsvParser {
+    #[new]
+    #[pyo3(signature = (delimiter=",", has_header=true))]
+    fn new(delimiter: &amp;str, has_header: bool) -&gt; PyResult&lt;Self&gt; {
+        let delim_bytes = delimiter.as_bytes();
+        if delim_bytes.len() != 1 {
+            return Err(PyValueError::new_err("delimiter must be a single character"));
+        }
+        Ok(CsvParser { delimiter: delim_bytes[0], has_header })
+    }
+ 
+    fn parse_file&lt;'py&gt;(&amp;self, py: Python&lt;'py&gt;, path: &amp;str) -&gt; PyResult&lt;Bound&lt;'py, PyList&gt;&gt; {
+        // Release GIL during file I/O
+        let content = py.allow_threads(|| std::fs::read_to_string(path))?;
+        self.parse_string(py, &amp;content)
+    }
+ 
+    fn parse_string&lt;'py&gt;(&amp;self, py: Python&lt;'py&gt;, content: &amp;str) -&gt; PyResult&lt;Bound&lt;'py, PyList&gt;&gt; {
+        let mut rdr = csv::ReaderBuilder::new()
+            .delimiter(self.delimiter)
+            .has_headers(self.has_header)
+            .from_reader(content.as_bytes());
+        let rows = PyList::empty(py);
+        let headers: Vec&lt;String&gt; = rdr.headers()
+            .map_err(|e| PyValueError::new_err(e.to_string()))?
+            .iter().map(String::from).collect();
+        for result in rdr.records() {
+            let record = result.map_err(|e| PyValueError::new_err(e.to_string()))?;
+            let row = PyDict::new(py);
+            for (h, v) in headers.iter().zip(record.iter()) { row.set_item(h, v)?; }
+            rows.append(row)?;
+        }
+        Ok(rows)
+    }
+}
+ 
+#[pymodule]
+fn fastcsv(m: &amp;Bound&lt;'_, PyModule&gt;) -&gt; PyResult&lt;()&gt; {
+    m.add_class::&lt;CsvParser&gt;()?;
+    Ok(())
+}</code></pre></div>
+<p>Benchmark on a 50,000-row file run 100 times: Python's built-in <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">csv</code> module takes ~4.2s; the Rust version takes ~0.6s — <strong>roughly 7x faster</strong>. The exact number depends on data characteristics, but 5–10x is a reasonable expectation for pure parsing work.</p>
+ 
+<hr style="border: none; border-top: 1px solid #1e293b; margin: 2.5rem 0;" />
+ 
+<h2>Part 9: Async Rust in PyO3</h2>
+<p>Async support is handled through <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">pyo3-async-runtimes</code>, which bridges Python's asyncio with Rust's async runtimes:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">toml</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>[dependencies]
+pyo3 = { version = "0.28", features = ["extension-module"] }
+pyo3-async-runtimes = { version = "0.28", features = ["tokio-runtime"] }
+tokio = { version = "1", features = ["full"] }</code></pre></div>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>use pyo3_async_runtimes::tokio::future_into_py;
+ 
+#[pyfunction]
+fn fetch_url&lt;'py&gt;(py: Python&lt;'py&gt;, url: String) -&gt; PyResult&lt;Bound&lt;'py, PyAny&gt;&gt; {
+    future_into_py(py, async move {
+        let body = reqwest::get(&amp;url).await
+            .map_err(|e| pyo3::exceptions::PyRuntimeError::new_err(e.to_string()))?
+            .text().await
+            .map_err(|e| pyo3::exceptions::PyRuntimeError::new_err(e.to_string()))?;
+        Ok(body)
+    })
+}</code></pre></div>
+<p><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">future_into_py</code> wraps a Rust future in a Python coroutine. Use this for I/O-bound async Rust work; use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">py.allow_threads()</code> for CPU-bound work.</p>
+ 
+<hr style="border: none; border-top: 1px solid #1e293b; margin: 2.5rem 0;" />
+ 
+<h2>Part 10: Building and Packaging With maturin</h2>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code># Development builds
+maturin develop           # debug — fast compile, slow runtime
+maturin develop --release  # release — for benchmarking
+ 
+# Production wheels
+maturin build --release
+maturin build --release --interpreter python3.11 python3.12 python3.13</code></pre></div>
+ 
+<h3>Stable ABI Wheels with <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">abi3</code></h3>
+<p>Use the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">abi3-py39</code> feature to build one wheel that runs on Python 3.9 and later, instead of per-version wheels:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">toml</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>pyo3 = { version = "0.28", features = ["extension-module", "abi3-py39"] }</code></pre></div>
+ 
+<h3>manylinux Compliance</h3>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code># Build manylinux-compliant wheels using Zig cross-compiler (no Docker):
+pip install ziglang
+maturin build --release --zig
+ 
+# Or using the official manylinux Docker container:
+docker run --rm -v $(pwd):/io ghcr.io/pyo3/maturin build --release
+ 
+# Publish to PyPI:
+maturin publish</code></pre></div>
+ 
+<hr style="border: none; border-top: 1px solid #1e293b; margin: 2.5rem 0;" />
+ 
+<h2>Part 11: CI/CD With GitHub Actions</h2>
+<p>Generate a baseline workflow with <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">maturin generate-ci github</code>. A complete workflow that builds wheels for Linux (x86_64 and aarch64), macOS (universal2), and Windows, and publishes to PyPI on a version tag:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">yaml</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>name: Build and Publish
+ 
+on:
+  push:
+    tags: ['v*']
+  pull_request:
+ 
+jobs:
+  build:
+    name: Build wheels on &#36;{{ matrix.os }}
+    runs-on: &#36;{{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: PyO3/maturin-action@v1
+        with:
+          command: build
+          args: --release --out dist
+          manylinux: auto
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wheels-&#36;{{ matrix.os }}
+          path: dist
+ 
+  publish:
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: startsWith(github.ref, 'refs/tags/v')
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: wheels-*
+          path: dist
+          merge-multiple: true
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist/</code></pre></div>
+<p>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">PyO3/maturin-action@v1</code> action handles Rust installation, cross-compilation toolchains, and manylinux Docker containers automatically.</p>
+ 
+<hr style="border: none; border-top: 1px solid #1e293b; margin: 2.5rem 0;" />
+ 
+<h2>Part 12: Performance Benchmarking</h2>
+<h3>The Call Boundary Cost</h3>
+<p>Every Python-to-Rust call has overhead: argument type checking, conversion, GIL handling. Batch your data, not your calls:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">python</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code># Bad: 1,000,000 Rust calls
+total = sum(my_ext.square(x) for x in data)
+ 
+# Good: 1 Rust call with all data
+total = my_ext.sum_of_squares(data)  # 10-100x faster</code></pre></div>
+ 
+<h3>What Speedups to Expect</h3>
+<div style="overflow-x: auto; margin: 1.5rem 0;"><table style="width:100%; border-collapse: collapse; font-size: 0.9rem;"><thead><tr style="background: #1e293b;"><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Workload</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Pure Python</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Rust + PyO3</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Speedup</th></tr></thead><tbody><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Word count (1M words)</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">120ms</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">8ms</td><td style="padding: 0.75rem 1rem; color: #4ade80; font-weight:600;">15x</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">CSV parsing (50K rows)</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">420ms</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">60ms</td><td style="padding: 0.75rem 1rem; color: #4ade80; font-weight:600;">7x</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">SHA-256 hashing (1MB)</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">18ms</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">2ms</td><td style="padding: 0.75rem 1rem; color: #4ade80; font-weight:600;">9x</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">JSON serialization</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">45ms</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">6ms</td><td style="padding: 0.75rem 1rem; color: #4ade80; font-weight:600;">7.5x</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Parallel sort (1M ints)</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">380ms</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">18ms</td><td style="padding: 0.75rem 1rem; color: #4ade80; font-weight:600;">21x (Rayon)</td></tr></tbody></table></div>
+ 
+<hr style="border: none; border-top: 1px solid #1e293b; margin: 2.5rem 0;" />
+ 
+<h2>Part 13: When to Use PyO3 vs. Alternatives</h2>
+<p><strong>Use PyO3 when:</strong> you have an existing Rust library to expose to Python, you need true parallelism for CPU-bound work, or you're building a new high-performance library and want memory safety as a baseline.</p>
+<p><strong>Use Cython when:</strong> you have existing C extension code you're adding to, or you need extremely low call overhead for functions that do very little work per call.</p>
+<p><strong>Use ctypes when:</strong> you need to call a single C function from an existing shared library with no build step.</p>
+<p><strong>Use cffi when:</strong> you need to support multiple Python implementations (PyPy, GraalPy) or work without a C compiler.</p>
+<p><strong>Do not use PyO3</strong> for I/O-bound code, small utility functions called very frequently in tight loops, or when the development overhead of writing Rust is not justified by the performance gain. Profile first.</p>
+ 
+<hr style="border: none; border-top: 1px solid #1e293b; margin: 2.5rem 0;" />
+ 
+<h2>Conclusion</h2>
+<p>PyO3 v0.28 and maturin 1.8 together give you a complete path from profiling a Python bottleneck to shipping a pip-installable wheel that runs on Linux, macOS, and Windows. The toolchain has matured to the point where setup friction is minimal: <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">maturin new</code>, write some Rust, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">maturin develop</code>, test, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">maturin generate-ci github</code>, push a tag, done.</p>
+<p>Three things make PyO3 the right choice in 2026. First, Rust's memory safety guarantees eliminate whole categories of bugs that plague Cython and C extension code. Second, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">py.allow_threads()</code> and free-threaded Python 3.14 support mean you can use all available CPU cores. Third, maturin makes distribution trivial.</p>
+<p>The strategy that works: profile first with <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">py-spy</code> or <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cProfile</code>, find the one or two functions consuming 80% of CPU time, move only those to Rust, verify the speedup with <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">timeit</code>, ship. Do not rewrite logic that isn't a bottleneck.</p>
+ 
+<div style="background: linear-gradient(135deg, rgba(168,85,247,0.12) 0%, rgba(59,130,246,0.12) 100%); border: 1px solid rgba(168,85,247,0.35); border-radius: 12px; padding: 2rem; margin: 3rem 0;">
+  <p style="font-size: 1.1rem; font-weight: 700; color: #c084fc; margin: 0 0 0.75rem 0;">Need High-Performance Python for Your Product?</p>
+  <p style="color: #cbd5e1; margin: 0 0 1.5rem 0;">At Nandann Creative, we build fast, production-grade software — from Rust-backed Python extensions to full-stack web applications. If your Python service has a CPU bottleneck costing you in infrastructure or user experience, we can help you identify and fix it.</p>
+  <a href="${internalLinks.contact}" style="display: inline-block; background: linear-gradient(135deg, #7c3aed, #2563eb); color: #fff; font-weight: 600; padding: 0.75rem 1.75rem; border-radius: 8px; text-decoration: none; font-size: 0.95rem;">Talk to Our Engineering Team</a>
+</div>`,
+    faqs: [
+      {
+        question: 'Do I need to know Rust well to use PyO3?',
+        answer: 'You need to know enough Rust to write functions, define structs, use basic collections, and understand ownership. You do not need to be an expert. The PyO3 macros hide most of the FFI complexity. Work through the first twelve chapters of the Rust book before starting a PyO3 project.'
+      },
+      {
+        question: 'Is PyO3 stable enough for production?',
+        answer: 'Yes. Polars, Pydantic v2, cryptography, and Ruff all use it in production. The API has been stable since v0.23. The main migration risk is upgrading PyO3 between major versions. Pin your version and upgrade deliberately.'
+      },
+      {
+        question: 'What Python versions does PyO3 v0.28 support?',
+        answer: 'PyO3 v0.28 supports CPython 3.7 through 3.14 and PyPy 3.9 through 3.11. For free-threaded Python, you need CPython 3.13t or 3.14t and PyO3 v0.23 or later. The abi3-py39 feature creates wheels compatible with Python 3.9 and later.'
+      },
+      {
+        question: 'How do I handle Rust panics in Python?',
+        answer: 'By default, a Rust panic terminates the Python process. Enable the catch-unwind feature in pyo3 to catch panics and convert them to PanicException in Python instead of killing the process.'
+      },
+      {
+        question: 'Can I use PyO3 with NumPy?',
+        answer: 'Yes. Add the numpy crate to Cargo.toml. It provides PyReadonlyArray and PyArray types that give you zero-copy access to NumPy array buffers, which you can process with ndarray without copying the data.'
+      },
+      {
+        question: 'How do I add type hints for my PyO3 extension?',
+        answer: 'Create .pyi stub files alongside your Python code. The pyo3-stub-gen crate can generate these automatically from your annotated Rust code. Mypy, pyright, and IDEs use these files for type checking and autocomplete.'
+      },
+      {
+        question: 'What is the difference between Bound<T> and Py<T> in PyO3?',
+        answer: 'Bound<\'py, T> is a GIL-bound reference with an explicit lifetime tied to holding the GIL — use it for short-lived access within a function. Py<T> is GIL-independent and can be stored in structs or sent across threads. Bind a Py<T> to a Bound when you have a Python<\'py> token.'
+      },
+      {
+        question: 'Why is my PyO3 extension slower than expected?',
+        answer: 'The most common cause is calling Rust functions in a tight Python loop — the call boundary overhead dominates. Instead, pass all your data in one call and do the iteration in Rust. Also ensure you are benchmarking release builds (maturin develop --release), not debug builds, which can be 10-20x slower.'
+      }
+    ],
+    howTo: {
+      name: 'How to Write and Ship Your First PyO3 Python Extension',
+      description: 'Step-by-step guide to creating a Rust-backed Python extension using PyO3 v0.28 and maturin',
+      steps: [
+        { name: 'Install Rust and maturin', text: 'Install Rust via rustup (rustup toolchain install stable), create a Python virtualenv, and run pip install maturin==1.8.3.' },
+        { name: 'Scaffold the project', text: 'Run maturin new --bindings pyo3 my_extension to generate Cargo.toml, pyproject.toml, and src/lib.rs with all the right defaults.' },
+        { name: 'Write your Rust function', text: 'Add #[pyfunction] to your Rust functions and register them in the #[pymodule] entry point using m.add_function(wrap_pyfunction!(your_fn, m)?).' },
+        { name: 'Build and test locally', text: 'Run maturin develop --release to compile and install into your virtualenv. Import your module in Python and verify correctness before benchmarking.' },
+        { name: 'Profile and confirm speedup', text: 'Use timeit to compare your Rust function against the Python baseline. Always benchmark release builds on real data representative of production workloads.' },
+        { name: 'Generate CI and publish', text: 'Run maturin generate-ci github to create a GitHub Actions workflow. Push a version tag (v0.1.0) to trigger wheel builds for Linux, macOS, and Windows and automatic PyPI publish.' }
+      ]
+    }
+  },
+  {
     slug: 'wordpress-7-developer-guide',
     title: 'WordPress 7.0: The Complete Developer Guide to Every Breaking Change and New API',
     description: 'WordPress 7.0 ships April 9, 2026 with the most changes since 5.0. Complete developer guide covering WP AI Client, Connectors API, Abilities API, MCP Adapter, always-on iframed editor, PHP 7.4 minimum, DataViews, real-time collaboration, and 14-step migration checklist.',
@@ -840,31 +1400,31 @@ grep -r "groupByField" ./wp-content/plugins/myplugin/</code></pre></div>
 <p>Start the audit today. Use the checklist and grep commands in Part 17. Stand up a staging environment running WordPress 7.0 before April 9. Test everything you ship: plugins, themes, custom post types, and any admin screens you maintain.</p>
 `,
     faqs: [
-    {
+      {
         "question": "My plugin uses `WP_List_Table` for a custom post type admin screen. Is it broken in 7.0?",
         "answer": "No. Custom post type list screens are not converted to DataViews in 7.0. Only the core Posts, Pages, and Media screens are converted. Your custom post type screen still uses `WP_List_Table`, and the hooks and column customizations work as before. Keep an eye on future releases, since the DataViews migration will continue, but for 7.0 you are not affected."
-    },
-    {
+      },
+      {
         "question": "Does real-time collaboration work on self-hosted WordPress?",
         "answer": "Yes. HTTP polling is the default transport and works on any standard WordPress hosting setup with no server configuration. It does not require a paid plan, external service, or WebSocket support. WebSocket upgrade is available for lower latency if your host supports it, but it is optional and not required for collaboration to function."
-    },
-    {
+      },
+      {
         "question": "Can I still use PHP 7.4 or do I have to upgrade to 8.x?",
         "answer": "PHP 7.4 is the minimum floor, not the recommended target. WordPress 7.0 will run on 7.4, but PHP 7.4 has been end-of-life since December 2022 and will be dropped in a future WordPress release. PHP 8.2 or 8.3 is where you should be running. If you are on 7.4, treat it as technical debt with a deadline, not a stable long-term position."
-    },
-    {
+      },
+      {
         "question": "Will my existing block styles still work after the heading variations change?",
         "answer": "If you call `register_block_style` targeting `core/heading`, test carefully. Heading levels are now managed as block variations in 7.0, which changes how style selectors are matched against the block. Set up a 7.0 dev environment, activate your plugin, and visually confirm each heading level renders the style correctly."
-    },
-    {
+      },
+      {
         "question": "The Abilities API was experimental in 6.x. Is the API surface stable now?",
         "answer": "Yes. The Abilities API is marked stable in WordPress 7.0. Function signatures and behavior are committed to backward compatibility. A breaking change to the Abilities API would require a formal deprecation cycle. It is safe to build production features against it now."
-    },
-    {
+      },
+      {
         "question": "My theme injects custom fonts using a font management plugin. Do I need to remove it?",
         "answer": "You do not have to remove it immediately, but you can. The Font Library is now a stable, native WordPress feature available to block themes, classic themes, and hybrid themes. If your font management plugin's main job is adding and managing fonts, you can uninstall it and manage fonts directly through Appearance > Font Library. No code changes are needed."
-    }
-  ],
+      }
+    ],
   },
   {
     slug: 'rewriting-in-rust-when-it-makes-sense',
