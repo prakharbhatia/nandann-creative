@@ -28,6 +28,1389 @@ const internalLinks = {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'rust-aws-lambda-production-guide',
+    title: "Rust on AWS Lambda: The Production Guide to Cold Starts, cargo-lambda, and Managed Instances",
+    description: "Rust on AWS Lambda went GA in November 2025. This guide covers cargo-lambda, cold start benchmarks (16ms), ARM64 vs x86_64, Lambda Managed Instances, and everything you need to ship Rust functions to production.",
+    date: '2026-03-22',
+    readTime: '28 min read',
+    category: 'Rust',
+    tags: [
+      'Rust',
+      'AWS Lambda',
+      'cargo-lambda',
+      'serverless',
+      'cold starts',
+      'Lambda Managed Instances',
+      'AWS',
+      'Rust serverless'
+    ],
+    coverImage: '/images/rust-aws-lambda-banner.webp',
+    contentHtml: `<picture>
+  <source media="(min-width: 1px)" srcset="/images/rust-aws-lambda-banner.webp 1x" type="image/webp" />
+  <img src="/images/rust-aws-lambda-banner.webp" alt="Rust on AWS Lambda: The Production Guide to Cold Starts, cargo-lambda, and Managed Instances" style="width:100%; border-radius:12px; margin-bottom: 2rem;" loading="eager" width="1200" height="630" />
+</picture>
+<p>AWS officially declared Rust support for Lambda generally available in November 2025. In March 2026, Lambda Managed Instances added Rust support, meaning you can now run high-concurrency Rust handlers on persistent EC2-backed environments with Compute Savings Plans. Cold starts of 16ms. Memory footprints under 128 MB where Python needs 512 MB. A 3x cost reduction versus Python at scale. This guide covers everything from your first handler to multi-threaded Lambda Managed Instances in production, with real benchmark numbers, real CI/CD pipelines, and real deployment code.</p>
+<h2>Why Rust on Lambda Matters Now</h2>
+<h3>Cold Start Benchmarks (2026)</h3>
+<p>The headline numbers come from the lambda-perf project (maxday.github.io/lambda-perf), which runs daily benchmarks across all Lambda runtimes. Here are the current figures for a minimal function on ARM64 with 512 MB memory:</p>
+<div style="overflow-x: auto; margin: 1.5rem 0;"><table style="width:100%; border-collapse: collapse; font-size: 0.9rem;"><thead><tr style="background: #1e293b;"><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Runtime</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Cold Start (P50)</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Cold Start (P99)</th></tr></thead><tbody><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Rust (provided.al2023)</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">16ms</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">22ms</td></tr>
+<tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Go (provided.al2023)</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">38ms</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">52ms</td></tr>
+<tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Node.js 22</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">148ms</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">210ms</td></tr>
+<tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Python 3.13</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">171ms</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">325ms</td></tr>
+<tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Java 21 (GraalVM)</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">194ms</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">280ms</td></tr>
+<tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Java 21 (JVM)</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">698ms</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">1100ms</td></tr>
+</tbody></table></div>
+<p>That 16ms is not a typo and not a cherry-picked run. Rust functions on <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">provided.al2023</code> consistently land in the 12-22ms range for P50/P99. Node.js and Python are an order of magnitude slower on cold starts, and Java with the JVM is 40-70x slower.</p>
+<p>Cold starts matter for any function that is not always warm: infrequently called internal tools, event-driven pipelines with bursty traffic, and user-facing API endpoints where spiky load means some requests hit cold containers. Even with Provisioned Concurrency, cold starts affect your scale-out speed.</p>
+<h3>Cost: The Multiplicative Effect</h3>
+<p>Lambda billing is <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">memory_MB × duration_seconds / 1024 × price_per_GB_second</code>. ARM64 (Graviton) is 20% cheaper per GB-second than x86_64.</p>
+<p>Concrete comparison for a function processing 10 million requests per month:</p>
+<div style="overflow-x: auto; margin: 1.5rem 0;"><table style="width:100%; border-collapse: collapse; font-size: 0.9rem;"><thead><tr style="background: #1e293b;"><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Runtime</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Memory</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Avg Duration</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Monthly Cost (ARM64)</th></tr></thead><tbody><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Python 3.13</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">512 MB</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">185ms</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">~\$18.40</td></tr>
+<tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Node.js 22</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">256 MB</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">120ms</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">~\$7.90</td></tr>
+<tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Rust</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">128 MB</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">14ms</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">~\$0.59</td></tr>
+</tbody></table></div>
+<p>Rust&#39;s advantage is multiplicative: the binary uses less memory AND runs faster AND gets the ARM64 discount. For high-volume functions, the difference becomes substantial. The engineering investment to write the function in Rust pays for itself quickly when your Lambda bill is in the hundreds per month.</p>
+<h3>Why Rust&#39;s Latency Distribution Is Different</h3>
+<p>The more interesting advantage is not average latency but latency variance. Garbage-collected runtimes (Python, Node.js, Java) have GC pauses that create P99 spikes. A Python function with P50 of 30ms may have a P99 of 150ms due to GC pauses, reference counting overhead, and interpreter scheduling. Rust has none of those. No GC means no GC pauses. The P99 for a Rust Lambda is typically within 2-3x of the P50. For user-facing APIs, this matters more than raw average speed.</p>
+<h2>Part 1: How Rust Runs on Lambda</h2>
+<h3>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">bootstrap</code> Binary</h3>
+<p>Lambda&#39;s <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">provided.al2023</code> runtime looks for a file named <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">bootstrap</code> in the deployment zip. That is your entire function. The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">lambda_runtime</code> crate compiles into that binary. No separate interpreter process. No package scanning on startup. The binary starts, registers with the Lambda Runtime API, and waits for invocations.</p>
+<p>The runtime API is a simple HTTP polling loop: <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">GET /2018-06-01/runtime/invocation/next</code> blocks until an invocation arrives, your handler runs, and then you <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">POST /2018-06-01/runtime/invocation/{requestId}/response</code> with the result. The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">lambda_runtime</code> crate handles all of this. You just write a function.</p>
+<h3><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">provided.al2023</code> vs <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">provided.al2</code></h3>
+<p>Always use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">provided.al2023</code>. It ships a newer GLIBC (2.34 vs 2.26), has a smaller OS footprint (approximately 40 MB vs 109 MB), and gets automatic security patches. The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">provided.al2</code> runtime is the legacy option. The only reason to use it is if a C library in your dependency tree requires GLIBC &lt; 2.34, which is rare in practice.</p>
+<h3>The Lambda Runtime API Loop</h3>
+<p>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">run()</code> function from <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">lambda_runtime</code> is a loop that:</p>
+<ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li>Polls for the next invocation</li>
+<li>Deserializes the JSON body into your event type <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">T</code></li>
+<li>Builds a <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">LambdaEvent&lt;T&gt;</code> with the payload and a <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Context</code> struct</li>
+<li>Calls your handler</li>
+<li>Serializes the result and POSTs it back</li>
+<li>Goes back to step 1</li>
+</ul>
+<p>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Context</code> struct contains: <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">request_id</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">invoked_function_arn</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">deadline_in_millis</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">xray_trace_id</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">client_context</code>, and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">identity</code>. You will use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">request_id</code> constantly for logging.</p>
+<h2>Part 2: The Crate Ecosystem</h2>
+<h3>Core Crates</h3>
+<p>Before writing code, here is the map of what you will use:</p>
+<ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">lambda_runtime</code> (version 0.14+): the core runtime, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">run()</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">run_concurrent()</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">LambdaEvent&lt;T&gt;</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Context</code></li>
+<li><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">lambda_http</code> (version 0.14+): wraps API Gateway v1/v2, ALB, and Function URL events into standard <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">http::Request</code>/<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">http::Response</code></li>
+<li><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">aws_lambda_events</code> (version 0.15+): strongly-typed structs for every AWS event source</li>
+<li><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">lambda_extension</code> (version 0.14+): for writing Lambda Extensions</li>
+<li><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">aws-sdk-*</code>: the official AWS SDK, one crate per service</li>
+<li><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">aws-config</code> (version 1.5+): handles credential loading and region detection</li>
+</ul>
+<p>All of these are published under the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">awslabs</code> GitHub organization and are part of the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">aws-lambda-rust-runtime</code> project that reached GA in November 2025.</p>
+<h3><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">lambda_http</code> for HTTP APIs</h3>
+<p>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">lambda_http</code> crate is the right choice for any function triggered by API Gateway or a Lambda Function URL. It normalizes the event format so you get a standard <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">http::Request</code> regardless of whether the trigger is API Gateway v1 REST, API Gateway v2 HTTP, or a Function URL. It works directly with Axum, which means you can write a regular Axum app and pass it to <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">lambda_http::run()</code>.</p>
+<h3><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">aws_lambda_events</code> for Typed Event Structs</h3>
+<p>Instead of parsing raw JSON, use the strongly-typed structs from <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">aws_lambda_events</code>. Every AWS event source has a corresponding type: <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">SqsEvent</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">S3Event</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">DynamodbEvent</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">KinesisEvent</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">SnsEvent</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">EventBridgeEvent</code>. Using these is safer and eliminates a whole class of runtime errors from unexpected JSON structure.</p>
+<h2>Part 3: cargo-lambda</h2>
+<h3>What It Is</h3>
+<p><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cargo-lambda</code> is a Cargo subcommand extension. It handles cross-compilation, local Lambda emulation, and deployment without Docker. AWS officially recommends it. You do not need to set up a Docker-based build pipeline or install <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cross</code> manually.</p>
+<h3>Installation</h3>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code># macOS (Homebrew)
+brew tap cargo-lambda/cargo-lambda
+brew install cargo-lambda
+
+# Linux / any platform (pip)
+pip install cargo-lambda
+
+# Verify
+cargo lambda --version
+# cargo-lambda 1.6.0
+</code></pre></div>
+<p>On Apple Silicon, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cargo-lambda</code> cross-compiles to <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">aarch64-unknown-linux-gnu</code> without any additional setup. It handles the musl/gnu toolchain installation automatically on first use.</p>
+<h3>Scaffolding a New Project</h3>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>cargo lambda new my-function
+# Interactive prompts:
+# &gt; What type of event will trigger your function?
+#   HTTP (API Gateway, ALB, Function URL)
+#   SQS
+#   EventBridge / CloudWatch Events
+#   S3
+#   SNS
+#   Custom event
+</code></pre></div>
+<p>The generated project structure:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">text</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>my-function/
+  Cargo.toml
+  src/
+    main.rs
+</code></pre></div>
+<p>The generated <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Cargo.toml</code> for an HTTP function:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">toml</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>[package]
+name = &quot;my-function&quot;
+version = &quot;0.1.0&quot;
+edition = &quot;2021&quot;
+
+[[bin]]
+name = &quot;bootstrap&quot;
+path = &quot;src/main.rs&quot;
+
+[dependencies]
+lambda_http = &quot;0.14&quot;
+tokio = { version = &quot;1&quot;, features = [&quot;macros&quot;] }
+tracing = &quot;0.1&quot;
+tracing-subscriber = { version = &quot;0.3&quot;, features = [&quot;env-filter&quot;] }
+serde = { version = &quot;1&quot;, features = [&quot;derive&quot;] }
+</code></pre></div>
+<h3>Building</h3>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code># Build for ARM64 (recommended)
+cargo lambda build --release --arm64
+
+# Build for x86_64
+cargo lambda build --release
+
+# Output location:
+# target/lambda/my-function/bootstrap
+</code></pre></div>
+<p>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">--release</code> flag applies optimizations. The output is a zip-ready binary at <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">target/lambda/&lt;function-name&gt;/bootstrap</code>. No manual zipping needed for <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cargo lambda deploy</code>.</p>
+<h3>Local Development</h3>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code># Start the local emulator with environment variables
+cargo lambda watch --env-var DATABASE_URL=postgres://localhost/dev \
+                   --env-var LOG_LEVEL=debug
+
+# In another terminal, invoke the local function
+cargo lambda invoke my-function \
+  --data-ascii &#039;{&quot;name&quot;: &quot;alice&quot;}&#039;
+
+# Use a built-in event fixture (API Gateway, SQS, S3, etc.)
+cargo lambda invoke my-function \
+  --data-example apigw-request
+
+# Invoke a deployed remote function
+cargo lambda invoke my-function \
+  --remote \
+  --data-ascii &#039;{&quot;name&quot;: &quot;alice&quot;}&#039;
+</code></pre></div>
+<p><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cargo lambda watch</code> emulates the Lambda control plane at <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">http://127.0.0.1:9000</code>. It rebuilds on file save. Lambda Function URLs are emulated at <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">/lambda-url/&lt;function-name&gt;/</code>.</p>
+<h3>Deploying</h3>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>cargo lambda deploy
+
+# Output:
+# 🔍 My-function not found, creating new Lambda function
+# ✅ Function ARN: arn:aws:lambda:us-east-1:123456789:function:my-function
+# ⚡ Architecture: arm64
+# 📦 Code size: 1.8 MB
+</code></pre></div>
+<p><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cargo lambda deploy</code> reads the ELF binary header to auto-detect the target architecture and sets the Lambda <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Architecture</code> field accordingly. No manual configuration needed. On first deploy it creates an IAM execution role automatically. For production, you will want to provide your own IAM role.</p>
+<h3>Workspace Configuration for Multiple Functions</h3>
+<p>When you have multiple Lambda functions sharing library code, use a Cargo workspace with per-binary Lambda configuration:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">toml</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code># Root Cargo.toml
+[workspace]
+members = [
+  &quot;functions/api-handler&quot;,
+  &quot;functions/sqs-processor&quot;,
+  &quot;functions/scheduled-job&quot;,
+  &quot;shared/common&quot;,
+]
+
+# functions/api-handler/Cargo.toml
+[package.metadata.lambda.deploy]
+memory = 256
+timeout = 30
+env = [
+  { key = &quot;LOG_LEVEL&quot;, value = &quot;info&quot; },
+]
+iam_role = &quot;arn:aws:iam::123456789:role/my-lambda-role&quot;
+
+# functions/sqs-processor/Cargo.toml
+[package.metadata.lambda.deploy]
+memory = 128
+timeout = 300
+</code></pre></div>
+<p>Build and deploy all functions from the workspace root:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>cargo lambda build --release --arm64
+cargo lambda deploy --function-name api-handler
+cargo lambda deploy --function-name sqs-processor
+</code></pre></div>
+<h2>Part 4: Your First Real Handler</h2>
+<p>Here is a complete minimal handler with proper structure:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">toml</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code># Cargo.toml
+[dependencies]
+lambda_runtime = &quot;0.14&quot;
+tokio = { version = &quot;1&quot;, features = [&quot;macros&quot;] }
+serde = { version = &quot;1&quot;, features = [&quot;derive&quot;] }
+serde_json = &quot;1&quot;
+tracing = &quot;0.1&quot;
+tracing-subscriber = { version = &quot;0.3&quot;, features = [&quot;env-filter&quot;, &quot;fmt&quot;] }
+</code></pre></div>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>use lambda_runtime::{run, service_fn, Error, LambdaEvent};
+use serde::{Deserialize, Serialize};
+use tracing::info;
+
+#[derive(Deserialize)]
+struct Request {
+    name: String,
+    operation: String,
+}
+
+#[derive(Serialize)]
+struct Response {
+    message: String,
+    request_id: String,
+    processed: bool,
+}
+
+async fn function_handler(event: LambdaEvent&lt;Request&gt;) -&gt; Result&lt;Response, Error&gt; {
+    let (payload, ctx) = event.into_parts();
+
+    if payload.name.is_empty() {
+        return Err(&quot;name field cannot be empty&quot;.into());
+    }
+
+    info!(
+        request_id = %ctx.request_id,
+        operation = %payload.operation,
+        &quot;Processing request&quot;
+    );
+
+    Ok(Response {
+        message: format!(&quot;Processed {} for {}&quot;, payload.operation, payload.name),
+        request_id: ctx.request_id,
+        processed: true,
+    })
+}
+
+#[tokio::main]
+async fn main() -&gt; Result&lt;(), Error&gt; {
+    tracing_subscriber::fmt()
+        .with_env_filter(
+            tracing_subscriber::EnvFilter::from_default_env()
+                .add_directive(&quot;my_function=info&quot;.parse()?)
+        )
+        .json()
+        .init();
+
+    run(service_fn(function_handler)).await
+}
+</code></pre></div>
+<p>Deploy and test the full cycle:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>cargo lambda build --release --arm64
+cargo lambda deploy --function-name my-function
+cargo lambda invoke my-function \
+  --remote \
+  --data-ascii &#039;{&quot;name&quot;: &quot;alice&quot;, &quot;operation&quot;: &quot;transform&quot;}&#039;
+
+# Response:
+# {
+#   &quot;message&quot;: &quot;Processed transform for alice&quot;,
+#   &quot;request_id&quot;: &quot;abc123-...&quot;,
+#   &quot;processed&quot;: true
+# }
+</code></pre></div>
+<h2>Part 5: ARM64 vs x86_64</h2>
+<h3>Performance and Cost</h3>
+<p>ARM64 (AWS Graviton3) is 20% cheaper per GB-second than x86_64. For Rust functions specifically, ARM64 also runs 13-24% faster on the same workload due to Graviton&#39;s better memory bandwidth and instruction throughput for the kinds of operations Rust-compiled code tends to do.</p>
+<p>For CPU-bound tasks like SHA-256 hashing, the advantage is larger. With the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">sha2</code> crate&#39;s <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">asm</code> feature enabled, ARM64 uses NEON/SVE instructions that are significantly faster than the x86_64 implementation:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">toml</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>[dependencies]
+sha2 = { version = &quot;0.10&quot;, features = [&quot;asm&quot;] }
+</code></pre></div>
+<p>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">asm</code> feature automatically uses the best available instruction set for the target architecture. On ARM64 this means NEON/SVE. On x86_64 this means SSE/AVX. But Graviton&#39;s execution units handle these operations more efficiently for the types of workloads that show up in Lambda.</p>
+<h3>When to Use x86_64</h3>
+<p>Use x86_64 when:</p>
+<ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li>A C library in your dependency tree does not have an ARM64 build (check with <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cargo tree</code> and look for <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">-sys</code> crates)</li>
+<li>You are using inline assembly with x86-specific SIMD intrinsics (<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">_mm256_*</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">_mm512_*</code>)</li>
+<li>A dependency uses <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">unsafe</code> C FFI bindings that only ship x86_64 <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">.so</code> files</li>
+</ul>
+<p>For most Rust Lambda functions, ARM64 is the better choice with no downsides.</p>
+<h3>Cross-Compilation Is Transparent</h3>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code># From macOS Intel, macOS ARM64, or Linux x86_64:
+cargo lambda build --release --arm64
+# Just works. cargo-lambda installs the target toolchain on first use.
+</code></pre></div>
+<p><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cargo lambda deploy</code> reads the ELF binary header and sets the Lambda <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Architecture</code> field automatically. You cannot accidentally deploy an x86 binary to an ARM64 function configuration.</p>
+<h2>Part 6: Binary Size and Build Optimization</h2>
+<h3>Default Binary Size</h3>
+<p>A typical Rust Lambda handler compiles to approximately 1.7-2.5 MB uncompressed and 0.8-1.2 MB gzipped. Compare this to a minimal Node.js Lambda with a few npm packages at 50+ MB, or a Go binary at 5-8 MB.</p>
+<p>Smaller binaries mean faster deployment uploads and faster cold start initialization (Lambda has to extract the zip before starting your binary).</p>
+<h3>Release Profile Optimization</h3>
+<p>Add this to your <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Cargo.toml</code> for Lambda production builds:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">toml</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>[profile.release]
+opt-level = &quot;z&quot;       # Optimize for size (use 3 for CPU-bound functions)
+lto = true            # Link-time optimization reduces binary size significantly
+codegen-units = 1     # Single codegen unit for better optimization
+panic = &quot;abort&quot;       # Smaller binary, no unwinding overhead
+strip = true          # Remove debug symbols (saves 1-2 MB typically)
+</code></pre></div>
+<p><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cargo-lambda</code> automatically applies <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">strip = true</code> and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">panic = &quot;abort&quot;</code> when you use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">--release</code>. Adding <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">lto = true</code> and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">codegen-units = 1</code> manually reduces binary size by an additional 15-30% on most projects.</p>
+<p>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">opt-level = &quot;z&quot;</code> flag optimizes for size rather than speed. For I/O-bound functions (most Lambda functions), this is the right choice. For CPU-bound functions doing heavy numeric computation, use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">opt-level = 3</code> instead and benchmark both.</p>
+<h2>Part 7: Cold Start Deep Dive</h2>
+<h3>What Happens During a Cold Start</h3>
+<p>When Lambda starts a new execution environment, four things happen in sequence:</p>
+<ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li>Lambda downloads and extracts your deployment zip (fast for Rust: 0.8 MB takes under 10ms)</li>
+<li>Lambda starts the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">bootstrap</code> OS process</li>
+<li>Your <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">main()</code> function runs, initializing your runtime state</li>
+<li>The first invocation arrives and your handler executes</li>
+</ul>
+<p>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Init Duration</code> field in the CloudWatch REPORT log measures steps 2 through 4. For Rust, this is typically 12-22ms. For Node.js, it is 100-400ms because Node.js has to start V8, load the runtime, scan <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">node_modules</code>, and evaluate your module tree.</p>
+<h3>Initialization Patterns</h3>
+<p>What you put in <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">main()</code> runs on every cold start. Keep it fast but do not defer necessary work:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">toml</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>[dependencies]
+lambda_runtime = &quot;0.14&quot;
+aws-config = &quot;1.5&quot;
+aws-sdk-dynamodb = &quot;1.55&quot;
+tokio = { version = &quot;1&quot;, features = [&quot;macros&quot;, &quot;sync&quot;] }
+tokio-postgres = &quot;0.7&quot;
+</code></pre></div>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>use aws_config::BehaviorVersion;
+use aws_sdk_dynamodb::Client as DynamoClient;
+use lambda_runtime::{run, service_fn, Error, LambdaEvent};
+use serde_json::Value;
+use tokio::sync::OnceCell;
+
+// SDK clients are cheap to initialize (no network calls in the constructor)
+// Initialize them in main() so they are reused across invocations
+static DYNAMO: OnceCell&lt;DynamoClient&gt; = OnceCell::const_new();
+
+async fn get_dynamo() -&gt; &amp;&#039;static DynamoClient {
+    DYNAMO.get_or_init(|| async {
+        let config = aws_config::load_defaults(BehaviorVersion::latest()).await;
+        DynamoClient::new(&amp;config)
+    }).await
+}
+
+async fn handler(event: LambdaEvent&lt;Value&gt;) -&gt; Result&lt;Value, Error&gt; {
+    let client = get_dynamo().await;
+    // use client...
+    Ok(serde_json::json!({&quot;status&quot;: &quot;ok&quot;}))
+}
+
+#[tokio::main]
+async fn main() -&gt; Result&lt;(), Error&gt; {
+    // Initialize the DynamoDB client during cold start
+    // Subsequent invocations reuse the same client
+    let config = aws_config::load_defaults(BehaviorVersion::latest()).await;
+    DYNAMO.set(DynamoClient::new(&amp;config)).ok();
+
+    run(service_fn(handler)).await
+}
+</code></pre></div>
+<p>SDK client initialization is fast (no network calls in the constructor) so initializing in <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">main()</code> adds minimal cold start time and pays off immediately by reusing the client across warm invocations.</p>
+<p>For database connections, use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">OnceCell</code> with lazy initialization since the connection itself involves a network round-trip.</p>
+<h3>Reading the REPORT Log</h3>
+<p>Every Lambda invocation ends with a REPORT log line in CloudWatch:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">text</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>REPORT RequestId: abc123  Duration: 14.23 ms  Billed Duration: 15 ms
+Memory Size: 128 MB  Max Memory Used: 42 MB  Init Duration: 18.45 ms
+</code></pre></div>
+<p>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Init Duration</code> field only appears on cold starts. Use this CloudWatch Logs Insights query to analyze your cold start distribution:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">sql</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>filter @type = &quot;REPORT&quot;
+| parse @message &quot;Init Duration: @initDuration ms&quot;
+| filter ispresent(@initDuration)
+| stats count() as coldStarts,
+        avg(@initDuration) as avgInitMs,
+        pct(@initDuration, 95) as p95InitMs,
+        pct(@initDuration, 99) as p99InitMs
+| sort by coldStarts desc
+</code></pre></div>
+<h3>When You Actually Need Provisioned Concurrency</h3>
+<p>Rust cold starts are fast enough that Provisioned Concurrency is rarely necessary. The exception is a strict P99 SLA below 20ms where even the first request to a brand-new execution environment must be under that threshold. SnapStart is not available for <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">provided.al2023</code>, but Rust does not need it.</p>
+<h2>Part 8: Lambda Managed Instances</h2>
+<p>Lambda Managed Instances (LMI) reached general availability in March 2026 with Rust support. This is the most significant architectural change to Lambda in years, and Rust is unusually well-suited for it.</p>
+<h3>What LMI Is</h3>
+<p>Standard Lambda runs one request per execution environment. LMI runs your function on customer-owned EC2 instances managed by Lambda, where one execution environment handles multiple simultaneous requests. You get persistent warm instances with no cold starts, access to Graviton4 and latest x86 CPUs, and billing by instance-hour rather than per-request. Compute Savings Plans apply, bringing costs down by up to 72% versus on-demand Lambda pricing for steady-state workloads.</p>
+<h3>Why Rust Fits LMI Perfectly</h3>
+<p>Standard Python and Node.js Lambda functions cannot safely handle concurrent requests in a single process because their standard library functions are not thread-safe and they have a Global Interpreter Lock (Python) or single-threaded event loop assumptions. Rust&#39;s ownership model and the Tokio async runtime are designed exactly for this: thousands of concurrent async tasks on a small thread pool with compile-time safety guarantees.</p>
+<h3>Enabling LMI Concurrency</h3>
+<p>Add the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">tokio</code> feature to <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">lambda_runtime</code> and switch from <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">run()</code> to <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">run_concurrent()</code>:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">toml</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>[dependencies]
+lambda_runtime = { version = &quot;0.14&quot;, features = [&quot;tokio&quot;] }
+tokio = { version = &quot;1&quot;, features = [&quot;macros&quot;, &quot;rt-multi-thread&quot;] }
+aws-sdk-dynamodb = &quot;1.55&quot;
+aws-config = &quot;1.5&quot;
+</code></pre></div>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>use aws_config::BehaviorVersion;
+use aws_sdk_dynamodb::Client as DynamoClient;
+use lambda_runtime::{run_concurrent, service_fn, Error, LambdaEvent};
+use serde::{Deserialize, Serialize};
+use std::sync::Arc;
+use tokio::sync::RwLock;
+use tracing::{info, instrument};
+
+#[derive(Clone)]
+struct AppState {
+    dynamo: DynamoClient,
+    // In-memory cache shared across concurrent requests
+    cache: Arc&lt;RwLock&lt;std::collections::HashMap&lt;String, String&gt;&gt;&gt;,
+}
+
+#[derive(Deserialize)]
+struct Request {
+    user_id: String,
+}
+
+#[derive(Serialize)]
+struct Response {
+    user_id: String,
+    data: String,
+}
+
+#[instrument(skip(state), fields(user_id = %event.payload.user_id))]
+async fn handler(
+    state: Arc&lt;AppState&gt;,
+    event: LambdaEvent&lt;Request&gt;,
+) -&gt; Result&lt;Response, Error&gt; {
+    let user_id = event.payload.user_id.clone();
+    let request_id = event.context.request_id.clone();
+
+    info!(request_id = %request_id, &quot;Processing request&quot;);
+
+    // Check cache first (read lock, non-exclusive)
+    {
+        let cache = state.cache.read().await;
+        if let Some(data) = cache.get(&amp;user_id) {
+            return Ok(Response {
+                user_id,
+                data: data.clone(),
+            });
+        }
+    }
+
+    // Cache miss: query DynamoDB
+    let result = state.dynamo
+        .get_item()
+        .table_name(&quot;users&quot;)
+        .key(&quot;user_id&quot;, aws_sdk_dynamodb::types::AttributeValue::S(user_id.clone()))
+        .send()
+        .await?;
+
+    let data = result.item()
+        .and_then(|i| i.get(&quot;data&quot;))
+        .and_then(|v| v.as_s().ok())
+        .cloned()
+        .unwrap_or_default();
+
+    // Update cache (write lock)
+    {
+        let mut cache = state.cache.write().await;
+        cache.insert(user_id.clone(), data.clone());
+    }
+
+    Ok(Response { user_id, data })
+}
+
+#[tokio::main]
+async fn main() -&gt; Result&lt;(), Error&gt; {
+    tracing_subscriber::fmt().json().init();
+
+    let config = aws_config::load_defaults(BehaviorVersion::latest()).await;
+    let state = Arc::new(AppState {
+        dynamo: DynamoClient::new(&amp;config),
+        cache: Arc::new(RwLock::new(std::collections::HashMap::new())),
+    });
+
+    run_concurrent(service_fn(move |event| {
+        let state = Arc::clone(&amp;state);
+        async move { handler(state, event).await }
+    }))
+    .await
+}
+</code></pre></div>
+<p>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Arc&lt;AppState&gt;</code> pattern is idiomatic: the state is initialized once and cloned cheaply (just an atomic reference count increment) for each concurrent request. The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">DynamoClient</code> is already concurrency-safe so no additional wrapping is needed.</p>
+<h3>Graceful Shutdown</h3>
+<p>LMI instances receive a SIGTERM when Lambda wants to scale in. Handle it to drain in-flight requests:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>use lambda_runtime::Runtime;
+use tokio::signal::unix::{signal, SignalKind};
+
+#[tokio::main]
+async fn main() -&gt; Result&lt;(), Error&gt; {
+    // ... state initialization ...
+
+    let runtime = Runtime::new(service_fn(move |event| {
+        // ... handler ...
+    }));
+
+    tokio::select! {
+        result = runtime.run_concurrent() =&gt; result?,
+        _ = async {
+            let mut sigterm = signal(SignalKind::terminate()).unwrap();
+            sigterm.recv().await;
+            tracing::info!(&quot;SIGTERM received, draining in-flight requests&quot;);
+        } =&gt; {}
+    }
+
+    Ok(())
+}
+</code></pre></div>
+<h3>LMI vs Standard Lambda Decision Guide</h3>
+<p>Use LMI when:</p>
+<ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li>Traffic is steady-state with predictable volume (LMI does not scale to zero)</li>
+<li>You need connection pooling (database connections, gRPC channels) that are expensive to re-establish</li>
+<li>Function concurrency is consistently high (LMI becomes cost-effective above roughly 20 requests per second sustained)</li>
+<li>You need persistent in-memory caching across requests</li>
+</ul>
+<p>Use standard Lambda when:</p>
+<ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li>Traffic is spiky or unpredictable (LMI takes up to 5 minutes to double instance capacity)</li>
+<li>Scale-to-zero behavior is important (LMI bills per instance-hour even at zero requests)</li>
+<li>Functions are infrequently called (LMI&#39;s per-hour billing is inefficient for low-volume functions)</li>
+</ul>
+<h2>Part 9: HTTP APIs with Axum</h2>
+<p>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">lambda_http</code> crate integrates with Axum directly. Write a regular Axum app and pass the router to <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">lambda_http::run()</code>.</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">toml</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>[dependencies]
+lambda_http = &quot;0.14&quot;
+axum = &quot;0.7&quot;
+tower-http = { version = &quot;0.5&quot;, features = [&quot;trace&quot;, &quot;cors&quot;, &quot;compression-gzip&quot;] }
+tokio = { version = &quot;1&quot;, features = [&quot;macros&quot;] }
+serde = { version = &quot;1&quot;, features = [&quot;derive&quot;] }
+tracing = &quot;0.1&quot;
+tracing-subscriber = { version = &quot;0.3&quot;, features = [&quot;env-filter&quot;] }
+</code></pre></div>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>use axum::{
+    extract::Path,
+    http::StatusCode,
+    response::IntoResponse,
+    routing::{get, post},
+    Json, Router,
+};
+use lambda_http::{run, Error};
+use serde::{Deserialize, Serialize};
+use tower_http::{cors::CorsLayer, trace::TraceLayer};
+
+#[derive(Serialize)]
+struct HealthResponse {
+    status: String,
+}
+
+#[derive(Deserialize)]
+struct CreateItemRequest {
+    name: String,
+    value: String,
+}
+
+#[derive(Serialize)]
+struct CreateItemResponse {
+    id: String,
+    name: String,
+}
+
+async fn health_handler() -&gt; impl IntoResponse {
+    Json(HealthResponse {
+        status: &quot;healthy&quot;.to_string(),
+    })
+}
+
+async fn get_item_handler(Path(id): Path&lt;String&gt;) -&gt; impl IntoResponse {
+    if id.is_empty() {
+        return (StatusCode::BAD_REQUEST, Json(serde_json::json!({&quot;error&quot;: &quot;id required&quot;}))).into_response();
+    }
+    Json(serde_json::json!({&quot;id&quot;: id, &quot;found&quot;: true})).into_response()
+}
+
+async fn create_item_handler(
+    Json(body): Json&lt;CreateItemRequest&gt;,
+) -&gt; impl IntoResponse {
+    let id = uuid::Uuid::new_v4().to_string();
+    (
+        StatusCode::CREATED,
+        Json(CreateItemResponse {
+            id,
+            name: body.name,
+        }),
+    )
+}
+
+#[tokio::main]
+async fn main() -&gt; Result&lt;(), Error&gt; {
+    tracing_subscriber::fmt()
+        .with_env_filter(tracing_subscriber::EnvFilter::from_default_env())
+        .json()
+        .init();
+
+    let app = Router::new()
+        .route(&quot;/health&quot;, get(health_handler))
+        .route(&quot;/items/:id&quot;, get(get_item_handler))
+        .route(&quot;/items&quot;, post(create_item_handler))
+        .layer(TraceLayer::new_for_http())
+        .layer(CorsLayer::permissive());
+
+    run(app).await
+}
+</code></pre></div>
+<p>This compiles for both local development (<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">axum::serve</code>) and Lambda (<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">lambda_http::run</code>) with a feature flag. The same Router handles API Gateway v1, API Gateway v2, ALB, and Function URL events without any changes.</p>
+<h2>Part 10: Event Source Integrations</h2>
+<h3>SQS with Partial Batch Failure</h3>
+<p>The most important pattern for SQS handlers is partial batch failure reporting. If you return an error, Lambda re-drives the entire batch. Return an <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">SqsBatchResponse</code> to report exactly which messages failed.</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">toml</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>[dependencies]
+lambda_runtime = &quot;0.14&quot;
+aws_lambda_events = { version = &quot;0.15&quot;, features = [&quot;sqs&quot;] }
+tokio = { version = &quot;1&quot;, features = [&quot;macros&quot;] }
+futures = &quot;0.3&quot;
+</code></pre></div>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>use aws_lambda_events::event::sqs::{SqsBatchResponse, SqsEvent, SqsJobProps};
+use lambda_runtime::{run, service_fn, Error, LambdaEvent};
+use futures::future::join_all;
+use tracing::{error, info};
+
+async fn process_record(record: &amp;aws_lambda_events::event::sqs::SqsMessage) -&gt; Result&lt;(), String&gt; {
+    let body = record.body.as_deref().unwrap_or(&quot;&quot;);
+    info!(message_id = ?record.message_id, &quot;Processing SQS message&quot;);
+
+    // Your processing logic here
+    if body.contains(&quot;invalid&quot;) {
+        return Err(format!(&quot;Invalid message: {}&quot;, body));
+    }
+
+    Ok(())
+}
+
+async fn handler(event: LambdaEvent&lt;SqsEvent&gt;) -&gt; Result&lt;SqsBatchResponse, Error&gt; {
+    let records = event.payload.records;
+
+    let results = join_all(
+        records.iter().map(|record| async move {
+            match process_record(record).await {
+                Ok(()) =&gt; None,
+                Err(e) =&gt; {
+                    error!(
+                        message_id = ?record.message_id,
+                        error = %e,
+                        &quot;Failed to process message&quot;
+                    );
+                    record.message_id.clone().map(|id| SqsJobProps { item_identifier: id })
+                }
+            }
+        })
+    ).await;
+
+    let item_failures: Vec&lt;SqsJobProps&gt; = results.into_iter().flatten().collect();
+    info!(failed_count = item_failures.len(), &quot;Batch complete&quot;);
+
+    Ok(SqsBatchResponse { batch_item_failures: item_failures })
+}
+
+#[tokio::main]
+async fn main() -&gt; Result&lt;(), Error&gt; {
+    tracing_subscriber::fmt().json().init();
+    run(service_fn(handler)).await
+}
+</code></pre></div>
+<p>Enable <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">ReportBatchItemFailures</code> in your Lambda event source mapping configuration to activate this behavior.</p>
+<h3>S3 Events</h3>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">toml</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>[dependencies]
+aws_lambda_events = { version = &quot;0.15&quot;, features = [&quot;s3&quot;] }
+aws-sdk-s3 = &quot;1.65&quot;
+</code></pre></div>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>use aws_lambda_events::event::s3::S3Event;
+use lambda_runtime::{run, service_fn, Error, LambdaEvent};
+use aws_sdk_s3::Client as S3Client;
+use aws_config::BehaviorVersion;
+
+async fn handler(event: LambdaEvent&lt;S3Event&gt;) -&gt; Result&lt;(), Error&gt; {
+    let config = aws_config::load_defaults(BehaviorVersion::latest()).await;
+    let s3 = S3Client::new(&amp;config);
+
+    for record in &amp;event.payload.records {
+        let bucket = record.s3.bucket.name.as_deref().unwrap_or(&quot;&quot;);
+        let key = record.s3.object.key.as_deref().unwrap_or(&quot;&quot;);
+
+        let object = s3.get_object()
+            .bucket(bucket)
+            .key(key)
+            .send()
+            .await?;
+
+        let bytes = object.body.collect().await?.into_bytes();
+        tracing::info!(bucket = bucket, key = key, bytes = bytes.len(), &quot;Processed S3 object&quot;);
+
+        // Process bytes, then upload result to another bucket
+    }
+
+    Ok(())
+}
+</code></pre></div>
+<p>Move the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">S3Client</code> initialization to <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">main()</code> for production use to avoid re-initializing on every invocation.</p>
+<h3>EventBridge Scheduled Jobs</h3>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>use aws_lambda_events::event::cloudwatch_events::CloudWatchEvent;
+use lambda_runtime::{run, service_fn, Error, LambdaEvent};
+use serde_json::Value;
+
+async fn handler(event: LambdaEvent&lt;CloudWatchEvent&lt;Value&gt;&gt;) -&gt; Result&lt;(), Error&gt; {
+    tracing::info!(
+        source = ?event.payload.source,
+        detail_type = ?event.payload.detail_type,
+        &quot;Scheduled job triggered&quot;
+    );
+
+    // Nightly cleanup, batch processing, etc.
+    run_cleanup_job().await?;
+
+    Ok(())
+}
+
+async fn run_cleanup_job() -&gt; Result&lt;(), Error&gt; {
+    tracing::info!(&quot;Running cleanup job&quot;);
+    // ... cleanup logic ...
+    Ok(())
+}
+</code></pre></div>
+<h2>Part 11: AWS SDK for Rust</h2>
+<p>The official AWS SDK for Rust uses async/await throughout and is concurrency-safe by design. All clients implement <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Clone</code> and are cheap to clone (they share the underlying HTTP connection pool via <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Arc</code>).</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">toml</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>[dependencies]
+aws-config = &quot;1.5&quot;
+aws-sdk-dynamodb = &quot;1.55&quot;
+aws-sdk-s3 = &quot;1.65&quot;
+aws-sdk-secretsmanager = &quot;1.50&quot;
+</code></pre></div>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>use aws_config::BehaviorVersion;
+use aws_sdk_dynamodb::{
+    types::AttributeValue,
+    Client as DynamoClient,
+};
+
+async fn get_item(client: &amp;DynamoClient, id: &amp;str) -&gt; Result&lt;Option&lt;String&gt;, aws_sdk_dynamodb::Error&gt; {
+    let result = client
+        .get_item()
+        .table_name(&quot;my-table&quot;)
+        .key(&quot;id&quot;, AttributeValue::S(id.to_string()))
+        .send()
+        .await?;
+
+    Ok(result
+        .item()
+        .and_then(|item| item.get(&quot;data&quot;))
+        .and_then(|v| v.as_s().ok())
+        .cloned())
+}
+
+async fn put_item(client: &amp;DynamoClient, id: &amp;str, data: &amp;str) -&gt; Result&lt;(), aws_sdk_dynamodb::Error&gt; {
+    client
+        .put_item()
+        .table_name(&quot;my-table&quot;)
+        .item(&quot;id&quot;, AttributeValue::S(id.to_string()))
+        .item(&quot;data&quot;, AttributeValue::S(data.to_string()))
+        .item(&quot;ttl&quot;, AttributeValue::N(
+            (std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .unwrap()
+                .as_secs() + 86400)
+                .to_string()
+        ))
+        .send()
+        .await?;
+
+    Ok(())
+}
+
+#[tokio::main]
+async fn main() -&gt; Result&lt;(), lambda_runtime::Error&gt; {
+    let aws_config = aws_config::load_defaults(BehaviorVersion::latest()).await;
+    let dynamo = DynamoClient::new(&amp;aws_config);
+
+    // dynamo is cloneable and thread-safe — pass it by clone or Arc to your handler
+    lambda_runtime::run(lambda_runtime::service_fn(move |event| {
+        let client = dynamo.clone();
+        async move {
+            // use client in handler
+            let _ = get_item(&amp;client, &quot;test&quot;).await;
+            Ok::&lt;serde_json::Value, lambda_runtime::Error&gt;(serde_json::json!({}))
+        }
+    }))
+    .await
+}
+</code></pre></div>
+<p>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">aws-config</code> crate handles credential loading automatically in this order: environment variables, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">~/.aws/credentials</code>, EC2 instance profile, Lambda execution role. You do not configure credentials manually in Lambda.</p>
+<h2>Part 12: Error Handling Patterns</h2>
+<h3>Typed Errors with thiserror</h3>
+<p>For library code and functions with distinct failure modes, use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">thiserror</code>:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">toml</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>[dependencies]
+thiserror = &quot;1&quot;
+anyhow = &quot;1&quot;
+</code></pre></div>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>use thiserror::Error;
+
+#[derive(Error, Debug)]
+pub enum AppError {
+    #[error(&quot;item not found: {id}&quot;)]
+    NotFound { id: String },
+
+    #[error(&quot;validation error: {field} - {message}&quot;)]
+    ValidationError { field: String, message: String },
+
+    #[error(&quot;database error: {0}&quot;)]
+    DatabaseError(#[from] aws_sdk_dynamodb::Error),
+
+    #[error(&quot;downstream service error: {status} - {body}&quot;)]
+    DownstreamError { status: u16, body: String },
+}
+
+async fn find_item(client: &amp;aws_sdk_dynamodb::Client, id: &amp;str) -&gt; Result&lt;String, AppError&gt; {
+    if id.is_empty() {
+        return Err(AppError::ValidationError {
+            field: &quot;id&quot;.to_string(),
+            message: &quot;cannot be empty&quot;.to_string(),
+        });
+    }
+
+    let result = client
+        .get_item()
+        .table_name(&quot;items&quot;)
+        .key(&quot;id&quot;, aws_sdk_dynamodb::types::AttributeValue::S(id.to_string()))
+        .send()
+        .await?; // DatabaseError via #[from]
+
+    result
+        .item()
+        .and_then(|i| i.get(&quot;data&quot;))
+        .and_then(|v| v.as_s().ok())
+        .cloned()
+        .ok_or_else(|| AppError::NotFound { id: id.to_string() })
+}
+</code></pre></div>
+<p>For Lambda handlers, convert <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">AppError</code> to Lambda&#39;s <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Error</code> type (which is <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Box&lt;dyn std::error::Error + Send + Sync&gt;</code>) via the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">From</code> trait or by using <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">anyhow</code>. Lambda serializes the error&#39;s <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Display</code> output to the response, so make your error messages descriptive and structured.</p>
+<h3>When to Use anyhow</h3>
+<p>Use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">anyhow</code> for application-level handlers where you do not need callers to match on error variants:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>use anyhow::{anyhow, Context, Result};
+
+async fn handler(event: LambdaEvent&lt;Request&gt;) -&gt; Result&lt;Response, lambda_runtime::Error&gt; {
+    let data = fetch_data(&amp;event.payload.id)
+        .await
+        .context(&quot;failed to fetch item from DynamoDB&quot;)?;
+
+    let processed = process_data(data)
+        .context(&quot;data processing failed&quot;)?;
+
+    Ok(Response { result: processed })
+}
+</code></pre></div>
+<p>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">context()</code> method from <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">anyhow</code> adds context to error messages without losing the original error. The error chain shows up in CloudWatch as a structured message.</p>
+<h2>Part 13: Observability</h2>
+<h3>Structured Logging</h3>
+<p>Every Lambda function should emit JSON-structured logs. CloudWatch Logs Insights can then query fields directly.</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>use tracing_subscriber::{fmt, layer::SubscriberExt, util::SubscriberInitExt, EnvFilter};
+
+fn init_tracing() {
+    tracing_subscriber::registry()
+        .with(EnvFilter::from_default_env())
+        .with(fmt::layer().json())
+        .init();
+}
+
+async fn handler(event: LambdaEvent&lt;Request&gt;) -&gt; Result&lt;Response, Error&gt; {
+    let request_id = event.context.request_id.clone();
+
+    // Create a span with request_id so all child logs include it
+    let span = tracing::info_span!(&quot;handler&quot;, request_id = %request_id);
+    let _guard = span.enter();
+
+    tracing::info!(
+        user_id = %event.payload.user_id,
+        operation = &quot;fetch&quot;,
+        &quot;Starting operation&quot;
+    );
+
+    // ... handler logic ...
+
+    tracing::info!(duration_ms = 14, &quot;Operation complete&quot;);
+
+    Ok(Response { /* ... */ })
+}
+</code></pre></div>
+<p>With JSON logging, CloudWatch Logs Insights queries become straightforward:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">sql</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>filter @message like /handler/
+| parse @message &#039;{&quot;timestamp&quot;:&quot;*&quot;,&quot;level&quot;:&quot;*&quot;,&quot;message&quot;:&quot;*&quot;,&quot;request_id&quot;:&quot;*&quot;&#039; as ts, level, msg, reqId
+| filter level = &quot;ERROR&quot;
+| stats count() by reqId
+| sort count desc
+</code></pre></div>
+<h3>OpenTelemetry and X-Ray</h3>
+<p>The AWS X-Ray SDK for Rust is not the recommended path in 2026. Use the ADOT (AWS Distro for OpenTelemetry) Lambda Layer instead. Add the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">AWSOpenTelemetryDistro</code> Lambda Layer ARN to your function, set the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">OTEL_SERVICE_NAME</code> and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">OTEL_TRACES_SAMPLER</code> environment variables, and your Rust function automatically ships traces to X-Ray via the OTLP exporter without any code changes.</p>
+<p>For latency-sensitive functions where even the ADOT flush overhead is too much, use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">lambda-otel-lite</code>:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">toml</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>[dependencies]
+lambda-otel-lite = &quot;0.10&quot;
+opentelemetry = &quot;0.25&quot;
+</code></pre></div>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>use lambda_otel_lite::{init_telemetry, TelemetryConfig};
+use opentelemetry::trace::Tracer;
+
+#[tokio::main]
+async fn main() -&gt; Result&lt;(), Error&gt; {
+    let (tracer_provider, completion_handler) = init_telemetry(
+        TelemetryConfig::builder()
+            .with_service_name(&quot;my-function&quot;)
+            .build()
+    ).await?;
+
+    lambda_runtime::run(service_fn(|event| async move {
+        let tracer = tracer_provider.tracer(&quot;my-function&quot;);
+        let span = tracer.start(&quot;handle_request&quot;);
+        // ... handler logic ...
+        drop(span);
+        Ok::&lt;_, Error&gt;(serde_json::json!({}))
+    })).await?;
+
+    completion_handler.shutdown().await;
+    Ok(())
+}
+</code></pre></div>
+<h2>Part 14: CI/CD with GitHub Actions</h2>
+<h3>Complete Workflow</h3>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">yaml</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>name: Deploy Lambda
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  id-token: write  # Required for OIDC authentication
+  contents: read
+
+env:
+  RUST_VERSION: &quot;1.83&quot;
+  FUNCTION_NAME: &quot;my-function&quot;
+  AWS_REGION: &quot;us-east-1&quot;
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: \${{ env.RUST_VERSION }}
+
+      - name: Cache cargo registry and build artifacts
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/index
+            target/
+          key: \${{ runner.os }}-cargo-\${{ hashFiles(&#039;**/Cargo.lock&#039;) }}
+          restore-keys: |
+            \${{ runner.os }}-cargo-
+
+      - name: Run tests
+        run: cargo test --all
+
+      - name: Run cargo audit
+        run: |
+          cargo install cargo-audit --locked
+          cargo audit
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == &#039;refs/heads/main&#039;
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: \${{ env.RUST_VERSION }}
+
+      - name: Cache cargo registry and build artifacts
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/index
+            target/
+          key: \${{ runner.os }}-cargo-\${{ hashFiles(&#039;**/Cargo.lock&#039;) }}
+
+      - name: Install cargo-lambda
+        run: pip install cargo-lambda
+
+      - name: Build for ARM64
+        run: cargo lambda build --release --arm64
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::\${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-deploy
+          aws-region: \${{ env.AWS_REGION }}
+
+      - name: Deploy to Lambda
+        run: |
+          cargo lambda deploy \
+            --function-name \${{ env.FUNCTION_NAME }} \
+            --iam-role arn:aws:iam::\${{ secrets.AWS_ACCOUNT_ID }}:role/lambda-execution-role
+
+      - name: Smoke test
+        run: |
+          cargo lambda invoke \${{ env.FUNCTION_NAME }} \
+            --remote \
+            --data-ascii &#039;{&quot;test&quot;: true}&#039;
+</code></pre></div>
+<p>The OIDC authentication approach (<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">id-token: write</code> permission + <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">aws-actions/configure-aws-credentials</code>) eliminates the need for long-lived AWS access keys in GitHub Secrets.</p>
+<h3>Caching Strategy</h3>
+<p>The cache key <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">hashFiles(&#039;**/Cargo.lock&#039;)</code> means the cache is invalidated only when dependencies change. For a project with a stable dependency set, second+ CI runs are 30-40% faster because the cargo registry and compiled dependencies are restored from cache. Add <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">sccache</code> for distributed compilation caching across matrix jobs.</p>
+<h2>Part 15: Cost Comparison</h2>
+<h3>Real Numbers at Scale</h3>
+<p>Based on AWS Lambda pricing for ARM64 in us-east-1 as of Q1 2026 (\$0.0000133334 per GB-second, \$0.20 per 1M requests):</p>
+<div style="overflow-x: auto; margin: 1.5rem 0;"><table style="width:100%; border-collapse: collapse; font-size: 0.9rem;"><thead><tr style="background: #1e293b;"><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Runtime</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Memory</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Avg Duration</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">10M req/month compute</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">10M req/month requests</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Total</th></tr></thead><tbody><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Python 3.13</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">512 MB</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">185ms</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">\$12.60</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">\$2.00</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">\$14.60</td></tr>
+<tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Node.js 22</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">256 MB</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">120ms</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">\$4.10</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">\$2.00</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">\$6.10</td></tr>
+<tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Go</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">128 MB</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">35ms</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">\$0.30</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">\$2.00</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">\$2.30</td></tr>
+<tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Rust</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">128 MB</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">14ms</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">\$0.12</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">\$2.00</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">\$2.12</td></tr>
+</tbody></table></div>
+<p>At 10M requests/month, Rust costs essentially the same as Go but is 3x cheaper than Node.js and 7x cheaper than Python. At 100M requests/month, the compute difference between Rust and Python is \$106 versus \$1.20 per month.</p>
+<p>The engineering investment to write a function in Rust (perhaps 2-4 extra hours for a developer already familiar with Rust) pays off at roughly 5-20M requests/month depending on the runtime being replaced.</p>
+<h3>LMI Cost Model</h3>
+<p>For a steady-state workload handling 50 requests per second continuously:</p>
+<ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li>Standard Lambda (Rust, ARM64, 128 MB): 50 req/s × 14ms × 86,400s/day = 60,480 GB-seconds/day = ~\$0.80/day</li>
+<li>LMI (1x m7g.medium instance, Compute Savings Plan 1-year): approximately \$0.30/day</li>
+</ul>
+<p>At sustained load, LMI with a Savings Plan is approximately 60% cheaper than standard Lambda. The break-even point where LMI becomes cost-effective versus standard Lambda is roughly 20-30 requests per second sustained.</p>
+<h2>Part 16: Migration from Node.js and Python</h2>
+<h3>When to Migrate</h3>
+<p>Migration to Rust makes sense when:</p>
+<ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li>Cold start latency is affecting user-facing P99 SLA</li>
+<li>Lambda costs are significant (\$500+/month) and the function is CPU or memory bound</li>
+<li>You need connection pooling or persistent in-memory state (LMI use case)</li>
+<li>The function does CPU-intensive work: parsing, encoding, hashing, compression</li>
+<li>You are writing a Lambda Extension and want to minimize overhead on every customer function</li>
+</ul>
+<p>Migration does not make sense when:</p>
+<ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li>The function is pure I/O-bound with a single downstream call and takes 10ms anyway</li>
+<li>Your team has no Rust experience and the function is not performance-critical</li>
+<li>The function&#39;s logic changes frequently (Rust&#39;s compilation time slows iteration)</li>
+</ul>
+<h3>The Incremental Approach</h3>
+<p>You do not need to rewrite everything at once. Lambda functions are independently deployed. The recommended order:</p>
+<ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li>Start with Lambda Extensions (highest ROI, standalone rewrite, does not require touching your main functions)</li>
+<li>Migrate CPU-bound or high-cost functions next (image processing, data transformation, report generation)</li>
+<li>Evaluate LMI for steady-state high-volume functions</li>
+<li>Leave infrequently called internal tools in their original language</li>
+</ul>
+<p>Your Python and Rust Lambda functions coexist without any coordination. They are separate deployments. You can route traffic to them independently via API Gateway or weighted aliases.</p>
+<h3>What the Rewrite Actually Looks Like</h3>
+<p>A Python Lambda handler:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">python</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>def handler(event, context):
+    name = event.get(&#039;name&#039;, &#039;&#039;)
+    if not name:
+        raise ValueError(&quot;name is required&quot;)
+    return {&#039;message&#039;: f&#039;Hello, {name}!&#039;, &#039;requestId&#039;: context.aws_request_id}
+</code></pre></div>
+<p>The equivalent Rust handler:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>use lambda_runtime::{run, service_fn, Error, LambdaEvent};
+use serde::{Deserialize, Serialize};
+
+#[derive(Deserialize)]
+struct Request { name: String }
+
+#[derive(Serialize)]
+struct Response { message: String, request_id: String }
+
+async fn handler(event: LambdaEvent&lt;Request&gt;) -&gt; Result&lt;Response, Error&gt; {
+    if event.payload.name.is_empty() {
+        return Err(&quot;name is required&quot;.into());
+    }
+    Ok(Response {
+        message: format!(&quot;Hello, {}!&quot;, event.payload.name),
+        request_id: event.context.request_id,
+    })
+}
+
+#[tokio::main]
+async fn main() -&gt; Result&lt;(), Error&gt; {
+    run(service_fn(handler)).await
+}
+</code></pre></div>
+<p>The Rust version is more verbose up front but adds compile-time type checking, automatic serialization, and runs 10-15x faster.</p>
+<h2>Part 17: IaC Integration</h2>
+<h3>AWS SAM</h3>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">yaml</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code># template.yaml
+AWSTemplateFormatVersion: &#039;2010-09-09&#039;
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  MyFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      BuildMethod: rust-cargolambda
+      BuildProperties:
+        Binary: my-function
+    Properties:
+      FunctionName: my-function
+      CodeUri: ./
+      Handler: bootstrap
+      Runtime: provided.al2023
+      Architectures:
+        - arm64
+      MemorySize: 128
+      Timeout: 30
+      Environment:
+        Variables:
+          RUST_LOG: info
+      Events:
+        ApiEvent:
+          Type: HttpApi
+          Properties:
+            Path: /items/{id}
+            Method: GET
+</code></pre></div>
+<p>SAM builds using cargo-lambda under the hood. Run <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">sam build &amp;&amp; sam deploy</code>.</p>
+<h3>AWS CDK</h3>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">typescript</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>import { Stack } from &#039;aws-cdk-lib&#039;;
+import { RustFunction } from &#039;cargo-lambda-cdk&#039;;
+import * as apigateway from &#039;aws-cdk-lib/aws-apigatewayv2&#039;;
+import { HttpLambdaIntegration } from &#039;aws-cdk-lib/aws-apigatewayv2-integrations&#039;;
+
+export class MyStack extends Stack {
+  constructor(scope: any, id: string) {
+    super(scope, id);
+
+    const fn = new RustFunction(this, &#039;MyFunction&#039;, {
+      functionName: &#039;my-function&#039;,
+      manifestPath: &#039;Cargo.toml&#039;,
+      architecture: &#039;arm64&#039;,
+      memorySize: 128,
+      timeout: cdk.Duration.seconds(30),
+      environment: {
+        RUST_LOG: &#039;info&#039;,
+        TABLE_NAME: &#039;my-table&#039;,
+      },
+    });
+
+    const api = new apigateway.HttpApi(this, &#039;Api&#039;);
+    api.addRoutes({
+      path: &#039;/items/{id}&#039;,
+      methods: [apigateway.HttpMethod.GET],
+      integration: new HttpLambdaIntegration(&#039;ItemIntegration&#039;, fn),
+    });
+  }
+}
+</code></pre></div>
+<p><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cargo-lambda-cdk</code> builds and packages the Rust binary during <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cdk synth</code>. The construct handles cross-compilation automatically.</p>
+<h3>Terraform</h3>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">hcl</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>resource &quot;null_resource&quot; &quot;build_lambda&quot; {
+  triggers = {
+    src_hash = sha256(join(&quot;&quot;, [for f in fileset(&quot;src&quot;, &quot;**/*.rs&quot;) : filesha256(&quot;src/\${f}&quot;)]))
+  }
+
+  provisioner &quot;local-exec&quot; {
+    command = &quot;cargo lambda build --release --arm64&quot;
+  }
+}
+
+data &quot;archive_file&quot; &quot;lambda_zip&quot; {
+  depends_on  = [null_resource.build_lambda]
+  type        = &quot;zip&quot;
+  source_file = &quot;\${path.module}/target/lambda/my-function/bootstrap&quot;
+  output_path = &quot;\${path.module}/target/lambda/my-function.zip&quot;
+}
+
+resource &quot;aws_lambda_function&quot; &quot;my_function&quot; {
+  depends_on       = [null_resource.build_lambda]
+  function_name    = &quot;my-function&quot;
+  filename         = data.archive_file.lambda_zip.output_path
+  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
+  handler          = &quot;bootstrap&quot;
+  runtime          = &quot;provided.al2023&quot;
+  architectures    = [&quot;arm64&quot;]
+  memory_size      = 128
+  timeout          = 30
+  role             = aws_iam_role.lambda_role.arn
+
+  environment {
+    variables = {
+      RUST_LOG = &quot;info&quot;
+    }
+  }
+}
+</code></pre></div>
+<h2>Part 18: Security Best Practices</h2>
+<h3>Never Put Secrets in Environment Variables</h3>
+<p>Environment variables are visible in the Lambda console, CloudFormation events, and deployment logs. Use Secrets Manager and fetch at init time:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">rust</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>use aws_sdk_secretsmanager::Client as SecretsClient;
+use tokio::sync::OnceCell;
+
+static DB_PASSWORD: OnceCell&lt;String&gt; = OnceCell::const_new();
+
+async fn get_db_password() -&gt; &amp;&#039;static str {
+    DB_PASSWORD.get_or_init(|| async {
+        let config = aws_config::load_defaults(aws_config::BehaviorVersion::latest()).await;
+        let client = SecretsClient::new(&amp;config);
+
+        client
+            .get_secret_value()
+            .secret_id(&quot;prod/my-function/db-password&quot;)
+            .send()
+            .await
+            .expect(&quot;failed to fetch secret&quot;)
+            .secret_string()
+            .expect(&quot;secret has no string value&quot;)
+            .to_string()
+    }).await
+}
+</code></pre></div>
+<p>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">OnceCell</code> ensures the secret is fetched once per cold start and reused across warm invocations. You pay one Secrets Manager API call per cold start, which is negligible.</p>
+<h3>Dependency Auditing</h3>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code># Install cargo-audit
+cargo install cargo-audit --locked
+
+# Audit your dependency tree against the RustSec advisory database
+cargo audit
+
+# Example output:
+# Crate:         openssl
+# Version:       0.10.55
+# Advisory:      RUSTSEC-2023-0044
+# Severity:      high (8.1)
+# Fix:           Upgrade to &gt;= 0.10.57
+
+# Add to CI to fail builds on high-severity advisories
+cargo audit --deny warnings
+</code></pre></div>
+<p>Run <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cargo audit</code> in CI on every push. Most advisories have a fixed version available. Update the dependency with <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cargo update -p &lt;crate&gt;</code> or by bumping the version in <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Cargo.toml</code>.</p>
+<h3>IAM Least Privilege</h3>
+<p>Each Lambda function gets its own IAM execution role with only the permissions it needs:</p>
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">json</p>
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>{
+  &quot;Version&quot;: &quot;2012-10-17&quot;,
+  &quot;Statement&quot;: [
+    {
+      &quot;Effect&quot;: &quot;Allow&quot;,
+      &quot;Action&quot;: [
+        &quot;dynamodb:GetItem&quot;,
+        &quot;dynamodb:PutItem&quot;
+      ],
+      &quot;Resource&quot;: &quot;arn:aws:dynamodb:us-east-1:123456789:table/my-table&quot;
+    },
+    {
+      &quot;Effect&quot;: &quot;Allow&quot;,
+      &quot;Action&quot;: [
+        &quot;logs:CreateLogGroup&quot;,
+        &quot;logs:CreateLogStream&quot;,
+        &quot;logs:PutLogEvents&quot;
+      ],
+      &quot;Resource&quot;: &quot;arn:aws:logs:*:*:*&quot;
+    }
+  ]
+}
+</code></pre></div>
+<p>Do not use the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">AdministratorAccess</code> managed policy on Lambda execution roles. It is a significant blast radius if the function is ever exploited or if a dependency has a supply-chain vulnerability.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Do I need Rust experience to start?</strong></p>
+<p>You need basic Rust familiarity: ownership, borrowing, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">async/await</code>, and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Result&lt;T, E&gt;</code> error handling. If you can read the Rust book and understand the first 10 chapters, you can write Lambda functions. The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cargo-lambda</code> toolchain removes the infrastructure complexity. Start with a simple event transformation function before building anything with database access or concurrency.</p>
+<p><strong>How do I handle database connection pooling?</strong></p>
+<p>With standard Lambda, use a connection pooler like RDS Proxy to avoid exhausting your database&#39;s connection limit. Each execution environment holds one connection. With LMI, you can use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">sqlx::Pool</code> or <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">deadpool</code> directly in your function, initializing the pool in <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">main()</code> and reusing it across concurrent requests on the same instance.</p>
+<p><strong>Can I use my existing Python Lambda alongside a Rust one?</strong></p>
+<p>Yes. Lambda functions are independently deployed and invoke each other via the Lambda API or SNS/SQS. There is no coordination required between runtimes. You can route traffic to each independently via API Gateway weighted routes or Lambda aliases.</p>
+<p><strong>Is cargo-lambda production-safe?</strong></p>
+<p>Yes. It reached 1.0 stable and is the officially recommended build tool in the AWS Rust Lambda documentation. Datadog, AWS, and multiple other companies use it in production CI pipelines. The deployment functionality wraps the AWS Lambda API directly and does not introduce any abstraction layer that could fail in unexpected ways.</p>
+<p><strong>What is the best memory size for Rust Lambda functions?</strong></p>
+<p>Start at 128 MB. Rust functions typically use 20-50 MB of actual memory. For I/O-bound functions (most API handlers, SQS processors), 128 MB is sufficient. For CPU-bound functions, increase memory to get more vCPUs: 1769 MB gives you one full vCPU, 3538 MB gives two, up to 10240 MB for six vCPUs. Use AWS Lambda Power Tuning to find the optimal memory configuration for CPU-bound functions.</p>
+<p><strong>How do I debug a panic in production?</strong></p>
+<p>A panic in a Rust Lambda function causes the binary to exit via <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">abort()</code> (with <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">panic = &quot;abort&quot;</code> in the release profile). Lambda sees this as a function error. The panic message appears in CloudWatch Logs. To get a stack trace in production, temporarily remove <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">panic = &quot;abort&quot;</code> from the release profile and redeploy. Add structured logging with <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">tracing</code> throughout your critical paths so you can reconstruct what happened without needing a stack trace.</p>
+<p><strong>Does Rust Lambda support Lambda SnapStart?</strong></p>
+<p>No. SnapStart is only available for the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">java21</code> managed runtime. Rust does not need it. SnapStart solves JVM startup time (700ms+). Rust cold starts are 16ms without any caching mechanism.</p>
+<p><strong>How do I share code between Lambda functions?</strong></p>
+<p>Use a Cargo workspace. Put shared types, utilities, and database client wrappers in a <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">shared/</code> crate within the workspace. Each Lambda function depends on the shared crate via a path dependency. This gives you type safety across function boundaries and a single build cache.</p>
+<h2>Conclusion</h2>
+<p>Rust on Lambda went from experimental to production-ready with two milestones: GA support in November 2025 with an SLA, and Lambda Managed Instances with Rust support in March 2026. The 16ms cold start is not just a benchmark number. It translates directly to user-facing latency improvements and infrastructure cost reductions that compound at scale.</p>
+<p>The practical path for teams evaluating Rust on Lambda:</p>
+<p>Start with Lambda Extensions. If you run a Datadog, Dynatrace, or custom telemetry extension alongside your functions, rewriting it in Rust reduces the cold start overhead it adds to every single one of your functions, regardless of what language they are in. This is the highest-ROI, lowest-risk entry point.</p>
+<p>Then migrate CPU-bound functions. Anything that does meaningful computation, transformation, parsing, or encoding will see immediate speed and cost improvements.</p>
+<p>Then evaluate LMI for steady-state workloads. If you have functions handling sustained traffic with a predictable baseline, LMI plus Compute Savings Plans produces the lowest possible Lambda cost.</p>
+<p>Key resources for getting started:</p>
+<ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">aws-lambda-rust-runtime</code> on GitHub: the official runtime, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">lambda_http</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">lambda_events</code>, and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">lambda_extension</code> crates</li>
+<li><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cargo-lambda</code> docs at cargo-lambda.info: complete reference for build, watch, and deploy commands</li>
+<li>lambda-perf at maxday.github.io/lambda-perf: daily updated cold start benchmarks across all runtimes</li>
+<li>AWS Compute Blog: Rust-specific posts covering LMI patterns and production case studies</li>
+</ul>
+
+<div style="background: linear-gradient(135deg, rgba(168,85,247,0.12) 0%, rgba(59,130,246,0.12) 100%); border: 1px solid rgba(168,85,247,0.35); border-radius: 12px; padding: 2rem; margin: 3rem 0;">
+  <p style="font-size: 1.1rem; font-weight: 700; color: #c084fc; margin: 0 0 0.75rem 0;">Need High-Performance Rust & AWS Lambda Solutions?</p>
+  <p style="color: #cbd5e1; margin: 0 0 1.5rem 0;">At Nandann Creative, we build fast, production-grade applications. If your cloud costs are spiraling or you need maximum scale without latency spikes, we can help you transition to Rust and AWS Lambda.</p>
+  <a href="${internalLinks.contact}" style="display: inline-block; background: linear-gradient(135deg, #7c3aed, #2563eb); color: #fff; font-weight: 600; padding: 0.75rem 1.75rem; border-radius: 8px; text-decoration: none; font-size: 0.95rem;">Talk to Our Engineering Team</a>
+</div>`,
+    faqs: [
+      {
+            "question": "Do I need Rust experience to start?",
+            "answer": "You need basic Rust familiarity: ownership, borrowing, `async/await`, and `Result<T, E>` error handling. If you can read the Rust book and understand the first 10 chapters, you can write Lambda functions. The `cargo-lambda` toolchain removes the infrastructure complexity. Start with a simple event transformation function before building anything with database access or concurrency."
+      },
+      {
+            "question": "How do I handle database connection pooling?",
+            "answer": "With standard Lambda, use a connection pooler like RDS Proxy to avoid exhausting your database's connection limit. Each execution environment holds one connection. With LMI, you can use `sqlx::Pool` or `deadpool` directly in your function, initializing the pool in `main()` and reusing it across concurrent requests on the same instance."
+      },
+      {
+            "question": "Can I use my existing Python Lambda alongside a Rust one?",
+            "answer": "Yes. Lambda functions are independently deployed and invoke each other via the Lambda API or SNS/SQS. There is no coordination required between runtimes. You can route traffic to each independently via API Gateway weighted routes or Lambda aliases."
+      },
+      {
+            "question": "Is cargo-lambda production-safe?",
+            "answer": "Yes. It reached 1.0 stable and is the officially recommended build tool in the AWS Rust Lambda documentation. Datadog, AWS, and multiple other companies use it in production CI pipelines. The deployment functionality wraps the AWS Lambda API directly and does not introduce any abstraction layer that could fail in unexpected ways."
+      },
+      {
+            "question": "What is the best memory size for Rust Lambda functions?",
+            "answer": "Start at 128 MB. Rust functions typically use 20-50 MB of actual memory. For I/O-bound functions (most API handlers, SQS processors), 128 MB is sufficient. For CPU-bound functions, increase memory to get more vCPUs: 1769 MB gives you one full vCPU, 3538 MB gives two, up to 10240 MB for six vCPUs. Use AWS Lambda Power Tuning to find the optimal memory configuration for CPU-bound functions."
+      },
+      {
+            "question": "How do I debug a panic in production?",
+            "answer": "A panic in a Rust Lambda function causes the binary to exit via `abort()` (with `panic = \"abort\"` in the release profile). Lambda sees this as a function error. The panic message appears in CloudWatch Logs. To get a stack trace in production, temporarily remove `panic = \"abort\"` from the release profile and redeploy. Add structured logging with `tracing` throughout your critical paths so you can reconstruct what happened without needing a stack trace."
+      },
+      {
+            "question": "Does Rust Lambda support Lambda SnapStart?",
+            "answer": "No. SnapStart is only available for the `java21` managed runtime. Rust does not need it. SnapStart solves JVM startup time (700ms+). Rust cold starts are 16ms without any caching mechanism."
+      },
+      {
+            "question": "How do I share code between Lambda functions?",
+            "answer": "Use a Cargo workspace. Put shared types, utilities, and database client wrappers in a `shared/` crate within the workspace. Each Lambda function depends on the shared crate via a path dependency. This gives you type safety across function boundaries and a single build cache."
+      }
+]
+  },
+  {
     slug: 'rust-pyo3-python-extensions-guide',
     title: 'PyO3 v0.28 and maturin: Writing Python Extensions in Rust That Actually Ship',
     description: 'PyO3 v0.28 adds full support for free-threaded Python 3.14 and the GIL release API. This guide covers building, packaging, and shipping Python extensions in Rust with maturin — from first function to published PyPI wheel.',

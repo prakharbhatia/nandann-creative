@@ -15,6 +15,15 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'rust-aws-lambda-production-guide',
+    title: 'Rust on AWS Lambda: The Production Guide to Cold Starts, cargo-lambda, and Managed Instances',
+    excerpt: 'Rust on AWS Lambda went GA in November 2025. This guide covers cargo-lambda, cold start benchmarks (16ms), ARM64 vs x86_64, Lambda Managed Instances, and everything you need to ship Rust functions to production.',
+    date: 'Mar 22, 2026',
+    readTime: '28 min read',
+    category: 'Rust',
+    coverImage: '/images/rust-aws-lambda-thumbnail.webp'
+  },
+  {
     slug: 'rust-pyo3-python-extensions-guide',
     title: 'PyO3 v0.28 and maturin: Writing Python Extensions in Rust That Actually Ship',
     excerpt: 'PyO3 v0.28 adds full support for free-threaded Python 3.14 and the GIL release API. This guide covers building, packaging, and shipping Python extensions in Rust with maturin — from first function to published PyPI wheel.',
