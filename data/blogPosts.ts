@@ -28,6 +28,1272 @@ const internalLinks = {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'nextjs-16-2-complete-guide',
+    title: "Next.js 16.2: Everything You Need to Know About use cache, Turbopack, and the New Proxy API",
+    description: "Next.js 16.2 ships with the use cache directive, proxy.ts replacing middleware.ts, Turbopack as default bundler, and React 19.2. This guide covers every change with working code examples and a migration checklist.",
+    date: '2026-03-25',
+    readTime: '25 min read',
+    category: 'Next.js',
+    tags: [
+      'Next.js 16.2',
+      'use cache',
+      'Turbopack',
+      'React 19.2',
+      'Next.js proxy',
+      'Next.js performance',
+      'App Router',
+      'Server Components'
+    ],
+    coverImage: '/images/nextjs-16.2-nandann-creative-thumbnail.webp',
+    contentHtml: `<picture>
+  <source media="(min-width: 1px)" srcset="/images/nextjs-16.2-nandann-creative-banner.webp 1x" type="image/webp" />
+  <img src="/images/nextjs-16.2-nandann-creative-banner.webp" alt="Next.js 16.2: use cache, Turbopack, and Proxy API - Complete Guide by Nandann Creative" style="width:100%; border-radius:12px; margin-bottom: 2rem;" loading="eager" width="1200" height="630" />
+</picture>
+<p>Next.js 16.2 is the most disruptive release since the App Router landed in Next.js 13. That sounds like hype, but it's structural: the release reverses the framework's default stance on caching, replaces the default bundler, renames and repurposes the middleware layer, and ships with React 19.2. Any of those four changes alone would require a migration guide. All four at once means you need to understand what changed and why before touching your <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next.config.ts</code>.</p>
+
+<p>The short version: caching is now fully opt-in. Everything is dynamic by default. Turbopack runs your builds. <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">middleware.ts</code> is being replaced by <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">proxy.ts</code>. And React 19.2 brings <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">useEffectEvent</code>, the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">&lt;Activity&gt;</code> component, and View Transitions directly into the framework.</p>
+
+<p>This guide covers every major change with working code examples, explains the reasoning behind each decision, and gives you a concrete migration path from Next.js 15.</p>
+
+<h2>What Changed in Next.js 16.2: Quick Reference</h2>
+
+<div style="overflow-x: auto; margin: 1.5rem 0;"><table style="width:100%; border-collapse: collapse; font-size: 0.9rem;"><thead><tr style="background: #1e293b;"><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Feature</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Status in 16.2</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Impact</th></tr></thead><tbody><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">use cache</code> directive</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Stable (opt-in via <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheComponents</code>)</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">High</td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0d1929;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheLife()</code> and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheTag()</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Stable (no <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">unstable_</code> prefix)</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">High</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Turbopack</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Default bundler for <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">dev</code> and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">build</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">High</td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0d1929;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">proxy.ts</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">New pattern, replaces <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">middleware.ts</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">High</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">React 19.2</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Bundled</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Medium</td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0d1929;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">React Compiler 1.0</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Stable, opt-in</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Medium</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">after()</code> API</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Stable</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Medium</td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0d1929;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Async <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cookies()</code> / <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">headers()</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Strictly enforced</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">High</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">serverRuntimeConfig</code> / <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">publicRuntimeConfig</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Removed</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">High</td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0d1929;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">AMP support</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Removed</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Low for most apps</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next lint</code> command</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Removed</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Low</td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0d1929;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Node.js 18 support</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Dropped</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Medium</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Parallel routes <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">default.js</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Required</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Medium</td></tr></tbody></table></div>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>Part 1: The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">use cache</code> Directive</h2>
+
+<h3>Why the Old Caching Model Failed</h3>
+
+<p>If you built anything with the App Router in Next.js 13 or 14, you hit the caching confusion wall. <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">fetch()</code> calls were cached by default. Routes were statically optimized unless they called certain APIs. Route segment config options like <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">export const revalidate = 60</code> let you opt into ISR, but the semantics of <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">revalidate: 0</code> versus <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">dynamic = 'force-dynamic'</code> were never obvious. Adding a single <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cookies()</code> call to a layout could silently make your entire route tree dynamic.</p>
+
+<p>The model was implicit. The framework made decisions for you, and when those decisions were wrong, the error messages pointed you in the wrong direction.</p>
+
+<p>Next.js 16 reverses this. Dynamic is the default. Caching is explicit. If something is cached, it's because you said so.</p>
+
+<h3>How <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">use cache</code> Works</h3>
+
+<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"use cache"</code> is a directive, same as <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"use client"</code> and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"use server"</code>. You place it at the top of a file, a function body, or a component body. The compiler picks it up at build time and generates a cache key automatically from the function's arguments and any variables it closes over.
+
+<p>Different inputs produce different cache entries. If you call <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">getProduct(1)</code> and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">getProduct(2)</code>, those are two separate cache entries. If the function closes over a variable, that variable is part of the key too. Arguments must be serializable, which means no class instances, no functions, no non-plain objects.</p>
+
+<p>To use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">use cache</code>, enable it in <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next.config.ts</code>:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">ts</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// next.config.ts
+import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
+  cacheComponents: true,
+};
+
+export default nextConfig;
+</code></pre></div>
+
+<p>Setting <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheComponents: true</code> replaces both <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">experimental.dynamicIO</code> and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">experimental.ppr</code> from Next.js 15. Enabling it changes the default behavior of the entire app, so test thoroughly before deploying.</p>
+
+<h3>Three Ways to Use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">use cache</code></h3>
+
+<h4>File-Level Caching</h4>
+
+<p>Place <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"use cache"</code> at the top of a file, before any imports. Every exported async function and async Server Component in that file becomes cached. Use this for fully static pages where all the data is known at build time.</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">ts</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// app/blog/[slug]/page.tsx
+'use cache';
+
+import { cacheLife } from 'next/cache';
+import { getBlogPost } from '@/lib/blog';
+
+cacheLife('days');
+
+export default async function BlogPage({ params }: { params: { slug: string } }) {
+  const post = await getBlogPost(params.slug);
+
+  return (
+    &lt;article&gt;
+      &lt;h1&gt;{post.title}&lt;/h1&gt;
+      &lt;div dangerouslySetInnerHTML={{ __html: post.content }} /&gt;
+    &lt;/article&gt;
+  );
+}
+</code></pre></div>
+
+<h4>Function-Level Caching</h4>
+
+<p>Place <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"use cache"</code> inside an async function body. This is the most granular option and the one you will use most often. Each unique set of arguments gets its own cache entry.</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">ts</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// lib/products.ts
+import { cacheLife, cacheTag } from 'next/cache';
+
+export async function getProduct(id: string) {
+  'use cache';
+  cacheLife('hours');
+  cacheTag(&#96;product:&#36;{id}&#96;);
+
+  const product = await db.query('SELECT * FROM products WHERE id = &#36;1', [id]);
+  return product;
+}
+
+export async function getProductsByCategory(category: string, page: number) {
+  'use cache';
+  cacheLife('minutes');
+  cacheTag(&#96;category:&#36;{category}&#96;);
+
+  const products = await db.query(
+    'SELECT * FROM products WHERE category = &#36;1 LIMIT 20 OFFSET &#36;2',
+    [category, (page - 1) * 20]
+  );
+  return products;
+}
+</code></pre></div>
+
+<h4>Component-Level Caching</h4>
+
+<p>Place <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"use cache"</code> at the top of an async Server Component body. The framework caches the rendered output, not just the data. This works with Partial Prerendering to produce a static shell that streams in.</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">tsx</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// components/ProductCard.tsx
+import { cacheLife, cacheTag } from 'next/cache';
+import { getProduct } from '@/lib/products';
+
+export async function ProductCard({ id }: { id: string }) {
+  'use cache';
+  cacheLife('hours');
+  cacheTag(&#96;product:&#36;{id}&#96;);
+
+  const product = await getProduct(id);
+
+  return (
+    &lt;div className="product-card"&gt;
+      &lt;img src={product.imageUrl} alt={product.name} /&gt;
+      &lt;h3&gt;{product.name}&lt;/h3&gt;
+      &lt;span&gt;&#36;{product.price}&lt;/span&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre></div>
+
+<h3>Controlling Cache Duration with <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheLife()</code></h3>
+
+<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheLife()</code> takes either a named profile or an inline object with three timing properties: <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">stale</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">revalidate</code>, and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">expire</code>, all in seconds.
+
+<ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">stale</code>: how long a client can hold the cached response before revalidating</li>
+<li><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">revalidate</code>: how often the server regenerates the cache entry in the background</li>
+<li><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">expire</code>: the hard maximum age. After this, the cache entry is deleted and rebuilt on next request.</li>
+<p></ul></p>
+
+<p>Named profiles:</p>
+
+<div style="overflow-x: auto; margin: 1.5rem 0;"><table style="width:100%; border-collapse: collapse; font-size: 0.9rem;"><thead><tr style="background: #1e293b;"><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Profile</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">stale</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">revalidate</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">expire</th></tr></thead><tbody><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">'seconds'</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">0</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">1</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">60</td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0d1929;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">'minutes'</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">0</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">60</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">3600</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">'hours'</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">0</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">3600</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">86400</td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0d1929;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">'days'</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">0</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">86400</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">604800</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">'weeks'</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">0</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">604800</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">2592000</td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0d1929;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">'max'</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">0</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">2592000</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Infinity</td></tr></tbody></table></div>
+
+<p>For custom timing:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">ts</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>export async function getInventoryCount(productId: string) {
+  'use cache';
+  // Inventory can go stale for 30 seconds, regenerates every 2 minutes,
+  // hard expires after 10 minutes.
+  cacheLife({ stale: 30, revalidate: 120, expire: 600 });
+  cacheTag(&#96;inventory:&#36;{productId}&#96;);
+
+  const count = await db.query(
+    'SELECT stock_count FROM inventory WHERE product_id = &#36;1',
+    [productId]
+  );
+  return count;
+}
+</code></pre></div>
+
+<h3>Cache Invalidation with <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheTag()</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">revalidateTag()</code>, and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">updateTag()</code></h3>
+
+<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheTag()</code> assigns one or more string tags to a cache entry. You can then invalidate entries by tag without clearing unrelated data.
+
+<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">revalidateTag()</code> marks entries as stale. The next request to those entries will trigger a background regeneration. Use this in webhooks and cron jobs.
+
+<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">updateTag()</code> is designed for Server Actions where the user needs to see their change immediately after submitting a form (read-your-writes consistency). It invalidates the tag synchronously within the same request lifecycle.
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">ts</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// app/actions/product.ts
+'use server';
+
+import { revalidateTag, updateTag } from 'next/cache';
+
+// Use in a Server Action where the user submitted a form
+export async function updateProductPrice(productId: string, newPrice: number) {
+  await db.query(
+    'UPDATE products SET price = &#36;1 WHERE id = &#36;2',
+    [newPrice, productId]
+  );
+
+  // User sees the updated price immediately
+  updateTag(&#96;product:&#36;{productId}&#96;);
+
+  // Also invalidate any category pages that list this product
+  revalidateTag(&#96;category:electronics&#96;);
+}
+
+// Use in a webhook handler
+export async function POST(request: Request) {
+  const { type, productId } = await request.json();
+
+  if (type === 'product.updated') {
+    revalidateTag(&#96;product:&#36;{productId}&#96;);
+  }
+
+  return Response.json({ ok: true });
+}
+</code></pre></div>
+
+<h3>Passing Runtime Values to Cached Functions</h3>
+
+<p>This is a pattern that trips people up. You cannot call <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cookies()</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">headers()</code>, or read <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">params</code> directly inside a <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"use cache"</code> function. Those are runtime APIs that return dynamic data, which defeats the purpose of caching.</p>
+
+<p>The correct pattern is to extract runtime values in an uncached parent component and pass them as arguments to your cached functions:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">tsx</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// app/dashboard/page.tsx
+// No 'use cache' here - this component reads runtime APIs
+import { cookies } from 'next/headers';
+import { CachedDashboard } from './CachedDashboard';
+
+export default async function DashboardPage() {
+  const cookieStore = await cookies();
+  const userId = cookieStore.get('userId')?.value;
+
+  if (!userId) {
+    redirect('/login');
+  }
+
+  // Pass the extracted value as an argument to the cached component
+  return &lt;CachedDashboard userId={userId} /&gt;;
+}
+
+// components/CachedDashboard.tsx
+import { cacheLife, cacheTag } from 'next/cache';
+import { getUserData } from '@/lib/user';
+
+export async function CachedDashboard({ userId }: { userId: string }) {
+  'use cache';
+  cacheLife('minutes');
+  cacheTag(&#96;dashboard:&#36;{userId}&#96;);
+
+  const data = await getUserData(userId);
+
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Welcome, {data.name}&lt;/h1&gt;
+      {/* ... */}
+    &lt;/div&gt;
+  );
+}
+</code></pre></div>
+
+<p>The cache key for <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">CachedDashboard</code> includes <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">userId</code> as an argument, so each user gets their own cache entry.</p>
+
+<h3>Partial Prerendering and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">use cache</code></h3>
+
+<p>When <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheComponents: true</code> is set, PPR becomes the default rendering model. The framework splits your page into a static shell (anything covered by <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"use cache"</code>) and dynamic holes (anything inside <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">&lt;Suspense&gt;</code> that reads runtime APIs).</p>
+
+<p>The static shell is sent immediately. Dynamic content streams in as it resolves. This is different from server-side rendering, where the entire page waits for all data before sending any HTML.</p>
+
+<p>One rule: non-deterministic operations like <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Math.random()</code> and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Date.now()</code> must be placed either inside a <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"use cache"</code> function (where they run once and are stored) or inside a <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">&lt;Suspense&gt;</code> boundary. The framework enforces this at build time.</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">tsx</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// app/product/[id]/page.tsx
+import { Suspense } from 'react';
+import { ProductDetails } from '@/components/ProductDetails';  // has 'use cache'
+import { InventoryBadge } from '@/components/InventoryBadge';  // reads live data
+import { RecommendationsSkeleton } from '@/components/skeletons';
+
+export default function ProductPage({ params }: { params: { id: string } }) {
+  return (
+    &lt;div&gt;
+      {/* Static shell - served from cache immediately */}
+      &lt;ProductDetails id={params.id} /&gt;
+
+      {/* Dynamic hole - streams in after page load */}
+      &lt;Suspense fallback={&lt;span&gt;Checking stock...&lt;/span&gt;}&gt;
+        &lt;InventoryBadge productId={params.id} /&gt;
+      &lt;/Suspense&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre></div>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>Part 2: Turbopack Is Now the Default</h2>
+
+<h3>What Changed</h3>
+
+<p>Starting with Next.js 16, Turbopack is the default bundler for both <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next dev</code> and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next build</code>. You do not need any flags to use it. If you were already using Turbopack via <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next dev --turbo</code> in Next.js 15, nothing changes. If you were on webpack, your next <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">npm install</code> is going to change your bundler.</p>
+
+<p>By the time 16.0 shipped, 50% of Next.js dev sessions were already on Turbopack. The production build support was the missing piece that held it back from being default.</p>
+
+<h3>Performance Numbers</h3>
+
+<p>These are the numbers Vercel published alongside the 16.2 release:</p>
+
+<div style="overflow-x: auto; margin: 1.5rem 0;"><table style="width:100%; border-collapse: collapse; font-size: 0.9rem;"><thead><tr style="background: #1e293b;"><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Metric</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Webpack</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Turbopack</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Improvement</th></tr></thead><tbody><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Cold dev startup (large app)</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">~22s</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">~2.9s</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">~87% faster</td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0d1929;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Fast Refresh (code change)</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">~3.2s</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">~0.8s</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">~75% faster</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Server Fast Refresh (16.2)</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">~59ms</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">~12.4ms</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">~79% faster</td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0d1929;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Production build (react.dev)</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">baseline</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">2.5x faster</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">60% reduction</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Dev restart with FS cache (16.1)</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">baseline</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">10x faster</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">90% reduction</td></tr></tbody></table></div>
+
+<p>Server Fast Refresh in 16.2 is the most notable new addition. Instead of reloading the entire module chain when a server file changes, Turbopack reloads only the affected module and its direct dependents. On a file change to a deeply nested utility, the difference between 59ms and 12ms is meaningful during rapid iteration.</p>
+
+<h3>Opting Back to Webpack</h3>
+
+<p>If you have a webpack configuration that you cannot migrate immediately, use the explicit webpack flags:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code># Development with webpack
+next dev --webpack
+
+# Production build with webpack
+next build --webpack
+</code></pre></div>
+
+<p>If you try to run <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next build</code> (without the flag) with a <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">webpack</code> key in your <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next.config.ts</code>, the build will fail with an explicit error telling you to either remove the webpack config or use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">--webpack</code>. This is intentional, not a bug.</p>
+
+<h3>Migrating Your Webpack Config to Turbopack</h3>
+
+<p>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">experimental.turbopack</code> key moves to a top-level <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">turbopack</code> key. <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">resolve.fallback</code> becomes <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">turbopack.resolveAlias</code>. Tilde (<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">~</code>) prefixes in Sass imports need to be removed.</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">ts</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// next.config.ts - Before (Next.js 15)
+import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
+  experimental: {
+    turbopack: {
+      resolveAlias: {
+        'old-package': 'new-package',
+      },
+    },
+  },
+  webpack: (config) =&gt; {
+    config.resolve.fallback = { fs: false, path: false };
+    return config;
+  },
+};
+
+export default nextConfig;
+</code></pre></div>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">ts</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// next.config.ts - After (Next.js 16)
+import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
+  turbopack: {
+    resolveAlias: {
+      'old-package': 'new-package',
+      // Node.js polyfills (replaces resolve.fallback)
+      fs: { browser: './shims/fs-browser.ts' },
+      path: { browser: 'path-browserify' },
+    },
+  },
+};
+
+export default nextConfig;
+</code></pre></div>
+
+<p>For Sass, update your imports:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">scss</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>/* Before */
+@import '~bootstrap/scss/bootstrap';
+
+/* After */
+@import 'bootstrap/scss/bootstrap';
+</code></pre></div>
+
+<h3>Suppressing Third-Party Warnings</h3>
+
+<p>Third-party packages sometimes emit Turbopack warnings you cannot fix. Use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">turbopack.ignoreIssue</code> to filter them:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">ts</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// next.config.ts
+const nextConfig: NextConfig = {
+  turbopack: {
+    ignoreIssue: [
+      {
+        // Suppress warnings from a specific package
+        path: /node_modules\\/some-package/,
+        severity: 'warning',
+      },
+    ],
+  },
+};
+</code></pre></div>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>Part 3: <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">proxy.ts</code> Replaces <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">middleware.ts</code></h2>
+
+<h3>Why the Change</h3>
+
+<p>"Middleware" is overloaded. In Express, middleware is a function in the request handling chain. In Next.js, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">middleware.ts</code> ran on the network edge, before routing, and had access to only the Edge Runtime. The names collided and the mental model was constantly confused.</p>
+
+<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">proxy.ts</code> is the replacement. The name reflects what it actually does: it proxies requests, intercepts them at the network boundary, and decides what to do before they reach your application code. More importantly, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">proxy.ts</code> drops the Edge Runtime and runs on Node.js only.
+
+<h3>The Three-Step Migration</h3>
+
+<ol style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li>Rename <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">middleware.ts</code> to <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">proxy.ts</code></li>
+<li>Rename the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">middleware</code> export to <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">proxy</code></li>
+<li>Rename config flags: <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">skipMiddlewareUrlNormalize</code> becomes <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">skipProxyUrlNormalize</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">skipTrailingSlashRedirect</code> stays the same</li>
+<p></ol></p>
+
+<p>The codemod handles all of this:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>npx @next/codemod@canary upgrade latest
+</code></pre></div>
+
+<p>Side-by-side comparison:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">ts</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// middleware.ts (old)
+import { NextRequest, NextResponse } from 'next/server';
+
+export function middleware(request: NextRequest) {
+  const token = request.cookies.get('auth-token');
+  if (!token) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ['/dashboard/:path*', '/api/protected/:path*'],
+  skipMiddlewareUrlNormalize: true,
+};
+</code></pre></div>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">ts</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// proxy.ts (new)
+import { NextRequest, NextResponse } from 'next/server';
+
+export function proxy(request: NextRequest) {
+  const token = request.cookies.get('auth-token');
+  if (!token) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ['/dashboard/:path*', '/api/protected/:path*'],
+  skipProxyUrlNormalize: true,
+};
+</code></pre></div>
+
+<h3>The Critical Runtime Change</h3>
+
+<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">middleware.ts</code> ran on the Edge Runtime: a stripped-down V8 environment with no Node.js APIs, no file system, no native modules. This was fast but severely limiting.
+
+<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">proxy.ts</code> runs on the Node.js runtime. You can use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">fs</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">crypto</code>, native Node.js modules, and any npm package that does not require a browser environment.
+
+<p>If you were relying on Edge Runtime for geographic routing or low-latency auth at the CDN level, you need to keep <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">middleware.ts</code> for now. It still works, it is deprecated, but it is not removed. Vercel has said Edge Runtime guidance for <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">proxy.ts</code> is coming in a future minor release.</p>
+
+<h3>A Real-World <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">proxy.ts</code> with JWT Auth</h3>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">ts</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// proxy.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { jwtVerify } from 'jose';
+
+const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET!);
+
+const PROTECTED_PATHS = ['/dashboard', '/settings', '/api/user'];
+const PUBLIC_PATHS = ['/login', '/signup', '/api/auth'];
+
+export async function proxy(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  // Pass through public paths immediately
+  if (PUBLIC_PATHS.some((p) =&gt; pathname.startsWith(p))) {
+    return NextResponse.next();
+  }
+
+  // Check if this path needs protection
+  const isProtected = PROTECTED_PATHS.some((p) =&gt; pathname.startsWith(p));
+  if (!isProtected) {
+    return NextResponse.next();
+  }
+
+  const token = request.cookies.get('auth-token')?.value;
+
+  if (!token) {
+    const loginUrl = new URL('/login', request.url);
+    loginUrl.searchParams.set('redirect', pathname);
+    return NextResponse.redirect(loginUrl);
+  }
+
+  try {
+    const { payload } = await jwtVerify(token, JWT_SECRET);
+
+    // Add user ID to request headers so route handlers can read it
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set('x-user-id', payload.sub as string);
+    requestHeaders.set('x-user-role', payload.role as string);
+
+    return NextResponse.next({
+      request: { headers: requestHeaders },
+    });
+  } catch {
+    // Token is invalid or expired
+    const loginUrl = new URL('/login', request.url);
+    loginUrl.searchParams.set('redirect', pathname);
+    const response = NextResponse.redirect(loginUrl);
+    response.cookies.delete('auth-token');
+    return response;
+  }
+}
+
+export const config = {
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+};
+</code></pre></div>
+
+<h3>Where Business Logic Belongs</h3>
+
+<p>Keep <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">proxy.ts</code> narrow. It should intercept, inspect, redirect, or rewrite. It should not run database queries or call third-party APIs on every request.</p>
+
+<ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">proxy.ts</code>: auth checks, locale detection, A/B test cookie assignment, request rewrites</li>
+<li>Route Handlers: business logic APIs, third-party integrations</li>
+<li>Server Actions: mutations, form submissions</li>
+<p></ul></p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>Part 4: React 19.2 Integration</h2>
+
+<h3>What's New in React 19.2</h3>
+
+<p>React 19.2 shipped on October 1, 2025 and is bundled into Next.js 16. It adds <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">useEffectEvent</code>, the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">&lt;Activity&gt;</code> component, View Transitions support, performance tracking in Chrome DevTools, and a 3.5x speedup in RSC payload deserialization.</p>
+
+<h3><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">useEffectEvent</code>: Solve the Stale Closure Problem</h3>
+
+<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">useEffectEvent</code> creates a stable function reference that always reads the latest props and state, without being listed in the effect's dependency array. This solves a class of stale closure bugs that previously required <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">useRef</code> workarounds.
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">tsx</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// Before React 19.2: stale closure hack with useRef
+function AnalyticsTracker({ pageId, userId }: { pageId: string; userId: string }) {
+  const userIdRef = useRef(userId);
+  useEffect(() =&gt; {
+    userIdRef.current = userId;
+  }, [userId]);
+
+  useEffect(() =&gt; {
+    const interval = setInterval(() =&gt; {
+      // Had to use ref to avoid stale closure
+      sendAnalytics({ pageId, userId: userIdRef.current });
+    }, 30000);
+    return () =&gt; clearInterval(interval);
+  }, [pageId]); // userId intentionally excluded, fragile
+}
+
+// After React 19.2: useEffectEvent
+function AnalyticsTracker({ pageId, userId }: { pageId: string; userId: string }) {
+  const logEvent = useEffectEvent((event: string) =&gt; {
+    // Always reads the latest userId, no refs needed
+    sendAnalytics({ pageId, userId, event });
+  });
+
+  useEffect(() =&gt; {
+    const interval = setInterval(() =&gt; {
+      logEvent('heartbeat');
+    }, 30000);
+    return () =&gt; clearInterval(interval);
+  }, [pageId]); // Only re-runs when pageId changes
+}
+</code></pre></div>
+
+<h3><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">&lt;Activity&gt;</code>: Background Tabs Without Unmounting</h3>
+
+<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">&lt;Activity&gt;</code> hides its children with <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">display: none</code> while keeping them mounted. Effects are paused while the activity is hidden and resume when it becomes visible again. State is preserved.
+
+<p>This is ideal for tab-based navigation where you want to preserve form state and scroll position without re-fetching data:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">tsx</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>import { Activity } from 'react';
+
+function TabContainer() {
+  const [activeTab, setActiveTab] = useState&lt;'overview' | 'analytics' | 'settings'&gt;('overview');
+
+  return (
+    &lt;div&gt;
+      &lt;nav&gt;
+        &lt;button onClick={() =&gt; setActiveTab('overview')}&gt;Overview&lt;/button&gt;
+        &lt;button onClick={() =&gt; setActiveTab('analytics')}&gt;Analytics&lt;/button&gt;
+        &lt;button onClick={() =&gt; setActiveTab('settings')}&gt;Settings&lt;/button&gt;
+      &lt;/nav&gt;
+
+      {/* Each tab is mounted but hidden when not active */}
+      {/* Form state, scroll position, and fetched data are all preserved */}
+      &lt;Activity mode={activeTab === 'overview' ? 'visible' : 'hidden'}&gt;
+        &lt;OverviewTab /&gt;
+      &lt;/Activity&gt;
+
+      &lt;Activity mode={activeTab === 'analytics' ? 'visible' : 'hidden'}&gt;
+        &lt;AnalyticsTab /&gt;
+      &lt;/Activity&gt;
+
+      &lt;Activity mode={activeTab === 'settings' ? 'visible' : 'hidden'}&gt;
+        &lt;SettingsTab /&gt;
+      &lt;/Activity&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre></div>
+
+<p>Versus conditional rendering, which unmounts components on tab switch and loses all state:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">tsx</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// Conditional rendering - loses state on switch
+{activeTab === 'settings' &amp;&amp; &lt;SettingsTab /&gt;}
+</code></pre></div>
+
+<h3>View Transitions</h3>
+
+<p>React 19.2 coordinates with the browser View Transitions API. Enable it in <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next.config.ts</code>:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">ts</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// next.config.ts
+const nextConfig: NextConfig = {
+  viewTransition: true,
+};
+</code></pre></div>
+
+<p>In Next.js 16.2, the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">&lt;Link&gt;</code> component gains a <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">transitionTypes</code> prop:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">tsx</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>import Link from 'next/link';
+
+export function BlogCard({ post }: { post: Post }) {
+  return (
+    &lt;Link
+      href={&#96;/blog/&#36;{post.slug}&#96;}
+      transitionTypes={['slide-in-from-right']}
+    &gt;
+      &lt;h2&gt;{post.title}&lt;/h2&gt;
+    &lt;/Link&gt;
+  );
+}
+</code></pre></div>
+
+<p>Add the CSS for your transitions:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">css</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>/* app/globals.css */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: 200ms ease-out slide-out;
+}
+
+::view-transition-new(root) {
+  animation: 200ms ease-in slide-in;
+}
+
+@keyframes slide-out {
+  to { transform: translateX(-100%); opacity: 0; }
+}
+
+@keyframes slide-in {
+  from { transform: translateX(100%); opacity: 0; }
+}
+</code></pre></div>
+
+<p>One note: the default prefix for <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">useId</code> changed in React 19.2 for View Transitions compatibility. If you have snapshot tests that assert on the exact output of <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">useId</code>, they will fail after upgrading.</p>
+
+<h3>Server Actions Improvements</h3>
+
+<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">useFormState</code> is renamed to <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">useActionState</code> and moves from <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">react-dom</code> to <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">react</code>. The old import still works but produces a deprecation warning.
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">tsx</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// Before (Next.js 15 / React 18)
+import { useFormState } from 'react-dom';
+
+function ContactForm() {
+  const [state, formAction] = useFormState(submitContact, { error: null });
+  return (
+    &lt;form action={formAction}&gt;
+      {state.error &amp;&amp; &lt;p&gt;{state.error}&lt;/p&gt;}
+      &lt;input name="email" type="email" /&gt;
+      &lt;button type="submit"&gt;Submit&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}
+
+// After (Next.js 16 / React 19.2)
+import { useActionState } from 'react';
+
+function ContactForm() {
+  const [state, formAction, isPending] = useActionState(submitContact, { error: null });
+  return (
+    &lt;form action={formAction}&gt;
+      {state.error &amp;&amp; &lt;p&gt;{state.error}&lt;/p&gt;}
+      &lt;input name="email" type="email" /&gt;
+      &lt;button type="submit" disabled={isPending}&gt;
+        {isPending ? 'Submitting...' : 'Submit'}
+      &lt;/button&gt;
+    &lt;/form&gt;
+  );
+}
+</code></pre></div>
+
+<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">useActionState</code> adds a <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">isPending</code> third return value, which replaces the need for a separate <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">useTransition</code> call in most form patterns.
+
+<p>Server Actions also get better error boundaries in 16.2. Unhandled errors in Server Actions no longer crash the entire page; they surface in the nearest error boundary or are caught by <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">useActionState</code>.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>Part 5: The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">after()</code> API</h2>
+
+<h3>What <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">after()</code> Does</h3>
+
+<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">after()</code> schedules a callback to run after the response has been sent to the client. The route handler returns normally, the response is sent, and then your callback runs.
+
+<p>The use case is secondary work that should not block the response: logging, analytics, cache warming, sending notifications.</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">ts</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// app/api/products/[id]/view/route.ts
+import { after } from 'next/server';
+
+export async function POST(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  const productId = params.id;
+
+  // This runs before the response is sent
+  const product = await db.query('SELECT * FROM products WHERE id = &#36;1', [productId]);
+
+  // Response is sent immediately
+  const response = Response.json({ product });
+
+  // after() runs after the response is sent
+  after(async () =&gt; {
+    await db.query(
+      'INSERT INTO product_views (product_id, viewed_at) VALUES (&#36;1, NOW())',
+      [productId]
+    );
+    await analytics.track('product_viewed', { productId });
+  });
+
+  return response;
+}
+</code></pre></div>
+
+<h3><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">after()</code> vs Running Code After <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">return</code></h3>
+
+<p>You might wonder why you cannot just run code after the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">return</code> statement. You can't, because <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">return</code> ends the function's execution. Even if you use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Promise</code> callbacks, they may not complete if the serverless function's execution context is torn down after the response is sent.</p>
+
+<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">after()</code> tells the runtime to keep the execution context alive until the callback completes. On Vercel, this uses <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">waitUntil</code> under the hood. On self-hosted Node.js, it keeps the event loop alive for the duration of the callback.
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">ts</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// This does NOT work - code after return never runs
+export async function GET() {
+  const data = await fetchData();
+  return Response.json(data);
+  await logRequest(); // unreachable
+}
+
+// This DOES work
+export async function GET() {
+  const data = await fetchData();
+  after(() =&gt; logRequest()); // runs after response is sent
+  return Response.json(data);
+}
+</code></pre></div>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>Part 6: Image Component Updates</h2>
+
+<h3>New Props in Next.js 16.2</h3>
+
+<p>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next/image</code> component gets two new props: <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">overrideSrc</code> and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">fetchPriority</code>.</p>
+
+<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">overrideSrc</code> lets you override the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">src</code> used in the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">&lt;img&gt;</code> tag while keeping the original <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">src</code> for optimization. This is useful when you need the rendered HTML to point to a specific URL (for social sharing metadata, for example) while still using Next.js image optimization.
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">tsx</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>import Image from 'next/image';
+
+export function ShareableProductImage({ product }: { product: Product }) {
+  return (
+    &lt;Image
+      src={product.imageUrl}
+      overrideSrc={product.canonicalImageUrl}  // used in rendered &lt;img&gt; src
+      alt={product.name}
+      width={800}
+      height={600}
+    /&gt;
+  );
+}
+</code></pre></div>
+
+<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">fetchPriority</code> maps directly to the browser's <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">fetchpriority</code> attribute:
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">tsx</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// Above-the-fold hero image
+&lt;Image
+  src="/hero.jpg"
+  alt="Hero"
+  width={1200}
+  height={600}
+  fetchPriority="high"
+  priority
+/&gt;
+
+// Below-the-fold images
+&lt;Image
+  src="/product.jpg"
+  alt="Product"
+  width={400}
+  height={400}
+  fetchPriority="low"
+/&gt;
+</code></pre></div>
+
+<h3><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next.config.ts</code> Image Configuration Changes</h3>
+
+<p>Several image defaults changed in Next.js 16:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">ts</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// next.config.ts
+const nextConfig: NextConfig = {
+  images: {
+    // Minimum cache time raised from 60 seconds to 4 hours (14400)
+    minimumCacheTTL: 14400,
+
+    // Use remotePatterns instead of deprecated domains
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.example.com',
+        pathname: '/uploads/**',
+      },
+    ],
+
+    // For local images with query strings (new in 16)
+    localPatterns: [
+      {
+        pathname: '/assets/**',
+        search: '?version=*',
+      },
+    ],
+
+    // qualities narrowed to [75] by default. Specify explicitly if you need others.
+    qualities: [40, 75, 90],
+  },
+};
+</code></pre></div>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>Part 7: React Compiler 1.0</h2>
+
+<h3>What It Does</h3>
+
+<p>React Compiler 1.0 is now stable and ships with Next.js 16. It automatically memoizes components and hooks at compile time. The output is equivalent to manually applying <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">useMemo</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">useCallback</code>, and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">React.memo</code> across your entire codebase, but done by the compiler rather than by you.</p>
+
+<p>You get better performance with zero code changes. The compiler only transforms code that follows the Rules of React, so it is safe to enable on most codebases.</p>
+
+<h3>Enabling It</h3>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>npm install babel-plugin-react-compiler@latest
+</code></pre></div>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">ts</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// next.config.ts
+const nextConfig: NextConfig = {
+  reactCompiler: true,
+};
+</code></pre></div>
+
+<p>Next.js 16 optimizes the compiler to run only on files that would benefit. It analyzes your project first, then applies the Babel transform selectively. This limits the compile time overhead.</p>
+
+<h3>The Tradeoff</h3>
+
+<p>React Compiler uses Babel, not SWC. Next.js uses SWC by default for transforms. Enabling the compiler adds a Babel pass to your build pipeline, which increases compile time. For large apps with significant component-level re-render problems, this is worth it. For small apps, it probably is not.</p>
+
+<p>Benchmark your build times before and after enabling it. If the compile time increase is more than 10-15%, evaluate whether the runtime improvement justifies it for your specific traffic patterns.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>Part 8: Developer Experience Improvements</h2>
+
+<h3>Hydration Diff Indicator</h3>
+
+<p>The error overlay now shows a <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">+ Client</code> / <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">- Server</code> diff on hydration mismatches, similar to a git diff. Instead of a generic error message, you see exactly what the server rendered versus what the client expected.</p>
+
+<p>Common mismatch example:</p>
+
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>Hydration failed because the server rendered HTML didn't match the client.
+
+- Server: &lt;time datetime="2026-03-19"&gt;March 19, 2026&lt;/time&gt;
++ Client: &lt;time datetime="2026-03-19"&gt;Today&lt;/time&gt;
+</code></pre></div>
+
+<p>This tells you exactly where the mismatch happened and what the discrepancy was.</p>
+
+<h3>Server Function Logging</h3>
+
+<p>Every Server Action and Server Function execution is logged to the terminal by default:</p>
+
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>▶ POST /dashboard/settings [Server Action: updateUserProfile]
+  args: { name: "Alex", email: "alex@example.com" }
+  duration: 142ms
+  source: app/dashboard/settings/actions.ts:23
+</code></pre></div>
+
+<p>You can configure this in <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next.config.ts</code>:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">ts</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>const nextConfig: NextConfig = {
+  logging: {
+    serverFunctions: {
+      args: false,    // hide arguments (for sensitive data)
+      duration: true,
+    },
+    browserToTerminal: true,  // forward browser errors to terminal
+  },
+};
+</code></pre></div>
+
+<h3>Debugging Production Servers with <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">--inspect</code></h3>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code># Attach a Node.js debugger to the dev server
+next dev --inspect
+
+# Attach to a production server locally
+next start --inspect
+</code></pre></div>
+
+<p>After running either command, open <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">chrome://inspect</code> in Chrome, click "Open dedicated DevTools for Node", and connect. You can set breakpoints in server-side code, inspect variables, and profile production code paths without <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">console.log</code> chains.</p>
+
+<h3>Bundle Analyzer</h3>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>npx next experimental-analyze
+</code></pre></div>
+
+<p>This opens an interactive UI that shows your production bundle broken down by route, with import chain visualization, server-to-client component boundary mapping, and CSS sizes. Use it to find components that are accidentally shipped to the client or large dependencies that should be lazy loaded.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>Part 9: Breaking Changes and Migration</h2>
+
+<h3>Async Request APIs Are Now Strictly Enforced</h3>
+
+<p>In Next.js 14 and 15, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cookies()</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">headers()</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">draftMode()</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">params</code>, and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">searchParams</code> returned synchronous values but warned about upcoming deprecation. In Next.js 16, synchronous access is removed. Every call must be awaited.</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">tsx</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// Before (Next.js 15 and earlier)
+import { cookies, headers } from 'next/headers';
+
+export default function Layout({ children, params }: {
+  children: React.ReactNode;
+  params: { locale: string };
+}) {
+  const cookieStore = cookies(); // synchronous - no longer works
+  const theme = cookieStore.get('theme')?.value ?? 'light';
+  const locale = params.locale; // synchronous - no longer works
+
+  return &lt;div data-theme={theme} lang={locale}&gt;{children}&lt;/div&gt;;
+}
+
+// After (Next.js 16)
+import { cookies } from 'next/headers';
+
+export default async function Layout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise&lt;{ locale: string }&gt;;
+}) {
+  const cookieStore = await cookies();
+  const theme = cookieStore.get('theme')?.value ?? 'light';
+  const { locale } = await params;
+
+  return &lt;div data-theme={theme} lang={locale}&gt;{children}&lt;/div&gt;;
+}
+</code></pre></div>
+
+<p>Run the codemod to handle most of these automatically:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>npx @next/codemod@canary migrate-to-async-dynamic-apis
+</code></pre></div>
+
+<p>After running the codemod, use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next typegen</code> to generate type-safe <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">PageProps</code> and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">LayoutProps</code>:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>npx next typegen
+</code></pre></div>
+
+<p>This generates a <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">__generated__</code> directory with accurate types for <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">params</code> and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">searchParams</code> based on your file system structure.</p>
+
+<h3><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">serverRuntimeConfig</code> and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">publicRuntimeConfig</code> Removed</h3>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">ts</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// Before (no longer works)
+import getConfig from 'next/config';
+const { serverRuntimeConfig, publicRuntimeConfig } = getConfig();
+
+const dbUrl = serverRuntimeConfig.DATABASE_URL;
+const apiUrl = publicRuntimeConfig.API_URL;
+</code></pre></div>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">ts</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// After
+// Server-only values: use process.env directly
+const dbUrl = process.env.DATABASE_URL;
+
+// Client-visible values: NEXT_PUBLIC_ prefix
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+// Runtime-only access (not baked at build time): use connection()
+import { connection } from 'next/server';
+
+export async function getServerSideValue() {
+  await connection(); // tells Next.js this is dynamic
+  return process.env.RUNTIME_ONLY_VALUE;
+}
+</code></pre></div>
+
+<h3>Removed Features</h3>
+
+<p><strong>AMP support</strong> is gone. <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">useAmp</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">export const config = { amp: true }</code>, and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next/amp</code> are all removed. Most AMP use cases are covered by Next.js's default Core Web Vitals optimizations and the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">&lt;Image&gt;</code> component.</p>
+
+<p><strong><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next lint</code> command</strong> is removed from the Next.js CLI. Update your CI pipeline:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code># Before
+next lint
+
+# After - use ESLint directly
+eslint .
+
+# Or Biome
+biome check .
+</code></pre></div>
+
+<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">@next/eslint-plugin-next</code> now uses ESLint Flat Config format. Update your <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">eslint.config.mjs</code>:
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">js</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// eslint.config.mjs
+import nextPlugin from '@next/eslint-plugin-next';
+
+export default [
+  {
+    plugins: { next: nextPlugin },
+    rules: nextPlugin.configs.recommended.rules,
+  },
+];
+</code></pre></div>
+
+<h3>Parallel Routes Now Require <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">default.js</code></h3>
+
+<p>Every parallel route slot directory needs an explicit <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">default.js</code> file. Builds fail without one.</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">tsx</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// app/@sidebar/default.js
+export default function DefaultSidebar() {
+  return null;
+}
+
+// app/@modal/default.js
+import { notFound } from 'next/navigation';
+
+export default function DefaultModal() {
+  return notFound();
+}
+</code></pre></div>
+
+<h3><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">experimental</code> Keys Moved</h3>
+
+<div style="overflow-x: auto; margin: 1.5rem 0;"><table style="width:100%; border-collapse: collapse; font-size: 0.9rem;"><thead><tr style="background: #1e293b;"><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Old (Next.js 15)</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">New (Next.js 16)</th></tr></thead><tbody><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">experimental.dynamicIO</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheComponents</code></td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0d1929;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">experimental.ppr</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">removed (use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheComponents</code>)</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">experimental.turbopack</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">turbopack</code></td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0d1929;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">experimental.adapterPath</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">adapterPath</code></td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">reactCompiler</code> (in experimental)</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">reactCompiler</code> (top-level)</td></tr></tbody></table></div>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>Part 10: Full Migration Checklist</h2>
+
+<h3>Step 0: Run the Automated Codemod</h3>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>npx @next/codemod@canary upgrade latest
+</code></pre></div>
+
+<p>This handles: Turbopack config move, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next lint</code> removal, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">middleware</code> to <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">proxy</code> rename, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">unstable_</code> prefix removal from <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheTag</code> and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheLife</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">experimental_ppr</code> segment config removal. Run this first, commit the result, then do the manual steps.</p>
+
+<h3>Step 1: Update Node.js and TypeScript</h3>
+
+<p>Next.js 16 requires Node.js 20.9.0 minimum (Node.js 18 is dropped). TypeScript minimum is 5.1.0.</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">json</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// package.json
+{
+  "engines": {
+    "node": "&gt;=20.9.0"
+  }
+}
+</code></pre></div>
+
+<h3>Step 2: Fix Async Request APIs</h3>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>npx @next/codemod@canary migrate-to-async-dynamic-apis
+npx next typegen
+</code></pre></div>
+
+<p>Review the codemod output. It handles most cases, but manually verify any complex layouts or middleware that read request data.</p>
+
+<h3>Step 3: Test Turbopack Compatibility</h3>
+
+<p>Start with <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next build --webpack</code> to confirm your app builds correctly with the known-good bundler. Then run <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next build</code> without the flag. If the Turbopack build fails, the error message will tell you exactly what configuration is incompatible.</p>
+
+<p>Common issues:</p>
+<ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li>Custom webpack loaders without Turbopack equivalents</li>
+<li><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">~</code> prefix in Sass imports</li>
+<li><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">experimental.turbopack</code> key still in config (must move to top-level <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">turbopack</code>)</li>
+<p></ul></p>
+
+<h3>Step 4: Replace <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">serverRuntimeConfig</code> and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">publicRuntimeConfig</code></h3>
+
+<p>Search your codebase for <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">getConfig()</code> and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next/config</code>:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>grep -r "next/config" --include="*.ts" --include="*.tsx" .
+grep -r "serverRuntimeConfig\\|publicRuntimeConfig" --include="*.ts" --include="*.tsx" .
+</code></pre></div>
+
+<p>Migrate each occurrence to <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">process.env</code> or <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">NEXT_PUBLIC_</code>.</p>
+
+<h3>Step 5: Rename <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">middleware.ts</code> to <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">proxy.ts</code></h3>
+
+<p>If the codemod did not handle this:</p>
+
+<ol style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li>Rename <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">middleware.ts</code> to <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">proxy.ts</code></li>
+<li>Rename <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">export function middleware</code> to <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">export function proxy</code></li>
+<li>Update config flag: <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">skipMiddlewareUrlNormalize</code> to <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">skipProxyUrlNormalize</code></li>
+<li>Test all auth flows and redirects</li>
+<p></ol></p>
+
+<p>If your <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">middleware.ts</code> used Edge Runtime features (like <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">EdgeRuntime</code> APIs or Geolocation from the request), assess whether you need to keep a <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">middleware.ts</code> alongside the new <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">proxy.ts</code> temporarily.</p>
+
+<h3>Step 6: Update <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next/image</code> Configuration</h3>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">ts</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// Checklist for next.config.ts images key:
+// [ ] Remove deprecated &#96;domains&#96;, replace with &#96;remotePatterns&#96;
+// [ ] Add &#96;localPatterns.search&#96; if using query strings on local images
+// [ ] Review &#96;minimumCacheTTL&#96; (default raised to 14400)
+// [ ] Check &#96;qualities&#96; (default narrowed to [75])
+// [ ] Verify &#96;imageSizes&#96; if you had custom values
+</code></pre></div>
+
+<h3>Step 7: Add <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">default.js</code> to Parallel Routes</h3>
+
+<p>Find all parallel route slot directories:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>find . -type d -name "@*" -not -path "*/node_modules/*"
+</code></pre></div>
+
+<p>Add a <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">default.js</code> to each one that does not already have one.</p>
+
+<h3>Step 8: Fix CI Pipeline for <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next lint</code> Removal</h3>
+
+<p>Replace <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next lint</code> in your CI scripts with <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">eslint .</code> or <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">biome check .</code>. Update ESLint config to Flat Config format.</p>
+
+<h3>Step 9: Opt Into <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheComponents</code> (Optional)</h3>
+
+<p>This is the most involved step and entirely optional. Your app will run without it. When you are ready:</p>
+
+<ol style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li>Set <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheComponents: true</code> in <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next.config.ts</code></li>
+<li>Run <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next build</code> and look for non-determinism errors</li>
+<li>Add <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"use cache"</code> to data-fetching functions, starting with the most expensive ones</li>
+<li>Wrap runtime API reads (<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cookies()</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">headers()</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">params</code>) in <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">&lt;Suspense&gt;</code> or extract them in parent components and pass as arguments</li>
+<li>Add <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheTag()</code> to every cached function so you can invalidate precisely</li>
+<li>Add <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheLife()</code> to set appropriate TTLs</li>
+<p></ol></p>
+
+<h3>Step 10: Verify</h3>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code># Confirm webpack build still works
+next build --webpack
+
+# Confirm Turbopack build works
+next build
+
+# Run your test suite
+npm test
+
+# Check Core Web Vitals with Lighthouse or WebPageTest
+</code></pre></div>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>Performance Benchmarks Summary</h2>
+
+<div style="overflow-x: auto; margin: 1.5rem 0;"><table style="width:100%; border-collapse: collapse; font-size: 0.9rem;"><thead><tr style="background: #1e293b;"><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Metric</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Before (Webpack / Next.js 15)</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">After (Turbopack / Next.js 16.2)</th></tr></thead><tbody><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Cold dev startup (large app)</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">~22s</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">~2.9s</td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0d1929;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Fast Refresh (component change)</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">~3.2s</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">~0.8s</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Server Fast Refresh (server file change)</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">~59ms</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">~12.4ms</td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0d1929;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Production build (react.dev)</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">baseline</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">2.5x faster</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Dev restart with FS cache</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">baseline</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">10x faster (16.1)</td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0d1929;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">RSC payload deserialization</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">baseline</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">3.5x faster (React 19.2)</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">ImageResponse</code> rendering</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">baseline</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">3.7x faster (16.0)</td></tr></tbody></table></div>
+
+<p>These numbers come from Vercel's published benchmarks and the Next.js 16.x release notes. Your results will vary based on project size, module count, and hardware. The cold start improvement is the most consistently reported win across community benchmarks.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>Frequently Asked Questions</h2>
+
+<p><strong>Do I have to rewrite my app to use Next.js 16?</strong></p>
+
+<p>No. The major features (<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">use cache</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">proxy.ts</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheComponents</code>) are all opt-in. The breaking changes (async APIs, removed configs) require code changes, but the codemod handles most of them automatically. A typical migration from Next.js 15 takes a few hours for a medium-sized app.</p>
+
+<p><strong>Can I still use the Pages Router?</strong></p>
+
+<p>Yes. Pages Router support is unchanged. None of the new features in 16.2 apply to the Pages Router.</p>
+
+<p><strong>Is Edge Runtime gone entirely?</strong></p>
+
+<p>No. Edge Runtime is still available for Route Handlers via the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">runtime = 'edge'</code> export. What changed is that <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">proxy.ts</code> (the replacement for <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">middleware.ts</code>) runs on Node.js only. <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">middleware.ts</code> still works and still uses Edge Runtime, it is just deprecated.</p>
+
+<p><strong>Does <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">use cache</code> replace SWR or React Query?</strong></p>
+
+<p>No. <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">use cache</code> runs on the server and caches server-side data. SWR and React Query run on the client and manage client-side cache state, optimistic updates, refetch on focus, and similar client behaviors. They solve different problems. You can use both.</p>
+
+<p><strong>Is Webpack still supported?</strong></p>
+
+<p>Yes, via <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next dev --webpack</code> and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">next build --webpack</code>. Webpack support is not being removed, but it is no longer the default. Turbopack is.</p>
+
+<p><strong>What happens to my existing ISR setup?</strong></p>
+
+<p>If you used <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">export const revalidate = 60</code> in route segment files, that still works in Next.js 16 without enabling <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheComponents</code>. If you enable <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheComponents</code>, you should migrate to <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"use cache"</code> with <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheLife()</code>, because route segment config for revalidation is deprecated under the new model.</p>
+
+<p><strong>Is the React Compiler safe to enable on my production app?</strong></p>
+
+<p>React Compiler 1.0 is stable, not experimental. It transforms valid React code that follows the Rules of React. If your components have side effects in render, mutate state directly, or break other React rules, the compiler will skip those components with a warning rather than transform them incorrectly. Enable it on a branch, run your full test suite, and measure the build time impact before shipping.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>Conclusion</h2>
+
+<p>Next.js 16.2 makes three structural changes that shift how you think about building with the framework.</p>
+
+<p>Caching is now opt-in. If data is dynamic by default and you cache explicitly with <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"use cache"</code>, you will spend less time debugging why pages are stale and more time making deliberate decisions about what data can be shared across requests. The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheTag</code> and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheLife</code> primitives give you enough control to be precise without requiring a separate CDN configuration.</p>
+
+<p>Turbopack is the bundler. The performance numbers are real. If your Webpack config is straightforward, the migration is a few config key renames and one Sass import search-and-replace. If your config is complex, the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">--webpack</code> flag gives you a safe fallback while you work through the migration.</p>
+
+<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">proxy.ts</code> replaces <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">middleware.ts</code> for Node.js-based request interception. For most teams, the rename is mechanical. The meaningful change is that you can now use full Node.js APIs in your request interceptor, which opens up JWT verification with native crypto, database session lookups, and any other operation that previously required Edge-compatible implementations.
+
+<p>Start the migration with the codemod. It handles the mechanical changes in minutes. Then work through the checklist above section by section. The optional steps (<code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">cacheComponents</code>, React Compiler) are worth evaluating once the required migration is stable.</p>
+
+<p>The official upgrade guide lives at <a href="https://nextjs.org/docs/app/building-your-application/upgrading/version-16" style="color:#7c3aed; text-decoration:underline;">nextjs.org/docs/app/building-your-application/upgrading/version-16</a>.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+<div style="background: linear-gradient(135deg, rgba(168,85,247,0.12) 0%, rgba(59,130,246,0.12) 100%); border: 1px solid rgba(168,85,247,0.35); border-radius: 12px; padding: 2rem; margin: 3rem 0;">
+  <p style="font-size: 1.1rem; font-weight: 700; color: #c084fc; margin: 0 0 0.75rem 0;">Upgrading to Next.js 16.2? Let's Make It Smooth.</p>
+  <p style="color: #cbd5e1; margin: 0 0 0.5rem 0;">At Nandann Creative, we specialise in high-performance Next.js applications. Whether you're migrating an existing codebase or building something new on 16.2, we can help you ship faster, cache smarter, and scale without surprises.</p>
+  <ul style="color: #cbd5e1; margin: 0.75rem 0 1.25rem 0; padding-left: 1.5rem; line-height: 1.9;">
+    <li>Free Next.js migration assessment — we audit your current setup and produce a prioritised checklist</li>
+    <li>Hands-on Turbopack &amp; <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">use cache</code> implementation</li>
+    <li>Same-day delivery available for focused scopes</li>
+  </ul>
+  <a href="${internalLinks.contact}?service=nextjs-migration" style="display: inline-block; background: linear-gradient(135deg, #7c3aed, #2563eb); color: #fff; font-weight: 600; padding: 0.75rem 1.75rem; border-radius: 8px; text-decoration: none; font-size: 0.95rem; margin-right: 1rem;">Talk to Our Next.js Team</a>
+  <a href="${internalLinks.rapid}" style="display: inline-block; background: transparent; border: 1px solid rgba(168,85,247,0.5); color: #c084fc; font-weight: 600; padding: 0.75rem 1.75rem; border-radius: 8px; text-decoration: none; font-size: 0.95rem;">See Same-Day Delivery</a>
+</div>`,
+    faqs: [
+      {
+        question: "Do I have to rewrite my app to use Next.js 16?",
+        answer: "No. The major features (use cache, proxy.ts, cacheComponents) are all opt-in. The breaking changes (async APIs, removed configs) require code changes, but the codemod handles most of them automatically. A typical migration from Next.js 15 takes a few hours for a medium-sized app."
+      },
+      {
+        question: "Can I still use the Pages Router?",
+        answer: "Yes. Pages Router support is unchanged. None of the new features in 16.2 apply to the Pages Router."
+      },
+      {
+        question: "Is Turbopack production-ready?",
+        answer: "Yes. As of Next.js 16, Turbopack is the default bundler for both next dev and next build. The Next.js team reports 87% faster cold dev startup, 75% faster Fast Refresh, and 2.5x faster production builds compared to Webpack."
+      },
+      {
+        question: "Does use cache replace SWR or React Query?",
+        answer: "No. use cache runs on the server and caches server-side data. SWR and React Query run on the client and manage client-side cache state, optimistic updates, and refetch behaviors. They solve different problems and can be used together."
+      },
+      {
+        question: "What is the difference between proxy.ts and middleware.ts?",
+        answer: "proxy.ts is the replacement for middleware.ts. The key difference is runtime: middleware.ts ran on the Edge Runtime (no Node.js APIs), while proxy.ts runs on Node.js, giving you access to fs, crypto, native modules, and any npm package. middleware.ts is deprecated but still works in Next.js 16."
+      },
+      {
+        question: "Is Webpack still supported in Next.js 16?",
+        answer: "Yes, via next dev --webpack and next build --webpack flags. Webpack support is not being removed, but Turbopack is now the default. You only need the flag if you have Webpack-specific configuration that has not been migrated."
+      }
+    ]
+  },
+  {
     slug: 'rust-aws-lambda-production-guide',
     title: "Rust on AWS Lambda: The Production Guide to Cold Starts, cargo-lambda, and Managed Instances",
     description: "Rust on AWS Lambda went GA in November 2025. This guide covers cargo-lambda, cold start benchmarks (16ms), ARM64 vs x86_64, Lambda Managed Instances, and everything you need to ship Rust functions to production.",

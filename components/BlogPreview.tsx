@@ -15,6 +15,15 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'nextjs-16-2-complete-guide',
+    title: 'Next.js 16.2: Everything You Need to Know About use cache, Turbopack, and the New Proxy API',
+    excerpt: 'Next.js 16.2 ships with the use cache directive, proxy.ts replacing middleware.ts, Turbopack as default bundler, and React 19.2. This guide covers every change with working code examples and a migration checklist.',
+    date: 'Mar 25, 2026',
+    readTime: '25 min read',
+    category: 'Next.js',
+    coverImage: '/images/nextjs-16.2-nandann-creative-thumbnail.webp'
+  },
+  {
     slug: 'rust-aws-lambda-production-guide',
     title: 'Rust on AWS Lambda: The Production Guide to Cold Starts, cargo-lambda, and Managed Instances',
     excerpt: 'Rust on AWS Lambda went GA in November 2025. This guide covers cargo-lambda, cold start benchmarks (16ms), ARM64 vs x86_64, Lambda Managed Instances, and everything you need to ship Rust functions to production.',
