@@ -28,6 +28,682 @@ const internalLinks = {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'typescript-6-0-release-features-go-compiler-7-0',
+    title: "TypeScript 6.0 Is Here, And Microsoft Is Rebuilding the Entire Compiler in Go for 7.0",
+    description: "TypeScript 6.0 landed March 23, 2026 with strict mode on by default, ESM as the new default, and 9 changed settings. Plus: Microsoft's Go-powered compiler hits 10x faster builds. Full migration guide, breaking changes, and what tsgo means for your project.",
+    date: '2026-03-27',
+    readTime: '16 min read',
+    category: 'TypeScript',
+    tags: [
+      'TypeScript 6.0',
+      'TypeScript breaking changes',
+      'TypeScript Go compiler',
+      'TypeScript 7.0',
+      'TypeScript migration guide',
+      'tsgo',
+      'TypeScript strict mode',
+      'TypeScript native port',
+      'Project Corsa TypeScript',
+      'TypeScript Temporal API',
+      'ES2025',
+      'JavaScript',
+      'Developer Tools',
+      'Microsoft',
+      'Build Performance'
+    ],
+    coverImage: '/images/typescript-6-nandann-creative-thumbnail.webp',
+    contentHtml: `<picture>
+  <source media="(min-width: 1px)" srcset="/images/typescript-6-nandann-creative-banner.webp 1x" type="image/webp" />
+  <img src="/images/typescript-6-nandann-creative-banner.webp" alt="TypeScript 6.0: Breaking Changes, Go Compiler Rewrite, and Migration Guide — Nandann Creative" style="width:100%; border-radius:12px; margin-bottom: 2rem;" loading="eager" width="1200" height="630" />
+</picture>
+<h1>TypeScript 6.0 Is Here, And Yes, It's Judging Your Code More Than Ever</h1>
+
+<p><strong>Published:</strong> March 2026 | <strong>Read time:</strong> ~16 minutes</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<p>TypeScript 6.0 shipped on March 23, 2026.</p>
+
+<p>And if you haven't looked at the release notes yet — you probably should. This isn't a quiet "a few new features and some bug fixes" release. TypeScript 6.0 changed 9 default settings at once, removed some options entirely, and is going to break things for a lot of teams who upgrade without looking first.</p>
+
+<p>But here's the part that makes this release genuinely exciting: it's the <strong>last version of TypeScript written in TypeScript</strong>. Microsoft has been quietly rebuilding the entire compiler in Go. They're calling it Project Corsa, and the benchmarks are legitimately wild — VS Code's 1.5 million lines of code went from a 77-second type-check down to 7.5 seconds.</p>
+
+<p>That's not a small improvement. That's a different category of tool.</p>
+
+<p>Let's break down everything you need to know — the new features, the breaking changes, how to upgrade without pain, and what this Go rewrite actually means for you.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>The New Stuff — What TypeScript 6.0 Actually Adds</h2>
+
+<p>Let's get the good news out of the way first.</p>
+
+<h3>TypeScript Got Better at Guessing Types</h3>
+
+<p>TypeScript has always been pretty smart about inferring types automatically. In 6.0, it got a bit smarter.</p>
+
+<p>Specifically: functions that don't have an explicit <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">this</code> parameter are no longer treated as "context-sensitive" during generic inference. In plain English, this means TypeScript can figure out the correct type in more situations without you having to manually annotate it.</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">typescript</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// TypeScript 5.x sometimes couldn't figure this out
+function process&lt;T&gt;(value: T, transform: (x: T) =&gt; T): T {
+  return transform(value);
+}
+
+// In 6.0, TypeScript correctly infers T = number here
+const result = process(42, (x) =&gt; x * 2);
+</code></pre></div>
+
+<p>Most people won't notice this one consciously. You'll just see fewer places where you're fighting the compiler.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h3>Cleaner Module Imports with <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">#/</code></h3>
+
+<p>If you've ever used Node.js subpath imports in <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">package.json</code>, TypeScript now fully understands the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">#/</code> shorthand.</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">json</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// package.json
+{
+  "imports": {
+    "#/*": "./src/*"
+  }
+}
+</code></pre></div>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">typescript</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// Instead of this
+import { formatDate } from '../../utils/formatDate';
+
+// You can now do this
+import { formatDate } from '#/utils/formatDate';
+</code></pre></div>
+
+<p>Clean, short, and TypeScript resolves it correctly — including go-to-definition and all the IDE stuff.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h3>Strict Mode Is Now On by Default</h3>
+
+<p>This is the big one that affects existing projects the most.</p>
+
+<p>Before TypeScript 6.0, if you created a <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">tsconfig.json</code> without setting <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">strict</code>, TypeScript assumed you wanted the relaxed defaults. In 6.0, it assumes <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">strict: true</code>.</p>
+
+<p>That means 8 checks are now on by default:</p>
+
+<ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li><strong>strictNullChecks</strong> — <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">null</code> and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">undefined</code> are treated as their own types</li>
+<li><strong>noImplicitAny</strong> — TypeScript won't silently let things become <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">any</code></li>
+<li><strong>strictFunctionTypes</strong> — function parameters are checked more carefully</li>
+<li><strong>strictPropertyInitialization</strong> — class properties must be set in the constructor</li>
+<li><strong>strictBindCallApply</strong> — <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">bind</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">call</code>, and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">apply</code> are properly type-checked</li>
+<li><strong>noImplicitThis</strong> — <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">this</code> can't implicitly be <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">any</code></li>
+<li><strong>alwaysStrict</strong> — <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"use strict"</code> gets added to every output file</li>
+<li><strong>useUnknownInCatchVariables</strong> — caught errors are <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">unknown</code>, not <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">any</code></li>
+<p></ul></p>
+
+<p>If your project didn't have <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">strict: true</code> before, you're going to see a wall of red when you upgrade. More on how to handle that in the breaking changes section below.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h3>Modern JavaScript APIs Are Now Included by Default</h3>
+
+<p>TypeScript 6.0 defaults to targeting ES2025, which means all the newer JavaScript built-ins are included in the type definitions out of the box. No extra <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">lib</code> configuration needed.</p>
+
+<p>A few highlights:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">typescript</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// Set operations — no library needed
+const a = new Set([1, 2, 3]);
+const b = new Set([2, 3, 4]);
+
+a.intersection(b); // Set { 2, 3 }
+a.union(b);        // Set { 1, 2, 3, 4 }
+a.difference(b);   // Set { 1 }
+
+// Promise.try — wraps sync code in a promise and catches errors
+const result = await Promise.try(() =&gt; JSON.parse(someString));
+</code></pre></div>
+
+<p>Iterator helpers are also included — <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">map</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">filter</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">take</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">drop</code> — all usable on native iterators without pulling in a library.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h3>The Temporal API — A Proper Date Object, Finally</h3>
+
+<p>If you've ever tried to do anything slightly complicated with JavaScript's <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Date</code> object, you know it's a mess. Timezones are unreliable. Mutations happen in weird places. It's a bad API that's been with us since 1995.</p>
+
+<p>Temporal fixes all of it. It's immutable, it handles timezones correctly by design, and it works at nanosecond precision.</p>
+
+<p>TypeScript 6.0 adds the type definitions for it. To use them:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">json</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>{
+  "compilerOptions": {
+    "lib": ["esnext", "esnext.temporal", "dom"]
+  }
+}
+</code></pre></div>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">typescript</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>const today = Temporal.Now.plainDateISO();
+const eventDate = Temporal.PlainDate.from('2026-12-25');
+const daysUntil = today.until(eventDate).days;
+
+console.log(&#96;&#36;{daysUntil} days to go&#96;);
+</code></pre></div>
+
+<p>Browser support: Firefox added it in May 2025, Chrome in January 2026, Safari is still pending. If you need to support Safari today, install <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">@js-temporal/polyfill</code>.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h3>Two New Map Methods That Clean Up Ugly Code</h3>
+
+<p>You've probably written this pattern a hundred times:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">typescript</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>const counts = new Map&lt;string, number&gt;();
+
+// Check, then set, then get — three lines every time
+if (!counts.has(key)) {
+  counts.set(key, 0);
+}
+const count = counts.get(key)!;
+</code></pre></div>
+
+<p>Now you can do this instead:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">typescript</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>const count = counts.getOrInsert(key, 0);
+</code></pre></div>
+
+<p>Or with a computed default (useful when creating the default is expensive):</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">typescript</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>const data = cache.getOrInsertComputed(userId, () =&gt; loadFromDatabase(userId));
+</code></pre></div>
+
+<p>Small change. Makes code much more readable.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h3><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">RegExp.escape()</code> — Protect Yourself from Regex Injection</h3>
+
+<p>If you've ever taken user input and stuck it inside a <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">new RegExp()</code> call, you've had a potential security bug. Special characters in the input could break or hijack your regex.</p>
+
+<p><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">RegExp.escape()</code> fixes this properly:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">typescript</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>const userInput = "price: &#36;10.00 (final)";
+const safe = RegExp.escape(userInput);
+const pattern = new RegExp(safe); // dots and dollar signs are properly escaped
+</code></pre></div>
+
+<p>TypeScript 6.0 adds the type definition. Simple, useful, should have existed years ago.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h3>A Couple of Smaller Quality-of-Life Updates</h3>
+
+<p><strong><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">dom.iterable</code> is now included automatically.</strong> If you have <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"lib": ["dom", "dom.iterable", "esnext"]</code> in your tsconfig, you can drop <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">dom.iterable</code> — it's bundled into <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">dom</code> now.</p>
+
+<p><strong><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">isolatedDeclarations</code> is now stable.</strong> This feature lets build tools generate <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">.d.ts</code> declaration files in parallel, without running the full TypeScript compiler. If you maintain a library or work in a large monorepo, enabling this can meaningfully speed up your builds.</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">json</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>{
+  "compilerOptions": {
+    "isolatedDeclarations": true,
+    "declaration": true
+  }
+}
+</code></pre></div>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>The Breaking Changes — Read This Before You Upgrade</h2>
+
+<p>Alright. Here's the part you actually need to sit down and read carefully.</p>
+
+<p>TypeScript 6.0 changed 9 default compiler settings. Most of these are changes in the right direction — the new defaults are what most teams should have been using anyway. But if your <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">tsconfig.json</code> relied on the old defaults without explicitly setting them, things are going to break.</p>
+
+<p>Here's the full picture:</p>
+
+<div style="overflow-x: auto; margin: 1.5rem 0;"><table style="width:100%; border-collapse: collapse; font-size: 0.9rem;"><thead><tr style="background: #1e293b;"><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Setting</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Old Default</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">New Default</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">How Much It Affects You</th></tr></thead><tbody><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">strict</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">false</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">true</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">High — 8 new checks turn on</td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0a111d;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">target</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">ES3</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">es2025</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Medium — modern JS output</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">module</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">CommonJS</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">esnext</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">High — ESM by default</td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0a111d;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">moduleResolution</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">node10</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">bundler</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Medium — resolution logic changes</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">esModuleInterop</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">false</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">true</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Medium — import syntax changes</td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0a111d;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">types</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">auto-discovers all</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">[]</code> (empty)</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">High — you must list your <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">@types</code></td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">rootDir</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">inferred</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">tsconfig folder</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Medium — output structure changes</td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0a111d;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">noUncheckedSideEffectImports</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">false</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">true</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Low-Medium</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">libReplacement</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">true</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;"><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">false</code></td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Low</td></tr></tbody></table></div>
+
+<p>Let's go through the ones that are actually going to bite you.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h3><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">strict: true</code> — Expect a Wall of Errors</h3>
+
+<p>If you don't have <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">strict</code> set in your tsconfig, upgrading to TypeScript 6.0 will surface a lot of errors that were previously hidden. That's the point — these are real potential bugs in your code.</p>
+
+<p>The two most common ones you'll see:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">typescript</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// Error: Object is possibly 'null'
+function getLength(items: string[] | null) {
+  return items.length; // TS 5.x let this slide. TS 6.0 won't.
+}
+
+// Fix:
+function getLength(items: string[] | null) {
+  return items?.length ?? 0;
+}
+</code></pre></div>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">typescript</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// Error: Parameter 'item' implicitly has an 'any' type
+[1, 2, 3].forEach(function(item) { // TS 5.x let this slide too
+  console.log(item);
+});
+
+// Fix: use an arrow function (TypeScript infers the type from context)
+[1, 2, 3].forEach((item) =&gt; console.log(item));
+</code></pre></div>
+
+<p>Not ready to fix all of these right now? You can opt out explicitly:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">json</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>{
+  "compilerOptions": {
+    "strict": false
+  }
+}
+</code></pre></div>
+
+<p>But put it on your list. Don't just leave it there forever.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h3><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">types: []</code> — The Sneaky One That Breaks Node.js</h3>
+
+<p>This is the change that catches people off guard the most.</p>
+
+<p>In TypeScript 5.x, the compiler would automatically pick up every <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">@types</code> package in your <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">node_modules</code>. You didn't have to do anything — install <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">@types/node</code> and it just worked.</p>
+
+<p>In 6.0, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">types</code> defaults to an empty array. TypeScript no longer automatically discovers your <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">@types</code> packages.</p>
+
+<p>The first sign you'll see: errors like <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Cannot find name 'process'</code> or <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">Cannot find name 'Buffer'</code> even though you have <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">@types/node</code> installed.</p>
+
+<p>Fix it in your tsconfig:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">json</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>{
+  "compilerOptions": {
+    "types": ["node"]
+  }
+}
+</code></pre></div>
+
+<p>Using Jest? Vitest? Add those too:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">json</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>{
+  "compilerOptions": {
+    "types": ["node", "jest"]
+  }
+}
+</code></pre></div>
+
+<p>The upside: TypeScript only loads the type definitions you actually use. This can make type-checking 20-50% faster in projects that had a lot of unused <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">@types</code> packages sitting around.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h3><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">rootDir</code> Changed — Your Output Folder Structure Might Look Wrong</h3>
+
+<p>This one is subtle but annoying.</p>
+
+<p>Before TypeScript 6.0, when you didn't set <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">rootDir</code>, TypeScript would infer it as the common source root of all your files. So if all your code was in <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">./src</code>, it would infer <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">rootDir: ./src</code> and output files cleanly into <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">outDir</code>.</p>
+
+<p>In 6.0, TypeScript defaults <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">rootDir</code> to the folder containing your <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">tsconfig.json</code>. That means if your <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">tsconfig.json</code> is at the project root and your code is in <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">./src</code>, you'll get this:</p>
+
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>dist/
+  src/       ← Wait, why is there a src folder here?
+    index.js
+    utils.js
+</code></pre></div>
+
+<p>Fix: be explicit about <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">rootDir</code>:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">json</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>{
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist"
+  }
+}
+</code></pre></div>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h3>ESM Is the New Default — Node.js Projects, Pay Attention</h3>
+
+<p>Your project now outputs ESM by default. For browser projects using a bundler, this is probably fine — the bundler handles it.</p>
+
+<p>For Node.js projects that use <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">require()</code> and CommonJS, you need to be explicit:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">json</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// Keep CommonJS for now
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node10"
+  }
+}
+</code></pre></div>
+
+<p>Or go full ESM (recommended for new projects):</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">json</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>{
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext"
+  }
+}
+</code></pre></div>
+
+<p>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">esModuleInterop: true</code> default also means your import style can change. The old <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">import * as fs from 'fs'</code> still works, but now you can use the cleaner default import:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">typescript</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// Both work in 6.0, but this is now the standard style:
+import fs from 'fs';
+</code></pre></div>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h3>Three More Things That Changed (Quick Version)</h3>
+
+<p><strong>ES5 output is deprecated.</strong> If you have <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"target": "es5"</code> in your tsconfig, you'll see a deprecation warning. Modern browsers, Node.js, Deno, and Bun all support ES2020+ natively. There's barely a reason to compile to ES5 anymore. If you still need it, add <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"ignoreDeprecations": "6.0"</code> — but know that this option stops working in TypeScript 7.0.</p>
+
+<p><strong>AMD, UMD, and SystemJS module formats are gone.</strong> These are old module systems that almost nobody uses anymore. If you are using them, you'll need to switch to ESM output and let your bundler handle the format.</p>
+
+<p><strong>Import assertions are now import attributes.</strong> The syntax <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">assert { type: 'json' }</code> is now <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">with { type: 'json' }</code>. One word change, but it affects any JSON import statements in your code:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">typescript</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>// Old
+import config from './config.json' assert { type: 'json' };
+
+// New
+import config from './config.json' with { type: 'json' };
+</code></pre></div>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>How to Actually Upgrade — Without Spending a Week on It</h2>
+
+<p>Here's the good news: most of this can be automated.</p>
+
+<h3>Step 1: Run This First</h3>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>npx @andrewbranch/ts5to6
+</code></pre></div>
+
+<p>This migration tool was built specifically for the TypeScript 5 → 6 upgrade. It handles:</p>
+<ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li>Moving <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">baseUrl</code> to <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">paths</code></li>
+<li>Setting explicit <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">rootDir</code></li>
+<li>Updating <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">assert {}</code> to <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">with {}</code> in import statements</li>
+<li>Fixing <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">extends</code> chains in multi-tsconfig projects</li>
+<p></ul></p>
+
+<p>Run it before touching anything manually.</p>
+
+<h3>Step 2: Install TypeScript 6.0</h3>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>npm install -D typescript@latest
+</code></pre></div>
+
+<p>Then run a type-check to see what's left:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>npx tsc --noEmit
+</code></pre></div>
+
+<h3>Step 3: Fix the Most Important Things First</h3>
+
+<p>Do these before anything else — they affect almost every project:</p>
+
+<ol style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li><strong>Add <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"types"</code> to your tsconfig</strong> — <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">["node"]</code> at minimum, plus any test framework types you need</li>
+<li><strong>Set an explicit <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"rootDir"</code></strong> — usually <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"./src"</code></li>
+<li><strong>Decide on <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">strict</code></strong> — fix the errors if you can, or explicitly set <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"strict": false</code> with a plan to come back to it</li>
+<p></ol></p>
+
+<h3>Step 4: Clean Up the Rest</h3>
+
+<ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li>Remove <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">baseUrl</code> — the migration tool should have handled this</li>
+<li>Update <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">moduleResolution</code> if you're building for Node.js</li>
+<li>Remove deprecated options: <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">downlevelIteration</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">outFile</code>, AMD/UMD module settings</li>
+<p></ul></p>
+
+<h3>How Long Will This Take?</h3>
+
+<p>A modern project targeting ES2020+ should be fully upgraded in under an hour. An older project with ES5 targets, AMD modules, or a messy <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">baseUrl</code> setup will take longer — budget half a day.</p>
+
+<p>The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">ignoreDeprecations: "6.0"</code> option is there if you need to buy time. But it's not a permanent solution — it stops working when TypeScript 7.0 ships.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>What About Your Other Tools?</h2>
+
+<p><strong>ESLint / typescript-eslint</strong> — Check the typescript-eslint docs for the current compatibility status before upgrading. TypeScript major versions sometimes require a parser update.</p>
+
+<p><strong>Bundlers (Vite, esbuild, webpack)</strong> — Mostly fine. These tools strip TypeScript types at build time rather than using the TypeScript compiler to compile. Vite users may actually find fewer edge cases after upgrading, since the new <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">bundler</code> moduleResolution default aligns with how Vite handles modules.</p>
+
+<p><strong>Next.js, Angular, React</strong> — Standard process: upgrade in a dev branch, run your build and tests, fix errors, ship to production. Next.js usually moves fast on TypeScript support. Check Angular's compatibility matrix before upgrading.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>The Go Rewrite — What Microsoft Is Actually Building</h2>
+
+<p>Okay, now for the actually exciting part.</p>
+
+<h3>What Is Project Corsa?</h3>
+
+<p>Microsoft is porting the TypeScript compiler from JavaScript to Go. The project is called Project Corsa, the binary is called <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">tsgo</code>, and it lives at <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">microsoft/typescript-go</code> on GitHub.</p>
+
+<p>They've been working on this for a while. And the early results are not subtle.</p>
+
+<h3>The Performance Numbers</h3>
+
+<div style="overflow-x: auto; margin: 1.5rem 0;"><table style="width:100%; border-collapse: collapse; font-size: 0.9rem;"><thead><tr style="background: #1e293b;"><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Project</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Old Compile Time</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">New Compile Time</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">How Much Faster</th></tr></thead><tbody><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">VS Code (1.5M lines)</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">77.8s</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">7.5s</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">10.4x</td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0a111d;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Playwright</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">11.1s</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">1.1s</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">10.1x</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">TypeORM</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">17.5s</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">1.3s</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">13.5x</td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0a111d;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Sentry</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">133s</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">16s</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">8.2x</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">date-fns</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">6.5s</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">0.7s</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">9.5x</td></tr></tbody></table></div>
+
+<p>The editor also loads projects 8x faster. Memory usage is cut in half.</p>
+
+<p>If your TypeScript builds are slow right now, this is a genuinely big deal.</p>
+
+<h3>Why Go? (And Not Rust?)</h3>
+
+<p>This is the question everyone's been asking. The JS tooling ecosystem in 2026 is going heavily Rust — Biome, Oxlint, Rolldown, SWC. TypeScript picking Go makes it the outlier.</p>
+
+<p>Here's the honest reason: <strong>a port is very different from a rewrite.</strong></p>
+
+<p>TypeScript's compiler wasn't designed to be ported to Rust. It has lots of shared mutable state, complex recursive type inference, and 12+ years of evolved code. Mapping that to Rust's ownership model would have required rewriting huge chunks of the logic from scratch — which means years of work and a real risk that TypeScript 7.0 would behave differently from TypeScript 6.x in subtle ways.</p>
+
+<p>Go is simpler. The TypeScript codebase's structure maps reasonably well to Go's patterns. That means the team can translate the existing code rather than reinvent it. And translating means you can verify correctness by running the exact same 20,000 tests against both compilers.</p>
+
+<p>Those 20,000 tests? Only 74 discrepancies. That's remarkable for a project this size.</p>
+
+<h3>What "Port" vs "Rewrite" Means for You</h3>
+
+<p>The Go compiler isn't a new TypeScript — it's the same TypeScript, just running much faster. If your code compiles with 6.x, it will compile the same way with 7.0.</p>
+
+<p>This is intentional. The team could have used this as an opportunity to change how TypeScript works. They chose not to. Speed first, then explore improvements.</p>
+
+<h3>A New Thing: Real Parallel Compilation</h3>
+
+<p>The current JavaScript compiler processes your project one thing at a time. It's fundamentally single-threaded.</p>
+
+<p>The Go version can process different parts of your project simultaneously — different packages in a monorepo running on different CPU cores at the same time.</p>
+
+<p>For large projects, this might actually be bigger than the raw language-level speedup. The single-threaded bottleneck was always the architectural limit.</p>
+
+<h3>The Editor Is Changing Too</h3>
+
+<p>TypeScript currently uses a custom protocol called TSServer to talk to editors. TypeScript 7.0 switches to the standard Language Server Protocol (LSP).</p>
+
+<p>For VS Code users, this is invisible. For Neovim, Helix, Zed, JetBrains, Emacs users — it means the editor doesn't need special TypeScript-specific integration. Standard LSP tooling just works.</p>
+
+<h3>Can You Try It Right Now?</h3>
+
+<p>Yes.</p>
+
+<p><strong>Option 1: Install the VS Code extension.</strong> Search for "TypeScript (Go)" in the VS Code marketplace. It updates with new <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">tsgo</code> builds daily. You can enable it per workspace and compare performance against the regular compiler on your own project.</p>
+
+<p><strong>Option 2: Use the command line.</strong></p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>git clone https://github.com/microsoft/typescript-go
+cd typescript-go
+go build ./cmd/tsgo
+./tsgo --noEmit
+</code></pre></div>
+
+<p>What works today: type-checking, completions, go-to-definition, rename, quick fixes, project references, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">--build</code> mode.</p>
+
+<p>What's still in progress: emit targets below ES2021, decorators, compiler plugin API.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>When Is TypeScript 7.0 Coming Out?</h2>
+
+<p>Here's the current timeline:</p>
+
+<div style="overflow-x: auto; margin: 1.5rem 0;"><table style="width:100%; border-collapse: collapse; font-size: 0.9rem;"><thead><tr style="background: #1e293b;"><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Milestone</th><th style="padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #334155; color: #94a3b8;">Date</th></tr></thead><tbody><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">TypeScript 6.0 RC</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">March 6, 2026</td></tr><tr style="border-bottom: 1px solid #1e293b; background:#0a111d;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">TypeScript 6.0 Stable</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">March 23, 2026</td></tr><tr style="border-bottom: 1px solid #1e293b;"><td style="padding: 0.75rem 1rem; color: #e2e8f0;">TypeScript 7.0</td><td style="padding: 0.75rem 1rem; color: #e2e8f0;">Late 2026 / Early 2027 (estimate)</td></tr></tbody></table></div>
+
+<p>TypeScript 6.x will get bug fixes but no new features. The team's energy is on the Go compiler now.</p>
+
+<h3>You Really Shouldn't Skip 6.0</h3>
+
+<p>Here's why this matters: every deprecation warning you suppress in 6.0 with <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"ignoreDeprecations": "6.0"</code> becomes a hard error in TypeScript 7.0. That option simply stops working.</p>
+
+<p>If you skip the 6.0 upgrade and go straight to 7.0 when it ships, you'll face all the same migration work at once, without the automated tools, under a tighter deadline.</p>
+
+<p>Upgrade now. Do the work once, do it cleanly.</p>
+
+<h3>A Note for Plugin Authors</h3>
+
+<p>The internal TypeScript API that compiler plugins use — sometimes called the Strada API — is not being carried over to the Go compiler. A new Corsa API is being built.</p>
+
+<p>If you maintain TypeScript plugins or build tools that use TypeScript's programmatic API, start watching the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">microsoft/typescript-go</code> repository. The new API design is still in progress, and getting involved early is much better than scrambling when 7.0 ships.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>The Bigger Picture</h2>
+
+<h3>The End of TypeScript Compiling Itself</h3>
+
+<p>Since the early days, TypeScript has been written in TypeScript. The compiler compiles itself. It's a neat property that the team was proud of.</p>
+
+<p>TypeScript 6.0 is the last version where that's true. Starting with 7.0, TypeScript will be built with Go tooling.</p>
+
+<p>It's a pragmatic trade-off. The team weighed a 10x performance improvement against a philosophical property and made the call. For everyone who's watched large TypeScript builds chug along, it feels like the right call.</p>
+
+<h3>What This Tells Us About the TypeScript Team</h3>
+
+<p>There's something worth noting here: the TypeScript team is small. They don't have unlimited resources to spend years on a speculative rewrite in an unfamiliar language.</p>
+
+<p>Choosing Go — a simple language with a one-year port timeline rather than a multi-year Rust rewrite — is the kind of decision a practical, focused team makes. They're not trying to win points for using the trendiest language. They're trying to make TypeScript 10x faster in the shortest responsible time.</p>
+
+<p>That's a good sign for the long-term health of the project.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>Your Questions, Answered</h2>
+
+<p><strong>Is TypeScript 6.0 backward compatible with 5.x?</strong></p>
+
+<p>Mostly yes. The TypeScript language itself hasn't changed — valid 5.x code is still valid 6.0 code. What changed are the compiler defaults. If you have an explicit <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">tsconfig.json</code> that sets <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">strict</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">module</code>, <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">target</code>, and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">types</code>, you probably won't see many issues.</p>
+
+<p><strong>Do I need to learn Go to use TypeScript 7.0?</strong></p>
+
+<p>No. You run <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">tsc</code> (or <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">tsgo</code>). You edit <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">tsconfig.json</code>. You get errors in your editor. It works exactly the same way — just faster.</p>
+
+<p><strong>Is TypeScript 7.0 ready to use now?</strong></p>
+
+<p>Not for production. The <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">tsgo</code> preview is available and actively developed, but it's not feature-complete yet. Expect a stable release in late 2026 or early 2027.</p>
+
+<p><strong>What happens to my compiler plugins in 7.0?</strong></p>
+
+<p>The current plugin API will not work in TypeScript 7.0. A new API is being built. If you depend on compiler plugins, track the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">microsoft/typescript-go</code> repository and plan ahead.</p>
+
+<p><strong>Should I upgrade now or wait for 7.0?</strong></p>
+
+<p>Upgrade to 6.0 now. Waiting doesn't help — it just means a harder upgrade later when 7.0 ships. The migration tooling for 6.0 is good, and doing it in stages is always easier than doing it all at once.</p>
+
+<p><strong>Does TypeScript 6.0 still support CommonJS?</strong></p>
+
+<p>Yes. Set <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"module": "commonjs"</code> explicitly in your tsconfig and everything works as before. ESM is just no longer the default.</p>
+
+<p><strong>What's the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">ts5to6</code> tool?</strong></p>
+
+<p>It's <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">npx @andrewbranch/ts5to6</code> — a CLI that automates most of the mechanical parts of the 5 → 6 migration. Run it before doing anything manually.</p>
+
+<p><strong>Is strict mode now forced on?</strong></p>
+
+<p>No. <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">strict: true</code> is the new default, but <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"strict": false</code> still works if you set it explicitly. It's not enforced, just encouraged.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>Where This Leaves Us</h2>
+
+<p>TypeScript 6.0 is a cleanup release. It's the kind of release that doesn't get a lot of hype but matters a lot — it removes years of accumulated defaults that were out of step with how people actually build things now, and it sets up every codebase for a much better future.</p>
+
+<p>And that future — TypeScript 7.0 with the Go compiler — is genuinely something to be excited about. Compile times that took over a minute dropping to under 10 seconds changes how you work. Suddenly your save-to-feedback loop in the editor feels different. CI runs finish before you've checked Slack.</p>
+
+<p>The 10x number isn't marketing. The benchmarks are public. You can try it on your own project today.</p>
+
+<p>So: upgrade to TypeScript 6.0 now. Use the migration tool. Fix the deprecations. And install the <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">tsgo</code> extension so you know exactly what you're getting when 7.0 ships.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h3>What to Do Right Now</h3>
+
+<ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+<li>Run <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">npx @andrewbranch/ts5to6</code> in your project</li>
+<li>Run <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">npm install -D typescript@latest</code></li>
+<li>Add <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"types": ["node"]</code> to your tsconfig</li>
+<li>Set an explicit <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"rootDir": "./src"</code></li>
+<li>Fix strict mode errors — or set <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">"strict": false</code> with a note to revisit</li>
+<li>Install the "TypeScript (Go)" VS Code extension and feel the difference</li>
+<p></ul></p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+<div style="background: linear-gradient(135deg, rgba(168,85,247,0.12) 0%, rgba(59,130,246,0.12) 100%); border: 1px solid rgba(168,85,247,0.35); border-radius: 12px; padding: 2rem; margin: 3rem 0;">
+  <p style="font-size: 1.1rem; font-weight: 700; color: #c084fc; margin: 0 0 0.75rem 0;">Upgrading to TypeScript 6.0? Let's Make It Painless.</p>
+  <p style="color: #cbd5e1; margin: 0 0 0.5rem 0;">At Nandann Creative, we build production-grade TypeScript applications and help teams migrate to modern tooling. Whether you're dealing with a wall of strict-mode errors, a monorepo migration, or preparing for TypeScript 7.0's Go compiler — we can help you move fast and ship with confidence.</p>
+  <ul style="color: #cbd5e1; margin: 0.75rem 0 1.25rem 0; padding-left: 1.5rem; line-height: 1.9;">
+    <li>Free TypeScript migration assessment — we audit your tsconfig and codebase and produce a prioritised upgrade checklist</li>
+    <li>Hands-on strict-mode error resolution and <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">@types</code> modernisation</li>
+    <li>Same-day delivery available for focused scopes</li>
+  </ul>
+  <a href="${internalLinks.contact}?service=typescript-migration" style="display: inline-block; background: linear-gradient(135deg, #7c3aed, #2563eb); color: #fff; font-weight: 600; padding: 0.75rem 1.75rem; border-radius: 8px; text-decoration: none; font-size: 0.95rem; margin-right: 1rem;">Talk to Our TypeScript Team</a>
+  <a href="${internalLinks.services}" style="display: inline-block; background: transparent; border: 1px solid rgba(168,85,247,0.5); color: #c084fc; font-weight: 600; padding: 0.75rem 1.75rem; border-radius: 8px; text-decoration: none; font-size: 0.95rem;">View Our Services</a>
+</div>`,
+    faqs: [
+      {
+        question: "What is new in TypeScript 6.0?",
+        answer: "TypeScript 6.0 adds improved type inference for context-sensitive functions, subpath imports with the #/ prefix, ES2025 target with new standard library APIs (Set methods, Promise.try, Iterator helpers), Temporal API type definitions, Map/WeakMap getOrInsert and getOrInsertComputed methods, RegExp.escape(), and stable isolatedDeclarations for parallel .d.ts generation."
+      },
+      {
+        question: "What breaking changes are in TypeScript 6.0?",
+        answer: "TypeScript 6.0 changed 9 default compiler settings: strict is now true, module is esnext, target is es2025, moduleResolution is bundler, esModuleInterop is true, types defaults to an empty array, rootDir defaults to the tsconfig directory, noUncheckedSideEffectImports is true, and libReplacement is false. AMD, UMD, and SystemJS module formats were removed. Import assertions (assert) were replaced by import attributes (with). ES5 output is deprecated."
+      },
+      {
+        question: "How do I migrate from TypeScript 5.x to TypeScript 6.0?",
+        answer: "Run npx @andrewbranch/ts5to6 first — it automates most mechanical changes. Then install TypeScript 6.0 with npm install -D typescript@latest and run npx tsc --noEmit. Add an explicit types array to your tsconfig (at minimum [\"node\"]), set an explicit rootDir, and decide whether to address strict mode errors or temporarily set strict: false."
+      },
+      {
+        question: "Why is TypeScript being rewritten in Go?",
+        answer: "Microsoft chose Go because the goal was a port, not a rewrite. TypeScript's compiler has complex shared mutable state and 12 years of evolved code that maps poorly to Rust's ownership model. Go's simpler patterns allow a translation of existing code rather than a reinvention, which means the team can verify correctness with the same 20,000 test cases. The Go port had only 74 discrepancies — remarkable for a 100K+ line codebase."
+      },
+      {
+        question: "How much faster is the TypeScript Go compiler?",
+        answer: "VS Code (1.5M lines of code) went from 77.8 seconds to 7.5 seconds — a 10.4x improvement. Playwright went from 11.1s to 1.1s (10.1x). TypeORM from 17.5s to 1.3s (13.5x). Sentry from 133s to 16s (8.2x). The editor also loads projects 8x faster and memory usage is cut in half."
+      },
+      {
+        question: "Will TypeScript 7.0 break my existing code?",
+        answer: "TypeScript 7.0 is a port, not a rewrite — the same type system and rules apply, just running in Go. If your code compiles cleanly with TypeScript 6.0 and you've addressed all deprecations (not just suppressed them with ignoreDeprecations), your code should compile with 7.0. The ignoreDeprecations: '6.0' escape hatch stops working in 7.0, so clean up now."
+      },
+      {
+        question: "What is tsgo and can I use it now?",
+        answer: "tsgo is the Go-based TypeScript compiler binary from the microsoft/typescript-go GitHub repository. You can try it today via the VS Code Marketplace (search 'TypeScript (Go)') or by building it from source. Type-checking, completions, go-to-definition, rename, project references, and --build mode all work. Emit targets below ES2021 and decorators are still in progress."
+      },
+      {
+        question: "Does TypeScript 6.0 still support CommonJS?",
+        answer: "Yes. Set module: commonjs explicitly in your tsconfig and everything works as before. ESM is the new default, but CommonJS is fully supported for projects that need it."
+      },
+      {
+        question: "What is the ts5to6 migration tool?",
+        answer: "It's npx @andrewbranch/ts5to6 — a CLI that automates the mechanical parts of the TypeScript 5 to 6 migration. It handles baseUrl to paths migration, explicit rootDir setting, updating import assertions to import attributes, and fixing extends chains in multi-tsconfig projects."
+      },
+      {
+        question: "Is strict mode now forced on in TypeScript 6.0?",
+        answer: "No. strict: true is the new default, but you can still set strict: false explicitly if needed. It's the default for new projects without an explicit setting, not a mandatory enforcement."
+      }
+    ]
+  },
+  {
     slug: 'nextjs-16-2-complete-guide',
     title: "Next.js 16.2: Everything You Need to Know About use cache, Turbopack, and the New Proxy API",
     description: "Next.js 16.2 ships with the use cache directive, proxy.ts replacing middleware.ts, Turbopack as default bundler, and React 19.2. This guide covers every change with working code examples and a migration checklist.",
@@ -2643,38 +3319,38 @@ cargo audit --deny warnings
 </div>`,
     faqs: [
       {
-            "question": "Do I need Rust experience to start?",
-            "answer": "You need basic Rust familiarity: ownership, borrowing, `async/await`, and `Result<T, E>` error handling. If you can read the Rust book and understand the first 10 chapters, you can write Lambda functions. The `cargo-lambda` toolchain removes the infrastructure complexity. Start with a simple event transformation function before building anything with database access or concurrency."
+        "question": "Do I need Rust experience to start?",
+        "answer": "You need basic Rust familiarity: ownership, borrowing, `async/await`, and `Result<T, E>` error handling. If you can read the Rust book and understand the first 10 chapters, you can write Lambda functions. The `cargo-lambda` toolchain removes the infrastructure complexity. Start with a simple event transformation function before building anything with database access or concurrency."
       },
       {
-            "question": "How do I handle database connection pooling?",
-            "answer": "With standard Lambda, use a connection pooler like RDS Proxy to avoid exhausting your database's connection limit. Each execution environment holds one connection. With LMI, you can use `sqlx::Pool` or `deadpool` directly in your function, initializing the pool in `main()` and reusing it across concurrent requests on the same instance."
+        "question": "How do I handle database connection pooling?",
+        "answer": "With standard Lambda, use a connection pooler like RDS Proxy to avoid exhausting your database's connection limit. Each execution environment holds one connection. With LMI, you can use `sqlx::Pool` or `deadpool` directly in your function, initializing the pool in `main()` and reusing it across concurrent requests on the same instance."
       },
       {
-            "question": "Can I use my existing Python Lambda alongside a Rust one?",
-            "answer": "Yes. Lambda functions are independently deployed and invoke each other via the Lambda API or SNS/SQS. There is no coordination required between runtimes. You can route traffic to each independently via API Gateway weighted routes or Lambda aliases."
+        "question": "Can I use my existing Python Lambda alongside a Rust one?",
+        "answer": "Yes. Lambda functions are independently deployed and invoke each other via the Lambda API or SNS/SQS. There is no coordination required between runtimes. You can route traffic to each independently via API Gateway weighted routes or Lambda aliases."
       },
       {
-            "question": "Is cargo-lambda production-safe?",
-            "answer": "Yes. It reached 1.0 stable and is the officially recommended build tool in the AWS Rust Lambda documentation. Datadog, AWS, and multiple other companies use it in production CI pipelines. The deployment functionality wraps the AWS Lambda API directly and does not introduce any abstraction layer that could fail in unexpected ways."
+        "question": "Is cargo-lambda production-safe?",
+        "answer": "Yes. It reached 1.0 stable and is the officially recommended build tool in the AWS Rust Lambda documentation. Datadog, AWS, and multiple other companies use it in production CI pipelines. The deployment functionality wraps the AWS Lambda API directly and does not introduce any abstraction layer that could fail in unexpected ways."
       },
       {
-            "question": "What is the best memory size for Rust Lambda functions?",
-            "answer": "Start at 128 MB. Rust functions typically use 20-50 MB of actual memory. For I/O-bound functions (most API handlers, SQS processors), 128 MB is sufficient. For CPU-bound functions, increase memory to get more vCPUs: 1769 MB gives you one full vCPU, 3538 MB gives two, up to 10240 MB for six vCPUs. Use AWS Lambda Power Tuning to find the optimal memory configuration for CPU-bound functions."
+        "question": "What is the best memory size for Rust Lambda functions?",
+        "answer": "Start at 128 MB. Rust functions typically use 20-50 MB of actual memory. For I/O-bound functions (most API handlers, SQS processors), 128 MB is sufficient. For CPU-bound functions, increase memory to get more vCPUs: 1769 MB gives you one full vCPU, 3538 MB gives two, up to 10240 MB for six vCPUs. Use AWS Lambda Power Tuning to find the optimal memory configuration for CPU-bound functions."
       },
       {
-            "question": "How do I debug a panic in production?",
-            "answer": "A panic in a Rust Lambda function causes the binary to exit via `abort()` (with `panic = \"abort\"` in the release profile). Lambda sees this as a function error. The panic message appears in CloudWatch Logs. To get a stack trace in production, temporarily remove `panic = \"abort\"` from the release profile and redeploy. Add structured logging with `tracing` throughout your critical paths so you can reconstruct what happened without needing a stack trace."
+        "question": "How do I debug a panic in production?",
+        "answer": "A panic in a Rust Lambda function causes the binary to exit via `abort()` (with `panic = \"abort\"` in the release profile). Lambda sees this as a function error. The panic message appears in CloudWatch Logs. To get a stack trace in production, temporarily remove `panic = \"abort\"` from the release profile and redeploy. Add structured logging with `tracing` throughout your critical paths so you can reconstruct what happened without needing a stack trace."
       },
       {
-            "question": "Does Rust Lambda support Lambda SnapStart?",
-            "answer": "No. SnapStart is only available for the `java21` managed runtime. Rust does not need it. SnapStart solves JVM startup time (700ms+). Rust cold starts are 16ms without any caching mechanism."
+        "question": "Does Rust Lambda support Lambda SnapStart?",
+        "answer": "No. SnapStart is only available for the `java21` managed runtime. Rust does not need it. SnapStart solves JVM startup time (700ms+). Rust cold starts are 16ms without any caching mechanism."
       },
       {
-            "question": "How do I share code between Lambda functions?",
-            "answer": "Use a Cargo workspace. Put shared types, utilities, and database client wrappers in a `shared/` crate within the workspace. Each Lambda function depends on the shared crate via a path dependency. This gives you type safety across function boundaries and a single build cache."
+        "question": "How do I share code between Lambda functions?",
+        "answer": "Use a Cargo workspace. Put shared types, utilities, and database client wrappers in a `shared/` crate within the workspace. Each Lambda function depends on the shared crate via a path dependency. This gives you type safety across function boundaries and a single build cache."
       }
-]
+    ]
   },
   {
     slug: 'rust-pyo3-python-extensions-guide',

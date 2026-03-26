@@ -15,6 +15,15 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'typescript-6-0-release-features-go-compiler-7-0',
+    title: 'TypeScript 6.0 Is Here, And Microsoft Is Rebuilding the Entire Compiler in Go for 7.0',
+    excerpt: "TypeScript 6.0 landed March 23, 2026 with strict mode on by default, ESM as the new default, and 9 changed compiler settings. Plus: Microsoft's Go-powered compiler hits 10x faster builds. Full migration guide inside.",
+    date: 'Mar 27, 2026',
+    readTime: '16 min read',
+    category: 'TypeScript',
+    coverImage: '/images/typescript-6-nandann-creative-thumbnail.webp'
+  },
+  {
     slug: 'nextjs-16-2-complete-guide',
     title: 'Next.js 16.2: Everything You Need to Know About use cache, Turbopack, and the New Proxy API',
     excerpt: 'Next.js 16.2 ships with the use cache directive, proxy.ts replacing middleware.ts, Turbopack as default bundler, and React 19.2. This guide covers every change with working code examples and a migration checklist.',
