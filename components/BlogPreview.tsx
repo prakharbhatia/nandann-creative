@@ -15,6 +15,15 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'voice-ai-agentic-ai-customer-support-guide',
+    title: "Voice AI and Agentic AI Are Replacing Customer Support.",
+    excerpt: "How voice AI and agentic AI actually work in customer support — the STT/LLM/TTS pipeline, latency optimization, platform comparison, real costs, and a 7-step developer implementation playbook.",
+    date: 'Mar 29, 2026',
+    readTime: '26 min read',
+    category: 'Agentic AI',
+    coverImage: '/images/voice-ai-agentic-ai-nandann-creative.png'
+  },
+  {
     slug: 'typescript-6-0-release-features-go-compiler-7-0',
     title: 'TypeScript 6.0 Is Here, And Microsoft Is Rebuilding the Entire Compiler in Go for 7.0',
     excerpt: "TypeScript 6.0 landed March 23, 2026 with strict mode on by default, ESM as the new default, and 9 changed compiler settings. Plus: Microsoft's Go-powered compiler hits 10x faster builds. Full migration guide inside.",
