@@ -21,7 +21,7 @@ const featuredPosts: BlogPost[] = [
     date: 'Apr 1, 2026',
     readTime: '11 min read',
     category: 'Security',
-    coverImage: '/blog/axios-backdoored-banner.jpg'
+    coverImage: '/images/axios-nandann-creative-thumbnail.webp'
   },
   {
     slug: 'voice-ai-agentic-ai-customer-support-guide',

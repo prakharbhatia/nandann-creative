@@ -35,10 +35,10 @@ export const blogPosts: BlogPost[] = [
     readTime: '11 min',
     category: 'Security',
     tags: ["Security", "npm", "Supply Chain Attack", "Node.js", "axios", "Incident Response", "CI/CD Security", "RAT", "Open Source Security"],
-    coverImage: '/blog/axios-backdoored-banner.jpg',
+    coverImage: '/images/axios-nandann-creative-thumbnail.webp',
     contentHtml: `<picture>
-  <source media="(min-width: 1px)" srcset="/blog/axios-backdoored-banner.jpg 1x" type="image/jpeg" />
-  <img src="/blog/axios-backdoored-banner.jpg" alt="Broken npm package lock with warning symbols representing the axios supply chain attack" style="width:100%; border-radius:12px; margin-bottom: 2rem;" loading="eager" width="1200" height="630" />
+  <source media="(min-width: 1px)" srcset="/images/axios-nandann-creative-thumbnail.webp 1x" type="image/webp" />
+  <img src="/images/axios-nandann-creative-thumbnail.webp" alt="Broken npm package lock with warning symbols representing the axios supply chain attack" style="width:100%; border-radius:12px; margin-bottom: 2rem;" loading="eager" width="1200" height="630" />
 </picture>
 <p>On March 31, 2026, between midnight and 3:30am UTC, someone compromised the npm account of the axios maintainer. They used that access to publish two backdoored versions of axios — the HTTP client that's in roughly 80% of production JavaScript environments.</p>
 
