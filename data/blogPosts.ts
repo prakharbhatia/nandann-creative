@@ -36,6 +36,24 @@ export const blogPosts: BlogPost[] = [
     category: 'Security',
     tags: ["Security", "npm", "Supply Chain Attack", "Node.js", "axios", "Incident Response", "CI/CD Security", "RAT", "Open Source Security"],
     coverImage: '/images/axios-nandann-creative-thumbnail.webp',
+    faqs: [
+      {
+        question: "How did the axios npm package get compromised?",
+        answer: "The primary maintainer's npm account was compromised due to a stolen password. The attacker then used this access to publish two new backdoored versions (1.14.1 and 0.30.4) that secretly included a platform-specific Remote Access Trojan (RAT)."
+      },
+      {
+        question: "Which versions of axios were affected by the backdoor?",
+        answer: "Versions 1.14.1 and 0.30.4 published on March 31, 2026, were affected. Both versions automatically pulled in a malicious dependency called 'plain-crypto-js'."
+      },
+      {
+        question: "How can I check if my project was exposed to the axios backdoor?",
+        answer: "Check your package-lock.json or yarn.lock for 'axios@1.14.1', 'axios@0.30.4', or 'plain-crypto-js'. You should also check your CI/CD build logs between 00:21 and 03:30 UTC on March 31."
+      },
+      {
+        question: "What should I do if my system installed the compromised axios version?",
+        answer: "Treat the system as completely compromised. Isolate the affected machine or container, and immediately rotate all cloud credentials, SSH keys, npm tokens, and CI/CD environment secrets before performing forensic analysis."
+      }
+    ],
     contentHtml: `<picture>
   <source media="(min-width: 1px)" srcset="/images/axios-nandann-creative-thumbnail.webp 1x" type="image/webp" />
   <img src="/images/axios-nandann-creative-thumbnail.webp" alt="Broken npm package lock with warning symbols representing the axios supply chain attack" style="width:100%; border-radius:12px; margin-bottom: 2rem;" loading="eager" width="1200" height="630" />
