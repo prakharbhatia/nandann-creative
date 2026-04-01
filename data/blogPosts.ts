@@ -28,6 +28,245 @@ const internalLinks = {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'axios-npm-backdoored-supply-chain-attack',
+    title: "Axios Was Backdoored! Your App & Client Data Could Be Exposed. Let’s Audit & Fix It",
+    description: "On March 31, 2026, axios — downloaded 100 million times a week — was backdoored via a compromised maintainer account. A Remote Access Trojan was silently installed on developer machines and CI runners. Here's exactly what happened, how to check if you were affected, and what to do.",
+    date: '2026-04-01',
+    readTime: '11 min',
+    category: 'Security',
+    tags: ["Security", "npm", "Supply Chain Attack", "Node.js", "axios", "Incident Response", "CI/CD Security", "RAT", "Open Source Security"],
+    coverImage: '/blog/axios-backdoored-banner.jpg',
+    contentHtml: `<picture>
+  <source media="(min-width: 1px)" srcset="/blog/axios-backdoored-banner.jpg 1x" type="image/jpeg" />
+  <img src="/blog/axios-backdoored-banner.jpg" alt="Broken npm package lock with warning symbols representing the axios supply chain attack" style="width:100%; border-radius:12px; margin-bottom: 2rem;" loading="eager" width="1200" height="630" />
+</picture>
+<p>On March 31, 2026, between midnight and 3:30am UTC, someone compromised the npm account of the axios maintainer. They used that access to publish two backdoored versions of axios — the HTTP client that's in roughly 80% of production JavaScript environments.</p>
+
+<p>The malware didn't announce itself. It installed silently as a dependency. It ran a script that contacted a remote server, downloaded a platform-specific Remote Access Trojan, and then erased its own tracks. By the time most teams woke up, the backdoored versions were already pulled from npm.</p>
+
+<p>But the RAT was still running on every system that installed them.</p>
+
+<p><strong>This is not a "could have been bad" story. For some teams, it already is bad.</strong></p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>What Axios Even Is (And Why Scale Matters Here)</h2>
+
+<p>If you build anything in JavaScript, there's a very high chance axios is in your stack. It's a simple, clean HTTP client — one of those packages you install once and forget about. Node.js projects use it. React apps use it. Backend services use it. CI/CD scripts use it.</p>
+
+<p>It gets downloaded about <strong>100 million times a week</strong>.</p>
+
+<p>That's the thing about supply chain attacks. Attackers don't need to breach your company. They just need to get code into a package you already trust.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>How the Attack Actually Worked</h2>
+
+<h3>One Stolen Password</h3>
+
+<p>The attacker didn't find a vulnerability in axios. They found jasonsaayman — the primary maintainer — and compromised his npm account.</p>
+
+<p>That's all it took. No zero-day. No sophisticated exploit chain. One set of stolen credentials and suddenly you have write access to a package with 100 million weekly downloads.</p>
+
+<p><strong>The entire trust model of open source is built on maintainer accounts. Most of those accounts have no MFA.</strong></p>
+
+<h3>The Pre-Staged Trap</h3>
+
+<p>This wasn't improvised. Eighteen hours before the attack, a package called <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">plain-crypto-js@4.2.0</code> was quietly published to npm. A legitimate-looking version. Nothing obviously malicious.</p>
+
+<p>Then at 00:21 UTC, the attackers used the compromised axios account to publish two new versions:</p>
+
+<ul style="list-style-type: disc; margin-left: 2rem; margin-bottom: 1rem; color: #e2e8f0;">
+  <li><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">axios@1.14.1</code> — tagged <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">latest</code></li>
+  <li><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">axios@0.30.4</code> — tagged <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">legacy</code></li>
+</ul>
+
+<p>Both versions added <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">plain-crypto-js@4.2.1</code> as a dependency. Npm's default behavior: install it automatically. No prompts. No warnings.</p>
+
+<h3>The Installer That Did More Than Install</h3>
+
+<p><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">plain-crypto-js@4.2.1</code> contained a <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">postinstall</code> script. When npm finishes installing a package, it runs these scripts automatically.</p>
+
+<p>This one contacted a command-and-control server at <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">sfrclak.com:8000</code>, downloaded a platform-specific Remote Access Trojan — separate payloads for macOS, Windows, and Linux — installed it, then deleted the script and replaced the package's <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">package.json</code> with a clean decoy.</p>
+
+<p>If you opened <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">node_modules</code> after it ran, nothing looked wrong.</p>
+
+<h3>The Persistent Backdoor</h3>
+
+<p>The RAT that got installed wasn't a smash-and-grab. It beaconed back to the attacker's server every 60 seconds. It gave them persistent remote access: read files, run commands, pull credentials — anything accessible on that machine or container.</p>
+
+<p>The window was roughly three hours. In that time, across 100 million weekly downloads, exposure was significant. Google's Threat Intelligence Group observed the RAT actually executing in approximately 3% of affected environments.</p>
+
+<p>3% sounds small. 3% of 100 million doesn't.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>What Was Actually Exposed</h2>
+
+<p>If this ran in your environment, here's what the attacker could have accessed:</p>
+
+<ul style="list-style-type: disc; margin-left: 2rem; margin-bottom: 1rem; color: #e2e8f0;">
+  <li><strong>npm tokens</strong> — giving them publish access to your own packages</li>
+  <li><strong>Cloud credentials</strong> — AWS access keys, GCP service account tokens, Azure secrets sitting in environment variables</li>
+  <li><strong>SSH private keys</strong> — access to servers, git repositories, deployment targets</li>
+  <li><strong>CI/CD secrets</strong> — GitHub Actions secrets, GitLab CI variables, CircleCI environment values</li>
+  <li><code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">.env</code> files — database connection strings, API keys, internal service credentials</li>
+  <li><strong>Anything in the filesystem</strong> the process could read</li>
+</ul>
+
+<p>Your CI/CD runner is the most dangerous target here. By design, it has access to your production deployment credentials. It exists to push code to production. That makes it a very attractive foothold.</p>
+
+<p><strong>If your runner installed this and your cloud keys were in the environment, assume they were read. Don't verify first. Rotate first.</strong></p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>Were You Affected?</h2>
+
+<h3>Check Your Lockfile</h3>
+
+<p>Pull up <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">package-lock.json</code> or <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">yarn.lock</code> and search for:</p>
+
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>axios@1.14.1
+axios@0.30.4
+plain-crypto-js</code></pre></div>
+
+<p>If any of those appear, you were exposed. The presence of <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">plain-crypto-js</code> anywhere in your lockfile is a direct indicator.</p>
+
+<h3>Check Your Build Logs</h3>
+
+<p>If your CI/CD pipeline runs on every commit and uses <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">npm install</code>, check the build logs for any runs that happened on March 31 between <strong>00:21 and 03:30 UTC</strong>. If a build completed during that window, it likely installed the backdoored version.</p>
+
+<h3>Quick Check</h3>
+
+<p>Run this in your project directory:</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code># Check which axios version is installed
+npm list axios
+
+# Check if the malicious dependency is present
+ls node_modules/plain-crypto-js 2>/dev/null && echo "FOUND — investigate immediately" || echo "Not present in node_modules"</code></pre></div>
+
+<p>One important caveat: the malware script deleted itself. The absence of <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">plain-crypto-js</code> in your current <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">node_modules</code> does not mean it wasn't installed during the attack window. If your lockfile shows it, or if you ran <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">npm install</code> on March 31 between those hours, treat it as a confirmed exposure.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>What to Do Right Now</h2>
+
+<h3>If You Weren't Affected</h3>
+
+<p>Pin to a safe version immediately.</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code>npm install axios@1.14.0
+# or for the 0.x line
+npm install axios@0.30.3</code></pre></div>
+
+<p>Commit the lockfile. Don't wait for axios to release a follow-up version before auditing it.</p>
+
+<p>While you're at it: add <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">--ignore-scripts</code> to your CI install step.</p>
+
+<p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; font-family: monospace;">bash</p><div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto;"><pre style="margin:0; color: #e2e8f0; font-family: monospace; font-size: 0.875rem; line-height: 1.7;"><code># Instead of:
+npm install
+
+# Use:
+npm ci --ignore-scripts</code></pre></div>
+
+<p>This prevents <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">postinstall</code> scripts from running automatically. It's been a recommended practice for years. This incident is a good reason to finally do it.</p>
+
+<h3>If You Were Affected</h3>
+
+<p>Do not try to clean up in place. Treat the system as compromised.</p>
+
+<p><strong>Step 1: Isolate.</strong> Take the affected machine or container offline. Don't continue using it while you investigate.</p>
+
+<p><strong>Step 2: Rotate everything.</strong> This is not optional. Rotate:</p>
+<ul style="list-style-type: disc; margin-left: 2rem; margin-bottom: 1rem; color: #e2e8f0;">
+  <li>npm access tokens</li>
+  <li>AWS/GCP/Azure credentials</li>
+  <li>SSH private keys</li>
+  <li>GitHub deploy keys</li>
+  <li>All CI/CD environment secrets</li>
+  <li>Any <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">.env</code> values that were present on the system</li>
+</ul>
+
+<p>Rotate them before you do anything else. An attacker with persistent access can exfiltrate new credentials as fast as you set them.</p>
+
+<p><strong>Step 3: Audit access logs.</strong> Check your cloud provider's CloudTrail (AWS) or equivalent for API calls made after the install window. Look for unusual access patterns, new IAM users, or calls from unfamiliar IP addresses or regions.</p>
+
+<p><strong>Step 4: Look for persistence mechanisms.</strong> Check for new cron jobs, systemd services, authorized SSH keys, or startup scripts added around March 31. The RAT may have tried to establish persistence beyond the running process.</p>
+
+<p><strong>Step 5: Don't investigate solo on a live system.</strong> If you don't have internal security resources, get outside help. Forensics on a potentially compromised system requires care — you can destroy evidence or miss something that matters.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>The Bigger Problem: CI/CD Runs as a Privileged User</h2>
+
+<p>Most teams think about application security. Port security. WAFs. Auth flows. Those are real concerns.</p>
+
+<p>But the CI/CD pipeline often has more access than any application process. It has to. It's the thing that deploys to production. It knows where production is, how to get there, and has the credentials to do it.</p>
+
+<p>When you run <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">npm install</code> in a pipeline without <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">--ignore-scripts</code>, you are executing arbitrary code from third-party packages — with all those privileges.</p>
+
+<p><strong>A <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">postinstall</code> script runs with the same permissions as your CI runner. Most runners have access to production.</strong></p>
+
+<p>This isn't new information. Security teams have known about this vector for years. But in practice, almost nobody changes the default behavior because it's never been a problem. Until it is.</p>
+
+<p>The axios incident forced this conversation. The question is whether you have it now — before your specific stack is targeted — or after.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>Attribution: Why North Korea Matters to Your Business</h2>
+
+<p>Google's Threat Intelligence Group has attributed this to UNC1069 — a suspected North Korean threat actor.</p>
+
+<p>State-sponsored attackers operate on a different timeline than opportunistic hackers. They pre-staged this attack 18 hours in advance. They built separate payloads for macOS, Windows, and Linux. They designed the malware to erase its own tracks. This is patient, deliberate, professional work.</p>
+
+<p>They are not going to stop because this one got caught. They are going to adapt and try again — with other packages, other maintainers, other registries.</p>
+
+<p><strong>The targeting of JavaScript's package ecosystem is not a one-time event. It's a strategy.</strong></p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>Hardening Your Stack Going Forward</h2>
+
+<p>None of these are complicated. They just require deciding to do them.</p>
+
+<p><strong>Lock your dependencies.</strong> Commit your lockfile. Use exact version pins. Don't let automated tools silently bump versions without a human reviewing the diff.</p>
+
+<p><strong>Kill postinstall scripts in CI.</strong> Add <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">--ignore-scripts</code> to every <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">npm ci</code> call in your pipelines. Test which packages legitimately need it (usually native modules). Audit those explicitly.</p>
+
+<p><strong>Add a 72-hour quarantine buffer.</strong> <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">npm config set min-release-age 3</code> tells npm to hold newly published package versions for 72 hours before installing them. Most supply chain attacks are detected and pulled within that window. This one was.</p>
+
+<p><strong>Isolate CI credentials.</strong> Your CI runner shouldn't have your master AWS admin credentials. Create environment-specific service accounts with the minimum access needed. If a runner is compromised, the blast radius should be contained.</p>
+
+<p><strong>Audit your direct and indirect dependencies.</strong> <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">npm audit</code> catches known vulnerabilities, but it doesn't catch newly published malicious packages. Tools like Socket.dev or Snyk can monitor your dependency tree for suspicious new packages, unusual <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">postinstall</code> scripts, and sudden maintainer changes.</p>
+
+<p><strong>Set up cloud access alerting.</strong> If your cloud credentials are used from a new IP or an unfamiliar region, you want to know immediately — not three weeks later when the breach shows up in your billing.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>The Question Worth Sitting With</h2>
+
+<p>If you found out today that a CI runner with cloud credentials had a RAT on it for three hours last Tuesday, what would your team actually do?</p>
+
+<p>Who gets called? What gets rotated? Who does the forensic review? How do you confirm what was accessed?</p>
+
+<p>Most teams don't have clear answers to those questions until they need them. And when you need them, you needed them an hour ago.</p>
+
+<p>That gap — between "we probably should think about this" and "we have a plan" — is where the real risk sits. Not in whether you use axios. In whether you'd catch what comes next.</p>
+
+<hr style="border: none; border-top: 1px solid #334155; margin: 2.5rem 0;">
+
+<h2>If You Want a Second Set of Eyes</h2>
+
+<p>We work with engineering teams to audit exactly this kind of exposure: dependency chain security, CI/CD credential hygiene, secret management, and incident response readiness.</p>
+
+<p>If you installed <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">axios@1.14.1</code> or <code style="background:#1e293b; padding: 2px 6px; border-radius:4px; font-family: monospace; color: #e2e8f0;">axios@0.30.4</code> and want help assessing the impact — or if you want to understand your actual risk posture before the next incident — <a href="#contact" style="color:#60a5fa; text-decoration:underline;">get in touch</a>.</p>
+
+<p>This is the kind of thing that looks like a small problem until it isn't. It's much easier to close the gaps when nothing's on fire.</p>
+`
+  },
+
+  {
     slug: 'voice-ai-agentic-ai-customer-support-guide',
     title: "Voice AI and Agentic AI Are Replacing Customer Support. The Benefits Are Hard to Ignore: Faster Responses, Lower Costs, and Data-Driven Decisions",
     description: "How voice AI and agentic AI actually work in customer support — the STT/LLM/TTS pipeline, latency optimization, platform comparison, real costs, and a 7-step developer implementation playbook.",

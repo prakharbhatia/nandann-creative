@@ -15,6 +15,15 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'axios-npm-backdoored-supply-chain-attack',
+    title: "Axios Was Backdoored! Your App & Client Data Could Be Exposed. Let’s Audit & Fix It",
+    excerpt: "On March 31, 2026, axios — downloaded 100 million times a week — was backdoored via a compromised maintainer account. A Remote Access Trojan was silently installed on developer machines and CI runners. Here's exactly what happened, how to check if you were affected, and what to do.",
+    date: 'Apr 1, 2026',
+    readTime: '11 min read',
+    category: 'Security',
+    coverImage: '/blog/axios-backdoored-banner.jpg'
+  },
+  {
     slug: 'voice-ai-agentic-ai-customer-support-guide',
     title: "Voice AI and Agentic AI Are Replacing Customer Support.",
     excerpt: "How voice AI and agentic AI actually work in customer support — the STT/LLM/TTS pipeline, latency optimization, platform comparison, real costs, and a 7-step developer implementation playbook.",
