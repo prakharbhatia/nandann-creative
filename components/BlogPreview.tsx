@@ -15,6 +15,15 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'typescript-vs-deno-vs-bun-2026-performance-comparison',
+    title: "TypeScript vs Deno vs Bun (2026): Performance, Features, and When to Use Each",
+    excerpt: "If you're building scalable web applications, choosing the right runtime is crucial. Let's look at TypeScript vs Deno vs Bun to see which modern JavaScript ecosystem actually delivers. This isn't just about syntactical quirks — we're doing a deep dive into real-world performance, native capabilities, and overall latency. In this comprehensive comparison, we'll analyze the trade-offs of each platform in 2026 so you know exactly which tool to adopt.",
+    date: 'Apr 5, 2026',
+    readTime: '12 min read',
+    category: 'Engineering',
+    coverImage: '/images/typescript-bun-deno-nandann-creative.webp'
+  },
+  {
     slug: 'axios-npm-backdoored-supply-chain-attack',
     title: "Axios Was Backdoored! Your App & Client Data Could Be Exposed. Let’s Audit & Fix It",
     excerpt: "On March 31, 2026, axios — downloaded 100 million times a week — was backdoored via a compromised maintainer account. A Remote Access Trojan was silently installed on developer machines and CI runners. Here's exactly what happened, how to check if you were affected, and what to do.",
