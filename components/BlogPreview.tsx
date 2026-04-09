@@ -15,6 +15,15 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'wordpress-losing-customers-nextjs-blog-post',
+    title: "Why Your WordPress Site Is Losing Customers (And How Next.js Fixes It)",
+    excerpt: "Your WordPress site worked fine at 10,000 visitors a month. Now you're hitting 50,000. And it's crawling. Here is exactly why your WordPress site is losing customers and how Next.js fixes the underlying architecture problem.",
+    date: 'Apr 9, 2026',
+    readTime: '10 min read',
+    category: 'Engineering',
+    coverImage: '/images/wordpress-vs-next-js-nandann-creative.webp'
+  },
+  {
     slug: 'typescript-vs-deno-vs-bun-2026-performance-comparison',
     title: "TypeScript vs Deno vs Bun (2026): Performance, Features, and When to Use Each",
     excerpt: "If you're building scalable web applications, choosing the right runtime is crucial. Let's look at TypeScript vs Deno vs Bun to see which modern JavaScript ecosystem actually delivers. This isn't just about syntactical quirks — we're doing a deep dive into real-world performance, native capabilities, and overall latency. In this comprehensive comparison, we'll analyze the trade-offs of each platform in 2026 so you know exactly which tool to adopt.",
