@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1024px;
+    height: 300px;
+    overflow: hidden;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+
+  .banner {
+    width: 1024px;
+    height: 300px;
+    background: linear-gradient(135deg, #0a1628 0%, #0d2e1a 35%, #0f3320 55%, #1a1040 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  /* Subtle grid overlay */
+  .banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,200,100,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,200,100,0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Glowing orbs */
+  .orb1 {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(16,185,129,0.18) 0%, transparent 70%);
+    top: -80px;
+    left: -60px;
+  }
+  .orb2 {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 70%);
+    bottom: -80px;
+    right: 60px;
+  }
+  .orb3 {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
+    top: 20px;
+    right: 280px;
+  }
+
+  /* ---- LEFT: conversion flow ---- */
+  .left-panel {
+    position: absolute;
+    left: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .file-box {
+    width: 90px;
+    padding: 10px 8px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .file-box.jpg {
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(255,255,255,0.15);
+    color: #94a3b8;
+  }
+  .file-box.png {
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(255,255,255,0.15);
+    color: #94a3b8;
+  }
+  .file-icon {
+    width: 38px;
+    height: 44px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 900;
+  }
+  .file-icon.jpg-icon {
+    background: linear-gradient(135deg, #475569, #334155);
+    color: #cbd5e1;
+  }
+  .file-icon.png-icon {
+    background: linear-gradient(135deg, #475569, #334155);
+    color: #cbd5e1;
+  }
+  .file-label { color: #64748b; font-size: 9px; }
+
+  /* Arrow */
+  .arrow-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 14px;
+  }
+  .arrow-line {
+    width: 48px;
+    height: 2px;
+    background: linear-gradient(90deg, #10b981, #6d28d9);
+    position: relative;
+  }
+  .arrow-line::after {
+    content: '▶';
+    position: absolute;
+    right: -8px;
+    top: -7px;
+    color: #6d28d9;
+    font-size: 10px;
+  }
+  .arrow-label {
+    font-size: 8px;
+    color: #10b981;
+    margin-top: 4px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  /* Output files */
+  .output-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .out-badge {
+    padding: 6px 12px;
+    border-radius: 7px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .out-badge.avif {
+    background: linear-gradient(90deg, rgba(16,185,129,0.18), rgba(16,185,129,0.08));
+    border: 1.5px solid rgba(16,185,129,0.5);
+    color: #34d399;
+  }
+  .out-badge.webp {
+    background: linear-gradient(90deg, rgba(99,102,241,0.18), rgba(99,102,241,0.08));
+    border: 1.5px solid rgba(99,102,241,0.5);
+    color: #818cf8;
+  }
+  .out-badge .check {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+  }
+  .out-badge.avif .check { background: #10b981; color: #fff; }
+  .out-badge.webp .check { background: #6366f1; color: #fff; }
+  .size-reduction {
+    font-size: 8px;
+    color: #10b981;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 2px;
+  }
+
+  /* ---- CENTER: title block ---- */
+  .center-panel {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 360px;
+  }
+  .plugin-badge {
+    display: inline-block;
+    background: rgba(16,185,129,0.15);
+    border: 1px solid rgba(16,185,129,0.4);
+    color: #34d399;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+  .plugin-title {
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 20px rgba(16,185,129,0.3);
+  }
+  .plugin-title span {
+    background: linear-gradient(90deg, #34d399, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .plugin-subtitle {
+    font-size: 12px;
+    color: #94a3b8;
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+  .host-badges {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .host-badge {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #cbd5e1;
+    letter-spacing: 0.3px;
+  }
+
+  /* ---- RIGHT: compatibility ---- */
+  .right-panel {
+    position: absolute;
+    right: 28px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    width: 148px;
+  }
+  .compat-title {
+    font-size: 8px;
+    font-weight: 700;
+    color: #64748b;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .compat-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 8px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 7px;
+  }
+  .compat-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .compat-dot.green { background: #10b981; box-shadow: 0 0 6px #10b981; }
+  .compat-dot.blue { background: #6366f1; box-shadow: 0 0 6px #6366f1; }
+  .compat-dot.teal { background: #06b6d4; box-shadow: 0 0 6px #06b6d4; }
+  .compat-name {
+    font-size: 10px;
+    font-weight: 600;
+    color: #cbd5e1;
+    flex: 1;
+  }
+  .compat-tag {
+    font-size: 8px;
+    color: #10b981;
+    font-weight: 700;
+  }
+
+  /* Nandann watermark */
+  .watermark {
+    position: absolute;
+    bottom: 10px;
+    right: 14px;
+    font-size: 9px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.18);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .watermark span { color: rgba(16,185,129,0.4); }
+</style>
+</head>
+<body>
+<div class="banner">
+  <div class="orb1"></div>
+  <div class="orb2"></div>
+  <div class="orb3"></div>
+
+  <!-- LEFT: conversion flow -->
+  <div class="left-panel">
+    <div style="display:flex; align-items:center; gap:6px;">
+      <!-- Source files -->
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div class="file-box jpg">
+          <div class="file-icon jpg-icon">JPG</div>
+          <div class="file-label">original</div>
+        </div>
+        <div class="file-box png">
+          <div class="file-icon png-icon">PNG</div>
+          <div class="file-label">original</div>
+        </div>
+      </div>
+
+      <!-- Arrow -->
+      <div class="arrow-block">
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div class="arrow-line"></div>
+          <div class="arrow-line"></div>
+        </div>
+        <div class="arrow-label">CONVERT</div>
+      </div>
+
+      <!-- Output -->
+      <div class="output-stack">
+        <div class="out-badge avif">
+          <div class="check">✓</div>
+          AVIF
+        </div>
+        <div class="out-badge webp">
+          <div class="check">✓</div>
+          WebP
+        </div>
+        <div class="size-reduction">↓ up to 60% smaller</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENTER: title -->
+  <div class="center-panel">
+    <div class="plugin-badge">WordPress Plugin</div>
+    <div class="plugin-title">Pixlify<br><span>Image Optimizer</span></div>
+    <div class="plugin-subtitle">Serves AVIF &amp; WebP on every host.<br>No .htaccess. No server config.</div>
+    <div class="host-badges">
+      <div class="host-badge">WP Engine</div>
+      <div class="host-badge">Kinsta</div>
+      <div class="host-badge">Cloudways</div>
+      <div class="host-badge">SiteGround</div>
+      <div class="host-badge">nginx</div>
+      <div class="host-badge">Apache</div>
+    </div>
+  </div>
+
+  <!-- RIGHT: builder compat -->
+  <div class="right-panel">
+    <div class="compat-title">Works with</div>
+    <div class="compat-row">
+      <div class="compat-dot green"></div>
+      <div class="compat-name">Elementor</div>
+      <div class="compat-tag">✓</div>
+    </div>
+    <div class="compat-row">
+      <div class="compat-dot blue"></div>
+      <div class="compat-name">Divi</div>
+      <div class="compat-tag">✓</div>
+    </div>
+    <div class="compat-row">
+      <div class="compat-dot teal"></div>
+      <div class="compat-name">Avada</div>
+      <div class="compat-tag">✓</div>
+    </div>
+    <div class="compat-row">
+      <div class="compat-dot green"></div>
+      <div class="compat-name">Beaver Builder</div>
+      <div class="compat-tag">✓</div>
+    </div>
+    <div class="compat-row">
+      <div class="compat-dot blue"></div>
+      <div class="compat-name">WPBakery</div>
+      <div class="compat-tag">✓</div>
+    </div>
+    <div class="compat-row">
+      <div class="compat-dot teal"></div>
+      <div class="compat-name">Bricks</div>
+      <div class="compat-tag">✓</div>
+    </div>
+  </div>
+
+  <div class="watermark"><span>N</span>andann</div>
+</div>
+</body>
+</html>

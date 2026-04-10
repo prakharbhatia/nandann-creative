@@ -98,6 +98,19 @@ export const projects: Project[] = [
         isLive: true,
         date: "2025-08-01"
     },
+    {
+        id: 'pixlify-image-optimizer',
+        title: "Pixlify Image Optimizer",
+        category: 'plugin',
+        techStack: ["WordPress", "PHP", "WebP", "AVIF", "WP-CLI", "JavaScript"],
+        description: "Converts WordPress images to AVIF and WebP and serves them to every browser — including on WP Engine and Kinsta where .htaccess rewrite rules don't work. Handles Elementor inline styles, external CSS files, and JS-set backgrounds from the slideshow widget.",
+        challenge: "Managed WordPress hosts like WP Engine block .htaccess access, so standard WebP rewrite rules fail. Elementor sets section background images via JavaScript at runtime, which PHP output buffers never see.",
+        solution: "Built a PHP output buffer rewriter with four separate passes: img tag wrapping, inline/injected CSS rewriting, external CSS file interception, and a JS MutationObserver for backgrounds set dynamically at runtime. Full WP-CLI support for automation.",
+        images: ["/images/pixlify-image-optimizer-banner.webp"],
+        link: "https://www.nandann.com/pixlify-image-optimizer",
+        isLive: true,
+        date: "2026-04-09"
+    },
 
     // Backend Projects
     {
