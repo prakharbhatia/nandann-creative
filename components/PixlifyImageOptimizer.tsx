@@ -120,7 +120,6 @@ export default function PixlifyImageOptimizer() {
                                 'All features included — no tiers',
                                 'AVIF + WebP conversion',
                                 'WP-CLI access',
-                                'Direct support from us',
                             ].map((item) => (
                                 <div key={item} className="flex items-center gap-3">
                                     <span className="text-green-400 font-bold text-sm">✓</span>
