@@ -100,7 +100,7 @@ export default function BlogPostPage({ post }: Props) {
   return (
     <>
       <Head>
-        <title>{post.title} - Nandann Creative Agency</title>
+        <title>{`${post.title} - Nandann Creative Agency`}</title>
         <meta name="description" content={post.description} />
         <meta name="keywords" content={post.tags.join(', ')} />
         <meta name="author" content="Prakhar Bhatia" />
