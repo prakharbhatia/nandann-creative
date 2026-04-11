@@ -15,6 +15,33 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'python-free-threading-2026',
+    title: "Python's Free-Threading Mode: Is It Time to Care?",
+    excerpt: "Python 3.13 shipped with something people argued about for two decades: the ability to disable the GIL. Python 3.14 made it officially supported. But officially supported doesn't mean deploy it on Friday. Here are the real benchmark numbers.",
+    date: 'Apr 11, 2026',
+    readTime: '12 min read',
+    category: 'Engineering',
+    coverImage: '/images/python_freethreading_banner.png'
+  },
+  {
+    slug: 'rust-wasm-production-2026',
+    title: "Rust WASM in 2026: From Toy Demos to Real Production Apps",
+    excerpt: "Rust-to-WASM is shipping in products people actually use. From Figma to Shopify, the tooling has caught up and the production evidence is piling up. Here are the numbers, the pain points, and when to reach for it.",
+    date: 'Apr 11, 2026',
+    readTime: '14 min read',
+    category: 'Engineering',
+    coverImage: '/images/rust_wasm_banner.png'
+  },
+  {
+    slug: 'salesforce-flow-vs-apex-2026',
+    title: "Salesforce Flow vs Apex in 2026: The Decision Framework Nobody Gave You",
+    excerpt: "Every Salesforce team hits the same wall. Flow or Apex? Nobody gives a straight answer. This isn't a religious debate — it's a tooling decision, and the landscape just shifted with Workflow Rules and Process Builder now dead.",
+    date: 'Apr 11, 2026',
+    readTime: '11 min read',
+    category: 'Salesforce',
+    coverImage: '/images/salesforce_flow_apex_banner.png'
+  },
+  {
     slug: 'wordpress-losing-customers-nextjs-blog-post',
     title: "Why Your WordPress Site Is Losing Customers (And How Next.js Fixes It)",
     excerpt: "Your WordPress site worked fine at 10,000 visitors a month. Now you're hitting 50,000. And it's crawling. Here is exactly why your WordPress site is losing customers and how Next.js fixes the underlying architecture problem.",
