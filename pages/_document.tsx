@@ -17,6 +17,10 @@ export default function Document() {
         <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="" />
         {/* RSS feed */}
         <link rel="alternate" type="application/rss+xml" title="Nandann Creative Blog RSS" href="/rss.xml" />
+        {/* Schema aggregation for AI crawlers and schema tools */}
+        <link rel="schema-aggregation" type="application/ld+json" href="https://www.nandann.com/api/schema" />
+        {/* LLMs.txt for AI discovery */}
+        <link rel="llms-txt" type="text/plain" href="https://www.nandann.com/llms.txt" />
       </Head>
       <body>
         <Main />
