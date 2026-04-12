@@ -48,6 +48,7 @@ The blog publishes in-depth engineering articles on modern web development, AI t
 ## Machine-Readable Data
 
 - Schema (JSON-LD graph): https://www.nandann.com/api/schema
+- Services (JSON): https://www.nandann.com/api/services
 - Sitemap: https://www.nandann.com/sitemap.xml
 - RSS Feed: https://www.nandann.com/rss.xml
 - Robots: https://www.nandann.com/robots.txt
@@ -56,6 +57,7 @@ The blog publishes in-depth engineering articles on modern web development, AI t
 
 - **Name**: Prakhar Bhatia
 - **Role**: Founder & Lead Developer
+- **Author Page**: https://www.nandann.com/author/prakhar-bhatia
 - **LinkedIn**: https://www.linkedin.com/in/prakharbhatia
 - **GitHub**: https://github.com/prakharbhatia
 

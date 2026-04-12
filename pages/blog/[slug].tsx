@@ -263,7 +263,9 @@ export default function BlogPostPage({ post }: Props) {
             <div className="flex items-center gap-4 text-sm text-gray-400">
               <span>Published on {new Date(post.date).toLocaleDateString()}</span>
               <span>•</span>
-              <span>By Prakhar Bhatia</span>
+              <Link href="/author/prakhar-bhatia" prefetch={false} className="hover:text-blue-300 transition-colors">
+                By Prakhar Bhatia
+              </Link>
             </div>
           </header>
 

@@ -8,6 +8,7 @@ Allow: /_next/static/
 Allow: /_next/image/
 Allow: /api/og
 Allow: /api/schema
+Allow: /api/services
 
 # Block sensitive areas
 Disallow: /admin/
