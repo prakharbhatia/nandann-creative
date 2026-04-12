@@ -1,20 +1,16 @@
 # Nandann Creative - Robots.txt
-# Optimized for SEO and search engine crawling
 
-# Allow all search engines
 User-agent: *
 Allow: /
 
-# Sitemap location
-Sitemap: https://www.nandann.com/sitemap.xml
-
-# Crawl delay for respectful crawling
-Crawl-delay: 1
+# Allow Next.js assets so Googlebot can render pages correctly
+Allow: /_next/static/
+Allow: /_next/image/
+Allow: /api/og
 
 # Block sensitive areas
 Disallow: /admin/
 Disallow: /api/
-Disallow: /_next/
 Disallow: /scripts/
 Disallow: /node_modules/
 Disallow: /.git/
@@ -22,40 +18,5 @@ Disallow: /.env
 Disallow: /package.json
 Disallow: /package-lock.json
 
-# Allow important pages explicitly
-Allow: /
-Allow: /about
-Allow: /services
-Allow: /approach
-Allow: /portfolio
-Allow: /contact
-Allow: /blog
-Allow: /rapid-delivery
-Allow: /rapid-same-day-website-delivery
-
-# Allow location-specific pages
-Allow: /web-development-new-york
-Allow: /web-development-california
-
-# Allow assets
-Allow: /images/
-Allow: /newyork/
-Allow: /california/
-Allow: /favicon.ico
-
-# Block unnecessary file types
-Disallow: /*.json$
-Disallow: /*.xml$
-Disallow: /*.txt$
-Disallow: /*.log$
-
-# Google-specific directives
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 1
-
-# Bing-specific directives
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 1
-
+# Sitemap
+Sitemap: https://www.nandann.com/sitemap.xml

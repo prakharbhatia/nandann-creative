@@ -142,19 +142,31 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     '/california/web-development-colusa'
   ];
 
-  // Generate sitemap XML
-  const blogUrls = blogPosts.map((p) => `  <url>\n    <loc>${baseUrl}/blog/${p.slug}</loc>\n    <lastmod>${new Date(p.date).toISOString()}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.7</priority>\n  </url>`).join('\n');
+  // Blog posts: use real lastmod from post date, weekly changefreq, 0.7 priority
+  const blogUrls = blogPosts.map((p) => `  <url>\n    <loc>${baseUrl}/blog/${p.slug}</loc>\n    <lastmod>${new Date(p.date).toISOString()}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`).join('\n');
+
+  // Priority + changefreq by page type
+  const getPageMeta = (page: string): { priority: string; changefreq: string } => {
+    if (page === '') return { priority: '1.0', changefreq: 'weekly' };
+    if (['/services', '/approach', '/about', '/portfolio'].includes(page))
+      return { priority: '0.9', changefreq: 'monthly' };
+    if (page === '/blog') return { priority: '0.9', changefreq: 'daily' };
+    if (['/contact', '/rapid-same-day-website-delivery'].includes(page))
+      return { priority: '0.8', changefreq: 'monthly' };
+    if (page.startsWith('/nextjs')) return { priority: '0.7', changefreq: 'monthly' };
+    if (page.startsWith('/web-development') || page.startsWith('/california') || page.startsWith('/newyork'))
+      return { priority: '0.5', changefreq: 'monthly' };
+    return { priority: '0.6', changefreq: 'monthly' };
+  };
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${staticPages
       .map((page) => {
-        const priority = page === '' ? '1.0' : '0.8';
-        const changefreq = 'daily';
-
+        const { priority, changefreq } = getPageMeta(page);
         return `  <url>
     <loc>${baseUrl}${page}</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>
   </url>`;
