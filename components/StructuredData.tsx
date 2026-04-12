@@ -21,6 +21,7 @@ export default function StructuredData({
     "alternateName": "Nandann Creative",
     "url": "https://www.nandann.com",
     "logo": "https://www.nandann.com/images/Nandann-logo-new.png",
+    "priceRange": "$2,500 - $15,000+",
     "image": "https://www.nandann.com/images/prakhar.jpg",
     "description": "Professional web development and creative design agency specializing in AI-enhanced development, same-day delivery, and performance optimization. Led by Prakhar Bhatia with 16+ years of experience.",
     "foundingDate": "2008",
@@ -35,16 +36,6 @@ export default function StructuredData({
       }
     },
     "areaServed": ["United States", "Canada", "United Kingdom", "Australia", "India"],
-    "serviceType": [
-      "AI-Enhanced Web Development",
-      "Same-Day Website Delivery",
-      "Custom Web Applications",
-      "E-commerce Development",
-      "Performance Optimization",
-      "SEO Services",
-      "Digital Marketing",
-      "Website Maintenance"
-    ],
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "US"
@@ -68,22 +59,22 @@ export default function StructuredData({
       "itemListElement": [
         {
           "@type": "Offer",
-          "priceRange": "$2500-$15000",
           "priceCurrency": "USD",
+          "price": "2500",
           "itemOffered": {
             "@type": "Service",
             "name": "Custom Web Development",
-            "description": "AI-enhanced web development with 16+ years expertise"
+            "description": "AI-enhanced web development with 16+ years expertise. Projects from $2,500 to $15,000+."
           }
         },
         {
           "@type": "Offer",
-          "priceRange": "$2500+",
           "priceCurrency": "USD",
+          "price": "2500",
           "itemOffered": {
             "@type": "Service",
             "name": "Same-Day Website Delivery",
-            "description": "Express website development delivered within 24 hours"
+            "description": "Express website development delivered within 24 hours. Starting from $2,500."
           }
         }
       ]
