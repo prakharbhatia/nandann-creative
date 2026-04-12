@@ -45,7 +45,7 @@ export default function Footer() {
           </Link>
         </div>
         <p className="text-gray-500 text-sm mb-4">
-          © 2025 Nandann Creative Agency. All rights reserved.
+          © 2025–{new Date().getFullYear()} Nandann Creative Agency. All rights reserved.
         </p>
       </div>
     </footer>
