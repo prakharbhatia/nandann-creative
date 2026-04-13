@@ -28,6 +28,70 @@ const internalLinks = {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "ai-coding-assistants-cant-read-code",
+    title: "AI Coding Assistants Are Creating a Generation of Developers Who Can't Read Code",
+    description: "GitHub reported that developers using Copilot complete tasks 55% faster. But here's the number nobody's tracking: how many of those developers can actually read the code they ship? Speed of output is not speed of understanding.",
+    date: "2026-04-13",
+    readTime: "15 min",
+    category: "Engineering",
+    tags: ["AI", "Development", "Coding Assistants", "Engineering Culture"],
+    coverImage: "/images/ai-coding-assistants-banner.webp",
+    contentHtml: `<picture>
+  <source media="(min-width: 1px)" srcset="/images/ai-coding-assistants-banner.webp 1x" type="image/webp" />
+  <img src="/images/ai-coding-assistants-banner.webp" alt="AI Coding Assistants Are Creating a Generation of Developers Who Can't Read Code" style="width:100%; border-radius:12px; margin-bottom: 2rem;" loading="eager" width="1200" height="630" />
+</picture>
+
+<h1>AI Coding Assistants Are Creating a Generation of Developers Who Can't Read Code</h1>
+<p>I watched a junior developer ship a 400-line PR in 20 minutes last week. It worked. The tests passed. The CI was green. Then I asked them to walk me through the error handling in the third function.</p>
+<p>Silence. A long, painful silence.</p>
+<p>They'd tabbed through the whole thing. Copilot suggested, they accepted, they moved on. The code was syntactically correct and semantically opaque. At least to the person who wrote it.</p>
+<p><strong>This isn't an outlier. It's the new normal.</strong></p>
+<p>And it should terrify you.</p>
+<p>Not because AI coding assistants are bad. They're genuinely useful tools that make experienced developers faster. The problem is what happens when you hand a power tool to someone who never learned to use a hand saw. They'll cut something. They might even build something. But they won't know why it stands up, or why it doesn't.</p>
+
+<h2>Fast Fingers, Blank Stares</h2>
+<p>The numbers on AI-assisted development are staggering. GitHub reported that developers using Copilot accept roughly 30% of suggestions and complete tasks 55% faster. Cursor's adoption rate among developers with less than two years of experience is through the roof. The 2025 Stack Overflow Developer Survey showed that over 70% of respondents are now using AI coding tools in some capacity, and that number climbs above 85% for developers under 25.</p>
+<p>But here's the number nobody's tracking: how many of those developers can explain what their code does without looking at it again.</p>
+<p>I've started asking a simple question in code reviews: "What does this function do?" Not "what is it supposed to do", what does it <em>actually do</em>, line by line. The number of developers who can answer that question without re-reading their own code is shrinking fast. The "tab-tab-enter" workflow produces output. It does not produce understanding.</p>
+<p><strong>Speed of output is not speed of understanding.</strong> And the industry is optimizing for the wrong metric.</p>
+
+<h2>Reading Code Is the Job</h2>
+<p>Here's the uncomfortable truth: developers spend roughly 70% of their time <em>reading</em> code, not writing it. Google's own research confirmed this years ago. Debugging is reading. You read the error, you read the stack trace, you read the code path that produced it. Code review is reading. Incident response is reading. Onboarding onto a new team is weeks of reading.</p>
+<p>AI coding tools optimize for the 30%. They make the writing part faster. But they do almost nothing for the reading part, and in practice, they often make it worse by flooding codebases with code that nobody on the team deeply understands.</p>
+<p><strong>Writing code is the easy part. Understanding it is where the real work lives.</strong></p>
+
+<h2>The Illusion of Competence</h2>
+<p>There's a pattern I keep seeing, and it's the most dangerous one: a developer uses AI to write something they couldn't write themselves. It works. They move on. They now believe they understand that code, because it's <em>their</em> code. They approved a suggestion.</p>
+<p>This is the Dunning-Kruger effect with a turbocharger. The tool fills in the gaps in your knowledge <em>invisibly</em>. You never see what you don't know, because the AI smoothed right over it.</p>
+<p>I talked to a staff engineer at a large fintech company who described the situation like this: "We have developers who can scaffold a new microservice in an afternoon with AI. But when that service starts failing in staging because of a subtle ordering issue with database transactions, they can't debug it. They literally don't know where to start."</p>
+
+<h2>The Senior Dev Safety Net Won't Last</h2>
+<p>Right now, the system kind of works because senior developers exist. They catch the bugs. They flag the architectural issues. But seniors are drowning. Engineering managers I've spoken to report a 2-3x increase in review volume since their teams adopted AI tools. More PRs, more lines of code, more things to check.</p>
+<p><strong>The knowledge transfer gap is widening, not shrinking.</strong></p>
+<p>In three to five years, today's AI-dependent juniors become mid-level developers. They'll be the ones reviewing PRs. They'll be the ones on call. What happens when the safety net is made of people who learned to code by hitting Tab?</p>
+
+<h2>What Actually Works</h2>
+<p>I'm not saying ban AI tools. I'm saying we need to change how we train and evaluate developers. Here's what I've seen work in practice:</p>
+<ul>
+  <li><strong>Code reading before code writing:</strong> Stripe's onboarding has engineers read and trace existing code before writing a line. This should be standard.</li>
+  <li><strong>"Explain this function" as a daily practice:</strong> Before accepting a suggestion, you should be able to describe it. If you can't, you're not using a tool; the tool is using you.</li>
+  <li><strong>Pairing AI generation with comprehension checks:</strong> If Copilot suggests a function, write a one-line comment describing its behavior before merging.</li>
+  <li><strong>Code reading clubs:</strong> Sessions where teams read existing code together out loud, line by line. It builds the muscle AI tools atrophy.</li>
+</ul>
+
+<h2>The Two Paths</h2>
+<p>Path 1 is AI as a crutch—developers who can't operate without it and codebases nobody understands. Path 2 is AI as an accelerator for developers who know where they're going. The calculator didn't kill math education because we didn't let students use it until they learned the math underneath.</p>
+<p><strong>Use AI to go faster once you know where you're going. Don't use it to skip learning the map.</strong></p>
+
+<hr />
+
+<div style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 12px; padding: 2rem; margin-top: 3rem;">
+  <h3 style="color: #60a5fa; margin-top: 0;">Is your codebase becoming a "Knowledge Desert"?</h3>
+  <p>AI-generated code is shipping faster than ever, but is your team's understanding keeping pace? We help engineering teams audit their codebases for architectural risks and build technical training programs that ensure speed doesn't compromise competence.</p>
+  <p><a href="/contact" style="display: inline-block; background: #2563eb; color: white; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 1rem;">Get Your Technical Audit &rarr;</a></p>
+</div>`
+  },
+  {
     slug: "salesforce-flow-vs-apex-2026",
     title: "Salesforce Flow vs Apex in 2026: The Decision Framework Nobody Gave You",
     description: "Every Salesforce team hits the same wall. You've got a requirement. It could be a Flow. It could be Apex. Nobody can give you a straight answer on which one to pick. This isn't a religious debate. It's a tooling decision. And the landscape shifted.",

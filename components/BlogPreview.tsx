@@ -15,6 +15,15 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'ai-coding-assistants-cant-read-code',
+    title: "AI Coding Assistants Are Creating a Generation of Developers Who Can't Read Code",
+    excerpt: "GitHub reported that developers using Copilot complete tasks 55% faster. But here's the number nobody's tracking: how many of those developers can actually read the code they ship? Speed of output is not speed of understanding.",
+    date: 'Apr 13, 2026',
+    readTime: '15 min read',
+    category: 'Engineering',
+    coverImage: '/images/ai-coding-assistants-banner.webp'
+  },
+  {
     slug: 'python-free-threading-2026',
     title: "Python's Free-Threading Mode: Is It Time to Care?",
     excerpt: "Python 3.13 shipped with something people argued about for two decades: the ability to disable the GIL. Python 3.14 made it officially supported. But officially supported doesn't mean deploy it on Friday. Here are the real benchmark numbers.",
