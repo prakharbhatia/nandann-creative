@@ -28,6 +28,150 @@ const internalLinks = {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "getting-started-with-rust-web-developers",
+    title: "Getting Started with Rust: A Systems Programming Primer for Web Developers",
+    description: "Learn Rust from a web developer's perspective. Explore ownership, borrowing, memory safety without GC, and how to build high-performance async web APIs. This guide covers syntax, tooling, and the Actix-web ecosystem.",
+    date: "2026-04-14",
+    readTime: "20 min",
+    category: "Engineering",
+    tags: ["Rust", "Systems Programming", "Web Development", "Backend Optimization"],
+    coverImage: "/images/rust-getting-started-banner.webp",
+    contentHtml: `<picture>
+  <source media="(min-width: 1px)" srcset="/images/rust-getting-started-banner.webp 1x" type="image/webp" />
+  <img src="/images/rust-getting-started-banner.webp" alt="Getting Started with Rust: A Systems Programming Primer for Web Developers" style="width:100%; border-radius:12px; margin-bottom: 2rem;" loading="eager" width="1536" height="1024" />
+</picture>
+
+<h1>Getting Started with Rust: A Systems Programming Primer for Web Developers</h1>
+<p><em>Note: This is a genuine comparison based on real-world experience and documented benchmarks. No affiliate links, no sponsorships, just honest technical content.</em></p>
+
+<h2>Introduction</h2>
+<p>Let me start with a confession: I was skeptical about Rust for a long time. I had spent years building web services with Node.js and Python, and the idea of learning a systems programming language felt like overkill for HTTP servers and REST APIs. I figured if I needed raw performance, I could just add more instances behind a load balancer.</p>
+<p>That attitude worked fine until it didn't.</p>
+<p>The breaking point came when I was debugging a production incident at 3 AM. Memory leaks in a Node.js service, caused by a subtle bug in event listener management. The fix was simple, but the deployment cycle took hours, and we lost requests the entire time. I started looking for alternatives that would catch this class of bugs before they reached production.</p>
+<p>Rust caught my attention because it solves the problem at the compiler level. No garbage collector pauses, no runtime overhead, and most importantly, no category of bugs that the compiler cannot catch.</p>
+
+<p>The numbers support this. The 2023 Stack Overflow Developer Survey shows Rust as the most loved language for seven consecutive years. That matters less than the adoption rate though. Microsoft, Google, Cloudflare, and Dropbox have all started using Rust for performance-critical components. When Cloudflare rewrote their load balancer in Rust, they saw significant improvements in latency and resource usage. Google is using Rust in Android to reduce memory safety vulnerabilities. These are not hobby projects.</p>
+
+<p>This post is for web developers who want to understand what Rust offers and how to get started. I will walk you through the core concepts, the tooling, and the practical steps to build a web service. By the end, you will see that Rust is both approachable and powerful.</p>
+
+<h2>Rust Basics: Syntax and Concepts That Feel Familiar</h2>
+<p>The first thing that surprises developers coming from dynamic languages is how explicit Rust is. Variables are immutable by default. If you write <code>let x = 5;</code>, x cannot change. If you need mutability, you write <code>let mut x = 5;</code>. This is not a quirk, it is a feature that makes code easier to reason about.</p>
+
+<pre><code>fn main() {
+    println!("Hello, world!");
+}</code></pre>
+
+<p>The <code>fn</code> keyword declares a function. <code>println!</code> is a macro, indicated by the exclamation mark. Everything looks familiar, but the semantics are stricter.</p>
+
+<p>The most important concept in Rust is <strong>ownership</strong>. Every value has exactly one owner. When the owner goes out of scope, the value is dropped. This sounds simple, but it eliminates entire categories of bugs.</p>
+
+<pre><code>let s1 = String::from("hello");
+let s2 = s1; // s1 is no longer valid here</code></pre>
+
+<p>In Rust, this is a compile error if you try to use <code>s1</code> after the move. If you want a copy, you must explicitly clone it: <code>let s2 = s1.clone();</code>. This means you will never accidentally use a value after it has been freed. The compiler catches use-after-free bugs at build time.</p>
+
+<p><strong>Borrowing</strong> extends ownership. You can reference a value without taking ownership:</p>
+
+<pre><code>fn calculate_length(s: &String) -> usize {
+    s.len()
+}
+
+let s1 = String::from("hello");
+let len = calculate_length(&s1);</code></pre>
+
+<p>The <code>&s1</code> syntax creates a reference. The function borrows <code>s1</code> without owning it.</p>
+
+<h2>Toolchain and Workflow: From Installation to First Build</h2>
+<p>One of Rust's strengths is its first-class tooling. Getting started takes minutes, not hours.</p>
+<p>Install Rust with a single command:</p>
+<pre><code>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh</code></pre>
+
+<p>This installs <strong>rustup</strong>, the Rust toolchain manager. After installation, you have access to <strong>cargo</strong>, Rust's build system and package manager. Create a new project:</p>
+<pre><code>cargo new my_web_app && cd my_web_app && cargo run</code></pre>
+
+<p>Cargo handles dependencies, builds, testing, and documentation. A <code>Cargo.toml</code> for a web project might look like:</p>
+
+<pre><code>[dependencies]
+actix-web = "4"
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }</code></pre>
+
+<h2>Concurrency and Async: Building High-Performance Web APIs</h2>
+<p>Rust's <code>async/await</code> syntax provides a readable way to write non-blocking code. The <strong>Tokio</strong> runtime powers Rust's async ecosystem, handling multi-threaded scheduling and I/O efficiently.</p>
+
+<pre><code>#[tokio::main]
+async fn main() {
+    let user1 = fetch_user(1);
+    let user2 = fetch_user(2);
+
+    let (u1, u2) = tokio::join!(user1, user2);
+    println!("Got {} and {}", u1.name, u2.name);
+}</code></pre>
+
+<p>Web frameworks like <strong>Actix-web</strong> and <strong>Axum</strong> provide ergonomic APIs for REST endpoints that can handle massive traffic with minimal memory footprint.</p>
+
+<pre><code>async fn health() -> HttpResponse {
+    HttpResponse::Ok().finish()
+}
+
+#[actix_web::main]
+async fn main() -> std::io::Result<()> {
+    HttpServer::new(|| {
+        App::new().route("/health", web::get().to(health))
+    })
+    .bind("127.0.0.1:8080")?.run().await
+}</code></pre>
+
+<hr />
+
+<div style="background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); border-radius: 12px; padding: 2rem; margin-top: 3rem;">
+  <h3 style="color: #a78bfa; margin-top: 0;">Ready to optimize your backend performance?</h3>
+  <p>Rust isn't just for systems programming anymore. It's the secret weapon for building high-concurrency, low-latency web services that scale without the cloud bill bloat. We help teams migrate performance-critical microservices to Rust.</p>
+  <p><a href="/contact" style="display: inline-block; background: #8b5cf6; color: white; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 1rem;">Let's Audit Your Infrastructure &rarr;</a></p>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why should web developers learn Rust?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rust provides memory safety without a garbage collector, meaning high performance and predictable latency. For web developers, this translates to more reliable services and lower resource costs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Rust hard to learn for JavaScript or Python developers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "While the ownership and borrowing concepts have a learning curve, the syntax and modern tooling (like Cargo) feel very familiar to developers used to npm or pip."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are zero-cost abstractions in Rust?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Zero-cost abstractions mean that the high-level features you use (like iterators or async) compile down to the same efficient machine code you would have written by hand in a lower-level language."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use Rust for front-end development?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Rust has excellent support for WebAssembly (WASM), allowing you to write high-performance client-side code that runs in the browser alongside JavaScript."
+      }
+    }
+  ]
+}
+</script>`
+  },
+  {
     slug: "ai-coding-assistants-cant-read-code",
     title: "AI Coding Assistants Are Creating a Generation of Developers Who Can't Read Code",
     description: "GitHub reported that developers using Copilot complete tasks 55% faster. But here's the number nobody's tracking: how many of those developers can actually read the code they ship? Speed of output is not speed of understanding.",

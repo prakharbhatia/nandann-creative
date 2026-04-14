@@ -15,6 +15,15 @@ interface BlogPost {
 
 const featuredPosts: BlogPost[] = [
   {
+    slug: 'getting-started-with-rust-web-developers',
+    title: "Getting Started with Rust: A Systems Programming Primer for Web Developers",
+    excerpt: "Learn Rust from a web developer's perspective. Explore ownership, borrowing, memory safety without GC, and how to build high-performance async web APIs.",
+    date: 'Apr 14, 2026',
+    readTime: '20 min read',
+    category: 'Engineering',
+    coverImage: '/images/rust-getting-started-banner.webp'
+  },
+  {
     slug: 'ai-coding-assistants-cant-read-code',
     title: "AI Coding Assistants Are Creating a Generation of Developers Who Can't Read Code",
     excerpt: "GitHub reported that developers using Copilot complete tasks 55% faster. But here's the number nobody's tracking: how many of those developers can actually read the code they ship? Speed of output is not speed of understanding.",
