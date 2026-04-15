@@ -158,10 +158,13 @@ export default function PixlifyAdmin() {
     setTimeout(() => setCopied(false), 2000);
   }
 
-  // Blacklist set — index by both key_masked values stored in the blacklist table
+  // Use a single canonical ID per key group — key_full when available, else key_masked.
+  // Never fall back to '' which would cause every group to match an empty blacklist entry.
+  const canonicalId = (g: { key_full?: string; key_masked: string }) =>
+    (g.key_full && g.key_full.trim()) ? g.key_full : g.key_masked;
+
   const blacklistedKeys = useMemo(() => new Set(blacklist.map(b => b.key_masked)), [blacklist]);
-  const isKeyBlacklisted = (g: KeyGroup) =>
-    blacklistedKeys.has(g.key_masked) || blacklistedKeys.has(g.key_full || '');
+  const isKeyBlacklisted = (g: KeyGroup) => blacklistedKeys.has(canonicalId(g));
 
   // Group domains by key — use key_full as the unique identifier when available.
   // Old records only have key_masked which shares the same first-9-char prefix
@@ -340,8 +343,8 @@ export default function PixlifyAdmin() {
                     </span>
                     <span style={{ color: '#9ca3af', fontSize: 12 }}>{g.total_events} events</span>
                     {isBlacklisted
-                      ? <button onClick={e => { e.stopPropagation(); unblacklist(g.key_masked); }} style={{ ...S.btnSm, background: '#fee2e2', color: '#dc2626' }}>🚫 Blacklisted — Unblock</button>
-                      : <button onClick={e => { e.stopPropagation(); blacklistKey(g.key_masked); }} style={{ ...S.btnSm, background: '#f3f4f6', color: '#374151' }}>Blacklist</button>
+                      ? <button onClick={e => { e.stopPropagation(); unblacklist(canonicalId(g)); }} style={{ ...S.btnSm, background: '#fee2e2', color: '#dc2626' }}>🚫 Blacklisted — Unblock</button>
+                      : <button onClick={e => { e.stopPropagation(); blacklistKey(canonicalId(g)); }} style={{ ...S.btnSm, background: '#f3f4f6', color: '#374151' }}>Blacklist</button>
                     }
                   </div>
 
