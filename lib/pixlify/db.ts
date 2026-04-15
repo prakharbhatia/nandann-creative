@@ -11,6 +11,8 @@ const pool = new Pool({
 // ── Schema init (call once via /api/pixlify/init-db or on first request) ─────
 
 export async function ensureSchema(): Promise<void> {
+  // Run each statement separately — node-postgres does not reliably execute
+  // multiple statements in a single pool.query() call.
   await pool.query(`
     CREATE TABLE IF NOT EXISTS pixlify_verifications (
       id           SERIAL PRIMARY KEY,
@@ -25,12 +27,11 @@ export async function ensureSchema(): Promise<void> {
       fail_reason  VARCHAR(150),
       ip           VARCHAR(45),
       created_at   TIMESTAMPTZ   NOT NULL DEFAULT NOW()
-    );
-
-    CREATE INDEX IF NOT EXISTS idx_pxlf_domain     ON pixlify_verifications (domain, created_at);
-    CREATE INDEX IF NOT EXISTS idx_pxlf_created_at ON pixlify_verifications (created_at);
-
-    -- Active domains registry: upserted on every successful verification
+    )
+  `);
+  await pool.query(`CREATE INDEX IF NOT EXISTS idx_pxlf_domain     ON pixlify_verifications (domain, created_at)`);
+  await pool.query(`CREATE INDEX IF NOT EXISTS idx_pxlf_created_at ON pixlify_verifications (created_at)`);
+  await pool.query(`
     CREATE TABLE IF NOT EXISTS pixlify_domains (
       domain        VARCHAR(255)  PRIMARY KEY,
       site_url      VARCHAR(500),
@@ -42,7 +43,7 @@ export async function ensureSchema(): Promise<void> {
       first_seen_at TIMESTAMPTZ   NOT NULL DEFAULT NOW(),
       last_seen_at  TIMESTAMPTZ   NOT NULL DEFAULT NOW(),
       total_events  INT           NOT NULL DEFAULT 1
-    );
+    )
   `);
 }
 
@@ -96,6 +97,7 @@ export interface VerificationRecord {
   wpVersion:     string;
   pluginVer:     string;
   keyMasked:     string;
+  keyFull?:      string;   // raw key — shown in admin email only, never logged to DB
   keyType:       string;
   eventType:     'activate' | 'download' | 'check';
   success:       boolean;

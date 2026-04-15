@@ -50,6 +50,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     wpVersion:  site.wpVersion,
     pluginVer:  version,
     keyMasked:  maskKey(key),
+    keyFull:    key,
     keyType:    keyInfo.type ?? '',
     eventType:  'download' as const,
     success:    keyInfo.valid,
@@ -57,15 +58,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     ip,
   };
 
-  // Log, upsert domain, email — all non-blocking
-  Promise.all([
-    logVerification(rec),
-    keyInfo.valid
-      ? upsertDomain(rec).then(isNew =>
-          sendVerificationEmail({ ...rec, isNewDomain: isNew }, keyInfo)
-        )
-      : sendVerificationEmail(rec, keyInfo),
-  ]).catch(console.error);
+  // Log, upsert domain, email — awaited so Vercel doesn't kill them on redirect
+  if (keyInfo.valid) {
+    const isNew = await upsertDomain(rec).catch((err) => {
+      console.error('[pixlify] upsertDomain failed:', err);
+      return false;
+    });
+    await Promise.all([
+      logVerification(rec).catch(console.error),
+      sendVerificationEmail({ ...rec, isNewDomain: isNew }, keyInfo).catch(console.error),
+    ]);
+  } else {
+    await Promise.all([
+      logVerification(rec).catch(console.error),
+      sendVerificationEmail(rec, keyInfo).catch(console.error),
+    ]);
+  }
 
   if (!keyInfo.valid) {
     return res.status(403).json({ error: `License validation failed: ${keyInfo.reason}` });

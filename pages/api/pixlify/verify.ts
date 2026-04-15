@@ -20,10 +20,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const body         = req.body ?? {};
-  const rawKey       = String(body.key ?? '').trim();
-  const pluginVer    = String(body.plugin_version ?? '').trim();
-  const eventType    = body.event === 'check' ? 'check' : 'activate';
+  const body      = req.body ?? {};
+  const rawKey    = String(body.key ?? '').trim();
+  const pluginVer = String(body.plugin_version ?? '').trim();
+  const eventType = body.event === 'check' ? 'check' : 'activate';
 
   if (!rawKey) {
     return res.status(400).json({ valid: false, reason: 'Missing license key' });
@@ -36,12 +36,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // ── Rate limit by domain ─────────────────────────────────────────────────
   const rl = await checkRateLimit(site.domain);
   if (!rl.allowed) {
-    // Still log the blocked attempt
     await logVerification({
       domain: site.domain, siteUrl: site.siteUrl, wpVersion: site.wpVersion,
       pluginVer, keyMasked: maskKey(rawKey), keyType: '', eventType,
       success: false, failReason: rl.reason, ip,
-    });
+    }).catch(console.error);
     return res.status(429).json({ valid: false, reason: rl.reason });
   }
 
@@ -53,6 +52,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     wpVersion:  site.wpVersion,
     pluginVer,
     keyMasked:  maskKey(rawKey),
+    keyFull:    rawKey,
     keyType:    keyInfo.type ?? '',
     eventType:  eventType as 'activate' | 'check',
     success:    keyInfo.valid,
@@ -60,15 +60,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     ip,
   };
 
-  // Log, upsert domain, email — all non-blocking
-  Promise.all([
-    logVerification(rec),
-    keyInfo.valid
-      ? upsertDomain(rec).then(isNew =>
-          sendVerificationEmail({ ...rec, isNewDomain: isNew }, keyInfo)
-        )
-      : sendVerificationEmail(rec, keyInfo),
-  ]).catch(console.error);
+  // ── Log + upsert domain + email — awaited so Vercel doesn't kill them ────
+  // Each step is wrapped in its own catch so one failure never silences the rest.
+  if (keyInfo.valid) {
+    const isNew = await upsertDomain(rec).catch((err) => {
+      console.error('[pixlify] upsertDomain failed:', err);
+      return false;
+    });
+    await Promise.all([
+      logVerification(rec).catch(console.error),
+      sendVerificationEmail({ ...rec, isNewDomain: isNew }, keyInfo).catch(console.error),
+    ]);
+  } else {
+    await Promise.all([
+      logVerification(rec).catch(console.error),
+      sendVerificationEmail(rec, keyInfo).catch(console.error),
+    ]);
+  }
 
   if (!keyInfo.valid) {
     return res.status(403).json({ valid: false, reason: keyInfo.reason });

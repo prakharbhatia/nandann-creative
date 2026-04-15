@@ -96,7 +96,7 @@ export async function sendVerificationEmail(
               </tr>
               <tr style="border-bottom:1px solid #f1f5f9;">
                 <td style="padding:9px 0;color:#6b7280;">Key</td>
-                <td style="padding:9px 0;color:#111827;font-family:monospace;font-size:12px;">${rec.keyMasked}</td>
+                <td style="padding:9px 0;color:#111827;font-family:monospace;font-size:12px;">${rec.keyFull ?? rec.keyMasked}</td>
               </tr>
               <tr style="border-bottom:1px solid #f1f5f9;">
                 <td style="padding:9px 0;color:#6b7280;">Event</td>
