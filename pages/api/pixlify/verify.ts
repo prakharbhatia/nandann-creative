@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { validateKey, maskKey, parseSiteInfo, getClientIp } from '../../../lib/pixlify/license';
-import { checkRateLimit, logVerification, upsertDomain } from '../../../lib/pixlify/db';
+import { checkRateLimit, logVerification, upsertDomain, isBlacklisted } from '../../../lib/pixlify/db';
 import { sendVerificationEmail } from '../../../lib/pixlify/email';
 
 /**
@@ -45,18 +45,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   // ── Validate key ──────────────────────────────────────────────────────────
-  const keyInfo = validateKey(rawKey);
+  const keyInfo   = validateKey(rawKey);
+  const masked    = maskKey(rawKey);
+
+  // Check blacklist (after local validation so we have the masked form)
+  if (keyInfo.valid && await isBlacklisted(masked)) {
+    return res.status(403).json({ valid: false, reason: 'License key has been revoked' });
+  }
+
   const rec = {
-    domain:     site.domain,
-    siteUrl:    site.siteUrl,
-    wpVersion:  site.wpVersion,
+    domain:        site.domain,
+    siteUrl:       site.siteUrl,
+    wpVersion:     site.wpVersion,
     pluginVer,
-    keyMasked:  maskKey(rawKey),
-    keyFull:    rawKey,
-    keyType:    keyInfo.type ?? '',
-    eventType:  eventType as 'activate' | 'check',
-    success:    keyInfo.valid,
-    failReason: keyInfo.valid ? undefined : keyInfo.reason,
+    keyMasked:     masked,
+    keyFull:       rawKey,
+    keyType:       keyInfo.type ?? '',
+    keyExpiresAt:  keyInfo.expiresAt,
+    eventType:     eventType as 'activate' | 'check',
+    success:       keyInfo.valid,
+    failReason:    keyInfo.valid ? undefined : keyInfo.reason,
     ip,
   };
 

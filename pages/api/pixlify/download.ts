@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { validateKey, maskKey, parseSiteInfo, getClientIp } from '../../../lib/pixlify/license';
-import { checkRateLimit, logVerification, upsertDomain } from '../../../lib/pixlify/db';
+import { checkRateLimit, logVerification, upsertDomain, isBlacklisted } from '../../../lib/pixlify/db';
 import { sendVerificationEmail } from '../../../lib/pixlify/email';
 
 /**
@@ -44,17 +44,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   // ── Validate key ──────────────────────────────────────────────────────────
   const keyInfo = validateKey(key);
+  const masked  = maskKey(key);
+
+  if (keyInfo.valid && await isBlacklisted(masked)) {
+    return res.status(403).json({ error: 'License key has been revoked' });
+  }
+
   const rec = {
-    domain:     site.domain,
-    siteUrl:    site.siteUrl,
-    wpVersion:  site.wpVersion,
-    pluginVer:  version,
-    keyMasked:  maskKey(key),
-    keyFull:    key,
-    keyType:    keyInfo.type ?? '',
-    eventType:  'download' as const,
-    success:    keyInfo.valid,
-    failReason: keyInfo.valid ? undefined : keyInfo.reason,
+    domain:       site.domain,
+    siteUrl:      site.siteUrl,
+    wpVersion:    site.wpVersion,
+    pluginVer:    version,
+    keyMasked:    masked,
+    keyFull:      key,
+    keyType:      keyInfo.type ?? '',
+    keyExpiresAt: keyInfo.expiresAt,
+    eventType:    'download' as const,
+    success:      keyInfo.valid,
+    failReason:   keyInfo.valid ? undefined : keyInfo.reason,
     ip,
   };
 
