@@ -36,16 +36,16 @@ type Tab = 'domains' | 'keys' | 'generate' | 'blacklist';
 
 const fmt = (iso: string) => new Date(iso).toLocaleDateString();
 
-function expiryLabel(expiresAt: string | null): string {
-  if (!expiresAt) return 'Never';
+function expiryLabel(expiresAt: string | null, keyType?: string): string {
+  if (!expiresAt) return keyType === 'unlimited' ? 'Never' : '—';
   const days = Math.ceil((new Date(expiresAt).getTime() - Date.now()) / 86400000);
-  if (days < 0)  return 'Expired';
+  if (days < 0)   return 'Expired';
   if (days === 0) return 'Today';
   return `${days}d left`;
 }
 
-function expiryColor(expiresAt: string | null): string {
-  if (!expiresAt) return '#6b7280';
+function expiryColor(expiresAt: string | null, keyType?: string): string {
+  if (!expiresAt) return '#9ca3af';
   const days = Math.ceil((new Date(expiresAt).getTime() - Date.now()) / 86400000);
   if (days < 0)  return '#dc2626';
   if (days <= 7) return '#d97706';
@@ -158,17 +158,23 @@ export default function PixlifyAdmin() {
     setTimeout(() => setCopied(false), 2000);
   }
 
+  // Blacklist set — index by both key_masked values stored in the blacklist table
   const blacklistedKeys = useMemo(() => new Set(blacklist.map(b => b.key_masked)), [blacklist]);
+  const isKeyBlacklisted = (g: KeyGroup) =>
+    blacklistedKeys.has(g.key_masked) || blacklistedKeys.has(g.key_full || '');
 
-  // Group domains by key, sorted: expiring soonest first, then unlimited
+  // Group domains by key — use key_full as the unique identifier when available.
+  // Old records only have key_masked which shares the same first-9-char prefix
+  // across different keys (e.g. all trial keys start PXLF-0169), causing false
+  // grouping if we use key_masked alone.
   const keyGroups = useMemo<KeyGroup[]>(() => {
     const map = new Map<string, KeyGroup>();
     for (const d of domains) {
-      const k = d.key_masked || 'Unknown';
+      const k = d.key_full || d.key_masked || 'Unknown';
       if (!map.has(k)) {
         map.set(k, {
-          key_full:       d.key_full,
-          key_masked:     k,
+          key_full:       d.key_full || d.key_masked,
+          key_masked:     d.key_masked,
           key_type:       d.key_type,
           key_expires_at: d.key_expires_at,
           domains:        [],
@@ -299,7 +305,7 @@ export default function PixlifyAdmin() {
                     </td>
                     <td style={{ ...S.td, ...S.mono }}>{d.key_full || d.key_masked || '—'}</td>
                     <td style={S.td}><LicenseBadge type={d.key_type} /></td>
-                    <td style={{ ...S.td, color: expiryColor(d.key_expires_at), fontWeight: 500 }}>{expiryLabel(d.key_expires_at)}</td>
+                    <td style={{ ...S.td, color: expiryColor(d.key_expires_at, d.key_type), fontWeight: 500 }}>{expiryLabel(d.key_expires_at, d.key_type)}</td>
                     <td style={{ ...S.td, color: '#374151' }}>{d.wp_version || '—'}</td>
                     <td style={{ ...S.td, color: '#374151' }}>{d.plugin_ver || '—'}</td>
                     <td style={{ ...S.td, color: '#6b7280', whiteSpace: 'nowrap' }}>{fmt(d.first_seen_at)}</td>
@@ -316,7 +322,7 @@ export default function PixlifyAdmin() {
         {total !== null && tab === 'keys' && keyGroups.length > 0 && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {keyGroups.map(g => {
-              const isBlacklisted = blacklistedKeys.has(g.key_masked);
+              const isBlacklisted = isKeyBlacklisted(g);
               return (
                 <div key={g.key_masked} style={{ ...S.card, border: isBlacklisted ? '1.5px solid #fca5a5' : '1px solid #e5e7eb' }}>
                   <div
@@ -326,8 +332,8 @@ export default function PixlifyAdmin() {
                     <span style={{ color: '#9ca3af' }}>{expandedKey === g.key_masked ? '▾' : '▸'}</span>
                     <code style={{ ...S.mono, fontSize: 13, flex: 1 }}>{g.key_full || g.key_masked}</code>
                     <LicenseBadge type={g.key_type} />
-                    <span style={{ color: expiryColor(g.key_expires_at), fontSize: 12, fontWeight: 500 }}>
-                      {expiryLabel(g.key_expires_at)}
+                    <span style={{ color: expiryColor(g.key_expires_at, g.key_type), fontSize: 12, fontWeight: 500 }}>
+                      {expiryLabel(g.key_expires_at, g.key_type)}
                     </span>
                     <span style={{ background: '#e0f2fe', color: '#0369a1', borderRadius: 12, padding: '2px 10px', fontSize: 12, fontWeight: 700 }}>
                       {g.domains.length} {g.domains.length === 1 ? 'site' : 'sites'}

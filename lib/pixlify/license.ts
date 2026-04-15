@@ -56,9 +56,12 @@ export function validateKey(rawKey: string): KeyInfo {
   return { valid: true, type, expiresAt, daysLeft };
 }
 
-/** Mask key for safe logging: PXLF-F0169DDE-••••••••-••••••••-•••••••• */
+/**
+ * Returns the key as-is — masking removed since all storage is admin-only.
+ * Kept as a function so call sites don't need changing.
+ */
 export function maskKey(rawKey: string): string {
-  return rawKey.substring(0, 9) + '••••••••-••••••••-••••••••';
+  return rawKey;
 }
 
 /** Parse WordPress User-Agent: WordPress/6.9.1; https://example.com */
