@@ -9,8 +9,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { version } = req.query;
 
-  // Default to 1.0.1 if not specified, but validate format if it is
-  let targetVersion = '1.0.1';
+  // Default to 1.1.0 if not specified, but validate format if it is
+  let targetVersion = '1.1.0';
   if (version && typeof version === 'string') {
     if (/^\d+\.\d+\.\d+$/.test(version)) {
       targetVersion = version;
