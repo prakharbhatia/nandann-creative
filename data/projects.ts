@@ -111,6 +111,19 @@ export const projects: Project[] = [
         isLive: true,
         date: "2026-04-09"
     },
+    {
+        id: 'hungry-file-manager',
+        title: "Hungry File Manager",
+        category: 'plugin',
+        techStack: ["WordPress", "PHP", "Monaco Editor", "JavaScript", "Security"],
+        description: "Professional VS Code-style file manager for WordPress. Replace FTP with a powerful IDE directly in your dashboard.",
+        challenge: "Developers often need to make quick file changes or manage assets but opening an FTP client is slow and fragmented.",
+        solution: "Integrated the Monaco Editor (VS Code engine) into a secure WordPress plugin, allowing for zero-latency file management and professional code editing directly on the server.",
+        images: ["/images/hungry-file-manager-screenshot.png"],
+        link: "https://www.nandann.com/hungry-file-manager",
+        isLive: true,
+        date: "2026-04-17"
+    },
 
     // Backend Projects
     {

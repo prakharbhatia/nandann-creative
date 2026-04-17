@@ -1,0 +1,1049 @@
+/* ============================================================
+   Pixlify Image Optimizer — Admin Styles  v2
+   Brand palette: indigo primary, clean cards, toggle switches
+   ============================================================ */
+
+:root {
+    --px-primary:      #5b5fc7;
+    --px-primary-dk:   #4a4fb8;
+    --px-primary-lt:   #eef0ff;
+    --px-success:      #16a34a;
+    --px-success-lt:   #dcfce7;
+    --px-warning:      #d97706;
+    --px-warning-lt:   #fef3c7;
+    --px-danger:       #dc2626;
+    --px-danger-lt:    #fee2e2;
+    --px-info:         #0284c7;
+    --px-info-lt:      #e0f2fe;
+    --px-bg:           #f8fafc;
+    --px-border:       #e2e8f0;
+    --px-border-focus: #5b5fc7;
+    --px-text:         #0f172a;
+    --px-muted:        #64748b;
+    --px-radius:       8px;
+    --px-radius-sm:    4px;
+    --px-shadow:       0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+    --px-shadow-md:    0 4px 12px rgba(0,0,0,.08);
+}
+
+/* ============================================================
+   Layout
+   ============================================================ */
+.pixlify-wrap {
+    max-width: 1140px;
+    padding-top: 8px;
+}
+
+/* Plugin header bar */
+.pixlify-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--px-border);
+}
+
+.pixlify-header-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: var(--px-primary);
+    color: #fff;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.pixlify-header-text h1 {
+    margin: 0;
+    font-size: 1.25rem;
+    line-height: 1.2;
+}
+
+.pixlify-header-text p {
+    margin: 2px 0 0;
+    color: var(--px-muted);
+    font-size: .8rem;
+}
+
+/* Card component */
+.pixlify-card {
+    background: #fff;
+    border: 1px solid var(--px-border);
+    border-radius: var(--px-radius);
+    box-shadow: var(--px-shadow);
+    padding: 22px 26px;
+    margin-top: 20px;
+}
+
+.pixlify-card h2 {
+    margin: 0 0 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--px-border);
+    font-size: .95rem;
+    font-weight: 600;
+    color: var(--px-text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pixlify-card h2 .dashicons {
+    color: var(--px-primary);
+    font-size: 1.1rem;
+    width: 1.1rem;
+    height: 1.1rem;
+}
+
+/* ============================================================
+   Dashboard — Stat Cards
+   ============================================================ */
+.pixlify-stat-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 0 0 4px;
+}
+
+.pixlify-stat-card {
+    background: #fff;
+    border: 1px solid var(--px-border);
+    border-radius: var(--px-radius);
+    box-shadow: var(--px-shadow);
+    padding: 18px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    transition: box-shadow .15s, transform .15s;
+}
+
+.pixlify-stat-card:hover {
+    box-shadow: var(--px-shadow-md);
+    transform: translateY(-1px);
+}
+
+.pixlify-stat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.1rem;
+}
+
+.pixlify-stat-icon--total   { background: var(--px-primary-lt); color: var(--px-primary); }
+.pixlify-stat-icon--success { background: var(--px-success-lt); color: var(--px-success); }
+.pixlify-stat-icon--warning { background: var(--px-warning-lt); color: var(--px-warning); }
+.pixlify-stat-icon--saved   { background: var(--px-info-lt);    color: var(--px-info); }
+
+.pixlify-stat-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.pixlify-stat-number {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--px-text);
+    letter-spacing: -.02em;
+}
+
+.pixlify-stat-label {
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--px-muted);
+    font-weight: 500;
+}
+
+/* ============================================================
+   Dashboard — Progress Ring
+   ============================================================ */
+.pixlify-ring-wrap {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 8px 0 4px;
+}
+
+.pixlify-ring {
+    flex-shrink: 0;
+    transform: rotate(-90deg);
+}
+
+.pixlify-ring-bg {
+    fill: none;
+    stroke: var(--px-border);
+    stroke-width: 8;
+}
+
+.pixlify-ring-fill {
+    fill: none;
+    stroke: var(--px-primary);
+    stroke-width: 8;
+    stroke-linecap: round;
+    transition: stroke-dashoffset .6s ease;
+}
+
+.pixlify-ring-fill--success { stroke: var(--px-success); }
+
+.pixlify-ring-label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.pixlify-ring-pct {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--px-text);
+    line-height: 1;
+}
+
+.pixlify-ring-sub {
+    font-size: .8rem;
+    color: var(--px-muted);
+}
+
+/* ============================================================
+   Dashboard Grid
+   ============================================================ */
+.pixlify-dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 16px;
+    margin-top: 0;
+}
+
+.pixlify-quick-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.pixlify-quick-actions .button {
+    justify-content: center;
+    text-align: center;
+}
+
+/* Capabilities pill list */
+.pixlify-cap-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 4px 0;
+}
+
+.pixlify-cap-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .02em;
+}
+
+.pixlify-cap-pill--ok  { background: var(--px-success-lt); color: var(--px-success); }
+.pixlify-cap-pill--no  { background: var(--px-danger-lt);  color: var(--px-danger); }
+
+/* Settings summary table */
+.pixlify-summary-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+}
+
+.pixlify-summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--px-bg);
+    font-size: .85rem;
+    gap: 8px;
+}
+
+.pixlify-summary-row:last-child {
+    border-bottom: none;
+}
+
+.pixlify-summary-row dt {
+    color: var(--px-muted);
+    flex-shrink: 0;
+}
+
+.pixlify-summary-row dd {
+    margin: 0;
+    font-weight: 600;
+    color: var(--px-text);
+    text-align: right;
+}
+
+/* Redirect status banner */
+.pixlify-redirect-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: var(--px-radius-sm);
+    font-size: .85rem;
+    margin-top: 8px;
+}
+
+.pixlify-redirect-status--on  { background: var(--px-success-lt); color: var(--px-success); border: 1px solid #bbf7d0; }
+.pixlify-redirect-status--off { background: var(--px-bg);         color: var(--px-muted);   border: 1px solid var(--px-border); }
+
+/* ============================================================
+   Capabilities Table (kept for compatibility)
+   ============================================================ */
+.pixlify-cap-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pixlify-cap-table td {
+    padding: 6px 4px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: .875rem;
+}
+
+.pixlify-cap-table td:first-child {
+    color: var(--px-muted);
+    width: 50%;
+}
+
+.pixlify-ok   { color: var(--px-success); }
+.pixlify-no   { color: var(--px-danger); }
+.pixlify-warn { color: var(--px-warning); }
+
+/* ============================================================
+   Badges
+   ============================================================ */
+.pixlify-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: .72rem;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: .02em;
+}
+
+.pixlify-badge--success { background: var(--px-success-lt); color: var(--px-success); }
+.pixlify-badge--warning { background: var(--px-warning-lt); color: var(--px-warning); }
+.pixlify-badge--error   { background: var(--px-danger-lt);  color: var(--px-danger); }
+.pixlify-badge--pending { background: var(--px-bg);         color: var(--px-muted); border: 1px solid var(--px-border); }
+.pixlify-badge--info    { background: var(--px-info-lt);    color: var(--px-info); }
+
+/* ============================================================
+   Bulk Optimizer — Progress
+   ============================================================ */
+.pixlify-bulk-hero {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding: 8px 0 16px;
+    border-bottom: 1px solid var(--px-border);
+    margin-bottom: 20px;
+}
+
+.pixlify-bulk-ring-wrap {
+    flex-shrink: 0;
+}
+
+.pixlify-bulk-ring-wrap .pixlify-ring {
+    width: 96px;
+    height: 96px;
+}
+
+.pixlify-bulk-ring-wrap .pixlify-ring-bg  { stroke-width: 9; }
+.pixlify-bulk-ring-wrap .pixlify-ring-fill { stroke-width: 9; }
+
+.pixlify-bulk-info {
+    flex: 1;
+}
+
+.pixlify-bulk-pct {
+    font-size: 2.4rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--px-text);
+    letter-spacing: -.04em;
+}
+
+.pixlify-bulk-sub {
+    font-size: .85rem;
+    color: var(--px-muted);
+    margin-top: 4px;
+}
+
+.pixlify-bulk-sub strong {
+    color: var(--px-text);
+}
+
+.pixlify-progress-bar-wrap {
+    background: var(--px-bg);
+    border: 1px solid var(--px-border);
+    border-radius: 20px;
+    height: 10px;
+    overflow: hidden;
+    margin: 12px 0 6px;
+}
+
+.pixlify-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--px-primary), #818cf8);
+    border-radius: 20px;
+    transition: width .5s cubic-bezier(.4,0,.2,1);
+    min-width: 0;
+}
+
+.pixlify-progress-bar.is-complete {
+    background: linear-gradient(90deg, var(--px-success), #4ade80);
+}
+
+.pixlify-progress-stats {
+    font-size: .8rem;
+    color: var(--px-muted);
+}
+
+/* Bulk action buttons */
+.pixlify-bulk-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.pixlify-bulk-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.pixlify-btn-primary {
+    background: var(--px-primary) !important;
+    border-color: var(--px-primary-dk) !important;
+    color: #fff !important;
+    font-weight: 600 !important;
+}
+
+.pixlify-btn-primary:hover {
+    background: var(--px-primary-dk) !important;
+}
+
+/* ---- Status Message ---- */
+.pixlify-status-msg {
+    padding: 10px 14px;
+    border-radius: var(--px-radius-sm);
+    font-size: .85rem;
+    margin-top: 10px;
+    display: none;
+    border-left: 3px solid transparent;
+}
+
+.pixlify-status-msg.is-info    { display: block; background: var(--px-primary-lt); color: var(--px-primary);  border-color: var(--px-primary); }
+.pixlify-status-msg.is-success { display: block; background: var(--px-success-lt); color: var(--px-success);  border-color: var(--px-success); }
+.pixlify-status-msg.is-error   { display: block; background: var(--px-danger-lt);  color: var(--px-danger);   border-color: var(--px-danger); }
+.pixlify-status-msg.is-warning { display: block; background: var(--px-warning-lt); color: var(--px-warning);  border-color: var(--px-warning); }
+
+/* ---- Log ---- */
+.pixlify-log {
+    background: #1e1e2e;
+    color: #cdd6f4;
+    border-radius: var(--px-radius-sm);
+    padding: 14px 16px;
+    font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+    font-size: .78rem;
+    max-height: 220px;
+    overflow-y: auto;
+    line-height: 1.7;
+}
+
+.pixlify-log .log-ok   { color: #a6e3a1; }
+.pixlify-log .log-err  { color: #f38ba8; }
+.pixlify-log .log-info { color: #89dceb; }
+.pixlify-log .log-ts   { color: #6c7086; margin-right: 6px; }
+.pixlify-log-placeholder { color: #585b70; margin: 0; }
+
+/* ============================================================
+   Settings — Toggle Switch
+   ============================================================ */
+.pixlify-toggle-wrap {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.pixlify-toggle {
+    position: relative;
+    flex-shrink: 0;
+    width: 42px;
+    height: 24px;
+    margin-top: 1px;
+}
+
+.pixlify-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.pixlify-toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: #cbd5e1;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background .2s;
+}
+
+.pixlify-toggle-slider::before {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,.2);
+    transition: transform .2s;
+}
+
+.pixlify-toggle input:checked + .pixlify-toggle-slider {
+    background: var(--px-primary);
+}
+
+.pixlify-toggle input:checked + .pixlify-toggle-slider::before {
+    transform: translateX(18px);
+}
+
+.pixlify-toggle input:focus-visible + .pixlify-toggle-slider {
+    outline: 2px solid var(--px-border-focus);
+    outline-offset: 2px;
+}
+
+.pixlify-toggle-label {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    cursor: pointer;
+}
+
+.pixlify-toggle-title {
+    font-size: .875rem;
+    font-weight: 500;
+    color: var(--px-text);
+}
+
+.pixlify-toggle-desc {
+    font-size: .8rem;
+    color: var(--px-muted);
+    font-weight: 400;
+}
+
+/* ============================================================
+   Settings — Format Selector Cards
+   ============================================================ */
+.pixlify-format-cards {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.pixlify-format-card {
+    position: relative;
+    width: 110px;
+}
+
+.pixlify-format-card input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.pixlify-format-card-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 10px;
+    border: 2px solid var(--px-border);
+    border-radius: var(--px-radius);
+    cursor: pointer;
+    transition: border-color .15s, background .15s, box-shadow .15s;
+    text-align: center;
+    user-select: none;
+}
+
+.pixlify-format-card input:checked + .pixlify-format-card-inner {
+    border-color: var(--px-primary);
+    background: var(--px-primary-lt);
+    box-shadow: 0 0 0 3px rgba(91,95,199,.12);
+}
+
+.pixlify-format-card input:disabled + .pixlify-format-card-inner {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.pixlify-format-card-inner:hover {
+    border-color: var(--px-primary);
+}
+
+.pixlify-format-icon {
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+.pixlify-format-name {
+    font-weight: 700;
+    font-size: .85rem;
+    color: var(--px-text);
+}
+
+.pixlify-format-tag {
+    font-size: .68rem;
+    padding: 1px 6px;
+    border-radius: 10px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.pixlify-format-tag--best  { background: var(--px-success-lt); color: var(--px-success); }
+.pixlify-format-tag--new   { background: var(--px-info-lt);    color: var(--px-info); }
+.pixlify-format-tag--both  { background: var(--px-warning-lt); color: var(--px-warning); }
+.pixlify-format-tag--no    { background: var(--px-danger-lt);  color: var(--px-danger); }
+
+/* ============================================================
+   Settings — Quality Slider
+   ============================================================ */
+.pixlify-quality-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pixlify-quality-wrap input[type="range"] {
+    flex: 1;
+    max-width: 260px;
+    accent-color: var(--px-primary);
+}
+
+.pixlify-quality-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 52px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-size: .85rem;
+    font-weight: 700;
+    background: var(--px-primary-lt);
+    color: var(--px-primary);
+    transition: background .2s, color .2s;
+}
+
+.pixlify-quality-badge.is-low   { background: var(--px-danger-lt);  color: var(--px-danger); }
+.pixlify-quality-badge.is-high  { background: var(--px-success-lt); color: var(--px-success); }
+
+/* Settings form-table overrides */
+.pixlify-wrap .form-table th {
+    padding-top: 14px;
+    font-weight: 500;
+    font-size: .875rem;
+    color: var(--px-text);
+}
+
+.pixlify-wrap .form-table td {
+    padding-top: 10px;
+}
+
+/* ============================================================
+   Duplicates — Scan Tabs
+   ============================================================ */
+.pixlify-scan-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.pixlify-scan-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 16px;
+    border: 2px solid var(--px-border);
+    border-radius: var(--px-radius);
+    background: #fff;
+    font-size: .875rem;
+    font-weight: 500;
+    color: var(--px-muted);
+    cursor: pointer;
+    transition: border-color .15s, color .15s, background .15s;
+    line-height: 1;
+}
+
+.pixlify-scan-tab .dashicons {
+    font-size: 1rem;
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+}
+
+.pixlify-scan-tab:hover,
+.pixlify-scan-tab.is-active {
+    border-color: var(--px-primary);
+    color: var(--px-primary);
+    background: var(--px-primary-lt);
+}
+
+.pixlify-scan-tab .pixlify-tab-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    border-radius: 10px;
+    background: var(--px-primary);
+    color: #fff;
+    font-size: .7rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* Attachment card grid */
+.pixlify-results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.pixlify-results-header h2 {
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+.pixlify-results-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#pixlify-results-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+}
+
+.pixlify-attachment-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid var(--px-border);
+    border-radius: var(--px-radius);
+    padding: 12px;
+    background: #fff;
+    transition: box-shadow .15s, border-color .15s;
+}
+
+.pixlify-attachment-card:hover {
+    box-shadow: var(--px-shadow-md);
+    border-color: #c7d2fe;
+}
+
+.pixlify-attachment-card.pixlify-dup-original {
+    border-left: 3px solid var(--px-success);
+}
+
+.pixlify-attachment-thumb {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 6px;
+    background: var(--px-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--px-border);
+}
+
+.pixlify-attachment-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pixlify-attachment-thumb .dashicons {
+    color: var(--px-muted);
+    font-size: 1.5rem;
+}
+
+.pixlify-attachment-meta {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-size: .8rem;
+}
+
+.pixlify-attachment-meta strong {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: .85rem;
+    color: var(--px-text);
+}
+
+.pixlify-attachment-meta span {
+    color: var(--px-muted);
+    font-size: .75rem;
+}
+
+.pixlify-attachment-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+/* Duplicate groups */
+.pixlify-dup-group {
+    border: 1px solid var(--px-border);
+    border-radius: var(--px-radius);
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+.pixlify-dup-group-header {
+    background: var(--px-bg);
+    padding: 10px 16px;
+    font-size: .82rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--px-border);
+    color: var(--px-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pixlify-dup-group-files {
+    padding: 12px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 10px;
+}
+
+/* ============================================================
+   Media Library Column
+   ============================================================ */
+.column-pixlify_status {
+    width: 100px;
+}
+
+/* ============================================================
+   Notice / Alert banners
+   ============================================================ */
+.pixlify-alert {
+    display: flex;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: var(--px-radius-sm);
+    font-size: .875rem;
+    border-left: 4px solid transparent;
+    margin-bottom: 4px;
+}
+
+.pixlify-alert .dashicons {
+    flex-shrink: 0;
+    font-size: 1.1rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-top: 1px;
+}
+
+.pixlify-alert--error   { background: var(--px-danger-lt);  border-color: var(--px-danger);  color: var(--px-danger); }
+.pixlify-alert--warning { background: var(--px-warning-lt); border-color: var(--px-warning); color: #92400e; }
+.pixlify-alert--info    { background: var(--px-info-lt);    border-color: var(--px-info);    color: var(--px-info); }
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 1024px) {
+    .pixlify-stat-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .pixlify-dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .pixlify-stat-cards {
+        grid-template-columns: 1fr 1fr;
+    }
+    .pixlify-bulk-hero {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    .pixlify-format-cards {
+        gap: 8px;
+    }
+    .pixlify-format-card {
+        width: calc(50% - 4px);
+    }
+}
+
+/* ============================================================
+   Active Processes Panel
+   ============================================================ */
+.pixlify-processes-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.pixlify-processes-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.pixlify-btn-danger {
+    color: var(--px-danger) !important;
+    border-color: var(--px-danger) !important;
+}
+
+.pixlify-btn-danger:hover {
+    background: var(--px-danger-lt) !important;
+}
+
+.pixlify-btn-danger-soft {
+    color: var(--px-danger) !important;
+    border-color: rgba(239,68,68,.35) !important;
+    background: var(--px-danger-lt) !important;
+    font-size: .75rem !important;
+    padding: 2px 10px !important;
+    height: auto !important;
+    line-height: 1.6 !important;
+}
+
+.pixlify-btn-danger-soft:hover {
+    background: #fee2e2 !important;
+}
+
+.pixlify-btn-warning {
+    color: var(--px-warning) !important;
+    border-color: var(--px-warning) !important;
+}
+
+.pixlify-btn-warning:hover {
+    background: var(--px-warning-lt) !important;
+}
+
+.pixlify-process-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pixlify-process-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--px-border);
+    vertical-align: middle;
+    font-size: .85rem;
+}
+
+.pixlify-process-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.pixlify-process-table td:first-child {
+    width: 28px;
+    padding-right: 4px;
+}
+
+.pixlify-process-table .proc-label {
+    width: 240px;
+}
+
+.pixlify-process-table .proc-label strong {
+    font-size: .875rem;
+    color: var(--px-text);
+}
+
+.pixlify-process-table .proc-desc {
+    font-size: .75rem;
+    color: var(--px-muted);
+}
+
+.pixlify-process-table .proc-status {
+    color: var(--px-muted);
+    font-size: .82rem;
+}
+
+.pixlify-process-table .proc-action {
+    width: 72px;
+    text-align: right;
+}
+
+/* Status dot */
+.pixlify-proc-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.pixlify-proc-dot.is-idle {
+    background: #cbd5e1;
+}
+
+.pixlify-proc-dot.is-active {
+    background: var(--px-warning);
+    box-shadow: 0 0 0 0 var(--px-warning);
+    animation: pixlify-pulse-dot 1.6s ease-in-out infinite;
+}
+
+@keyframes pixlify-pulse-dot {
+    0%   { box-shadow: 0 0 0 0 rgba(245,158,11,.6); }
+    70%  { box-shadow: 0 0 0 7px rgba(245,158,11,0); }
+    100% { box-shadow: 0 0 0 0 rgba(245,158,11,0); }
+}
+
+/* Spin animation for refresh icon */
+.pixlify-spin {
+    animation: pixlify-spin 0.7s linear infinite;
+}
+
+@keyframes pixlify-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}

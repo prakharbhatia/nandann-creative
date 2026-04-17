@@ -8,7 +8,7 @@ export default function PluginSupport() {
     <>
       <Head>
         <title>Plugin Support Request - Nandann Creative Agency</title>
-        <meta name="description" content="Get support for Nandann Creative plugins. Submit support requests for Scheduled Cloud Backups, Core Web Vitals RUM, AI Smart 404 Redirects, File Permissions, and TG Live Chat plugins." />
+        <meta name="description" content="Get support for Nandann Creative plugins. Submit support requests for Pixlify, Hungry File Manager, Scheduled Cloud Backups, Core Web Vitals RUM, AI Smart 404 Redirects, and TG Live Chat plugins." />
         <meta name="keywords" content="plugin support, WordPress plugin support, Nandann plugin help, plugin troubleshooting" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.nandann.com/plugin-support" />
@@ -32,7 +32,7 @@ export default function PluginSupport() {
         type="website"
         pageUrl="https://www.nandann.com/plugin-support"
         pageTitle="Plugin Support Request - Nandann Creative Agency"
-        pageDescription="Get support for Nandann Creative plugins. Submit support requests for Scheduled Cloud Backups, Core Web Vitals RUM, AI Smart 404 Redirects, File Permissions, and TG Live Chat plugins."
+        pageDescription="Get support for Nandann Creative plugins. Submit support requests for Pixlify, Hungry File Manager, Scheduled Cloud Backups, Core Web Vitals RUM, AI Smart 404 Redirects, and TG Live Chat plugins."
       />
 
       <LocationNavigation location="Plugin Support" locationShort="Support" />
@@ -84,8 +84,10 @@ function PluginSupportForm() {
   const plugins = [
     'Bhairav Scheduled Cloud Backup',
     'Core Web Vitals - Real User Monitoring (RUM)',
+    'Hungry File Manager - VS Code Style Web Editor',
     'Hungry Resource Monitor',
     'Nandann AI Smart 404 Redirects - Auto Fix Broken Links & Typos',
+    'Pixlify - Image Optimizer for WordPress',
     'Reset File and Folder Permissions',
     'TG Live Chat - Reply from Telegram'
   ];
