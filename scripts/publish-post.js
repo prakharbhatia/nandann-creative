@@ -121,7 +121,7 @@ function mdToHtml(md) {
   // 1. Protect fenced code blocks
   html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
     const esc = code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    const placeholder = `__CODE_BLOCK_${tokens.length}__`;
+    const placeholder = `:::CB${tokens.length}:::`;
     tokens.push(`<pre><code${lang ? ` class="language-${lang}"` : ''}>${esc}</code></pre>`);
     return `\n\n${placeholder}\n\n`;
   });
@@ -152,7 +152,7 @@ function mdToHtml(md) {
   // 6. Horizontal rules
   html = html.replace(/^[-*_]{3,}\s*$/gm, '<hr />');
 
-  // 7. Inline Formatting (apply to blocks later, but do basic ones now)
+  // 7. Inline Formatting
   html = html.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
   html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   html = html.replace(/__(.+?)__/g, '<strong>$1</strong>');
@@ -169,18 +169,20 @@ function mdToHtml(md) {
     const t = block.trim();
     if (!t) return '';
     // If it's a placeholder or a block tag, leave it alone
-    if (t.startsWith('__CODE_BLOCK_') && t.endsWith('__')) return t;
+    if (t.startsWith(':::CB') && t.endsWith(':::')) return t;
     if (blockTags.test(t)) return t;
     
-    // Otherwise wrap in <p> and handle internal newlines as <br /> if desired, 
-    // but standard MD treats single newline as space.
+    // Otherwise wrap in <p> and handle internal newlines as space
     return `<p>${t.replace(/\n/g, ' ')}</p>`;
   }).filter(Boolean).join('\n');
 
   // 9. Restore code blocks
   tokens.forEach((content, i) => {
-    result = result.replace(`__CODE_BLOCK_${i}__`, content);
+    const placeholder = `:::CB${i}:::`;
+    result = result.split(placeholder).join(content);
   });
+
+
 
   return result;
 }
