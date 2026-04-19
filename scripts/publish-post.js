@@ -115,22 +115,18 @@ const faqs = meta.faqs || [];
 
 // ── 3. Markdown → HTML ────────────────────────────────────────────────────────
 function mdToHtml(md) {
-  let html = md;
-
-  // Fenced code blocks
+  let html = md.replace(/\r\n/g, '\n');
+  const tokens = [];
+  
+  // 1. Protect fenced code blocks
   html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
     const esc = code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    return `<pre><code${lang ? ` class="language-${lang}"` : ''}>${esc}</code></pre>`;
+    const placeholder = `__CODE_BLOCK_${tokens.length}__`;
+    tokens.push(`<pre><code${lang ? ` class="language-${lang}"` : ''}>${esc}</code></pre>`);
+    return `\n\n${placeholder}\n\n`;
   });
 
-  // Inline code
-  html = html.replace(/`([^`\n]+)`/g, (_, c) =>
-    `<code>${c.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</code>`);
-
-  // Blockquotes
-  html = html.replace(/^> (.+)$/gm, '<blockquote><p>$1</p></blockquote>');
-
-  // Headings (strip leading #'s)
+  // 2. Headings
   html = html.replace(/^######\s+(.+)$/gm, '<h6>$1</h6>');
   html = html.replace(/^#####\s+(.+)$/gm,  '<h5>$1</h5>');
   html = html.replace(/^####\s+(.+)$/gm,   '<h4>$1</h4>');
@@ -138,40 +134,57 @@ function mdToHtml(md) {
   html = html.replace(/^##\s+(.+)$/gm,     '<h2>$1</h2>');
   html = html.replace(/^#\s+(.+)$/gm,      '<h1>$1</h1>');
 
-  // Horizontal rules
-  html = html.replace(/^[-*_]{3,}\s*$/gm, '<hr />');
+  // 3. Blockquotes
+  html = html.replace(/^> (.+)$/gm, '<blockquote><p>$1</p></blockquote>');
 
-  // Bold & italic
-  html = html.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
-  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-  html = html.replace(/__(.+?)__/g, '<strong>$1</strong>');
-  html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
-  html = html.replace(/_(.+?)_/g, '<em>$1</em>');
-
-  // Links
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
-
-  // Unordered lists
+  // 4. Unordered lists
   html = html.replace(/((?:^[-*+] .+\n?)+)/gm, block => {
     const items = block.trim().split('\n').map(l => `<li>${l.replace(/^[-*+] /, '')}</li>`).join('\n');
     return `<ul>\n${items}\n</ul>\n`;
   });
 
-  // Ordered lists
+  // 5. Ordered lists
   html = html.replace(/((?:^\d+\. .+\n?)+)/gm, block => {
     const items = block.trim().split('\n').map(l => `<li>${l.replace(/^\d+\. /, '')}</li>`).join('\n');
     return `<ol>\n${items}\n</ol>\n`;
   });
 
-  // Paragraphs
-  const blockTags = /^<(h[1-6]|ul|ol|li|pre|blockquote|hr|p|div|table|thead|tbody|tr|td|th)[\s\S]*>|^<\/(ul|ol|pre|blockquote|table)>/;
-  return html.split('\n').map(line => {
-    const t = line.trim();
+  // 6. Horizontal rules
+  html = html.replace(/^[-*_]{3,}\s*$/gm, '<hr />');
+
+  // 7. Inline Formatting (apply to blocks later, but do basic ones now)
+  html = html.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
+  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/__(.+?)__/g, '<strong>$1</strong>');
+  html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+  html = html.replace(/_(.+?)_/g, '<em>$1</em>');
+  html = html.replace(/`([^`\n]+)`/g, (_, c) =>
+    `<code>${c.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</code>`);
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+
+  // 8. Paragraphs & Block Isolation
+  const blockTags = /^<(h[1-6]|ul|ol|li|pre|blockquote|hr|p|div|table|thead|tbody|tr|td|th)[\s\S]*>|^<\/(ul|ol|pre|blockquote|table)>/i;
+  
+  let result = html.split(/\n\s*\n/).map(block => {
+    const t = block.trim();
     if (!t) return '';
-    if (blockTags.test(t)) return line;
-    return `<p>${t}</p>`;
+    // If it's a placeholder or a block tag, leave it alone
+    if (t.startsWith('__CODE_BLOCK_') && t.endsWith('__')) return t;
+    if (blockTags.test(t)) return t;
+    
+    // Otherwise wrap in <p> and handle internal newlines as <br /> if desired, 
+    // but standard MD treats single newline as space.
+    return `<p>${t.replace(/\n/g, ' ')}</p>`;
   }).filter(Boolean).join('\n');
+
+  // 9. Restore code blocks
+  tokens.forEach((content, i) => {
+    result = result.replace(`__CODE_BLOCK_${i}__`, content);
+  });
+
+  return result;
 }
+
 
 // Convert MD body → HTML, strip leading <h1> (page renders title separately)
 let bodyHtml = mdToHtml(body).replace(/^<h1>.*?<\/h1>\s*/i, '');
