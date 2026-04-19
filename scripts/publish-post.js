@@ -249,14 +249,18 @@ const indexPath = path.join(ROOT, 'data', 'blogPosts.ts');
 let   index     = fs.readFileSync(indexPath, 'utf8');
 
 const importLine  = `import ${varName} from './posts/${slug}';`;
-const lastImport  = index.lastIndexOf('\nimport ');
-const afterImport = index.indexOf('\n', lastImport + 1);
-index = index.slice(0, afterImport) + '\n' + importLine + index.slice(afterImport);
+if (!index.includes(importLine)) {
+  const lastImport  = index.lastIndexOf('\nimport ');
+  const afterImport = index.indexOf('\n', lastImport + 1);
+  index = index.slice(0, afterImport) + '\n' + importLine + index.slice(afterImport);
+}
 
-index = index.replace(
-  'export const blogPosts: BlogPost[] = [',
-  `export const blogPosts: BlogPost[] = [\n  ${varName},`
-);
+if (!index.includes(`  ${varName},`)) {
+  index = index.replace(
+    'export const blogPosts: BlogPost[] = [',
+    `export const blogPosts: BlogPost[] = [\n  ${varName},`
+  );
+}
 
 fs.writeFileSync(indexPath, index, 'utf8');
 console.log(`✓ Registered in data/blogPosts.ts`);

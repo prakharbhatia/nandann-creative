@@ -60,12 +60,10 @@ import post_seo_for_web_developers from './posts/seo-for-web-developers';
 import post_ecommerce_development_best_practices from './posts/ecommerce-development-best-practices';
 import post_struggling_with_scalability_accelerate_time_to_market_nextjs from './posts/struggling-with-scalability-accelerate-time-to-market-nextjs';
 import post_securing_wordpress_rust_webassembly_plugins from './posts/securing-wordpress-rust-webassembly-plugins';
-import post_securing_wordpress_rust_webassembly_plugins from './posts/securing-wordpress-rust-webassembly-plugins';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
-  post_securing_wordpress_rust_webassembly_plugins,
   post_securing_wordpress_rust_webassembly_plugins,
 
   post_getting_started_with_rust_web_developers,
