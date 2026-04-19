@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "publish-post": "node scripts/publish-post.js"
   },
   "engines": {
     "node": "22.x",
@@ -42,6 +43,7 @@
     "autoprefixer": "10.4.20",
     "eslint": "^9.0.0",
     "eslint-config-next": "16.0.7",
+    "marked": "^18.0.2",
     "postcss": "8.5.1",
     "puppeteer": "^24.34.0",
     "sharp": "^0.33.5",
