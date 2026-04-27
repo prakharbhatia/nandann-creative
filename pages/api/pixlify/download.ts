@@ -16,11 +16,16 @@ import { sendVerificationEmail } from '../../../lib/pixlify/email';
  *   4. Redirect to the static zip file
  */
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { key, version } = req.query;
+  const { key, version, installed_version } = req.query;
 
   if (!key || typeof key !== 'string' || !version || typeof version !== 'string') {
     return res.status(400).json({ error: 'Missing key or version' });
   }
+
+  // Grace version: sites running 1.3.8 with an expired trial can still download.
+  // installed_version is sent by the plugin to signal the currently active version.
+  const GRACE_FROM_VERSION = '1.3.8';
+  const isGraceRequest = installed_version === GRACE_FROM_VERSION;
 
   // Prevent path traversal — only allow semver strings
   if (!/^\d+\.\d+\.\d+$/.test(version)) {
@@ -46,7 +51,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const keyInfo = validateKey(key);
   const masked  = maskKey(key);
 
-  if (keyInfo.valid && await isBlacklisted(masked)) {
+  // Run blacklist check for any key with a valid HMAC signature — this includes
+  // expired keys so that a blacklisted expired key cannot use the grace mechanism.
+  const hasValidSignature = keyInfo.valid || keyInfo.reason === 'License expired';
+  if (hasValidSignature && await isBlacklisted(masked)) {
     return res.status(403).json({ error: 'License key has been revoked' });
   }
 
@@ -82,7 +90,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     ]);
   }
 
-  if (!keyInfo.valid) {
+  // Grace: allow an expired (but structurally valid, non-blacklisted) key to
+  // download if the site is upgrading FROM version 1.3.8.
+  // Any other failure (invalid signature, blacklisted) is still rejected.
+  const isExpiredGrace = !keyInfo.valid
+    && keyInfo.reason === 'License expired'
+    && isGraceRequest;
+
+  if (!keyInfo.valid && !isExpiredGrace) {
     return res.status(403).json({ error: `License validation failed: ${keyInfo.reason}` });
   }
 
