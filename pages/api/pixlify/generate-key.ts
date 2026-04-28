@@ -19,11 +19,24 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.query.secret !== process.env.PIXLIFY_ADMIN_SECRET) return res.status(403).json({ error: 'Forbidden' });
   if (!SECRET) return res.status(500).json({ error: 'Server misconfiguration — secret not set' });
 
-  const { type, days } = req.body ?? {};
+  const { type, days, hours } = req.body ?? {};
 
-  const typeByte  = type === 'unlimited' ? 0x02 : 0x01;
-  const daysNum   = type === 'unlimited' ? 0 : Math.max(1, parseInt(String(days ?? 30), 10));
-  const expiresAt = daysNum > 0 ? Math.floor(Date.now() / 1000) + daysNum * 86400 : 0;
+  const typeByte = type === 'unlimited' ? 0x02 : 0x01;
+
+  let expiresAt: number;
+  if (type === 'unlimited') {
+    expiresAt = 0;
+  } else if (hours !== undefined) {
+    // hours can be negative to generate already-expired keys for testing
+    expiresAt = Math.floor(Date.now() / 1000) + parseInt(String(hours), 10) * 3600;
+  } else {
+    const daysNum = Math.max(1, parseInt(String(days ?? 30), 10));
+    expiresAt = Math.floor(Date.now() / 1000) + daysNum * 86400;
+  }
+
+  const daysNum = expiresAt > 0
+    ? Math.max(0, Math.ceil((expiresAt - Date.now() / 1000) / 86400))
+    : 0;
 
   const bytes = Buffer.alloc(16);
   bytes[0] = typeByte;

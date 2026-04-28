@@ -79,6 +79,7 @@ export default function PixlifyAdmin() {
   // Generator state
   const [genType,    setGenType]    = useState<'trial' | 'unlimited'>('trial');
   const [genDays,    setGenDays]    = useState('30');
+  const [genHours,   setGenHours]   = useState('');   // if set, overrides days (allows <1d & already-expired)
   const [genResult,  setGenResult]  = useState<{ key: string; type: string; days_left: number | null } | null>(null);
   const [genLoading, setGenLoading] = useState(false);
   const [genError,   setGenError]   = useState('');
@@ -138,7 +139,9 @@ export default function PixlifyAdmin() {
       const res = await fetch(`/api/pixlify/generate-key?secret=${encodeURIComponent(secret)}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: genType, days: parseInt(genDays, 10) }),
+        body: JSON.stringify(genHours !== ''
+          ? { type: genType, hours: parseInt(genHours, 10) }
+          : { type: genType, days: parseInt(genDays, 10) }),
       });
       const data = await res.json();
       if (!res.ok) { setGenError(data.error ?? 'Failed to generate key'); return; }
@@ -402,15 +405,40 @@ export default function PixlifyAdmin() {
 
             {genType === 'trial' && (
               <>
-                <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 6 }}>Trial Days</label>
-                <input
-                  type="number"
-                  min="1"
-                  max="365"
-                  value={genDays}
-                  onChange={e => setGenDays(e.target.value)}
-                  style={{ width: '100%', padding: '9px 14px', border: '1.5px solid #d1d5db', borderRadius: 7, fontSize: 13, outline: 'none', marginBottom: 18, boxSizing: 'border-box' }}
-                />
+                <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 6 }}>Duration</label>
+                {/* Quick presets */}
+                <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 10 }}>
+                  {[
+                    { label: '1h (test)',        hours: 1   },
+                    { label: '−1h (expired)',    hours: -1  },
+                    { label: '15 days',          days:  15  },
+                    { label: '30 days',          days:  30  },
+                  ].map(p => {
+                    const active = 'hours' in p
+                      ? genHours === String(p.hours)
+                      : genHours === '' && genDays === String(p.days);
+                    return (
+                      <button key={p.label} onClick={() => {
+                        if ('hours' in p) { setGenHours(String(p.hours)); }
+                        else              { setGenHours(''); setGenDays(String(p.days)); }
+                      }} style={{
+                        padding: '5px 10px', fontSize: 12, borderRadius: 6, cursor: 'pointer',
+                        border: active ? '1.5px solid #16a34a' : '1px solid #d1d5db',
+                        background: active ? '#f0fdf4' : '#fff', color: active ? '#15803d' : '#374151', fontWeight: 600,
+                      }}>{p.label}</button>
+                    );
+                  })}
+                </div>
+                {/* Manual input */}
+                {genHours !== '' ? (
+                  <input type="number" value={genHours} onChange={e => setGenHours(e.target.value)}
+                    placeholder="hours (negative = already expired)"
+                    style={{ width: '100%', padding: '9px 14px', border: '1.5px solid #d1d5db', borderRadius: 7, fontSize: 13, outline: 'none', marginBottom: 18, boxSizing: 'border-box' }} />
+                ) : (
+                  <input type="number" min="1" max="365" value={genDays} onChange={e => setGenDays(e.target.value)}
+                    placeholder="days"
+                    style={{ width: '100%', padding: '9px 14px', border: '1.5px solid #d1d5db', borderRadius: 7, fontSize: 13, outline: 'none', marginBottom: 18, boxSizing: 'border-box' }} />
+                )}
               </>
             )}
 
