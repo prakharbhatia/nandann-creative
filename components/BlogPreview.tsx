@@ -90,13 +90,15 @@ export default function BlogPreview() {
               prefetch={false}
               className="block group"
             >
-              <article className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-300 hover:scale-105 cursor-pointer h-full flex flex-col">
+              <article className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition-colors duration-200 cursor-pointer h-full flex flex-col">
                 {post.coverImage && (
                   <div className="relative h-48 w-full bg-gradient-to-br from-gray-900 to-gray-800">
                     <Image
                       src={post.coverImage}
                       alt={post.title}
                       fill
+                      loading="lazy"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className={
                         post.slug === 'nextjs-16-release-comprehensive-guide' ||
                           post.slug === 'tanstack-ai-switzerland-of-ai-tooling'
