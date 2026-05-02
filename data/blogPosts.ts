@@ -60,10 +60,18 @@ import post_seo_for_web_developers from './posts/seo-for-web-developers';
 import post_ecommerce_development_best_practices from './posts/ecommerce-development-best-practices';
 import post_struggling_with_scalability_accelerate_time_to_market_nextjs from './posts/struggling-with-scalability-accelerate-time-to-market-nextjs';
 import post_securing_wordpress_rust_webassembly_plugins from './posts/securing-wordpress-rust-webassembly-plugins';
+import post_replacing_heavy_wordpress_plugins_with_rust_webassembly_for_ from './posts/replacing-heavy-wordpress-plugins-with-rust-webassembly-for-';
+import post_building_an_autonomous_sales_voice_agent_with_salesforce_age from './posts/building-an-autonomous-sales-voice-agent-with-salesforce-age';
+import post_mastering_the_agentic_workflow_python_skills_for_2026_develo from './posts/mastering-the-agentic-workflow-python-skills-for-2026-develo';
+import post_navigating_the_2026_web_dev_chaos_wordpress_nextjs_and_rust_ from './posts/navigating-the-2026-web-dev-chaos-wordpress-nextjs-and-rust-';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_navigating_the_2026_web_dev_chaos_wordpress_nextjs_and_rust_,
+  post_mastering_the_agentic_workflow_python_skills_for_2026_develo,
+  post_building_an_autonomous_sales_voice_agent_with_salesforce_age,
+  post_replacing_heavy_wordpress_plugins_with_rust_webassembly_for_,
   post_securing_wordpress_rust_webassembly_plugins,
 
   post_getting_started_with_rust_web_developers,
