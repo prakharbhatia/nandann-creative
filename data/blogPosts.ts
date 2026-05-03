@@ -64,10 +64,16 @@ import post_replacing_wordpress_plugins_rust_webassembly from './posts/replacing
 import post_build_autonomous_sales_voice_agents_salesforce from './posts/build-autonomous-sales-voice-agents-salesforce';
 import post_mastering_agentic_workflows_python_2026 from './posts/mastering-agentic-workflows-python-2026';
 import post_web_dev_chaos_2026_wordpress_nextjs_rust from './posts/web-dev-chaos-2026-wordpress-nextjs-rust';
+import post_implementing_model_context_protocol_for_secure_agent from './posts/implementing-model-context-protocol-for-secure-agent';
+import post_build_agentic_native_apis_beyond_static_endpoints from './posts/build-agentic-native-apis-beyond-static-endpoints';
+import post_vite_replaces_cra_react_migration_guide_2025 from './posts/vite-replaces-cra-react-migration-guide-2025';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_vite_replaces_cra_react_migration_guide_2025,
+  post_build_agentic_native_apis_beyond_static_endpoints,
+  post_implementing_model_context_protocol_for_secure_agent,
   post_web_dev_chaos_2026_wordpress_nextjs_rust,
   post_mastering_agentic_workflows_python_2026,
   post_build_autonomous_sales_voice_agents_salesforce,
