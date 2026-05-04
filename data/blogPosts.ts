@@ -67,10 +67,16 @@ import post_web_dev_chaos_2026_wordpress_nextjs_rust from './posts/web-dev-chaos
 import post_implementing_model_context_protocol_for_secure_agent from './posts/implementing-model-context-protocol-for-secure-agent';
 import post_build_agentic_native_apis_beyond_static_endpoints from './posts/build-agentic-native-apis-beyond-static-endpoints';
 import post_vite_replaces_cra_react_migration_guide_2025 from './posts/vite-replaces-cra-react-migration-guide-2025';
+import post_agentic_ci_pipelines_autonomous_code_review_testing from './posts/agentic-ci-pipelines-autonomous-code-review-testing';
+import post_replace_wordpress_nextjs_secure_static_site from './posts/replace-wordpress-nextjs-secure-static-site';
+import post_rust_wasm_nextjs_2026_compilation_strategies from './posts/rust-wasm-nextjs-2026-compilation-strategies';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_rust_wasm_nextjs_2026_compilation_strategies,
+  post_replace_wordpress_nextjs_secure_static_site,
+  post_agentic_ci_pipelines_autonomous_code_review_testing,
   post_vite_replaces_cra_react_migration_guide_2025,
   post_build_agentic_native_apis_beyond_static_endpoints,
   post_implementing_model_context_protocol_for_secure_agent,
