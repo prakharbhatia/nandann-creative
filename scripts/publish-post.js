@@ -162,7 +162,21 @@ function mdToHtml(md) {
     `<code>${c.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</code>`);
   html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
 
-  // 8. Paragraphs & Block Isolation
+  // 8. Tables
+  html = html.replace(/((?:^[ \t]*\|.+\|\s*\n){2,})/gm, block => {
+    const lines = block.trim().split('\n').map(l => l.trim()).filter(l => l.startsWith('|'));
+    if (lines.length < 2) return block;
+    if (!/^\|[\s\-:|]+\|$/.test(lines[1])) return block;
+    const parseRow = line => line.replace(/^\||\|$/g, '').split('|').map(c => c.trim());
+    const headers = parseRow(lines[0]);
+    const thead = `<thead>\n<tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr>\n</thead>`;
+    const tbody = `<tbody>\n${lines.slice(2).map(r =>
+      `<tr>${parseRow(r).map(c => `<td>${c}</td>`).join('')}</tr>`
+    ).join('\n')}\n</tbody>`;
+    return `<table>\n${thead}\n${tbody}\n</table>\n\n`;
+  });
+
+  // 9. Paragraphs & Block Isolation
   const blockTags = /^<(h[1-6]|ul|ol|li|pre|blockquote|hr|p|div|table|thead|tbody|tr|td|th)[\s\S]*>|^<\/(ul|ol|pre|blockquote|table)>/i;
   
   let result = html.split(/\n\s*\n/).map(block => {
