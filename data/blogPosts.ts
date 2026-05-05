@@ -70,10 +70,14 @@ import post_vite_replaces_cra_react_migration_guide_2025 from './posts/vite-repl
 import post_agentic_ci_pipelines_autonomous_code_review_testing from './posts/agentic-ci-pipelines-autonomous-code-review-testing';
 import post_replace_wordpress_nextjs_secure_static_site from './posts/replace-wordpress-nextjs-secure-static-site';
 import post_rust_wasm_nextjs_2026_compilation_strategies from './posts/rust-wasm-nextjs-2026-compilation-strategies';
+import post_rust_headless_wordpress_api_architecture from './posts/rust-headless-wordpress-api-architecture';
+import post_salesforce_flow_losing_ground_python_agents from './posts/salesforce-flow-losing-ground-python-agents';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_salesforce_flow_losing_ground_python_agents,
+  post_rust_headless_wordpress_api_architecture,
   post_rust_wasm_nextjs_2026_compilation_strategies,
   post_replace_wordpress_nextjs_secure_static_site,
   post_agentic_ci_pipelines_autonomous_code_review_testing,
