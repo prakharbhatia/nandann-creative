@@ -72,10 +72,16 @@ import post_replace_wordpress_nextjs_secure_static_site from './posts/replace-wo
 import post_rust_wasm_nextjs_2026_compilation_strategies from './posts/rust-wasm-nextjs-2026-compilation-strategies';
 import post_rust_headless_wordpress_api_architecture from './posts/rust-headless-wordpress-api-architecture';
 import post_salesforce_flow_losing_ground_python_agents from './posts/salesforce-flow-losing-ground-python-agents';
+import post_react_typescript_vite_vitest_setup_guide_2026 from './posts/react-typescript-vite-vitest-setup-guide-2026';
+import post_supercharging_react_startups_webpack_vite_esm_2026 from './posts/supercharging-react-startups-webpack-vite-esm-2026';
+import post_nextjs_server_actions_rust_backend_performance from './posts/nextjs-server-actions-rust-backend-performance';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_nextjs_server_actions_rust_backend_performance,
+  post_supercharging_react_startups_webpack_vite_esm_2026,
+  post_react_typescript_vite_vitest_setup_guide_2026,
   post_salesforce_flow_losing_ground_python_agents,
   post_rust_headless_wordpress_api_architecture,
   post_rust_wasm_nextjs_2026_compilation_strategies,
