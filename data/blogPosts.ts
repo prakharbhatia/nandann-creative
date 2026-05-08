@@ -75,10 +75,14 @@ import post_salesforce_flow_losing_ground_python_agents from './posts/salesforce
 import post_react_typescript_vite_vitest_setup_guide_2026 from './posts/react-typescript-vite-vitest-setup-guide-2026';
 import post_supercharging_react_startups_webpack_vite_esm_2026 from './posts/supercharging-react-startups-webpack-vite-esm-2026';
 import post_nextjs_server_actions_rust_backend_performance from './posts/nextjs-server-actions-rust-backend-performance';
+import post_ai_coding_tools_backend_logic_edge_cases from './posts/ai-coding-tools-backend-logic-edge-cases';
+import post_building_local_voice_ai_pipelines_python from './posts/building-local-voice-ai-pipelines-python';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_building_local_voice_ai_pipelines_python,
+  post_ai_coding_tools_backend_logic_edge_cases,
   post_nextjs_server_actions_rust_backend_performance,
   post_supercharging_react_startups_webpack_vite_esm_2026,
   post_react_typescript_vite_vitest_setup_guide_2026,
