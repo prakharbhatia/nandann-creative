@@ -5,6 +5,7 @@ const post: BlogPost = {
   title: "Why Your WordPress Site Is Losing Customers (And How Next.js Fixes It)",
   description: "Your WordPress site worked fine at 10,000 visitors a month. Now you're hitting 50,000. And it's crawling. Here is exactly why your WordPress site is losing customers and how Next.js fixes the underlying architecture problem.",
   date: "2026-04-09",
+  lastUpdated: "2026-05-09",
   readTime: "10 min",
   category: "Engineering",
   tags: [

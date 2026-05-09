@@ -5,6 +5,7 @@ const post: BlogPost = {
   title: "Next.js 16.2: Everything You Need to Know About use cache, Turbopack, and the New Proxy API",
   description: "Next.js 16.2 ships with the use cache directive, proxy.ts replacing middleware.ts, Turbopack as default bundler, and React 19.2. This guide covers every change with working code examples and a migration checklist.",
   date: "2026-03-25",
+  lastUpdated: "2026-05-09",
   readTime: "25 min read",
   category: "Next.js",
   tags: [

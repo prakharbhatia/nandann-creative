@@ -5,6 +5,7 @@ const post: BlogPost = {
   title: "Rust WASM in 2026: From Toy Demos to Real Production Apps",
   description: "Rust-to-WASM is shipping in products people actually use. The tooling has caught up. The browsers have caught up. And the production evidence is piling up. From Figma to Shopify, here are the numbers and patterns to know about WebAssembly in 2026.",
   date: "2026-04-11",
+  lastUpdated: "2026-05-09",
   readTime: "14 min",
   category: "Engineering",
   tags: [

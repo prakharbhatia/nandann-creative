@@ -5,6 +5,7 @@ const post: BlogPost = {
   title: "Getting Started with Rust: A Systems Programming Primer for Web Developers",
   description: "Learn Rust from a web developer's perspective. Explore ownership, borrowing, memory safety without GC, and how to build high-performance async web APIs. This guide covers syntax, tooling, and the Actix-web ecosystem.",
   date: "2026-04-14",
+  lastUpdated: "2026-05-09",
   readTime: "20 min",
   category: "Engineering",
   tags: [

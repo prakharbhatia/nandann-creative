@@ -26,8 +26,8 @@ export default function BlogIndexPage() {
   return (
     <>
       <Head>
-        <title>Blog - Nandann Creative Agency</title>
-        <meta name="description" content="Insights on AI‑enhanced web development, performance optimization, SEO, and same‑day delivery." />
+        <title>Web Development & AI Engineering Blog | Nandann Creative Agency</title>
+        <meta name="description" content="Practical guides on Next.js, React, Rust, WordPress, AI agents, and web performance. Written by developers, for developers — covering the tools and strategies that matter in 2026." />
         <link rel="canonical" href={canonicalUrl} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }} />
       </Head>
@@ -36,8 +36,8 @@ export default function BlogIndexPage() {
         <Navigation />
         <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl xl:max-w-7xl mx-auto">
           <header className="text-center mb-10">
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">Latest Articles</h1>
-            <p className="text-gray-300 text-lg">Practical strategies to build, launch, and scale high‑performing websites.</p>
+            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">Web Development & AI Engineering Articles</h1>
+            <p className="text-gray-300 text-lg">Practical guides on Next.js, Rust, React, WordPress, and AI — from developers who build with these tools every day.</p>
           </header>
 
           {/* Category filter bar */}

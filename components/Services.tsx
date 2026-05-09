@@ -47,12 +47,11 @@ export default function Services() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
-            Our <span className="text-gradient">Services</span>
-          </h2>
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+            Web Development & Design <span className="text-gradient">Services</span>
+          </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            We offer comprehensive digital solutions to bring your ideas to life. 
-            From concept to deployment, we've got you covered.
+            Next.js, React, WordPress, Rust, Python, and cloud solutions — custom-built for speed, SEO, and growth. From concept to deployment, we&apos;ve got you covered.
           </p>
         </div>
 

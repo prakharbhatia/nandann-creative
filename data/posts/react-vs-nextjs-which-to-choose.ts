@@ -5,6 +5,7 @@ const post: BlogPost = {
   title: "React vs Next.js: Which Should You Choose in 2025?",
   description: "Understand when to use vanilla React and when a framework like Next.js unlocks speed and SEO wins.",
   date: "2025-08-13",
+  lastUpdated: "2026-05-09",
   readTime: "18 min read",
   category: "Architecture",
   tags: [

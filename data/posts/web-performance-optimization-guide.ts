@@ -5,6 +5,7 @@ const post: BlogPost = {
   title: "Complete Guide to Web Performance Optimization",
   description: "Actionable steps to hit green Core Web Vitals on modern stacks: Next.js, images, fonts, and caching.",
   date: "2025-08-13",
+  lastUpdated: "2026-05-09",
   readTime: "18 min read",
   category: "Performance",
   tags: [

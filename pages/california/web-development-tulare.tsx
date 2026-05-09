@@ -128,7 +128,7 @@ export default function TulareCountyPage() {
         <meta property="twitter:image" content="https://www.nandann.com/california/california-web-development-nandann-creative-lg.webp" />
         
         {/* Additional SEO */}
-        <meta name="robots" content="index, follow" />
+        <meta name="robots" content="noindex, follow" />
         <meta name="author" content="Nandann Creative Agency" />
         <meta name="geo.region" content="US-CA" />
         <meta name="geo.placename" content="Tulare County, California" />

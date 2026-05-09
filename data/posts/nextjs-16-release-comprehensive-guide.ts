@@ -5,6 +5,7 @@ const post: BlogPost = {
   title: "Next.js 16: Complete Guide to Cache Components, Turbopack, and Revolutionary Features",
   description: "Comprehensive guide to Next.js 16 featuring Cache Components with PPR, stable Turbopack (5-10x faster), proxy.ts, React Compiler, enhanced routing, and breaking changes with detailed code examples.",
   date: "2025-10-22",
+  lastUpdated: "2026-05-09",
   readTime: "35 min read",
   category: "Technology & Development",
   tags: [

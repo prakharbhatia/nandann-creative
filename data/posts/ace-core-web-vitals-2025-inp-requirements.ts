@@ -5,6 +5,7 @@ const post: BlogPost = {
   title: "7 Ways to Ace Core Web Vitals in 2025 Without Rebuilding Your Entire Website (New INP Requirements)",
   description: "Master Google's latest Core Web Vitals updates including the new INP metric. Learn 7 proven techniques to improve LCP, CLS, FCP, and INP scores without rebuilding your website. Includes code examples, performance tables, and real-world optimization strategies.",
   date: "2025-10-15",
+  lastUpdated: "2026-05-09",
   readTime: "18 min read",
   category: "Performance & Optimization",
   tags: [

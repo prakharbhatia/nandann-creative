@@ -59,10 +59,9 @@ export default function Hero() {
             </span>
           </h1>
 
-          {/* Subtitle */}
+          {/* Subtitle — keyword-rich for SEO, readable for humans */}
           <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
-            We transform your vision into powerful digital solutions that drive results.
-            Modern web development, stunning mobile apps, and innovative Python solutions.
+            Next.js, React, WordPress & Rust web development agency. We build fast, SEO-optimized websites and web applications — with same-day delivery options.
           </p>
 
           {/* CTA Buttons */}

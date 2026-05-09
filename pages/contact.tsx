@@ -26,8 +26,8 @@ export default function ContactPage() {
   return (
     <>
       <Head>
-        <title>Contact - Nandann Creative Agency</title>
-        <meta name="description" content="Get in touch with Nandann Creative Agency for your next project" />
+        <title>Contact Nandann Creative — Start Your Web Development Project</title>
+        <meta name="description" content="Ready to build a fast, modern website? Contact Nandann Creative for Next.js, React, WordPress, or Rust development. Same-day consultations available. Response within 24 hours." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href="https://www.nandann.com/contact" />
       </Head>

@@ -5,6 +5,7 @@ const post: BlogPost = {
   title: "Mobile‑First Design Principles That Convert",
   description: "Design for the smallest screen first to create faster, more focused experiences that convert.",
   date: "2025-09-09",
+  lastUpdated: "2026-05-09",
   readTime: "16 min read",
   category: "Design",
   tags: [

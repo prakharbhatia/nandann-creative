@@ -8,8 +8,8 @@ export default function PortfolioPage() {
   return (
     <>
       <Head>
-        <title>Portfolio - Nandann Creative Agency</title>
-        <meta name="description" content="View our portfolio of successful projects and client work" />
+        <title>Portfolio — Next.js, React & WordPress Projects | Nandann Creative Agency</title>
+        <meta name="description" content="Browse our portfolio of Next.js, React, WordPress, and Rust projects. Real client work spanning e-commerce, SaaS, performance optimization, and rapid-delivery website builds." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href="https://www.nandann.com/portfolio" />
       </Head>

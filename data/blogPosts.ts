@@ -162,10 +162,10 @@ export const getRelatedPosts = (post: BlogPost, count = 3): BlogPost[] =>
     .map((p) => ({
       post: p,
       score:
-        (p.category === post.category ? 2 : 0) +
-        p.tags.filter((t) => post.tags.includes(t)).length,
+        p.tags.filter((t) => post.tags.includes(t)).length * 2 +
+        (p.category === post.category ? 1 : 0),
     }))
-    .filter((x) => x.score > 0)
+    .filter((x) => x.score >= 2) // must share at least 1 tag
     .sort((a, b) => b.score - a.score)
     .slice(0, count)
     .map((x) => x.post);

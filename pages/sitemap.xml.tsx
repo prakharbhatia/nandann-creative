@@ -16,6 +16,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     '/about',
     '/services',
     '/blog',
+    '/author/prakhar-bhatia',
     '/nextjs',
     '/nextjs/wordpress-to-nextjs-migration-cost',
     '/nextjs/wordpress-to-nextjs-migration-service',
@@ -183,6 +184,8 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     const recentPost = new Date(blogPosts[0]?.date ?? '2025-01-01').toISOString().split('T')[0];
     if (page === '') return { priority: '1.0', changefreq: 'weekly', lastmod: recentPost };
     if (page === '/blog') return { priority: '0.9', changefreq: 'daily', lastmod: recentPost };
+    if (page === '/author/prakhar-bhatia')
+      return { priority: '0.7', changefreq: 'monthly', lastmod: recentPost };
     if (['/services', '/approach', '/about', '/portfolio'].includes(page))
       return { priority: '0.9', changefreq: 'monthly', lastmod: '2025-10-01' };
     if (['/contact', '/rapid-same-day-website-delivery'].includes(page))

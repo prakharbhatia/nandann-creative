@@ -8,8 +8,8 @@ export default function ServicesPage() {
   return (
     <>
       <Head>
-        <title>Services - Nandann Creative Agency</title>
-        <meta name="description" content="Our digital services including web development, UI/UX design, and digital strategy" />
+        <title>Web Development Services: Next.js, React, WordPress & Rust | Nandann Creative</title>
+        <meta name="description" content="Custom web development services using Next.js, React, WordPress, Rust, and Python. Fast delivery, SEO-optimized builds, cloud infrastructure, and ongoing support. Get a free consultation." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href="https://www.nandann.com/services" />
       </Head>

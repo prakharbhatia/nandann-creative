@@ -5,6 +5,7 @@ const post: BlogPost = {
   title: "SEO for Web Developers: What Actually Moves the Needle",
   description: "A developer‑first checklist: rendering, schema, performance, internal links, and sitemaps.",
   date: "2025-08-13",
+  lastUpdated: "2026-05-09",
   readTime: "16 min read",
   category: "SEO",
   tags: [
