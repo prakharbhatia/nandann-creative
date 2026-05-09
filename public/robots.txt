@@ -7,6 +7,28 @@ Allow: /
 Allow: /_next/static/
 Allow: /_next/image/
 
+# AI Search Engine Bots — explicitly allowed for GEO / citation
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
 # Block sensitive API routes explicitly — public data routes (og, schema, services) are allowed
 Disallow: /api/book
 Disallow: /api/slots

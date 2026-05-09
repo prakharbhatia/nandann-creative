@@ -46,3 +46,6 @@ chat-widget-package/
 
 # Blog draft files (local only, not for version control)
 blog-drafts/
+
+# Claude Code agent skills (installed locally, not committed)
+.agents/
