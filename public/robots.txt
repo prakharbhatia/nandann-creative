@@ -6,13 +6,18 @@ Allow: /
 # Allow Next.js assets so Googlebot can render pages correctly
 Allow: /_next/static/
 Allow: /_next/image/
-Allow: /api/og
-Allow: /api/schema
-Allow: /api/services
 
-# Block sensitive areas
+# Block sensitive API routes explicitly — public data routes (og, schema, services) are allowed
+Disallow: /api/book
+Disallow: /api/slots
+Disallow: /api/get-user-info
+Disallow: /api/pixlify/
+Disallow: /api/chat/
+Disallow: /api/telegram/
+Disallow: /api/hungry-file-manager/
+
+# Block other sensitive areas
 Disallow: /admin/
-Disallow: /api/
 Disallow: /scripts/
 Disallow: /node_modules/
 Disallow: /.git/

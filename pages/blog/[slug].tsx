@@ -5,7 +5,9 @@ import Navigation from '../../components/Navigation';
 import Footer from '../../components/Footer';
 import ContentRenderer from '../../components/ContentRenderer';
 import BlogTableOfContents from '../../components/BlogTableOfContents';
-import { blogPosts, getPostBySlug, getAllPosts, type BlogPost } from '../../data/blogPosts';
+import { blogPosts, getPostBySlug, getAllPosts, getRelatedPosts, type BlogPost } from '../../data/blogPosts';
+import RelatedPosts from '../../components/RelatedPosts';
+import { slugify } from '../../lib/slugify';
 
 type Props = { post: BlogPost };
 
@@ -96,6 +98,7 @@ export default function BlogPostPage({ post }: Props) {
   const currentIndex = all.findIndex((p) => p.slug === post.slug);
   const prev = currentIndex > 0 ? all[currentIndex - 1] : undefined;
   const next = currentIndex < all.length - 1 ? all[currentIndex + 1] : undefined;
+  const relatedPosts = getRelatedPosts(post, 3);
 
   return (
     <>
@@ -253,7 +256,25 @@ export default function BlogPostPage({ post }: Props) {
         {/* Article content - centered with proper width on XL to accommodate sidebar */}
         <article className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-4xl xl:max-w-7xl mx-auto xl:pr-96">
           <header className="mb-8">
-            <p className="text-blue-300 text-sm mb-2">{post.category} • {post.readTime}</p>
+            <div className="flex flex-wrap items-center gap-2 mb-3">
+              <Link
+                href={`/blog/category/${slugify(post.category)}`}
+                prefetch={false}
+                className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-300 border border-blue-500/30 hover:bg-blue-500/30 transition-colors"
+              >
+                {post.category}
+              </Link>
+              {post.tags.slice(0, 5).map((tag) => (
+                <Link
+                  key={tag}
+                  href={`/blog/tag/${slugify(tag)}`}
+                  prefetch={false}
+                  className="inline-flex items-center px-3 py-1 rounded-full text-xs bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10 hover:text-blue-300 transition-colors"
+                >
+                  #{tag}
+                </Link>
+              ))}
+            </div>
             <h1
               className="text-4xl font-bold text-white mb-3"
               style={{ fontSize: 'clamp(2rem, 5vw, 2.5rem)' }}
@@ -262,6 +283,12 @@ export default function BlogPostPage({ post }: Props) {
             </h1>
             <div className="flex items-center gap-4 text-sm text-gray-400">
               <span>Published on {new Date(post.date).toLocaleDateString()}</span>
+              {post.lastUpdated && (
+                <>
+                  <span>•</span>
+                  <span>Updated {new Date(post.lastUpdated).toLocaleDateString()}</span>
+                </>
+              )}
               <span>•</span>
               <Link href="/author/prakhar-bhatia" prefetch={false} className="hover:text-blue-300 transition-colors">
                 By Prakhar Bhatia
@@ -361,7 +388,25 @@ export default function BlogPostPage({ post }: Props) {
             </div>
           )}
 
+          <RelatedPosts posts={relatedPosts} />
+
           <hr className="my-10 border-white/10" />
+
+          {/* All tags at the bottom */}
+          {post.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-8">
+              {post.tags.map((tag) => (
+                <Link
+                  key={tag}
+                  href={`/blog/tag/${slugify(tag)}`}
+                  prefetch={false}
+                  className="inline-flex items-center px-3 py-1 rounded-full text-xs bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10 hover:text-blue-300 transition-colors"
+                >
+                  #{tag}
+                </Link>
+              ))}
+            </div>
+          )}
 
           <nav className="flex justify-between text-blue-300">
             {prev ? (

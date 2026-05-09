@@ -143,3 +143,29 @@ export const getAllPosts = (): BlogPost[] =>
 
 export const getPostBySlug = (slug: string): BlogPost | undefined =>
   blogPosts.find((p) => p.slug === slug);
+
+export const getAllCategories = (): string[] =>
+  Array.from(new Set(blogPosts.map((p) => p.category))).sort();
+
+export const getAllTags = (): string[] =>
+  Array.from(new Set(blogPosts.flatMap((p) => p.tags))).sort();
+
+export const getPostsByCategory = (category: string): BlogPost[] =>
+  getAllPosts().filter((p) => p.category === category);
+
+export const getPostsByTag = (tag: string): BlogPost[] =>
+  getAllPosts().filter((p) => p.tags.includes(tag));
+
+export const getRelatedPosts = (post: BlogPost, count = 3): BlogPost[] =>
+  getAllPosts()
+    .filter((p) => p.slug !== post.slug)
+    .map((p) => ({
+      post: p,
+      score:
+        (p.category === post.category ? 2 : 0) +
+        p.tags.filter((t) => post.tags.includes(t)).length,
+    }))
+    .filter((x) => x.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, count)
+    .map((x) => x.post);
