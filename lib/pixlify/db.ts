@@ -59,6 +59,16 @@ export async function ensureSchema(): Promise<void> {
       added_at    TIMESTAMPTZ   NOT NULL DEFAULT NOW()
     )
   `);
+
+  // No-updates list: key is still valid but receives no update notifications.
+  // Lighter touch than blacklist — site keeps working, just frozen at current version.
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS pixlify_no_updates (
+      key_masked  VARCHAR(50)   PRIMARY KEY,
+      reason      VARCHAR(255)  NOT NULL DEFAULT '',
+      added_at    TIMESTAMPTZ   NOT NULL DEFAULT NOW()
+    )
+  `);
 }
 
 // ── Upsert active domain ──────────────────────────────────────────────────────
@@ -141,6 +151,41 @@ export async function removeFromBlacklist(keyMasked: string): Promise<void> {
 export async function getBlacklist() {
   const { rows } = await pool.query(
     `SELECT key_masked, reason, added_at FROM pixlify_blacklist ORDER BY added_at DESC`
+  );
+  return rows;
+}
+
+// ── No-updates list (per-key update suppression) ─────────────────────────────
+
+export async function isUpdatesDisabled(keyMasked: string): Promise<boolean> {
+  try {
+    const { rowCount } = await pool.query(
+      `SELECT 1 FROM pixlify_no_updates WHERE key_masked = $1`,
+      [keyMasked]
+    );
+    return (rowCount ?? 0) > 0;
+  } catch (err) {
+    console.error('[pixlify] no-updates check failed:', err);
+    return false; // fail open
+  }
+}
+
+export async function addToNoUpdates(keyMasked: string, reason: string): Promise<void> {
+  await pool.query(
+    `INSERT INTO pixlify_no_updates (key_masked, reason)
+     VALUES ($1, $2)
+     ON CONFLICT (key_masked) DO UPDATE SET reason = EXCLUDED.reason`,
+    [keyMasked, reason]
+  );
+}
+
+export async function removeFromNoUpdates(keyMasked: string): Promise<void> {
+  await pool.query(`DELETE FROM pixlify_no_updates WHERE key_masked = $1`, [keyMasked]);
+}
+
+export async function getNoUpdatesList() {
+  const { rows } = await pool.query(
+    `SELECT key_masked, reason, added_at FROM pixlify_no_updates ORDER BY added_at DESC`
   );
   return rows;
 }

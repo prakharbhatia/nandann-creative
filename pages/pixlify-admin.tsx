@@ -71,6 +71,7 @@ export default function PixlifyAdmin() {
   const [domains,     setDomains]     = useState<Domain[]>([]);
   const [total,       setTotal]       = useState<number | null>(null);
   const [blacklist,   setBlacklist]   = useState<Blacklisted[]>([]);
+  const [noUpdates,   setNoUpdates]   = useState<Blacklisted[]>([]);
   const [error,       setError]       = useState('');
   const [loading,     setLoading]     = useState(false);
   const [tab,         setTab]         = useState<Tab>('domains');
@@ -90,9 +91,10 @@ export default function PixlifyAdmin() {
     setLoading(true);
     setError('');
     try {
-      const [dRes, bRes] = await Promise.all([
+      const [dRes, bRes, nRes] = await Promise.all([
         fetch(`/api/pixlify/domains?secret=${encodeURIComponent(secret)}`),
         fetch(`/api/pixlify/blacklist?secret=${encodeURIComponent(secret)}`),
+        fetch(`/api/pixlify/no-updates?secret=${encodeURIComponent(secret)}`),
       ]);
       if (!dRes.ok) { setError('Invalid secret or server error.'); setLoading(false); return; }
       const dData = await dRes.json();
@@ -101,6 +103,10 @@ export default function PixlifyAdmin() {
       if (bRes.ok) {
         const bData = await bRes.json();
         setBlacklist(bData.list ?? []);
+      }
+      if (nRes.ok) {
+        const nData = await nRes.json();
+        setNoUpdates(nData.list ?? []);
       }
     } catch {
       setError('Network error.');
@@ -129,6 +135,28 @@ export default function PixlifyAdmin() {
       body: JSON.stringify({ key_masked: keyMasked }),
     });
     if (res.ok) setBlacklist(prev => prev.filter(b => b.key_masked !== keyMasked));
+  }
+
+  async function disableUpdates(keyMasked: string) {
+    const reason = prompt('Reason for disabling updates (optional):') ?? '';
+    const res = await fetch(`/api/pixlify/no-updates?secret=${encodeURIComponent(secret)}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ key_masked: keyMasked, reason }),
+    });
+    if (res.ok) {
+      setNoUpdates(prev => [...prev, { key_masked: keyMasked, reason, added_at: new Date().toISOString() }]);
+      alert('Updates disabled for this key. The site will no longer see new versions.');
+    }
+  }
+
+  async function enableUpdates(keyMasked: string) {
+    const res = await fetch(`/api/pixlify/no-updates?secret=${encodeURIComponent(secret)}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ key_masked: keyMasked }),
+    });
+    if (res.ok) setNoUpdates(prev => prev.filter(b => b.key_masked !== keyMasked));
   }
 
   async function generateKey() {
@@ -168,6 +196,9 @@ export default function PixlifyAdmin() {
 
   const blacklistedKeys = useMemo(() => new Set(blacklist.map(b => b.key_masked)), [blacklist]);
   const isKeyBlacklisted = (g: KeyGroup) => blacklistedKeys.has(canonicalId(g));
+
+  const noUpdatesKeys = useMemo(() => new Set(noUpdates.map(b => b.key_masked)), [noUpdates]);
+  const isKeyNoUpdates = (g: KeyGroup) => noUpdatesKeys.has(canonicalId(g));
 
   // Group domains by key — use key_full as the unique identifier when available.
   // Old records only have key_masked which shares the same first-9-char prefix
@@ -329,6 +360,7 @@ export default function PixlifyAdmin() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {keyGroups.map(g => {
               const isBlacklisted = isKeyBlacklisted(g);
+              const isNoUpdates   = isKeyNoUpdates(g);
               return (
                 <div key={g.key_masked} style={{ ...S.card, border: isBlacklisted ? '1.5px solid #fca5a5' : '1px solid #e5e7eb' }}>
                   <div
@@ -345,6 +377,10 @@ export default function PixlifyAdmin() {
                       {g.domains.length} {g.domains.length === 1 ? 'site' : 'sites'}
                     </span>
                     <span style={{ color: '#9ca3af', fontSize: 12 }}>{g.total_events} events</span>
+                    {isNoUpdates
+                      ? <button onClick={e => { e.stopPropagation(); enableUpdates(canonicalId(g)); }} style={{ ...S.btnSm, background: '#fef3c7', color: '#b45309' }}>🔒 Updates Off — Enable</button>
+                      : <button onClick={e => { e.stopPropagation(); disableUpdates(canonicalId(g)); }} style={{ ...S.btnSm, background: '#f3f4f6', color: '#374151' }}>Disable Updates</button>
+                    }
                     {isBlacklisted
                       ? <button onClick={e => { e.stopPropagation(); unblacklist(canonicalId(g)); }} style={{ ...S.btnSm, background: '#fee2e2', color: '#dc2626' }}>🚫 Blacklisted — Unblock</button>
                       : <button onClick={e => { e.stopPropagation(); blacklistKey(canonicalId(g)); }} style={{ ...S.btnSm, background: '#f3f4f6', color: '#374151' }}>Blacklist</button>
