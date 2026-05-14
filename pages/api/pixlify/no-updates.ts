@@ -3,6 +3,7 @@ import {
   addToNoUpdates,
   removeFromNoUpdates,
   getNoUpdatesList,
+  ensureSchema,
 } from '../../../lib/pixlify/db';
 
 /**
@@ -19,6 +20,15 @@ import {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.query.secret !== process.env.PIXLIFY_ADMIN_SECRET) {
     return res.status(403).json({ error: 'Forbidden' });
+  }
+
+  // Ensure the pixlify_no_updates table exists — needed on the first call
+  // after deploying this endpoint to an existing DB.
+  try {
+    await ensureSchema();
+  } catch (err) {
+    console.error('[pixlify] ensureSchema failed:', err);
+    return res.status(500).json({ error: 'Schema init failed' });
   }
 
   if (req.method === 'GET') {
