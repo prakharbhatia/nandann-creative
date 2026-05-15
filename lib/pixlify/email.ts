@@ -12,11 +12,40 @@ const EVENT_LABELS: Record<string, string> = {
   check:    'License Checked',
 };
 
+/**
+ * Decide whether this event is worth an email notification.
+ *
+ * Send for:
+ *   - Any activation event (new or repeat — admin always wants to know)
+ *   - New domain seen for the first time (isNewDomain)
+ *   - Any failure (expired, revoked, invalid, rate-limited)
+ *
+ * Suppress:
+ *   - Routine 'check' events from known domains with a valid license
+ *   - Routine 'download' events from known domains with a valid license
+ *
+ * This eliminates the flood of daily cron re-validation emails.
+ */
+function shouldSendEmail(rec: VerificationRecord): boolean {
+  // Always email for activations
+  if (rec.eventType === 'activate') return true;
+
+  // Always email on any failure (expired, revoked, rate-limited, etc.)
+  if (!rec.success) return true;
+
+  // Always email when a brand-new domain is seen
+  if (rec.isNewDomain) return true;
+
+  // Suppress routine check / download on known domains with valid license
+  return false;
+}
+
 export async function sendVerificationEmail(
   rec:     VerificationRecord,
   keyInfo: KeyInfo,
 ): Promise<void> {
   if (!process.env.RESEND_API_KEY) return;
+  if (!shouldSendEmail(rec)) return;
 
   const eventLabel  = EVENT_LABELS[rec.eventType] ?? rec.eventType;
   const statusColor = rec.success ? '#16a34a' : '#dc2626';
