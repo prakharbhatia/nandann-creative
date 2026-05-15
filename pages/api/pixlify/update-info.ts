@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { isUpdatesDisabled } from '../../../lib/pixlify/db';
 
 const FULL_RESPONSE = {
-  version: '1.3.15',
+  version: '1.3.16',
   download_url: 'https://www.nandann.com/api/pixlify/download',
   homepage: 'https://www.nandann.com/pixlify-image-optimizer',
   requires: '5.8',
