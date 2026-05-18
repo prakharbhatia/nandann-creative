@@ -77,10 +77,16 @@ import post_supercharging_react_startups_webpack_vite_esm_2026 from './posts/sup
 import post_nextjs_server_actions_rust_backend_performance from './posts/nextjs-server-actions-rust-backend-performance';
 import post_ai_coding_tools_backend_logic_edge_cases from './posts/ai-coding-tools-backend-logic-edge-cases';
 import post_building_local_voice_ai_pipelines_python from './posts/building-local-voice-ai-pipelines-python';
+import post_benchmark_oxfmt_prettier_nextjs_monorepo_ci_builds from './posts/benchmark-oxfmt-prettier-nextjs-monorepo-ci-builds';
+import post_python_voice_to_form_automations_field_techs from './posts/python-voice-to-form-automations-field-techs';
+import post_orchestrating_multi_agent_sales_python from './posts/orchestrating-multi-agent-sales-python';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_orchestrating_multi_agent_sales_python,
+  post_python_voice_to_form_automations_field_techs,
+  post_benchmark_oxfmt_prettier_nextjs_monorepo_ci_builds,
   post_building_local_voice_ai_pipelines_python,
   post_ai_coding_tools_backend_logic_edge_cases,
   post_nextjs_server_actions_rust_backend_performance,
