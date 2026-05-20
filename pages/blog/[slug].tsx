@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Navigation from '../../components/Navigation';
 import Footer from '../../components/Footer';
@@ -334,6 +335,19 @@ export default function BlogPostPage({ post }: Props) {
               </Link>
             </div>
           </header>
+
+          {post.coverImage && (
+            <div className="relative w-full rounded-2xl overflow-hidden mb-10" style={{ aspectRatio: '3/2', maxHeight: '480px' }}>
+              <Image
+                src={post.coverImage}
+                alt={post.title}
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 800px, 960px"
+                className="object-cover"
+              />
+            </div>
+          )}
 
           <ContentRenderer contentHtml={cleanedContent} />
 
