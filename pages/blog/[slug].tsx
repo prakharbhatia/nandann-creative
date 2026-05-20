@@ -11,6 +11,41 @@ import { slugify } from '../../lib/slugify';
 
 type Props = { post: BlogPost };
 
+// Remove inline CTA divs baked into post content so they don't duplicate
+// the page-level CTA block rendered below the article.
+function stripInlineCTA(html: string): string {
+  // Match the outermost <div> that contains the inline CTA by tracking nesting depth
+  const markers = [
+    'Let’s build something together',
+    "Let's build something together",
+    'href="/contact?ref=blog"',
+  ];
+  for (const marker of markers) {
+    const markerIdx = html.indexOf(marker);
+    if (markerIdx === -1) continue;
+    const divStart = html.lastIndexOf('<div', markerIdx);
+    if (divStart === -1) continue;
+    let depth = 0;
+    let i = divStart;
+    while (i < html.length) {
+      if (html.startsWith('<div', i) && (html[i + 4] === ' ' || html[i + 4] === '>')) {
+        depth++;
+        i += 4;
+      } else if (html.startsWith('</div>', i)) {
+        depth--;
+        if (depth === 0) {
+          html = html.slice(0, divStart).trimEnd() + html.slice(i + 6);
+          break;
+        }
+        i += 6;
+      } else {
+        i++;
+      }
+    }
+  }
+  return html;
+}
+
 export default function BlogPostPage({ post }: Props) {
 
   const canonicalUrl = `https://www.nandann.com/blog/${post.slug}`;
@@ -300,7 +335,7 @@ export default function BlogPostPage({ post }: Props) {
             </div>
           </header>
 
-          <ContentRenderer contentHtml={post.contentHtml} />
+          <ContentRenderer contentHtml={cleanedContent} />
 
           {post.faqs && post.faqs.length > 0 && (
             <section className="mt-16">
