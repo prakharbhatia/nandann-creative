@@ -100,6 +100,10 @@ export default function BlogPostPage({ post }: Props) {
   const next = currentIndex < all.length - 1 ? all[currentIndex + 1] : undefined;
   const relatedPosts = getRelatedPosts(post, 3);
 
+  // Strip any inline CTA divs baked into contentHtml so it doesn't duplicate
+  // the page-level CTA block rendered below
+  const cleanedContent = stripInlineCTA(post.contentHtml);
+
   return (
     <>
       <Head>
