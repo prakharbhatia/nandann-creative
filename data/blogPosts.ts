@@ -80,10 +80,14 @@ import post_building_local_voice_ai_pipelines_python from './posts/building-loca
 import post_benchmark_oxfmt_prettier_nextjs_monorepo_ci_builds from './posts/benchmark-oxfmt-prettier-nextjs-monorepo-ci-builds';
 import post_python_voice_to_form_automations_field_techs from './posts/python-voice-to-form-automations-field-techs';
 import post_orchestrating_multi_agent_sales_python from './posts/orchestrating-multi-agent-sales-python';
+import post_automating_sales_tasks_python_ai_agents from './posts/automating-sales-tasks-python-ai-agents';
+import post_nextpress_wordpress_killer_modern_stack_2026 from './posts/nextpress-wordpress-killer-modern-stack-2026';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_nextpress_wordpress_killer_modern_stack_2026,
+  post_automating_sales_tasks_python_ai_agents,
   post_orchestrating_multi_agent_sales_python,
   post_python_voice_to_form_automations_field_techs,
   post_benchmark_oxfmt_prettier_nextjs_monorepo_ci_builds,
