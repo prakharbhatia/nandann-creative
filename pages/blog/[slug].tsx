@@ -137,8 +137,17 @@ export default function BlogPostPage({ post }: Props) {
   const relatedPosts = getRelatedPosts(post, 3);
 
   // Strip any inline CTA divs baked into contentHtml so it doesn't duplicate
-  // the page-level CTA block rendered below
-  const cleanedContent = stripInlineCTA(post.contentHtml);
+  // the page-level CTA block rendered below.
+  // Also strip the leading <picture> banner injected by publish-post scripts
+  // since the page already renders coverImage via the Next.js Image component above.
+  function stripLeadingBanner(html: string): string {
+    const trimmed = html.trimStart();
+    if (!trimmed.startsWith('<picture')) return html;
+    const end = trimmed.indexOf('</picture>');
+    if (end === -1) return html;
+    return trimmed.slice(end + '</picture>'.length).trimStart();
+  }
+  const cleanedContent = stripLeadingBanner(stripInlineCTA(post.contentHtml));
 
   return (
     <>
