@@ -20,6 +20,7 @@ function stripInlineCTA(html: string): string {
     'Let’s build something together',
     "Let's build something together",
     'href="/contact?ref=blog"',
+    'href="/contact?ref=wordpress-blog"',
   ];
   for (const marker of markers) {
     const markerIdx = html.indexOf(marker);
