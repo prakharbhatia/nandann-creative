@@ -155,7 +155,9 @@ export const blogPosts: BlogPost[] = [
 ];
 
 export const getAllPosts = (): BlogPost[] =>
-  [...blogPosts].sort((a, b) => (a.date < b.date ? 1 : -1));
+  [...blogPosts].sort((a, b) =>
+    a.date !== b.date ? (a.date < b.date ? 1 : -1) : a.slug.localeCompare(b.slug)
+  );
 
 export const getPostBySlug = (slug: string): BlogPost | undefined =>
   blogPosts.find((p) => p.slug === slug);

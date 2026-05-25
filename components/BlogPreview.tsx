@@ -61,7 +61,10 @@ const getUnifiedPosts = (): UnifiedPost[] => {
   });
 
   return [...unifiedBlogPosts, ...unifiedProjects]
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .sort((a, b) => {
+      const diff = new Date(b.date).getTime() - new Date(a.date).getTime();
+      return diff !== 0 ? diff : a.slug.localeCompare(b.slug);
+    })
     .slice(0, 27);
 };
 
