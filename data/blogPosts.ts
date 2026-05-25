@@ -82,10 +82,16 @@ import post_python_voice_to_form_automations_field_techs from './posts/python-vo
 import post_orchestrating_multi_agent_sales_python from './posts/orchestrating-multi-agent-sales-python';
 import post_automating_sales_tasks_python_ai_agents from './posts/automating-sales-tasks-python-ai-agents';
 import post_nextpress_wordpress_killer_modern_stack_2026 from './posts/nextpress-wordpress-killer-modern-stack-2026';
+import post_observability_agentic_workflows_debugging from './posts/observability-agentic-workflows-debugging';
+import post_postgres_ai_vector_store_sql_over_newdbs from './posts/postgres-ai-vector-store-sql-over-newdbs';
+import post_build_local_first_ai_agents_privacy_mobile_tutorial from './posts/build-local-first-ai-agents-privacy-mobile-tutorial';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_build_local_first_ai_agents_privacy_mobile_tutorial,
+  post_postgres_ai_vector_store_sql_over_newdbs,
+  post_observability_agentic_workflows_debugging,
   post_nextpress_wordpress_killer_modern_stack_2026,
   post_automating_sales_tasks_python_ai_agents,
   post_orchestrating_multi_agent_sales_python,
