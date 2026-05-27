@@ -86,10 +86,12 @@ import post_observability_agentic_workflows_debugging from './posts/observabilit
 import post_postgres_ai_vector_store_sql_over_newdbs from './posts/postgres-ai-vector-store-sql-over-newdbs';
 import post_build_local_first_ai_agents_privacy_mobile_tutorial from './posts/build-local-first-ai-agents-privacy-mobile-tutorial';
 import post_headless_wordpress_nextjs_2026_strategy from './posts/headless-wordpress-nextjs-2026-strategy';
+import post_on_device_agentic_ai_ios_developers_guide_2026 from './posts/on-device-agentic-ai-ios-developers-guide-2026';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_on_device_agentic_ai_ios_developers_guide_2026,
   post_headless_wordpress_nextjs_2026_strategy,
   post_build_local_first_ai_agents_privacy_mobile_tutorial,
   post_postgres_ai_vector_store_sql_over_newdbs,
