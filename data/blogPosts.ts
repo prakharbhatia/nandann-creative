@@ -87,10 +87,14 @@ import post_postgres_ai_vector_store_sql_over_newdbs from './posts/postgres-ai-v
 import post_build_local_first_ai_agents_privacy_mobile_tutorial from './posts/build-local-first-ai-agents-privacy-mobile-tutorial';
 import post_headless_wordpress_nextjs_2026_strategy from './posts/headless-wordpress-nextjs-2026-strategy';
 import post_on_device_agentic_ai_ios_developers_guide_2026 from './posts/on-device-agentic-ai-ios-developers-guide-2026';
+import post_eu_ai_act_autonomous_agent_compliance from './posts/eu-ai-act-autonomous-agent-compliance';
+import post_on_device_agentic_ai_privacy_edge_hardware from './posts/on-device-agentic-ai-privacy-edge-hardware';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_on_device_agentic_ai_privacy_edge_hardware,
+  post_eu_ai_act_autonomous_agent_compliance,
   post_on_device_agentic_ai_ios_developers_guide_2026,
   post_headless_wordpress_nextjs_2026_strategy,
   post_build_local_first_ai_agents_privacy_mobile_tutorial,
