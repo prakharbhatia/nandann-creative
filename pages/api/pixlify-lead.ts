@@ -27,9 +27,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         timeStyle: 'short',
     }) + ' IST';
 
-    // Fire-and-forget — never block the user
+    // Send email and surface any errors in the response for debugging
     if (process.env.RESEND_API_KEY) {
-        resend.emails.send({
+        const { data, error } = await resend.emails.send({
             from:    FROM_EMAIL,
             to:      NOTIFY_TO,
             subject: `💰 Pixlify Purchase Intent — ${name} <${email}>`,
@@ -94,8 +94,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   </div>
 </body>
 </html>`,
-        }).catch((err: unknown) => console.error('Resend lead email failed:', err));
+        });
+        if (error) {
+            console.error('Resend lead email failed:', error);
+            return res.status(200).json({ success: true, emailSent: false, emailError: error });
+        }
+        return res.status(200).json({ success: true, emailSent: true, emailId: data?.id });
     }
 
-    return res.status(200).json({ success: true });
+    return res.status(200).json({ success: true, emailSent: false, reason: 'RESEND_API_KEY not set' });
 }
