@@ -1,7 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import FAQ from './FAQ';
+
+const PAYPAL_URL = 'https://paypal.me/NANDANNC/240usd';
+
+function PurchaseForm({ idPrefix, dark }: { idPrefix: string; dark?: boolean }) {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+
+    function handleSubmit(e: React.FormEvent) {
+        e.preventDefault();
+        if (!name.trim() || !email.trim()) return;
+        window.open(PAYPAL_URL, '_blank', 'noopener,noreferrer');
+    }
+
+    const inputClass = dark
+        ? 'w-full px-4 py-3 rounded-xl bg-white/10 border border-white/25 text-white placeholder-gray-400 focus:outline-none focus:border-green-400 focus:bg-white/15 transition-all text-sm'
+        : 'w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-green-500 transition-all text-sm bg-white';
+
+    return (
+        <form id={`${idPrefix}-form`} onSubmit={handleSubmit} className="space-y-3 w-full">
+            <input
+                id={`${idPrefix}-name`}
+                type="text"
+                placeholder="Your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className={inputClass}
+            />
+            <input
+                id={`${idPrefix}-email`}
+                type="email"
+                placeholder="Your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className={inputClass}
+            />
+            <button
+                id={`${idPrefix}-submit`}
+                type="submit"
+                className="w-full bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white px-8 py-3.5 rounded-xl font-bold text-base transition-all duration-300 hover:shadow-lg hover:shadow-green-500/30 flex items-center justify-center gap-2"
+            >
+                Buy Now via PayPal →
+            </button>
+            <p className={`text-center text-xs ${dark ? 'text-gray-400' : 'text-gray-500'}`}>
+                Secure payment via PayPal · Plugin access within 24&nbsp;hours
+            </p>
+        </form>
+    );
+}
 
 export default function PixlifyImageOptimizer() {
     const faqs = [
@@ -61,19 +111,21 @@ export default function PixlifyImageOptimizer() {
                             Including the ones where .htaccess rules are off the table.
                         </p>
 
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-14">
-                            <Link
-                                href="/contact"
-                                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 text-white px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25"
-                            >
-                                Start Free Trial
-                            </Link>
-                            <Link
-                                href="#how-it-works"
-                                className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300"
-                            >
-                                See How It Works
-                            </Link>
+                        {/* Hero purchase form */}
+                        <div className="mb-14 max-w-md mx-auto w-full">
+                            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6">
+                                <p className="text-white font-bold text-lg text-center mb-1">Get Pixlify — 1&nbsp;Year</p>
+                                <p className="text-green-300 text-sm text-center mb-4">$240/yr · Unlimited sites · All features</p>
+                                <PurchaseForm idPrefix="hero" dark />
+                            </div>
+                            <div className="mt-4 text-center">
+                                <Link
+                                    href="#how-it-works"
+                                    className="text-white/60 hover:text-white text-sm transition-colors"
+                                >
+                                    See how it works ↓
+                                </Link>
+                            </div>
                         </div>
                     </div>
 
@@ -128,15 +180,9 @@ export default function PixlifyImageOptimizer() {
                             ))}
                         </div>
 
-                        {/* CTA */}
-                        <div className="flex flex-col items-center gap-3">
-                            <Link
-                                href="/contact"
-                                className="inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl font-bold text-base transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 whitespace-nowrap"
-                            >
-                                Start Free Trial
-                            </Link>
-                            <p className="text-xs text-gray-500 text-center max-w-[160px]">No WordPress.org listing. Available directly from us.</p>
+                        {/* Pricing purchase form */}
+                        <div className="w-full max-w-[220px]">
+                            <PurchaseForm idPrefix="pricing" />
                         </div>
 
                     </div>
@@ -576,24 +622,30 @@ export default function PixlifyImageOptimizer() {
             <section className="py-20 bg-gradient-to-br from-green-900 to-gray-900 text-white">
                 <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                        Interested?
+                        Ready to get started?
                     </h2>
                     <p className="text-xl text-gray-300 mb-4 max-w-2xl mx-auto">
-                        Pixlify isn&apos;t on WordPress.org. It&apos;s available directly from us.
+                        Pixlify isn&apos;t on WordPress.org. Purchase directly — get instant access.
                     </p>
-                    <p className="text-gray-400 mb-10 max-w-xl mx-auto">
-                        Start a free trial or book a demo. We&apos;ll walk you through what&apos;s included, answer any questions about your specific host or setup, and take it from there.
+                    <p className="text-green-300 font-semibold text-lg mb-8">
+                        $240/yr · Unlimited sites · No credit limits · All features included
                     </p>
+
+                    {/* Bottom CTA purchase form */}
+                    <div className="max-w-sm mx-auto bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 mb-8">
+                        <PurchaseForm idPrefix="cta" dark />
+                    </div>
+
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Link
                             href="/contact"
-                            className="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25"
+                            className="inline-flex items-center justify-center gap-2 bg-transparent border border-white/30 hover:border-white/60 text-white/80 hover:text-white px-6 py-3 rounded-xl font-medium text-base transition-all duration-300"
                         >
-                            Talk to us
+                            Have questions? Talk to us
                         </Link>
                         <Link
                             href="/plugin-support"
-                            className="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-white/30 hover:border-white/60 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300"
+                            className="inline-flex items-center justify-center gap-2 bg-transparent border border-white/30 hover:border-white/60 text-white/80 hover:text-white px-6 py-3 rounded-xl font-medium text-base transition-all duration-300"
                         >
                             Plugin Support
                         </Link>
