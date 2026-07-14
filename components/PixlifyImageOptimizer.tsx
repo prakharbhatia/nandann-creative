@@ -8,11 +8,24 @@ const PAYPAL_URL = 'https://paypal.me/NANDANNC/240usd';
 function PurchaseForm({ idPrefix, dark }: { idPrefix: string; dark?: boolean }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    function handleSubmit(e: React.FormEvent) {
+    async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        if (!name.trim() || !email.trim()) return;
+        if (!name.trim() || !email.trim() || loading) return;
+        setLoading(true);
+        try {
+            // Capture lead before redirect — fires even for abandoned checkouts
+            await fetch('/api/pixlify-lead', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: name.trim(), email: email.trim().toLowerCase(), source: idPrefix }),
+            });
+        } catch (_) {
+            // Never block the user on a network error
+        }
         window.open(PAYPAL_URL, '_blank', 'noopener,noreferrer');
+        setLoading(false);
     }
 
     const inputClass = dark
@@ -42,9 +55,10 @@ function PurchaseForm({ idPrefix, dark }: { idPrefix: string; dark?: boolean }) 
             <button
                 id={`${idPrefix}-submit`}
                 type="submit"
-                className="w-full bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white px-8 py-3.5 rounded-xl font-bold text-base transition-all duration-300 hover:shadow-lg hover:shadow-green-500/30 flex items-center justify-center gap-2"
+                disabled={loading}
+                className="w-full bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 disabled:opacity-70 disabled:cursor-not-allowed text-white px-8 py-3.5 rounded-xl font-bold text-base transition-all duration-300 hover:shadow-lg hover:shadow-green-500/30 flex items-center justify-center gap-2"
             >
-                Buy Now via PayPal →
+                {loading ? 'Redirecting to PayPal…' : 'Buy Now via PayPal →'}
             </button>
             <p className={`text-center text-xs ${dark ? 'text-gray-400' : 'text-gray-500'}`}>
                 Secure payment via PayPal · Plugin access within 24&nbsp;hours
