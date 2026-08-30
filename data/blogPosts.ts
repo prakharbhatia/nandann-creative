@@ -90,11 +90,13 @@ import post_on_device_agentic_ai_ios_developers_guide_2026 from './posts/on-devi
 import post_eu_ai_act_autonomous_agent_compliance from './posts/eu-ai-act-autonomous-agent-compliance';
 import post_on_device_agentic_ai_privacy_edge_hardware from './posts/on-device-agentic-ai-privacy-edge-hardware';
 import post_python_315_sampling_profiler from './posts/python-315-sampling-profiler';
+import post_nextjs_august_2026_two_critical_rces from './posts/nextjs-august-2026-two-critical-rces';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
   post_python_315_sampling_profiler,
+  post_nextjs_august_2026_two_critical_rces,
   post_on_device_agentic_ai_privacy_edge_hardware,
   post_eu_ai_act_autonomous_agent_compliance,
   post_on_device_agentic_ai_ios_developers_guide_2026,
