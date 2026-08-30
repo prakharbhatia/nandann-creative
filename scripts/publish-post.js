@@ -65,19 +65,18 @@ function parseFrontmatter(src) {
   const meta = {};
 
   // Parse multi-line faqs block separately
-  const faqMatch = yamlBlock.match(/^faqs:\s*\n((?:[ \t]+- [\s\S]*?(?=\n\S|\n?$))*)/m);
-  if (faqMatch) {
-    const faqBlock = faqMatch[1];
+  const faqIdx = yamlBlock.search(/^faqs:\s*$/m);
+  if (faqIdx >= 0) {
+    const faqBlock = yamlBlock.slice(faqIdx).replace(/^faqs:\s*\n/, '');
     const faqs = [];
-    // Each FAQ item starts with "  - question:"
-    const items = faqBlock.split(/\n[ \t]+- /).filter(Boolean);
-    for (const item of items) {
-      const qMatch = item.match(/question:\s*["']?(.+?)["']?\s*\n/);
-      const aMatch = item.match(/answer:\s*["']?([\s\S]+?)["']?\s*$/m);
+    const chunks = faqBlock.split(/^[ \t]+- /m).map(s => s.trim()).filter(Boolean);
+    for (const item of chunks) {
+      const qMatch = item.match(/question:\s*"((?:\\.|[^"\\])*)"/);
+      const aMatch = item.match(/answer:\s*"((?:\\.|[^"\\])*)"/);
       if (qMatch && aMatch) {
         faqs.push({
-          question: qMatch[1].trim().replace(/^["']|["']$/g, ''),
-          answer:   aMatch[1].trim().replace(/^["']|["']$/g, ''),
+          question: qMatch[1].replace(/\\"/g, '"'),
+          answer: aMatch[1].replace(/\\"/g, '"'),
         });
       }
     }
@@ -126,6 +125,14 @@ function mdToHtml(md) {
     return `\n\n${placeholder}\n\n`;
   });
 
+  // 1b. Protect inline code before _italic_ so snake_case identifiers stay intact
+  html = html.replace(/`([^`\n]+)`/g, (_, c) => {
+    const placeholder = `:::CB${tokens.length}:::`;
+    const esc = c.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    tokens.push(`<code>${esc}</code>`);
+    return placeholder;
+  });
+
   // 2. Headings
   html = html.replace(/^######\s+(.+)$/gm, '<h6>$1</h6>');
   html = html.replace(/^#####\s+(.+)$/gm,  '<h5>$1</h5>');
@@ -158,8 +165,6 @@ function mdToHtml(md) {
   html = html.replace(/__(.+?)__/g, '<strong>$1</strong>');
   html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
   html = html.replace(/_(.+?)_/g, '<em>$1</em>');
-  html = html.replace(/`([^`\n]+)`/g, (_, c) =>
-    `<code>${c.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</code>`);
   html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
 
   // 8. Tables
