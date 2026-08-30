@@ -89,6 +89,7 @@ import post_headless_wordpress_nextjs_2026_strategy from './posts/headless-wordp
 import post_on_device_agentic_ai_ios_developers_guide_2026 from './posts/on-device-agentic-ai-ios-developers-guide-2026';
 import post_eu_ai_act_autonomous_agent_compliance from './posts/eu-ai-act-autonomous-agent-compliance';
 import post_on_device_agentic_ai_privacy_edge_hardware from './posts/on-device-agentic-ai-privacy-edge-hardware';
+import post_rust_maintainers_in_residence from './posts/rust-maintainers-in-residence';
 import post_wordpress_72_secrets_api from './posts/wordpress-72-secrets-api';
 import post_python_315_sampling_profiler from './posts/python-315-sampling-profiler';
 import post_nextjs_august_2026_two_critical_rces from './posts/nextjs-august-2026-two-critical-rces';
@@ -96,6 +97,7 @@ import post_nextjs_august_2026_two_critical_rces from './posts/nextjs-august-202
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_rust_maintainers_in_residence,
   post_wordpress_72_secrets_api,
   post_python_315_sampling_profiler,
   post_nextjs_august_2026_two_critical_rces,
