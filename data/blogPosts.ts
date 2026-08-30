@@ -89,10 +89,12 @@ import post_headless_wordpress_nextjs_2026_strategy from './posts/headless-wordp
 import post_on_device_agentic_ai_ios_developers_guide_2026 from './posts/on-device-agentic-ai-ios-developers-guide-2026';
 import post_eu_ai_act_autonomous_agent_compliance from './posts/eu-ai-act-autonomous-agent-compliance';
 import post_on_device_agentic_ai_privacy_edge_hardware from './posts/on-device-agentic-ai-privacy-edge-hardware';
+import post_rust_maintainers_in_residence from './posts/rust-maintainers-in-residence';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_rust_maintainers_in_residence,
   post_on_device_agentic_ai_privacy_edge_hardware,
   post_eu_ai_act_autonomous_agent_compliance,
   post_on_device_agentic_ai_ios_developers_guide_2026,
