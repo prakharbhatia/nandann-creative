@@ -93,10 +93,14 @@ import post_rust_maintainers_in_residence from './posts/rust-maintainers-in-resi
 import post_wordpress_72_secrets_api from './posts/wordpress-72-secrets-api';
 import post_python_315_sampling_profiler from './posts/python-315-sampling-profiler';
 import post_nextjs_august_2026_two_critical_rces from './posts/nextjs-august-2026-two-critical-rces';
+import post_go_127_goroutine_leak_profiles from './posts/go-127-goroutine-leak-profiles';
+import post_bun_141 from './posts/bun-141';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_bun_141,
+  post_go_127_goroutine_leak_profiles,
   post_rust_maintainers_in_residence,
   post_wordpress_72_secrets_api,
   post_python_315_sampling_profiler,
