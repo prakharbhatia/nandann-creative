@@ -71,7 +71,7 @@ export default function CategoryPage({ category, posts }: Props) {
                         fill
                         loading="lazy"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="object-cover"
+                        className="object-contain"
                       />
                     </div>
                   )}

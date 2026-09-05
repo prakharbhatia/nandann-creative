@@ -96,7 +96,7 @@ export default function BlogIndexPage() {
                         fill
                         loading="lazy"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className={post.slug === 'nextjs-16-release-comprehensive-guide' ? 'object-contain p-4' : 'object-cover'}
+                        className="object-contain"
                       />
                     </div>
                   )}

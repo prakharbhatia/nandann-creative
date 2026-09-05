@@ -347,14 +347,14 @@ export default function BlogPostPage({ post }: Props) {
           </header>
 
           {post.coverImage && (
-            <div className="relative w-full rounded-2xl overflow-hidden mb-10" style={{ aspectRatio: '3/2', maxHeight: '480px' }}>
+            <div className="relative w-full rounded-2xl overflow-hidden mb-10 bg-gradient-to-br from-gray-900 to-gray-800" style={{ aspectRatio: '3/2' }}>
               <Image
                 src={post.coverImage}
                 alt={post.title}
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, (max-width: 1280px) 800px, 960px"
-                className="object-cover"
+                className="object-contain"
               />
             </div>
           )}
@@ -507,5 +507,4 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   }
   return { props: { post } };
 };
-
 
