@@ -102,12 +102,7 @@ export default function BlogPreview() {
                       fill
                       loading="lazy"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className={
-                        post.slug === 'nextjs-16-release-comprehensive-guide' ||
-                          post.slug === 'tanstack-ai-switzerland-of-ai-tooling'
-                          ? 'object-contain p-4'
-                          : 'object-cover'
-                      }
+                      className="object-contain"
                     />
                   </div>
                 )}
