@@ -64,7 +64,7 @@ export default function TagPage({ tag, posts }: Props) {
               <Link key={post.slug} href={`/blog/${post.slug}`} prefetch={false} className="block group">
                 <article className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition-colors duration-200 h-full flex flex-col cursor-pointer">
                   {post.coverImage && (
-                    <div className="relative h-48 w-full bg-gradient-to-br from-gray-900 to-gray-800">
+                    <div className="relative aspect-[3/2] w-full bg-gradient-to-br from-gray-900 to-gray-800">
                       <Image
                         src={post.coverImage}
                         alt={post.title}
