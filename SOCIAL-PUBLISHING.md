@@ -20,4 +20,4 @@ Validate this change with `node --test tests/social-articles.test.cjs` after ins
 
 ## Admin console location
 
-The complete admin console is in `apps/outpost`. Create a separate Vercel project with that Root Directory; keep the existing nandann.com website project at the repository root. The admin README lists database migrations, environment variables, social connection setup, and validation commands. It supports editable article timing, two daily image-post slots, and independent first-comment delivery. Nothing publishes until the admin services and social accounts are configured.
+The console is part of the existing website at **https://nandann.com/admin**. Keep the current Vercel project at the repository root; one deployment serves both the website and console. See [OUTPOST.md](OUTPOST.md) for database migrations, environment variables and social-account setup. Add those variables to the existing Vercel project. The root `vercel.json` runs `/admin/api/cron`; provider callbacks are `/admin/api/oauth/{platform}/callback`. This replaces the earlier separate `apps/outpost` deployment.
