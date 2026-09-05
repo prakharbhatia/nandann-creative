@@ -17,3 +17,7 @@ No website environment variables, cron, build hook, or outbound publishing reque
 The scheduler must be separately deployed and configured before the feature is active. The endpoint alone does not post anything to social accounts.
 
 Validate this change with `node --test tests/social-articles.test.cjs` after installing the project's normal dependencies.
+
+## Admin console location
+
+The complete admin console is in `apps/outpost`. Create a separate Vercel project with that Root Directory; keep the existing nandann.com website project at the repository root. The admin README lists database migrations, environment variables, social connection setup, and validation commands. It supports editable article timing, two daily image-post slots, and independent first-comment delivery. Nothing publishes until the admin services and social accounts are configured.
