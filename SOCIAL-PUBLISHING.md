@@ -20,4 +20,4 @@ Validate this change with `node --test tests/social-articles.test.cjs` after ins
 
 ## Admin console location
 
-The console is part of the existing website at **https://nandann.com/admin**. Keep the current Vercel project at the repository root; one deployment serves both the website and console. See [OUTPOST.md](OUTPOST.md) for database migrations, environment variables and social-account setup. Add those variables to the existing Vercel project. The root `vercel.json` runs `/admin/api/cron`; provider callbacks are `/admin/api/oauth/{platform}/callback`. This replaces the earlier separate `apps/outpost` deployment.
+See [OUTPOST.md](OUTPOST.md) for the separate Pro deployment and optional same-domain connection.

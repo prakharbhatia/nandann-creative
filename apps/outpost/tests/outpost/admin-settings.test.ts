@@ -4,7 +4,7 @@ import { nextDailySlot, nextArticleSlot } from "../../lib/outpost/article-schedu
 import { twoParagraphs, postInput } from "../../lib/outpost/validation";
 describe("admin scheduling settings", () => {
   it("defaults to two image posts and one separate article", () => {
-    expect(defaultSettings.creativeTimes).toEqual(["10:00", "16:00"]);
+    expect(defaultSettings.creativeTimes).toEqual(["19:00", "20:00"]);
     expect(defaultSettings.articleTime).toBe("18:00");
   });
   it("rejects invalid times, unknown timezones, and overlapping slots", () => {

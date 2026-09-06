@@ -1,6 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  async rewrites() {
+    if (!process.env.OUTPOST_ORIGIN) return [];
+    const origin = new URL(process.env.OUTPOST_ORIGIN);
+    if (origin.protocol !== 'https:' || origin.username || origin.password ||
+        origin.pathname !== '/' || origin.search || origin.hash ||
+        ['nandann.com', 'www.nandann.com'].includes(origin.hostname)) {
+      throw new Error('OUTPOST_ORIGIN must be the HTTPS origin of the separate Outpost deployment');
+    }
+    return { beforeFiles: [{ source: '/admin/:path*', destination: `${origin.origin}/admin/:path*` }] };
+  },
 
   // Performance optimizations
   compress: true,

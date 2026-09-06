@@ -25,5 +25,5 @@ export const defaultSettings: PublishingSettings = {
   articleTime: "18:00",
   articleEnabled: true,
   creativeEnabled: true,
-  creativeTimes: ["10:00", "16:00"],
+  creativeTimes: ["19:00", "20:00"],
 };
