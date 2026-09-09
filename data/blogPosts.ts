@@ -97,10 +97,16 @@ import post_go_127_goroutine_leak_profiles from './posts/go-127-goroutine-leak-p
 import post_bun_141 from './posts/bun-141';
 import post_cloudflare_cache_transcoding_pingora from './posts/cloudflare-cache-transcoding-pingora';
 import post_rust_1981_vtable_miscompilation from './posts/rust-1981-vtable-miscompilation';
+import post_vercel_sandbox_routing_nearest_region_domain_lookups from './posts/vercel-sandbox-routing-nearest-region-domain-lookups';
+import post_gpt_6_astra_on_vercel_ai_gateway_for_coding_agents from './posts/gpt-6-astra-on-vercel-ai-gateway-for-coding-agents';
+import post_wordpress_7_1_runnable_php_code_reference_examples from './posts/wordpress-7-1-runnable-php-code-reference-examples';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_wordpress_7_1_runnable_php_code_reference_examples,
+  post_gpt_6_astra_on_vercel_ai_gateway_for_coding_agents,
+  post_vercel_sandbox_routing_nearest_region_domain_lookups,
   post_rust_1981_vtable_miscompilation,
   post_cloudflare_cache_transcoding_pingora,
   post_bun_141,
