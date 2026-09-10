@@ -133,6 +133,16 @@ function mdToHtml(md) {
     return placeholder;
   });
 
+  // Protect Markdown links before emphasis. Otherwise underscores in URLs or
+  // link text (for example wp_html_processor) are converted into <em> tags,
+  // producing invalid href attributes and a client/server hydration mismatch.
+  html = html.replace(/\[([^\]]+)\]\(([^\s)]+)\)/g, (_, label, href) => {
+    const placeholder = `:::CB${tokens.length}:::`;
+    const safeHref = href.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+    tokens.push(`<a href="${safeHref}">${label}</a>`);
+    return placeholder;
+  });
+
   // 2. Headings
   html = html.replace(/^######\s+(.+)$/gm, '<h6>$1</h6>');
   html = html.replace(/^#####\s+(.+)$/gm,  '<h5>$1</h5>');
@@ -165,7 +175,6 @@ function mdToHtml(md) {
   html = html.replace(/__(.+?)__/g, '<strong>$1</strong>');
   html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
   html = html.replace(/_(.+?)_/g, '<em>$1</em>');
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
 
   // 8. Tables
   html = html.replace(/((?:^[ \t]*\|.+\|\s*\n){2,})/gm, block => {
