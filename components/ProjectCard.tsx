@@ -77,9 +77,9 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
                     ))}
                 </div>
 
-                <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors line-clamp-1">
+                <h2 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors line-clamp-1">
                     {project.title}
-                </h3>
+                </h2>
 
                 {project.clientName && !project.isConfidential && (
                     <p className="text-sm text-gray-400 mb-3 line-clamp-1">{project.clientName}</p>

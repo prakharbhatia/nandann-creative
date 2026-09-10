@@ -10,7 +10,7 @@ interface ContactProps {
 
 export default function Contact({ onScheduleCall }: ContactProps) {
   const { trackForm } = useAnalytics();
-  
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -23,10 +23,10 @@ export default function Contact({ onScheduleCall }: ContactProps) {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
-    
+
     // Track form submission
     trackForm('Contact Form');
-    
+
     try {
       // Send email using Formspree
       const response = await fetch('https://formspree.io/f/mrblqbgw', {
@@ -75,9 +75,9 @@ export default function Contact({ onScheduleCall }: ContactProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
             Let's <span className="text-gradient">Connect</span>
-          </h2>
+          </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
             Ready to transform your ideas into reality? Let's discuss your project
             and create something amazing together.
@@ -97,10 +97,10 @@ export default function Contact({ onScheduleCall }: ContactProps) {
           {/* Contact Info */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-bold text-white mb-6">Get in Touch</h3>
+              <h2 className="text-2xl font-bold text-white mb-6">Get in Touch</h2>
               <p className="text-gray-300 leading-relaxed mb-8">
-                We're here to help bring your vision to life. Whether you need a 
-                custom web application, mobile app, or Python solution, our team 
+                We're here to help bring your vision to life. Whether you need a
+                custom web application, mobile app, or Python solution, our team
                 is ready to deliver exceptional results.
               </p>
             </div>
@@ -118,7 +118,7 @@ export default function Contact({ onScheduleCall }: ContactProps) {
             </div>
 
             <div className="glass rounded-2xl p-6">
-              <h4 className="text-lg font-semibold text-white mb-4">Why Choose Nandann Creative Agency?</h4>
+              <h3 className="text-lg font-semibold text-white mb-4">Why Choose Nandann Creative Agency?</h3>
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
@@ -226,7 +226,7 @@ export default function Contact({ onScheduleCall }: ContactProps) {
     </section>
 
     {/* Contact FAQs */}
-    <FAQ 
+    <FAQ
       title="Getting Started"
       faqs={[
         {
@@ -265,4 +265,4 @@ export default function Contact({ onScheduleCall }: ContactProps) {
     />
     </>
   )
-} 
+}

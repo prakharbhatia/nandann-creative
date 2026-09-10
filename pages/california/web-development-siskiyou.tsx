@@ -168,7 +168,7 @@ export default function SiskiyouCountyPage() {
                   that capture Siskiyou County's spirit and drive real results in the mountain paradise.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/contact?ref=location" className="bg-gradient-to-r from-stone-600 to-gray-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-stone-700 hover:to-gray-700 transition-all duration-300 transform hover:scale-105 text-center">
+                  <Link href="/contact" className="bg-gradient-to-r from-stone-600 to-gray-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-stone-700 hover:to-gray-700 transition-all duration-300 transform hover:scale-105 text-center">
                     Get Your Free Quote
                   </Link>
                   <Link href="/portfolio" className="border-2 border-stone-600 text-stone-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-stone-600 hover:text-white transition-all duration-300 text-center">
@@ -540,7 +540,7 @@ export default function SiskiyouCountyPage() {
                     S
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Sarah "The Yreka Tech" Chen</h4>
+                    <h3 className="font-semibold text-gray-900">Sarah "The Yreka Tech" Chen</h3>
                     <p className="text-gray-600">CEO, Yreka Tech Solutions</p>
                   </div>
                 </div>
@@ -557,7 +557,7 @@ export default function SiskiyouCountyPage() {
                     M
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Mike "The Mount Shasta Agriculture" Rodriguez</h4>
+                    <h3 className="font-semibold text-gray-900">Mike "The Mount Shasta Agriculture" Rodriguez</h3>
                     <p className="text-gray-600">Founder, Mount Shasta Agriculture Solutions</p>
                   </div>
                 </div>
@@ -574,7 +574,7 @@ export default function SiskiyouCountyPage() {
                     J
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Jennifer "The Dunsmuir Manufacturing" Park</h4>
+                    <h3 className="font-semibold text-gray-900">Jennifer "The Dunsmuir Manufacturing" Park</h3>
                     <p className="text-gray-600">Director, Dunsmuir Manufacturing Services</p>
                   </div>
                 </div>
@@ -628,10 +628,10 @@ export default function SiskiyouCountyPage() {
               Join hundreds of Siskiyou County businesses that trust Nandann Creative with their digital success—from Yreka to Weed, North Valley!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact?ref=location" className="bg-white text-stone-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
+              <Link href="/contact" className="bg-white text-stone-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
                 Start Your Project Today
               </Link>
-              <Link href="/contact?ref=location" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-stone-600 transition-all duration-300 text-center">
+              <Link href="/contact" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-stone-600 transition-all duration-300 text-center">
                 Schedule a Consultation
               </Link>
             </div>

@@ -112,7 +112,11 @@ const nextConfig = {
   // Redirects for SEO
   async redirects() {
     return [
-      // Add redirects here if needed
+      {
+        source: '/rapid-delivery',
+        destination: '/rapid-same-day-website-delivery',
+        permanent: true,
+      },
     ]
   },
 }

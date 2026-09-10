@@ -168,7 +168,7 @@ export default function TulareCountyPage() {
                   that capture Tulare County's spirit and drive real results in the agriculture paradise.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/contact?ref=location" className="bg-gradient-to-r from-orange-600 to-yellow-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-orange-700 hover:to-yellow-700 transition-all duration-300 transform hover:scale-105 text-center">
+                  <Link href="/contact" className="bg-gradient-to-r from-orange-600 to-yellow-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-orange-700 hover:to-yellow-700 transition-all duration-300 transform hover:scale-105 text-center">
                     Get Your Free Quote
                   </Link>
                   <Link href="/portfolio" className="border-2 border-orange-600 text-orange-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-orange-600 hover:text-white transition-all duration-300 text-center">
@@ -540,7 +540,7 @@ export default function TulareCountyPage() {
                     S
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Sarah "The Visalia Agriculture" Chen</h4>
+                    <h3 className="font-semibold text-gray-900">Sarah "The Visalia Agriculture" Chen</h3>
                     <p className="text-gray-600">CEO, Visalia Agriculture Solutions</p>
                   </div>
                 </div>
@@ -557,7 +557,7 @@ export default function TulareCountyPage() {
                     M
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Mike "The Porterville Education" Rodriguez</h4>
+                    <h3 className="font-semibold text-gray-900">Mike "The Porterville Education" Rodriguez</h3>
                     <p className="text-gray-600">Founder, Porterville Education Solutions</p>
                   </div>
                 </div>
@@ -574,7 +574,7 @@ export default function TulareCountyPage() {
                     J
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Jennifer "The Tulare Manufacturing" Park</h4>
+                    <h3 className="font-semibold text-gray-900">Jennifer "The Tulare Manufacturing" Park</h3>
                     <p className="text-gray-600">Director, Tulare Manufacturing Services</p>
                   </div>
                 </div>
@@ -628,10 +628,10 @@ export default function TulareCountyPage() {
               Join hundreds of Tulare County businesses that trust Nandann Creative with their digital success—from Visalia to Porterville, Central Valley!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact?ref=location" className="bg-white text-orange-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
+              <Link href="/contact" className="bg-white text-orange-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
                 Start Your Project Today
               </Link>
-              <Link href="/contact?ref=location" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-orange-600 transition-all duration-300 text-center">
+              <Link href="/contact" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-orange-600 transition-all duration-300 text-center">
                 Schedule a Consultation
               </Link>
             </div>

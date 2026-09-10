@@ -4,10 +4,11 @@ import Image from 'next/image';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Navigation from '../../../components/Navigation';
 import Footer from '../../../components/Footer';
-import { getAllTags, getPostsByTag, BlogPost } from '../../../data/blogPosts';
+import { getAllTags, getPostsByTag } from '../../../data/blogPosts';
+import { BlogPostSummary, toBlogPostSummary } from '../../../lib/blogSummary';
 import { slugify } from '../../../lib/slugify';
 
-type Props = { tag: string; posts: BlogPost[] };
+type Props = { tag: string; posts: BlogPostSummary[] };
 
 export default function TagPage({ tag, posts }: Props) {
   const tagSlug = slugify(tag);
@@ -31,8 +32,8 @@ export default function TagPage({ tag, posts }: Props) {
   return (
     <>
       <Head>
-        <title>{`${tag} Articles - Nandann Creative Agency`}</title>
-        <meta name="description" content={`Browse ${posts.length} articles tagged "${tag}" on Nandann Creative Agency.`} />
+        <title>{`${tag} Tag Articles | Nandann`}</title>
+        <meta name="description" content={`Explore ${posts.length} articles tagged ${tag}, with practical guides and expert analysis from the Nandann Creative team.`} />
         <link rel="canonical" href={canonicalUrl} />
         <meta name="robots" content="index, follow" />
         <meta property="og:type" content="website" />
@@ -141,5 +142,5 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
     }
   }
   merged.sort((a, b) => (a.date < b.date ? 1 : -1));
-  return { props: { tag, posts: merged } };
+  return { props: { tag, posts: merged.map(toBlogPostSummary) } };
 };

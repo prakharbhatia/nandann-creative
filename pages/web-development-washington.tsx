@@ -11,7 +11,7 @@ export default function WashingtonWebDevelopment() {
         <title>Web Development Washington | Nandann Creative - Seattle, Spokane & More</title>
         <meta name="description" content="Looking for web development in Washington? Nandann Creative delivers high-performance websites for Seattle, Spokane, Tacoma & more. Get your Washington business online fast!" />
         <meta name="keywords" content="web development Washington, website design Seattle, web developer Spokane, Washington web development company, Seattle website design, Spokane web developer, Tacoma web development, Bellevue website design, Vancouver web developer, Olympia web development, Washington business website, Washington ecommerce website" />
-        
+
         {/* Open Graph */}
         <meta property="og:title" content="Web Development Washington | Nandann Creative - Seattle, Spokane & More" />
         <meta property="og:description" content="Looking for web development in Washington? Nandann Creative delivers high-performance websites for Seattle, Spokane, Tacoma & more. Get your Washington business online fast!" />
@@ -21,26 +21,26 @@ export default function WashingtonWebDevelopment() {
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:site_name" content="Nandann Creative" />
-        
+
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Web Development Washington | Nandann Creative - Seattle, Spokane & More" />
         <meta name="twitter:description" content="Looking for web development in Washington? Nandann Creative delivers high-performance websites for Seattle, Spokane, Tacoma & more. Get your Washington business online fast!" />
         <meta name="twitter:image" content="https://www.nandann.com/washington/washington-web-development-nandann-creative-lg.webp" />
-        
+
         {/* Canonical */}
         <link rel="canonical" href="https://www.nandann.com/web-development-washington" />
-        
+
         {/* Last Modified */}
         <meta name="last-modified" content="2025-09-09T12:00:00Z" />
         <meta httpEquiv="last-modified" content="Mon, 09 Sep 2025 12:00:00 GMT" />
-        
+
         {/* Geo Tags */}
         <meta name="geo.region" content="US-WA" />
         <meta name="geo.placename" content="Washington" />
         <meta name="geo.position" content="47.7511;-120.7401" />
         <meta name="ICBM" content="47.7511, -120.7401" />
-        
+
         {/* Local Business Schema */}
         <script
           type="application/ld+json"
@@ -98,31 +98,31 @@ export default function WashingtonWebDevelopment() {
           <source src="/washington/washington-web-development-nandann-creative-hd.mp4" type="video/mp4" />
           <source src="/washington/washington-web-development-nandann-creative-hd.webm" type="video/webm" />
         </video>
-        
+
         {/* Overlay */}
         <div className="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
-        
+
         {/* Content */}
         <div className="relative z-20 text-center text-white px-4 max-w-4xl mx-auto">
-          <h1 
+          <h1
             className="text-4xl md:text-6xl font-bold mb-6"
             style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}
           >
             Web Development That's Totally Rad in the Evergreen State!
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-gray-200">
-            From Seattle to Spokane, we're Washington's go-to web development team. 
+            From Seattle to Spokane, we're Washington's go-to web development team.
             Fast, reliable, and built for the Evergreen State's unique business needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/contact?ref=location" 
+            <Link
+              href="/contact"
               className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition duration-300"
             >
               Get Your Free Quote
             </Link>
-            <Link 
-              href="/portfolio" 
+            <Link
+              href="/portfolio"
               className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-lg text-lg font-semibold transition duration-300"
             >
               View Our Work
@@ -196,13 +196,13 @@ export default function WashingtonWebDevelopment() {
                 Washington's Pacific Northwest Innovation Powers Our Digital Solutions
               </h2>
               <p className="text-lg text-gray-600 mb-6">
-                Washington isn't just about coffee and rain anymore. From Seattle's booming tech scene to Spokane's growing business community, 
-                we understand what makes Washington businesses special. We speak your language - whether you're in the innovative world 
+                Washington isn't just about coffee and rain anymore. From Seattle's booming tech scene to Spokane's growing business community,
+                we understand what makes Washington businesses special. We speak your language - whether you're in the innovative world
                 of Seattle startups or the traditional values of Eastern Washington's agricultural businesses.
               </p>
               <p className="text-lg text-gray-600 mb-6">
-                Our team knows Washington's business landscape inside and out. We've worked with everything from Seattle's Fortune 500 
-                tech companies to Spokane's local family businesses. We get that Washington businesses need websites that reflect their 
+                Our team knows Washington's business landscape inside and out. We've worked with everything from Seattle's Fortune 500
+                tech companies to Spokane's local family businesses. We get that Washington businesses need websites that reflect their
                 unique blend of Pacific Northwest innovation and natural beauty.
               </p>
               <div className="flex flex-wrap gap-2">
@@ -327,13 +327,13 @@ export default function WashingtonWebDevelopment() {
                   S
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900">Sarah "The Seattle Startup" Chen</h4>
+                  <h3 className="font-semibold text-gray-900">Sarah "The Seattle Startup" Chen</h3>
                   <p className="text-gray-600">CEO, Seattle Tech Solutions</p>
                 </div>
               </div>
               <p className="text-gray-700 italic">
-                "Nandann Creative delivered our website in just 4 days! In Seattle's competitive 
-                tech market, speed matters. Our new site has increased leads by 50% and perfectly 
+                "Nandann Creative delivered our website in just 4 days! In Seattle's competitive
+                tech market, speed matters. Our new site has increased leads by 50% and perfectly
                 represents our Pacific Northwest innovation."
               </p>
             </div>
@@ -344,13 +344,13 @@ export default function WashingtonWebDevelopment() {
                   M
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900">Mike "The Spokane Success" Rodriguez</h4>
+                  <h3 className="font-semibold text-gray-900">Mike "The Spokane Success" Rodriguez</h3>
                   <p className="text-gray-600">Owner, Spokane Healthcare</p>
                 </div>
               </div>
               <p className="text-gray-700 italic">
-                "As a Spokane-based healthcare provider, we needed a website that reflected our 
-                community-focused approach. Nandann Creative nailed it with a design that 
+                "As a Spokane-based healthcare provider, we needed a website that reflected our
+                community-focused approach. Nandann Creative nailed it with a design that
                 perfectly captures Eastern Washington's warm hospitality."
               </p>
             </div>
@@ -361,13 +361,13 @@ export default function WashingtonWebDevelopment() {
                   J
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900">Jennifer "The Tacoma Tech" Park</h4>
+                  <h3 className="font-semibold text-gray-900">Jennifer "The Tacoma Tech" Park</h3>
                   <p className="text-gray-600">Marketing Director, Tacoma Manufacturing</p>
                 </div>
               </div>
               <p className="text-gray-700 italic">
-                "Our Tacoma manufacturing company needed a website that showcased our traditional 
-                values while embracing modern technology. Nandann Creative created a site that's 
+                "Our Tacoma manufacturing company needed a website that showcased our traditional
+                values while embracing modern technology. Nandann Creative created a site that's
                 both professional and authentically Washington."
               </p>
             </div>
@@ -436,14 +436,14 @@ export default function WashingtonWebDevelopment() {
             Join hundreds of Washington businesses that trust Nandann Creative for their web development needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/contact?ref=location" 
+            <Link
+              href="/contact"
               className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg text-lg font-semibold transition duration-300"
             >
               Start Your Project Today
             </Link>
-            <Link 
-              href="/portfolio" 
+            <Link
+              href="/portfolio"
               className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold transition duration-300"
             >
               See Our Washington Work
@@ -508,4 +508,4 @@ export default function WashingtonWebDevelopment() {
       />
     </>
   );
-} 
+}

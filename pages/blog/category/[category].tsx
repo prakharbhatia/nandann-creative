@@ -4,10 +4,11 @@ import Image from 'next/image';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Navigation from '../../../components/Navigation';
 import Footer from '../../../components/Footer';
-import { getAllCategories, getPostsByCategory, BlogPost } from '../../../data/blogPosts';
+import { getAllCategories, getPostsByCategory } from '../../../data/blogPosts';
+import { BlogPostSummary, toBlogPostSummary } from '../../../lib/blogSummary';
 import { slugify } from '../../../lib/slugify';
 
-type Props = { category: string; posts: BlogPost[] };
+type Props = { category: string; posts: BlogPostSummary[] };
 
 export default function CategoryPage({ category, posts }: Props) {
   const categorySlug = slugify(category);
@@ -31,8 +32,8 @@ export default function CategoryPage({ category, posts }: Props) {
   return (
     <>
       <Head>
-        <title>{`${category} Articles - Nandann Creative Agency`}</title>
-        <meta name="description" content={`Browse all ${posts.length} ${category} articles from Nandann Creative Agency.`} />
+        <title>{`${category} Category Articles | Nandann`}</title>
+        <meta name="description" content={`Explore ${posts.length} ${category} articles, practical guides, and expert analysis from the Nandann Creative team.`} />
         <link rel="canonical" href={canonicalUrl} />
         <meta name="robots" content="index, follow" />
         <meta property="og:type" content="website" />
@@ -112,6 +113,6 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const categories = getAllCategories();
   const category = categories.find((c) => slugify(c) === categorySlug);
   if (!category) return { notFound: true };
-  const posts = getPostsByCategory(category);
+  const posts = getPostsByCategory(category).map(toBlogPostSummary);
   return { props: { category, posts } };
 };

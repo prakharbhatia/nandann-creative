@@ -62,15 +62,15 @@ export default function Services() {
               <div className="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
                 {service.icon}
               </div>
-              
-              <h3 className="text-2xl font-bold text-white mb-4">
+
+              <h2 className="text-2xl font-bold text-white mb-4">
                 {service.title}
-              </h3>
-              
+              </h2>
+
               <p className="text-gray-300 mb-6 leading-relaxed">
                 {service.description}
               </p>
-              
+
               <div className="space-y-3">
                 {service.features.map((feature, featureIndex) => (
                   <div key={featureIndex} className="flex items-center space-x-3">
@@ -79,10 +79,10 @@ export default function Services() {
                   </div>
                 ))}
               </div>
-              
+
               <div className="mt-6 pt-6 border-t border-white/10">
                 <Link
-                  href="/contact?ref=services"
+                  href="/contact"
                   className="text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200"
                 >
                   Learn More →
@@ -100,7 +100,7 @@ export default function Services() {
                 Our <span className="text-gradient">Approach</span>
               </h3>
               <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-                We believe in transparent collaboration and proven methodologies that deliver exceptional creative solutions. 
+                We believe in transparent collaboration and proven methodologies that deliver exceptional creative solutions.
                 Discover our 4-step process that transforms your vision into powerful digital experiences.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -122,7 +122,7 @@ export default function Services() {
         </div>
 
         {/* Services FAQs */}
-        <FAQ 
+        <FAQ
           title="Services & Solutions"
           faqs={[
             {
@@ -162,4 +162,4 @@ export default function Services() {
       </div>
     </section>
   )
-} 
+}

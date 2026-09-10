@@ -97,14 +97,14 @@ export default function WordPressPlugin() {
                 />
               </div>
             </div>
-            
-            <h1 
+
+            <h1
               className="text-5xl md:text-7xl font-bold text-white mb-6"
               style={{ fontSize: 'clamp(3rem, 8vw, 6rem)' }}
             >
               Fix WordPress Permission <span className="text-gradient">Errors Instantly</span>
             </h1>
-            
+
             <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-8 leading-relaxed">
               <strong className="text-white">Struggling with WordPress file permission errors?</strong> Download our FREE plugin that fixes permission issues in seconds. Used by <strong className="text-green-400">10,000+ sites</strong> worldwide.
             </p>
@@ -134,7 +134,7 @@ export default function WordPressPlugin() {
                 <span>Download FREE Plugin</span>
                 <span className="group-hover:translate-x-1 transition-transform duration-200">↓</span>
               </a>
-              
+
               <div className="flex items-center gap-4 text-gray-300">
                 <div className="flex items-center gap-2">
                   <span className="text-yellow-500">⭐⭐⭐⭐⭐</span>
@@ -157,7 +157,7 @@ export default function WordPressPlugin() {
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
                 Stop Losing <span className="text-gradient">Sleep Over Permission Errors</span>
               </h2>
-              
+
               <p className="text-xl text-gray-300 mb-8 leading-relaxed">
                 <strong className="text-white">Permission errors are killing your WordPress site.</strong> Upload failures, plugin issues, theme problems - all because of incorrect file permissions. Don't waste hours manually fixing files one by one.
               </p>
@@ -172,7 +172,7 @@ export default function WordPressPlugin() {
                     <p className="text-gray-400">Spending hours fixing permissions file by file through FTP or cPanel</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start gap-4">
                   <div className="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                     <span className="text-red-400 text-sm">✗</span>
@@ -182,7 +182,7 @@ export default function WordPressPlugin() {
                     <p className="text-gray-400">White screen of death, plugin failures, upload errors ruining your site</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start gap-4">
                   <div className="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                     <span className="text-red-400 text-sm">✗</span>
@@ -197,7 +197,7 @@ export default function WordPressPlugin() {
 
             <div className="glass rounded-3xl p-8">
               <h3 className="text-2xl font-bold text-white mb-6">Standard WordPress Permissions</h3>
-              
+
               <div className="space-y-6">
                 <div className="bg-black/30 rounded-xl p-6">
                   <div className="flex items-center gap-3 mb-3">
@@ -206,7 +206,7 @@ export default function WordPressPlugin() {
                   </div>
                   <p className="text-gray-300">Owner can read/write, group and others can read only</p>
                 </div>
-                
+
                 <div className="bg-black/30 rounded-xl p-6">
                   <div className="flex items-center gap-3 mb-3">
                     <span className="text-2xl">📁</span>
@@ -276,7 +276,7 @@ export default function WordPressPlugin() {
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
                 Built for <span className="text-gradient">Developers</span>
               </h2>
-              
+
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
@@ -287,7 +287,7 @@ export default function WordPressPlugin() {
                     <p className="text-gray-400">Uses WordPress core functions and follows coding standards</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start gap-4">
                   <div className="w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                     <span className="text-blue-400 text-sm">🔒</span>
@@ -297,7 +297,7 @@ export default function WordPressPlugin() {
                     <p className="text-gray-400">Proper nonce verification and input sanitization</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start gap-4">
                   <div className="w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                     <span className="text-blue-400 text-sm">📱</span>
@@ -307,7 +307,7 @@ export default function WordPressPlugin() {
                     <p className="text-gray-400">Modern interface using WordPress admin styles</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start gap-4">
                   <div className="w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                     <span className="text-blue-400 text-sm">🛡️</span>
@@ -322,7 +322,7 @@ export default function WordPressPlugin() {
 
             <div className="glass rounded-3xl p-8">
               <h3 className="text-2xl font-bold text-white mb-6">System Requirements</h3>
-              
+
               <div className="space-y-4">
                 <div className="flex justify-between items-center py-3 border-b border-gray-700">
                   <span className="text-gray-300">WordPress</span>
@@ -353,7 +353,7 @@ export default function WordPressPlugin() {
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Stop Struggling - <span className="text-gradient">Fix It Now</span>
             </h2>
-            
+
             <p className="text-xl text-gray-300 mb-8 leading-relaxed">
               <strong className="text-white">Join 10,000+ WordPress users</strong> who fixed their permission errors in under 2 minutes. Download our FREE plugin and get your site working perfectly again.
             </p>
@@ -368,9 +368,9 @@ export default function WordPressPlugin() {
                 <span>Download FREE Plugin</span>
                 <span className="group-hover:translate-x-1 transition-transform duration-200">↓</span>
               </a>
-              
-              <Link 
-                href="/contact?ref=wordpress-plugin" 
+
+              <Link
+                href="/contact"
                 className="bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 px-8 py-4 rounded-full text-white font-medium transition-all duration-300 backdrop-blur-sm"
               >
                 Need Help? Contact Us

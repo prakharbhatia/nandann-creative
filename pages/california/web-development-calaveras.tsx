@@ -168,7 +168,7 @@ export default function CalaverasCountyPage() {
                   that capture Calaveras County's spirit and drive real results in the mountain paradise.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/contact?ref=location" className="bg-gradient-to-r from-stone-600 to-gray-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-stone-700 hover:to-gray-700 transition-all duration-300 transform hover:scale-105 text-center">
+                  <Link href="/contact" className="bg-gradient-to-r from-stone-600 to-gray-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-stone-700 hover:to-gray-700 transition-all duration-300 transform hover:scale-105 text-center">
                     Get Your Free Quote
                   </Link>
                   <Link href="/portfolio" className="border-2 border-stone-600 text-stone-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-stone-600 hover:text-white transition-all duration-300 text-center">
@@ -540,7 +540,7 @@ export default function CalaverasCountyPage() {
                     S
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Sarah "The Angels Camp Tech" Chen</h4>
+                    <h3 className="font-semibold text-gray-900">Sarah "The Angels Camp Tech" Chen</h3>
                     <p className="text-gray-600">CEO, Angels Camp Tech Solutions</p>
                   </div>
                 </div>
@@ -557,7 +557,7 @@ export default function CalaverasCountyPage() {
                     M
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Mike "The San Andreas Agriculture" Rodriguez</h4>
+                    <h3 className="font-semibold text-gray-900">Mike "The San Andreas Agriculture" Rodriguez</h3>
                     <p className="text-gray-600">Founder, San Andreas Agriculture Solutions</p>
                   </div>
                 </div>
@@ -574,7 +574,7 @@ export default function CalaverasCountyPage() {
                     J
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Jennifer "The Murphys Manufacturing" Park</h4>
+                    <h3 className="font-semibold text-gray-900">Jennifer "The Murphys Manufacturing" Park</h3>
                     <p className="text-gray-600">Director, Murphys Manufacturing Services</p>
                   </div>
                 </div>
@@ -628,10 +628,10 @@ export default function CalaverasCountyPage() {
               Join hundreds of Calaveras County businesses that trust Nandann Creative with their digital success—from Angels Camp to Arnold, Sierra Nevada!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact?ref=location" className="bg-white text-stone-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
+              <Link href="/contact" className="bg-white text-stone-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
                 Start Your Project Today
               </Link>
-              <Link href="/contact?ref=location" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-stone-600 transition-all duration-300 text-center">
+              <Link href="/contact" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-stone-600 transition-all duration-300 text-center">
                 Schedule a Consultation
               </Link>
             </div>
