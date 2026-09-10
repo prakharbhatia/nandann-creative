@@ -168,7 +168,7 @@ export default function SanBernardinoCountyPage() {
                   that capture San Bernardino County's spirit and drive real results in the aerospace capital.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/contact?ref=location" className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-blue-700 hover:to-green-700 transition-all duration-300 transform hover:scale-105 text-center">
+                  <Link href="/contact" className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-blue-700 hover:to-green-700 transition-all duration-300 transform hover:scale-105 text-center">
                     Get Your Free Quote
                   </Link>
                   <Link href="/portfolio" className="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-blue-600 hover:text-white transition-all duration-300 text-center">
@@ -540,7 +540,7 @@ export default function SanBernardinoCountyPage() {
                     S
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Sarah "The San Bernardino Aerospace" Chen</h4>
+                    <h3 className="font-semibold text-gray-900">Sarah "The San Bernardino Aerospace" Chen</h3>
                     <p className="text-gray-600">CEO, San Bernardino Aerospace Solutions</p>
                   </div>
                 </div>
@@ -557,7 +557,7 @@ export default function SanBernardinoCountyPage() {
                     M
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Mike "The Big Bear Mountain" Rodriguez</h4>
+                    <h3 className="font-semibold text-gray-900">Mike "The Big Bear Mountain" Rodriguez</h3>
                     <p className="text-gray-600">Founder, Big Bear Mountain Tourism Solutions</p>
                   </div>
                 </div>
@@ -574,7 +574,7 @@ export default function SanBernardinoCountyPage() {
                     J
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Jennifer "The Fontana Manufacturer" Park</h4>
+                    <h3 className="font-semibold text-gray-900">Jennifer "The Fontana Manufacturer" Park</h3>
                     <p className="text-gray-600">Director, Fontana Manufacturing Services</p>
                   </div>
                 </div>
@@ -628,10 +628,10 @@ export default function SanBernardinoCountyPage() {
               Join hundreds of San Bernardino County businesses that trust Nandann Creative with their digital success—from San Bernardino to Big Bear, High Desert!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact?ref=location" className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
+              <Link href="/contact" className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
                 Start Your Project Today
               </Link>
-              <Link href="/contact?ref=location" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300 text-center">
+              <Link href="/contact" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300 text-center">
                 Schedule a Consultation
               </Link>
             </div>

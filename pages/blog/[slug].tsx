@@ -9,6 +9,7 @@ import BlogTableOfContents from '../../components/BlogTableOfContents';
 import { blogPosts, getPostBySlug, getAllPosts, getRelatedPosts, type BlogPost } from '../../data/blogPosts';
 import RelatedPosts from '../../components/RelatedPosts';
 import { slugify } from '../../lib/slugify';
+import { normalizeArticleHeadingLevels } from '../../lib/seo';
 
 type Props = { post: BlogPost };
 
@@ -19,8 +20,8 @@ function stripInlineCTA(html: string): string {
   const markers = [
     'Let’s build something together',
     "Let's build something together",
-    'href="/contact?ref=blog"',
-    'href="/contact?ref=wordpress-blog"',
+    'href="/contact"',
+    'href="/contact"',
   ];
   for (const marker of markers) {
     const markerIdx = html.indexOf(marker);
@@ -148,7 +149,9 @@ export default function BlogPostPage({ post }: Props) {
     if (end === -1) return html;
     return trimmed.slice(end + '</picture>'.length).trimStart();
   }
-  const cleanedContent = stripLeadingBanner(stripInlineCTA(post.contentHtml));
+  const cleanedContent = normalizeArticleHeadingLevels(
+    stripLeadingBanner(stripInlineCTA(post.contentHtml)),
+  );
 
   return (
     <>
@@ -396,7 +399,7 @@ export default function BlogPostPage({ post }: Props) {
                     </p>
                     <div className="flex flex-wrap gap-4">
                       <Link
-                        href="/contact?ref=wordpress-blog"
+                        href="/contact"
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-200 hover:scale-105"
                         style={{ background: 'linear-gradient(135deg, #6366f1, #4f46e5)', boxShadow: '0 4px 15px rgba(99,102,241,0.4)' }}
                       >
@@ -431,7 +434,7 @@ export default function BlogPostPage({ post }: Props) {
                     </p>
                     <div className="flex flex-wrap gap-4">
                       <Link
-                        href="/contact?ref=blog"
+                        href="/contact"
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-200 hover:scale-105"
                         style={{ background: 'linear-gradient(135deg, #3b82f6, #2563eb)', boxShadow: '0 4px 15px rgba(59,130,246,0.4)' }}
                       >
@@ -507,4 +510,3 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   }
   return { props: { post } };
 };
-

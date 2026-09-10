@@ -54,9 +54,9 @@ export default function PortfolioGallery() {
 
                 {/* Header */}
                 <div className="text-center mb-16">
-                    <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
+                    <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
                         Our Work
-                    </h2>
+                    </h1>
                     <p className="text-xl text-gray-400 max-w-2xl mx-auto">
                         Explore our portfolio of high-performance websites, custom plugins, and enterprise solutions.
                     </p>

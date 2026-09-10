@@ -168,7 +168,7 @@ export default function LakeCountyPage() {
                   that capture Lake County's spirit and drive real results in the lake paradise.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/contact?ref=location" className="bg-gradient-to-r from-sky-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-sky-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 text-center">
+                  <Link href="/contact" className="bg-gradient-to-r from-sky-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-sky-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 text-center">
                     Get Your Free Quote
                   </Link>
                   <Link href="/portfolio" className="border-2 border-sky-600 text-sky-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-sky-600 hover:text-white transition-all duration-300 text-center">
@@ -540,7 +540,7 @@ export default function LakeCountyPage() {
                     S
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Sarah "The Lakeport Tech" Chen</h4>
+                    <h3 className="font-semibold text-gray-900">Sarah "The Lakeport Tech" Chen</h3>
                     <p className="text-gray-600">CEO, Lakeport Tech Solutions</p>
                   </div>
                 </div>
@@ -557,7 +557,7 @@ export default function LakeCountyPage() {
                     M
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Mike "The Clearlake Agriculture" Rodriguez</h4>
+                    <h3 className="font-semibold text-gray-900">Mike "The Clearlake Agriculture" Rodriguez</h3>
                     <p className="text-gray-600">Founder, Clearlake Agriculture Solutions</p>
                   </div>
                 </div>
@@ -574,7 +574,7 @@ export default function LakeCountyPage() {
                     J
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Jennifer "The Kelseyville Manufacturing" Park</h4>
+                    <h3 className="font-semibold text-gray-900">Jennifer "The Kelseyville Manufacturing" Park</h3>
                     <p className="text-gray-600">Director, Kelseyville Manufacturing Services</p>
                   </div>
                 </div>
@@ -628,10 +628,10 @@ export default function LakeCountyPage() {
               Join hundreds of Lake County businesses that trust Nandann Creative with their digital success—from Lakeport to Middletown, North Coast!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact?ref=location" className="bg-white text-sky-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
+              <Link href="/contact" className="bg-white text-sky-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
                 Start Your Project Today
               </Link>
-              <Link href="/contact?ref=location" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-sky-600 transition-all duration-300 text-center">
+              <Link href="/contact" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-sky-600 transition-all duration-300 text-center">
                 Schedule a Consultation
               </Link>
             </div>

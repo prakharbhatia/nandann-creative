@@ -252,12 +252,12 @@ export default function HungryFileManager() {
                         
                         <div className="grid md:grid-cols-2 gap-12">
                             <div className="space-y-6">
-                                <h4 className="text-lg font-bold text-red-400 flex items-center gap-2">
+                                <h3 className="text-lg font-bold text-red-400 flex items-center gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                                     </svg>
                                     Old Way (FTP)
-                                </h4>
+                                </h3>
                                 <ul className="space-y-4 text-gray-500">
                                     <li className="flex gap-3"><span>—</span><span>Slow connection and authentication</span></li>
                                     <li className="flex gap-3"><span>—</span><span>Manual upload/download for every edit</span></li>
@@ -266,12 +266,12 @@ export default function HungryFileManager() {
                                 </ul>
                             </div>
                             <div className="space-y-6">
-                                <h4 className="text-lg font-bold text-green-400 flex items-center gap-2">
+                                <h3 className="text-lg font-bold text-green-400 flex items-center gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                                     </svg>
                                     Hungry Way
-                                </h4>
+                                </h3>
                                 <ul className="space-y-4 text-gray-300">
                                     <li className="flex gap-3"><span className="text-green-500 font-bold">✓</span><span>Instant access in your dashboard</span></li>
                                     <li className="flex gap-3"><span className="text-green-500 font-bold">✓</span><span>Edit and save directly to the server</span></li>

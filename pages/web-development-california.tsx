@@ -153,7 +153,7 @@ export default function WebDevelopmentCalifornia() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/contact?ref=location"
+              href="/contact"
               className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg"
             >
               Let's Build Something Awesome!
@@ -329,21 +329,21 @@ export default function WebDevelopmentCalifornia() {
                 <div className="flex items-start space-x-3">
                   <div className="w-6 h-6 bg-blue-600 rounded-full flex-shrink-0 mt-1"></div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Silicon Valley Innovation</h4>
+                    <h3 className="font-semibold text-gray-900">Silicon Valley Innovation</h3>
                     <p className="text-gray-600">Cutting-edge tech solutions that match the innovation culture</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-6 h-6 bg-green-600 rounded-full flex-shrink-0 mt-1"></div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">LA Entertainment Style</h4>
+                    <h3 className="font-semibold text-gray-900">LA Entertainment Style</h3>
                     <p className="text-gray-600">Creative, engaging designs that capture attention like Hollywood</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-6 h-6 bg-purple-600 rounded-full flex-shrink-0 mt-1"></div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">San Diego Charm</h4>
+                    <h3 className="font-semibold text-gray-900">San Diego Charm</h3>
                     <p className="text-gray-600">Friendly, approachable interfaces that feel like home</p>
                   </div>
                 </div>
@@ -382,7 +382,7 @@ export default function WebDevelopmentCalifornia() {
                   S
                 </div>
                 <div className="ml-4">
-                  <h4 className="font-semibold text-gray-900">Sarah Chen</h4>
+                  <h3 className="font-semibold text-gray-900">Sarah Chen</h3>
                   <p className="text-gray-600">Tech Startup, San Francisco</p>
                 </div>
               </div>
@@ -397,7 +397,7 @@ export default function WebDevelopmentCalifornia() {
                   M
                 </div>
                 <div className="ml-4">
-                  <h4 className="font-semibold text-gray-900">Mike Rodriguez</h4>
+                  <h3 className="font-semibold text-gray-900">Mike Rodriguez</h3>
                   <p className="text-gray-600">Restaurant Owner, Los Angeles</p>
                 </div>
               </div>
@@ -412,7 +412,7 @@ export default function WebDevelopmentCalifornia() {
                   J
                 </div>
                 <div className="ml-4">
-                  <h4 className="font-semibold text-gray-900">Jennifer Park</h4>
+                  <h3 className="font-semibold text-gray-900">Jennifer Park</h3>
                   <p className="text-gray-600">Real Estate Agent, San Diego</p>
                 </div>
               </div>
@@ -463,7 +463,7 @@ export default function WebDevelopmentCalifornia() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/contact?ref=location"
+              href="/contact"
               className="bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors"
             >
               Get Your Free Quote

@@ -66,7 +66,7 @@ export default function NextJSIndex() {
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-6">
                   <span className="text-white text-2xl">💰</span>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Migration Cost Analysis</h3>
+                <h2 className="text-xl font-bold text-gray-900 mb-4">Migration Cost Analysis</h2>
                 <p className="text-gray-600 mb-6">Comprehensive cost breakdown for WordPress to Next.js migration with ROI analysis and budget planning.</p>
                 <Link href="/nextjs/wordpress-to-nextjs-migration-cost" className="text-blue-400 hover:text-blue-300 transition-colors">
                   Learn More →
@@ -77,7 +77,7 @@ export default function NextJSIndex() {
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-6">
                   <span className="text-white text-2xl">🚀</span>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Migration Services</h3>
+                <h2 className="text-xl font-bold text-gray-900 mb-4">Migration Services</h2>
                 <p className="text-gray-600 mb-6">Professional WordPress to Next.js migration services with zero downtime and SEO preservation.</p>
                 <Link href="/nextjs/wordpress-to-nextjs-migration-service" className="text-blue-400 hover:text-blue-300 transition-colors">
                   Get Started →
@@ -88,7 +88,7 @@ export default function NextJSIndex() {
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-6">
                   <span className="text-white text-2xl">🔍</span>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">SEO Migration</h3>
+                <h2 className="text-xl font-bold text-gray-900 mb-4">SEO Migration</h2>
                 <p className="text-gray-600 mb-6">Preserve and enhance your SEO rankings during WordPress to Next.js migration with proven strategies.</p>
                 <Link href="/nextjs/wordpress-to-nextjs-seo-migration" className="text-blue-400 hover:text-blue-300 transition-colors">
                   Explore →
@@ -99,7 +99,7 @@ export default function NextJSIndex() {
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-6">
                   <span className="text-white text-2xl">📚</span>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Migration Guide</h3>
+                <h2 className="text-xl font-bold text-gray-900 mb-4">Migration Guide</h2>
                 <p className="text-gray-600 mb-6">Step-by-step tutorial for migrating WordPress to Next.js with code examples and best practices.</p>
                 <Link href="/nextjs/how-to-migrate-wordpress-to-nextjs" className="text-blue-400 hover:text-blue-300 transition-colors">
                   Read Guide →
@@ -110,7 +110,7 @@ export default function NextJSIndex() {
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-6">
                   <span className="text-white text-2xl">⚡</span>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Performance Benchmark</h3>
+                <h2 className="text-xl font-bold text-gray-900 mb-4">Performance Benchmark</h2>
                 <p className="text-gray-600 mb-6">Comprehensive performance comparison between Next.js and WordPress with real-world metrics.</p>
                 <Link href="/nextjs/nextjs-vs-wordpress-performance-benchmark" className="text-blue-400 hover:text-blue-300 transition-colors">
                   View Results →
@@ -121,7 +121,7 @@ export default function NextJSIndex() {
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-6">
                   <span className="text-white text-2xl">🖼️</span>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Image Optimization</h3>
+                <h2 className="text-xl font-bold text-gray-900 mb-4">Image Optimization</h2>
                 <p className="text-gray-600 mb-6">Advanced Next.js image optimization techniques for maximum performance and Core Web Vitals.</p>
                 <Link href="/nextjs/nextjs-image-optimization-techniques" className="text-blue-400 hover:text-blue-300 transition-colors">
                   Learn Techniques →
@@ -182,7 +182,7 @@ export default function NextJSIndex() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
-                  href="/contact?ref=nextjs"
+                  href="/contact"
                   className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-full text-white font-semibold text-lg hover-lift hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300"
                 >
                   Start Migration Project

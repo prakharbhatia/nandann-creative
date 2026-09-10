@@ -168,7 +168,7 @@ export default function NapaCountyPage() {
                   that capture Napa County's spirit and drive real results in the wine paradise.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/contact?ref=location" className="bg-gradient-to-r from-purple-600 to-red-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-purple-700 hover:to-red-700 transition-all duration-300 transform hover:scale-105 text-center">
+                  <Link href="/contact" className="bg-gradient-to-r from-purple-600 to-red-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-purple-700 hover:to-red-700 transition-all duration-300 transform hover:scale-105 text-center">
                     Get Your Free Quote
                   </Link>
                   <Link href="/portfolio" className="border-2 border-purple-600 text-purple-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-purple-600 hover:text-white transition-all duration-300 text-center">
@@ -540,7 +540,7 @@ export default function NapaCountyPage() {
                     S
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Sarah "The Napa Wine" Chen</h4>
+                    <h3 className="font-semibold text-gray-900">Sarah "The Napa Wine" Chen</h3>
                     <p className="text-gray-600">CEO, Napa Wine Solutions</p>
                   </div>
                 </div>
@@ -557,7 +557,7 @@ export default function NapaCountyPage() {
                     M
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Mike "The American Canyon Tech" Rodriguez</h4>
+                    <h3 className="font-semibold text-gray-900">Mike "The American Canyon Tech" Rodriguez</h3>
                     <p className="text-gray-600">Founder, American Canyon Tech Solutions</p>
                   </div>
                 </div>
@@ -574,7 +574,7 @@ export default function NapaCountyPage() {
                     J
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Jennifer "The Calistoga Hospitality" Park</h4>
+                    <h3 className="font-semibold text-gray-900">Jennifer "The Calistoga Hospitality" Park</h3>
                     <p className="text-gray-600">Director, Calistoga Hospitality Services</p>
                   </div>
                 </div>
@@ -628,10 +628,10 @@ export default function NapaCountyPage() {
               Join hundreds of Napa County businesses that trust Nandann Creative with their digital success—from Napa to St. Helena, wine country!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact?ref=location" className="bg-white text-purple-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
+              <Link href="/contact" className="bg-white text-purple-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
                 Start Your Project Today
               </Link>
-              <Link href="/contact?ref=location" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-purple-600 transition-all duration-300 text-center">
+              <Link href="/contact" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-purple-600 transition-all duration-300 text-center">
                 Schedule a Consultation
               </Link>
             </div>

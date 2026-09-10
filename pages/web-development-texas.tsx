@@ -153,7 +153,7 @@ export default function WebDevelopmentTexas() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/contact?ref=location"
+              href="/contact"
               className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg"
             >
               Let's Build Something Amazing!
@@ -328,21 +328,21 @@ export default function WebDevelopmentTexas() {
                 <div className="flex items-start space-x-3">
                   <div className="w-6 h-6 bg-blue-600 rounded-full flex-shrink-0 mt-1"></div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Houston Energy Style</h4>
+                    <h3 className="font-semibold text-gray-900">Houston Energy Style</h3>
                     <p className="text-gray-600">Professional, powerful designs that reflect the energy industry</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-6 h-6 bg-green-600 rounded-full flex-shrink-0 mt-1"></div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Austin Tech Appeal</h4>
+                    <h3 className="font-semibold text-gray-900">Austin Tech Appeal</h3>
                     <p className="text-gray-600">Innovative, creative interfaces that capture the startup spirit</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-6 h-6 bg-purple-600 rounded-full flex-shrink-0 mt-1"></div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Dallas Business Charm</h4>
+                    <h3 className="font-semibold text-gray-900">Dallas Business Charm</h3>
                     <p className="text-gray-600">Sophisticated, corporate interfaces that feel professional</p>
                   </div>
                 </div>
@@ -381,7 +381,7 @@ export default function WebDevelopmentTexas() {
                   M
                 </div>
                 <div className="ml-4">
-                  <h4 className="font-semibold text-gray-900">Mike Rodriguez</h4>
+                  <h3 className="font-semibold text-gray-900">Mike Rodriguez</h3>
                   <p className="text-gray-600">Energy Company, Houston</p>
                 </div>
               </div>
@@ -396,7 +396,7 @@ export default function WebDevelopmentTexas() {
                   S
                 </div>
                 <div className="ml-4">
-                  <h4 className="font-semibold text-gray-900">Sarah Johnson</h4>
+                  <h3 className="font-semibold text-gray-900">Sarah Johnson</h3>
                   <p className="text-gray-600">Tech Startup, Austin</p>
                 </div>
               </div>
@@ -411,7 +411,7 @@ export default function WebDevelopmentTexas() {
                   D
                 </div>
                 <div className="ml-4">
-                  <h4 className="font-semibold text-gray-900">David Williams</h4>
+                  <h3 className="font-semibold text-gray-900">David Williams</h3>
                   <p className="text-gray-600">Real Estate Agent, Dallas</p>
                 </div>
               </div>
@@ -462,7 +462,7 @@ export default function WebDevelopmentTexas() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/contact?ref=location"
+              href="/contact"
               className="bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors"
             >
               Get Your Free Quote

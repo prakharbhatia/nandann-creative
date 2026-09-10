@@ -153,7 +153,7 @@ export default function WebDevelopmentFlorida() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/contact?ref=location"
+              href="/contact"
               className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg"
             >
               Let's Build Something Amazing!
@@ -329,21 +329,21 @@ export default function WebDevelopmentFlorida() {
                 <div className="flex items-start space-x-3">
                   <div className="w-6 h-6 bg-blue-600 rounded-full flex-shrink-0 mt-1"></div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Miami International Style</h4>
+                    <h3 className="font-semibold text-gray-900">Miami International Style</h3>
                     <p className="text-gray-600">Sophisticated, multicultural designs that reflect global business</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-6 h-6 bg-green-600 rounded-full flex-shrink-0 mt-1"></div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Orlando Tourism Appeal</h4>
+                    <h3 className="font-semibold text-gray-900">Orlando Tourism Appeal</h3>
                     <p className="text-gray-600">Engaging, family-friendly interfaces that capture the magic</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-6 h-6 bg-purple-600 rounded-full flex-shrink-0 mt-1"></div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Tampa Bay Charm</h4>
+                    <h3 className="font-semibold text-gray-900">Tampa Bay Charm</h3>
                     <p className="text-gray-600">Friendly, approachable interfaces that feel like home</p>
                   </div>
                 </div>
@@ -382,7 +382,7 @@ export default function WebDevelopmentFlorida() {
                   S
                 </div>
                 <div className="ml-4">
-                  <h4 className="font-semibold text-gray-900">Sarah Martinez</h4>
+                  <h3 className="font-semibold text-gray-900">Sarah Martinez</h3>
                   <p className="text-gray-600">Tech Startup, Miami</p>
                 </div>
               </div>
@@ -397,7 +397,7 @@ export default function WebDevelopmentFlorida() {
                   M
                 </div>
                 <div className="ml-4">
-                  <h4 className="font-semibold text-gray-900">Mike Johnson</h4>
+                  <h3 className="font-semibold text-gray-900">Mike Johnson</h3>
                   <p className="text-gray-600">Tourism Business, Orlando</p>
                 </div>
               </div>
@@ -412,7 +412,7 @@ export default function WebDevelopmentFlorida() {
                   J
                 </div>
                 <div className="ml-4">
-                  <h4 className="font-semibold text-gray-900">Jennifer Rodriguez</h4>
+                  <h3 className="font-semibold text-gray-900">Jennifer Rodriguez</h3>
                   <p className="text-gray-600">Real Estate Agent, Tampa</p>
                 </div>
               </div>
@@ -463,7 +463,7 @@ export default function WebDevelopmentFlorida() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/contact?ref=location"
+              href="/contact"
               className="bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors"
             >
               Get Your Free Quote

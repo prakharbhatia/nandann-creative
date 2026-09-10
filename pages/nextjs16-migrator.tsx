@@ -11,31 +11,31 @@ export default function NextJS16Migrator() {
         <title>Next.js 16 Migration Tool - Superior Migration Solution | Nandann Creative</title>
         <meta name="description" content="Professional Next.js 14/15 to 16 migration tool with automatic backups, interactive CLI, and comprehensive analysis. Safer than @next/codemod with enterprise features." />
         <meta name="keywords" content="nextjs migration, nextjs 16, migration tool, codemod, turbopack, cache components, proxy.ts, middleware migration, nextjs upgrade, automatic migration" />
-        
+
         {/* Additional SEO Meta Tags */}
         <meta name="robots" content="index, follow" />
         <meta name="author" content="Nandann Creative" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="canonical" href="https://nandann.com/nextjs16-migrator" />
-        
+        <link rel="canonical" href="https://www.nandann.com/nextjs16-migrator" />
+
         {/* Open Graph */}
         <meta property="og:title" content="Next.js 16 Migration Tool - Superior Migration Solution" />
         <meta property="og:description" content="Professional Next.js 14/15 to 16 migration tool with automatic backups, interactive CLI, and comprehensive analysis." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://nandann.com/nextjs16-migrator" />
+        <meta property="og:url" content="https://www.nandann.com/nextjs16-migrator" />
         <meta property="og:image" content="https://nandann.com/images/nextjs16-migrator-og.jpg" />
-        
+
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Next.js 16 Migration Tool - Superior Migration Solution" />
         <meta name="twitter:description" content="Professional Next.js 14/15 to 16 migration tool with automatic backups, interactive CLI, and comprehensive analysis." />
         <meta name="twitter:image" content="https://nandann.com/images/nextjs16-migrator-og.jpg" />
-        
+
         {/* LinkedIn */}
         <meta property="linkedin:title" content="Next.js 16 Migration Tool - Superior Migration Solution" />
         <meta property="linkedin:description" content="Professional Next.js 14/15 to 16 migration tool with automatic backups, interactive CLI, and comprehensive analysis." />
         <meta property="linkedin:image" content="https://nandann.com/images/nextjs16-migrator-og.jpg" />
-        
+
         {/* JSON-LD */}
         <script
           type="application/ld+json"
@@ -45,7 +45,7 @@ export default function NextJS16Migrator() {
               "@type": "SoftwareApplication",
               "name": "Next.js 16 Migration Tool",
               "description": "Professional Next.js 14/15 to 16 migration tool with automatic backups, interactive CLI, and comprehensive analysis",
-              "url": "https://nandann.com/nextjs16-migrator",
+              "url": "https://www.nandann.com/nextjs16-migrator",
               "applicationCategory": "DeveloperApplication",
               "operatingSystem": "Node.js",
               "offers": {
@@ -63,7 +63,7 @@ export default function NextJS16Migrator() {
             })
           }}
         />
-        
+
         {/* FAQ JSON-LD */}
         <script
           type="application/ld+json"
@@ -135,20 +135,20 @@ export default function NextJS16Migrator() {
               Next.js 16 Migration Tool
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-4xl mx-auto">
-              The safest, most comprehensive way to migrate from Next.js 14/15 to 16. 
+              The safest, most comprehensive way to migrate from Next.js 14/15 to 16.
               Built for developers who value safety, reliability, and professional-grade tooling.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link 
-                href="https://www.npmjs.com/package/nextjs16-migrator" 
+              <Link
+                href="https://www.npmjs.com/package/nextjs16-migrator"
                 className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Install from npm
               </Link>
-              <Link 
-                href="https://github.com/prakharbha/nextjs16-migrator" 
+              <Link
+                href="https://github.com/prakharbha/nextjs16-migrator"
                 className="bg-gray-800 hover:bg-gray-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -167,7 +167,7 @@ export default function NextJS16Migrator() {
               </code>
             </div>
             <p className="text-gray-300 mb-4">
-              That's it. The tool will guide you through the entire migration process with interactive prompts, 
+              That's it. The tool will guide you through the entire migration process with interactive prompts,
               automatic backups, and detailed progress reporting.
             </p>
           </div>
@@ -428,20 +428,20 @@ export default function NextJS16Migrator() {
               Ready to Migrate to Next.js 16?
             </h2>
             <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-              Join hundreds of developers who have safely migrated their projects using our professional-grade tool. 
+              Join hundreds of developers who have safely migrated their projects using our professional-grade tool.
               Get started in minutes with automatic backups and comprehensive analysis.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
-              <Link 
-                href="https://www.npmjs.com/package/nextjs16-migrator" 
+              <Link
+                href="https://www.npmjs.com/package/nextjs16-migrator"
                 className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Install Now
               </Link>
-              <Link 
-                href="/contact?ref=nextjs" 
+              <Link
+                href="/contact"
                 className="bg-gray-800 hover:bg-gray-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
               >
                 Get Professional Help

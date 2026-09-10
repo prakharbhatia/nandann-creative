@@ -169,7 +169,7 @@ export default function SouthCarolinaPage() {
                   that capture South Carolina's spirit and drive real results in the Palmetto State.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/contact?ref=location" className="bg-gradient-to-r from-green-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-green-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 text-center">
+                  <Link href="/contact" className="bg-gradient-to-r from-green-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-green-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 text-center">
                     Get Your Free Quote
                   </Link>
                   <Link href="/portfolio" className="border-2 border-green-600 text-green-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-green-600 hover:text-white transition-all duration-300 text-center">
@@ -540,7 +540,7 @@ export default function SouthCarolinaPage() {
                     C
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Caroline "The Charleston Belle" Johnson</h4>
+                    <h3 className="font-semibold text-gray-900">Caroline "The Charleston Belle" Johnson</h3>
                     <p className="text-gray-600">Owner, Historic Charleston Inn</p>
                   </div>
                 </div>
@@ -557,7 +557,7 @@ export default function SouthCarolinaPage() {
                     G
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">George "The Greenville Guy" Williams</h4>
+                    <h3 className="font-semibold text-gray-900">George "The Greenville Guy" Williams</h3>
                     <p className="text-gray-600">CEO, Upstate Manufacturing Solutions</p>
                   </div>
                 </div>
@@ -574,7 +574,7 @@ export default function SouthCarolinaPage() {
                     M
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Mary "The Myrtle Beach Mom" Thompson</h4>
+                    <h3 className="font-semibold text-gray-900">Mary "The Myrtle Beach Mom" Thompson</h3>
                     <p className="text-gray-600">Director, Grand Strand Tourism</p>
                   </div>
                 </div>
@@ -628,10 +628,10 @@ export default function SouthCarolinaPage() {
               Join hundreds of South Carolina businesses that trust Nandann Creative with their digital success—from Charleston to Greenville, y'all!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact?ref=location" className="bg-white text-green-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
+              <Link href="/contact" className="bg-white text-green-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
                 Start Your Project Today
               </Link>
-              <Link href="/contact?ref=location" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-green-600 transition-all duration-300 text-center">
+              <Link href="/contact" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-green-600 transition-all duration-300 text-center">
                 Schedule a Consultation
               </Link>
             </div>

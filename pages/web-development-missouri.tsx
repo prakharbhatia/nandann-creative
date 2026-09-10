@@ -168,7 +168,7 @@ export default function MissouriPage() {
                   that capture Missouri's spirit and drive real results in the Show-Me State.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/contact?ref=location" className="bg-gradient-to-r from-red-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-red-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 text-center">
+                  <Link href="/contact" className="bg-gradient-to-r from-red-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-red-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 text-center">
                     Get Your Free Quote
                   </Link>
                   <Link href="/portfolio" className="border-2 border-red-600 text-red-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-red-600 hover:text-white transition-all duration-300 text-center">
@@ -540,7 +540,7 @@ export default function MissouriPage() {
                     M
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Mike "The Kansas City Maverick" Johnson</h4>
+                    <h3 className="font-semibold text-gray-900">Mike "The Kansas City Maverick" Johnson</h3>
                     <p className="text-gray-600">CEO, Kansas City Corporate Solutions</p>
                   </div>
                 </div>
@@ -557,7 +557,7 @@ export default function MissouriPage() {
                     S
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Sarah "The Saint Louis Strategist" Williams</h4>
+                    <h3 className="font-semibold text-gray-900">Sarah "The Saint Louis Strategist" Williams</h3>
                     <p className="text-gray-600">Director, Saint Louis Government Services</p>
                   </div>
                 </div>
@@ -574,7 +574,7 @@ export default function MissouriPage() {
                     T
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Tom "The Springfield Dynamo" Thompson</h4>
+                    <h3 className="font-semibold text-gray-900">Tom "The Springfield Dynamo" Thompson</h3>
                     <p className="text-gray-600">Founder, Springfield Healthcare Solutions</p>
                   </div>
                 </div>
@@ -628,10 +628,10 @@ export default function MissouriPage() {
               Join hundreds of Missouri businesses that trust Nandann Creative with their digital success—from Kansas City to Springfield, show me!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact?ref=location" className="bg-white text-red-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
+              <Link href="/contact" className="bg-white text-red-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
                 Start Your Project Today
               </Link>
-              <Link href="/contact?ref=location" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-red-600 transition-all duration-300 text-center">
+              <Link href="/contact" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-red-600 transition-all duration-300 text-center">
                 Schedule a Consultation
               </Link>
             </div>

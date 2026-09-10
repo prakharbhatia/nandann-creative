@@ -168,7 +168,7 @@ export default function WyomingPage() {
                   that capture Wyoming's spirit and drive real results in the Cowboy State.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/contact?ref=location" className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-blue-700 hover:to-green-700 transition-all duration-300 transform hover:scale-105 text-center">
+                  <Link href="/contact" className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-blue-700 hover:to-green-700 transition-all duration-300 transform hover:scale-105 text-center">
                     Get Your Free Quote
                   </Link>
                   <Link href="/portfolio" className="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-blue-600 hover:text-white transition-all duration-300 text-center">
@@ -540,7 +540,7 @@ export default function WyomingPage() {
                     M
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Mike "The Cheyenne Cowboy" Johnson</h4>
+                    <h3 className="font-semibold text-gray-900">Mike "The Cheyenne Cowboy" Johnson</h3>
                     <p className="text-gray-600">CEO, Cheyenne Energy Solutions</p>
                   </div>
                 </div>
@@ -557,7 +557,7 @@ export default function WyomingPage() {
                     S
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Sarah "The Casper Strategist" Williams</h4>
+                    <h3 className="font-semibold text-gray-900">Sarah "The Casper Strategist" Williams</h3>
                     <p className="text-gray-600">Director, Casper Healthcare Services</p>
                   </div>
                 </div>
@@ -574,7 +574,7 @@ export default function WyomingPage() {
                     T
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Tom "The Laramie Dynamo" Thompson</h4>
+                    <h3 className="font-semibold text-gray-900">Tom "The Laramie Dynamo" Thompson</h3>
                     <p className="text-gray-600">Founder, Laramie Education Solutions</p>
                   </div>
                 </div>
@@ -628,10 +628,10 @@ export default function WyomingPage() {
               Join hundreds of Wyoming businesses that trust Nandann Creative with their digital success—from Cheyenne to Jackson, cowboy state!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact?ref=location" className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
+              <Link href="/contact" className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
                 Start Your Project Today
               </Link>
-              <Link href="/contact?ref=location" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300 text-center">
+              <Link href="/contact" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300 text-center">
                 Schedule a Consultation
               </Link>
             </div>

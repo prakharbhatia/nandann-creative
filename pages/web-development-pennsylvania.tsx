@@ -152,7 +152,7 @@ export default function WebDevelopmentPennsylvania() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/contact?ref=location"
+              href="/contact"
               className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg"
             >
               Let's Build Something Amazing!
@@ -327,21 +327,21 @@ export default function WebDevelopmentPennsylvania() {
                 <div className="flex items-start space-x-3">
                   <div className="w-6 h-6 bg-blue-600 rounded-full flex-shrink-0 mt-1"></div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Philadelphia Historic Style</h4>
+                    <h3 className="font-semibold text-gray-900">Philadelphia Historic Style</h3>
                     <p className="text-gray-600">Professional, historic designs that reflect the city's rich heritage</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-6 h-6 bg-green-600 rounded-full flex-shrink-0 mt-1"></div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Pittsburgh Steel Appeal</h4>
+                    <h3 className="font-semibold text-gray-900">Pittsburgh Steel Appeal</h3>
                     <p className="text-gray-600">Strong, reliable interfaces that capture the industrial spirit</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-6 h-6 bg-purple-600 rounded-full flex-shrink-0 mt-1"></div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Harrisburg Government Charm</h4>
+                    <h3 className="font-semibold text-gray-900">Harrisburg Government Charm</h3>
                     <p className="text-gray-600">Trustworthy, authoritative interfaces that feel official</p>
                   </div>
                 </div>
@@ -380,7 +380,7 @@ export default function WebDevelopmentPennsylvania() {
                   M
                 </div>
                 <div className="ml-4">
-                  <h4 className="font-semibold text-gray-900">Mike Johnson</h4>
+                  <h3 className="font-semibold text-gray-900">Mike Johnson</h3>
                   <p className="text-gray-600">Historic Business, Philadelphia</p>
                 </div>
               </div>
@@ -395,7 +395,7 @@ export default function WebDevelopmentPennsylvania() {
                   S
                 </div>
                 <div className="ml-4">
-                  <h4 className="font-semibold text-gray-900">Sarah Rodriguez</h4>
+                  <h3 className="font-semibold text-gray-900">Sarah Rodriguez</h3>
                   <p className="text-gray-600">Manufacturing Company, Pittsburgh</p>
                 </div>
               </div>
@@ -410,7 +410,7 @@ export default function WebDevelopmentPennsylvania() {
                   D
                 </div>
                 <div className="ml-4">
-                  <h4 className="font-semibold text-gray-900">David Williams</h4>
+                  <h3 className="font-semibold text-gray-900">David Williams</h3>
                   <p className="text-gray-600">Government Contractor, Harrisburg</p>
                 </div>
               </div>
@@ -461,7 +461,7 @@ export default function WebDevelopmentPennsylvania() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/contact?ref=location"
+              href="/contact"
               className="bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors"
             >
               Get Your Free Quote

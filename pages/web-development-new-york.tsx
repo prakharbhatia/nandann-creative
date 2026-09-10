@@ -194,7 +194,7 @@ export default function NewYorkPage() {
                   drive results in the city that never sleeps.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/contact?ref=location" className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105 text-center">
+                  <Link href="/contact" className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105 text-center">
                     Get Your Free Quote
                   </Link>
                   <Link href="/portfolio" className="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-blue-600 hover:text-white transition-all duration-300 text-center">
@@ -550,7 +550,7 @@ export default function NewYorkPage() {
                     S
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Sarah "The Tech Queen" Chen</h4>
+                    <h3 className="font-semibold text-gray-900">Sarah "The Tech Queen" Chen</h3>
                     <p className="text-gray-600">Owner, Manhattan Tech Solutions</p>
                   </div>
                 </div>
@@ -567,7 +567,7 @@ export default function NewYorkPage() {
                     M
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Mike "The Brooklyn Boss" Rodriguez</h4>
+                    <h3 className="font-semibold text-gray-900">Mike "The Brooklyn Boss" Rodriguez</h3>
                     <p className="text-gray-600">CEO, Brooklyn Creative Agency</p>
                   </div>
                 </div>
@@ -584,7 +584,7 @@ export default function NewYorkPage() {
                     J
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Jennifer "The Queens Connection" Park</h4>
+                    <h3 className="font-semibold text-gray-900">Jennifer "The Queens Connection" Park</h3>
                     <p className="text-gray-600">Marketing Director, Queens Healthcare</p>
                   </div>
                 </div>
@@ -638,10 +638,10 @@ export default function NewYorkPage() {
               Join hundreds of New York businesses that trust Nandann Creative with their digital success
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact?ref=location" className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
+              <Link href="/contact" className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-center">
                 Start Your Project Today
               </Link>
-              <Link href="/contact?ref=location" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300 text-center">
+              <Link href="/contact" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300 text-center">
                 Schedule a Consultation
               </Link>
             </div>

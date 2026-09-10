@@ -11,7 +11,7 @@ export default function GeorgiaWebDevelopment() {
         <title>Web Development Georgia | Nandann Creative - Atlanta, Savannah & More</title>
         <meta name="description" content="Looking for web development in Georgia? Nandann Creative delivers high-performance websites for Atlanta, Savannah, Augusta & more. Get your Georgia business online fast!" />
         <meta name="keywords" content="web development Georgia, website design Atlanta, web developer Savannah, Georgia web development company, Atlanta website design, Savannah web developer, Augusta web development, Columbus website design, Macon web developer, Athens web development, Georgia business website, Georgia ecommerce website" />
-        
+
         {/* Open Graph */}
         <meta property="og:title" content="Web Development Georgia | Nandann Creative - Atlanta, Savannah & More" />
         <meta property="og:description" content="Looking for web development in Georgia? Nandann Creative delivers high-performance websites for Atlanta, Savannah, Augusta & more. Get your Georgia business online fast!" />
@@ -21,26 +21,26 @@ export default function GeorgiaWebDevelopment() {
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:site_name" content="Nandann Creative" />
-        
+
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Web Development Georgia | Nandann Creative - Atlanta, Savannah & More" />
         <meta name="twitter:description" content="Looking for web development in Georgia? Nandann Creative delivers high-performance websites for Atlanta, Savannah, Augusta & more. Get your Georgia business online fast!" />
         <meta name="twitter:image" content="https://www.nandann.com/georgia/georgia-web-development-nandann-creative-lg.webp" />
-        
+
         {/* Canonical */}
         <link rel="canonical" href="https://www.nandann.com/web-development-georgia" />
-        
+
         {/* Last Modified */}
         <meta name="last-modified" content="2025-09-09T12:00:00Z" />
         <meta httpEquiv="last-modified" content="Mon, 09 Sep 2025 12:00:00 GMT" />
-        
+
         {/* Geo Tags */}
         <meta name="geo.region" content="US-GA" />
         <meta name="geo.placename" content="Georgia" />
         <meta name="geo.position" content="32.1656;-82.9001" />
         <meta name="ICBM" content="32.1656, -82.9001" />
-        
+
         {/* Local Business Schema */}
         <script
           type="application/ld+json"
@@ -98,31 +98,31 @@ export default function GeorgiaWebDevelopment() {
           <source src="/georgia/georgia-web-development-nandann-creative-hd.mp4" type="video/mp4" />
           <source src="/georgia/georgia-web-development-nandann-creative-hd.webm" type="video/webm" />
         </video>
-        
+
         {/* Overlay */}
         <div className="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
-        
+
         {/* Content */}
         <div className="relative z-20 text-center text-white px-4 max-w-4xl mx-auto">
-          <h1 
+          <h1
             className="text-4xl md:text-6xl font-bold mb-6"
             style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}
           >
             Y'all Need a Website? We'll Build It Right Quick in Georgia!
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-gray-200">
-            From Atlanta to Savannah, we're Georgia's go-to web development team. 
+            From Atlanta to Savannah, we're Georgia's go-to web development team.
             Fast, reliable, and built for the Peach State's unique business needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/contact?ref=location" 
+            <Link
+              href="/contact"
               className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition duration-300"
             >
               Get Your Free Quote
             </Link>
-            <Link 
-              href="/portfolio" 
+            <Link
+              href="/portfolio"
               className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-lg text-lg font-semibold transition duration-300"
             >
               View Our Work
@@ -197,13 +197,13 @@ export default function GeorgiaWebDevelopment() {
                 Georgia's Sweet Tea & Southern Code Culture
               </h2>
               <p className="text-lg text-gray-600 mb-6">
-                Georgia isn't just about peaches and peanuts anymore. From Atlanta's booming tech scene to Savannah's historic charm, 
-                we understand what makes Georgia businesses special. We speak your language - whether you're in the fast-paced world 
+                Georgia isn't just about peaches and peanuts anymore. From Atlanta's booming tech scene to Savannah's historic charm,
+                we understand what makes Georgia businesses special. We speak your language - whether you're in the fast-paced world
                 of Atlanta startups or the traditional values of Savannah's historic district.
               </p>
               <p className="text-lg text-gray-600 mb-6">
-                Our team knows Georgia's business landscape inside and out. We've worked with everything from Atlanta's Fortune 500 
-                companies to Augusta's local family businesses. We get that Georgia businesses need websites that reflect their 
+                Our team knows Georgia's business landscape inside and out. We've worked with everything from Atlanta's Fortune 500
+                companies to Augusta's local family businesses. We get that Georgia businesses need websites that reflect their
                 unique blend of Southern hospitality and modern innovation.
               </p>
               <div className="flex flex-wrap gap-2">
@@ -328,13 +328,13 @@ export default function GeorgiaWebDevelopment() {
                   A
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900">Alex "The Atlanta Ace" Johnson</h4>
+                  <h3 className="font-semibold text-gray-900">Alex "The Atlanta Ace" Johnson</h3>
                   <p className="text-gray-600">CEO, Atlanta Tech Solutions</p>
                 </div>
               </div>
               <p className="text-gray-700 italic">
-                "Nandann Creative delivered our website in just 3 days! In Atlanta's competitive 
-                tech market, speed matters. Our new site has increased leads by 45% and perfectly 
+                "Nandann Creative delivered our website in just 3 days! In Atlanta's competitive
+                tech market, speed matters. Our new site has increased leads by 45% and perfectly
                 represents our Southern hospitality with modern innovation."
               </p>
             </div>
@@ -345,13 +345,13 @@ export default function GeorgiaWebDevelopment() {
                   S
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900">Sarah "The Savannah Sweet" Williams</h4>
+                  <h3 className="font-semibold text-gray-900">Sarah "The Savannah Sweet" Williams</h3>
                   <p className="text-gray-600">Owner, Savannah Boutique</p>
                 </div>
               </div>
               <p className="text-gray-700 italic">
-                "As a Savannah-based business, we needed a website that reflected our historic 
-                charm and Southern hospitality. Nandann Creative nailed it with a design that 
+                "As a Savannah-based business, we needed a website that reflected our historic
+                charm and Southern hospitality. Nandann Creative nailed it with a design that
                 perfectly captures the essence of Savannah's unique character."
               </p>
             </div>
@@ -362,13 +362,13 @@ export default function GeorgiaWebDevelopment() {
                   M
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900">Mike "The Macon Master" Davis</h4>
+                  <h3 className="font-semibold text-gray-900">Mike "The Macon Master" Davis</h3>
                   <p className="text-gray-600">Marketing Director, Macon Manufacturing</p>
                 </div>
               </div>
               <p className="text-gray-700 italic">
-                "Our Macon manufacturing company needed a website that showcased our traditional 
-                values while embracing modern technology. Nandann Creative created a site that's 
+                "Our Macon manufacturing company needed a website that showcased our traditional
+                values while embracing modern technology. Nandann Creative created a site that's
                 both professional and authentically Georgia."
               </p>
             </div>
@@ -437,14 +437,14 @@ export default function GeorgiaWebDevelopment() {
             Join hundreds of Georgia businesses that trust Nandann Creative for their web development needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/contact?ref=location" 
+            <Link
+              href="/contact"
               className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg text-lg font-semibold transition duration-300"
             >
               Start Your Project Today
             </Link>
-            <Link 
-              href="/portfolio" 
+            <Link
+              href="/portfolio"
               className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold transition duration-300"
             >
               See Our Georgia Work
@@ -509,4 +509,4 @@ export default function GeorgiaWebDevelopment() {
       />
     </>
   );
-} 
+}
