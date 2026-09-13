@@ -100,10 +100,16 @@ import post_rust_1981_vtable_miscompilation from './posts/rust-1981-vtable-misco
 import post_vercel_sandbox_routing_nearest_region_domain_lookups from './posts/vercel-sandbox-routing-nearest-region-domain-lookups';
 import post_gpt_6_astra_on_vercel_ai_gateway_for_coding_agents from './posts/gpt-6-astra-on-vercel-ai-gateway-for-coding-agents';
 import post_wordpress_7_1_runnable_php_code_reference_examples from './posts/wordpress-7-1-runnable-php-code-reference-examples';
+import post_openai_agents_api_harness from './posts/openai-agents-api-harness';
+import post_wordpress_node_24_npm_11 from './posts/wordpress-node-24-npm-11';
+import post_gpt_live_1_voice_agents from './posts/gpt-live-1-voice-agents';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_gpt_live_1_voice_agents,
+  post_wordpress_node_24_npm_11,
+  post_openai_agents_api_harness,
   post_wordpress_7_1_runnable_php_code_reference_examples,
   post_gpt_6_astra_on_vercel_ai_gateway_for_coding_agents,
   post_vercel_sandbox_routing_nearest_region_domain_lookups,
