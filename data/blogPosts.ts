@@ -103,10 +103,16 @@ import post_wordpress_7_1_runnable_php_code_reference_examples from './posts/wor
 import post_openai_agents_api_harness from './posts/openai-agents-api-harness';
 import post_wordpress_node_24_npm_11 from './posts/wordpress-node-24-npm-11';
 import post_gpt_live_1_voice_agents from './posts/gpt-live-1-voice-agents';
+import post_post_quantum_dnssec_packet_migration from './posts/post-quantum-dnssec-packet-migration';
+import post_identity_based_ai_model_routing from './posts/identity-based-ai-model-routing';
+import post_cloudflare_workers_node_module_registry from './posts/cloudflare-workers-node-module-registry';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_cloudflare_workers_node_module_registry,
+  post_identity_based_ai_model_routing,
+  post_post_quantum_dnssec_packet_migration,
   post_gpt_live_1_voice_agents,
   post_wordpress_node_24_npm_11,
   post_openai_agents_api_harness,
