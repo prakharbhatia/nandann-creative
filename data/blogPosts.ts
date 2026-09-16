@@ -106,10 +106,16 @@ import post_gpt_live_1_voice_agents from './posts/gpt-live-1-voice-agents';
 import post_post_quantum_dnssec_packet_migration from './posts/post-quantum-dnssec-packet-migration';
 import post_identity_based_ai_model_routing from './posts/identity-based-ai-model-routing';
 import post_cloudflare_workers_node_module_registry from './posts/cloudflare-workers-node-module-registry';
+import post_fastapi_static_files_vercel_cdn from './posts/fastapi-static-files-vercel-cdn';
+import post_gemini_live_through_an_ai_gateway_production_voice_agent_architecture from './posts/gemini-live-through-an-ai-gateway-production-voice-agent-architecture';
+import post_node_js_24_lts_vs_26_current_upgrade_guide from './posts/node-js-24-lts-vs-26-current-upgrade-guide';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_node_js_24_lts_vs_26_current_upgrade_guide,
+  post_gemini_live_through_an_ai_gateway_production_voice_agent_architecture,
+  post_fastapi_static_files_vercel_cdn,
   post_cloudflare_workers_node_module_registry,
   post_identity_based_ai_model_routing,
   post_post_quantum_dnssec_packet_migration,
