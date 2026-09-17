@@ -109,10 +109,20 @@ import post_cloudflare_workers_node_module_registry from './posts/cloudflare-wor
 import post_fastapi_static_files_vercel_cdn from './posts/fastapi-static-files-vercel-cdn';
 import post_gemini_live_through_an_ai_gateway_production_voice_agent_architecture from './posts/gemini-live-through-an-ai-gateway-production-voice-agent-architecture';
 import post_node_js_24_lts_vs_26_current_upgrade_guide from './posts/node-js-24-lts-vs-26-current-upgrade-guide';
+import post_fastapi_static_files_on_the_cdn_deployment_architecture from './posts/fastapi-static-files-on-the-cdn-deployment-architecture';
+import post_github_actions_workflow_execution_protections from './posts/github-actions-workflow-execution-protections';
+import post_coding_agent_evals_harbor_vercel_sandbox from './posts/coding-agent-evals-harbor-vercel-sandbox';
+import post_vercel_sub_second_static_artifact_deployments from './posts/vercel-sub-second-static-artifact-deployments';
+import post_vercel_ai_sdk_vs_tanstack_ai_2026 from './posts/vercel-ai-sdk-vs-tanstack-ai-2026';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_vercel_ai_sdk_vs_tanstack_ai_2026,
+  post_vercel_sub_second_static_artifact_deployments,
+  post_coding_agent_evals_harbor_vercel_sandbox,
+  post_github_actions_workflow_execution_protections,
+  post_fastapi_static_files_on_the_cdn_deployment_architecture,
   post_node_js_24_lts_vs_26_current_upgrade_guide,
   post_gemini_live_through_an_ai_gateway_production_voice_agent_architecture,
   post_fastapi_static_files_vercel_cdn,
