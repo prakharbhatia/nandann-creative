@@ -114,10 +114,18 @@ import post_github_actions_workflow_execution_protections from './posts/github-a
 import post_coding_agent_evals_harbor_vercel_sandbox from './posts/coding-agent-evals-harbor-vercel-sandbox';
 import post_vercel_sub_second_static_artifact_deployments from './posts/vercel-sub-second-static-artifact-deployments';
 import post_vercel_ai_sdk_vs_tanstack_ai_2026 from './posts/vercel-ai-sdk-vs-tanstack-ai-2026';
+import post_rust_crate_maintainer_fake_job_call_attacks from './posts/rust-crate-maintainer-fake-job-call-attacks';
+import post_cloudflare_workers_ai_reject_if_busy from './posts/cloudflare-workers-ai-reject-if-busy';
+import post_node_js_26_9_new_features from './posts/node-js-26-9-new-features';
+import post_wordpress_7_2_dataform_editor_inspector from './posts/wordpress-7-2-dataform-editor-inspector';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_wordpress_7_2_dataform_editor_inspector,
+  post_node_js_26_9_new_features,
+  post_cloudflare_workers_ai_reject_if_busy,
+  post_rust_crate_maintainer_fake_job_call_attacks,
   post_vercel_ai_sdk_vs_tanstack_ai_2026,
   post_vercel_sub_second_static_artifact_deployments,
   post_coding_agent_evals_harbor_vercel_sandbox,
