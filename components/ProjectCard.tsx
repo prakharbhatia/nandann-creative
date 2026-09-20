@@ -85,6 +85,12 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
                     <p className="text-sm text-gray-400 mb-3 line-clamp-1">{project.clientName}</p>
                 )}
 
+                {project.role && (
+                    <p className="text-xs font-medium uppercase tracking-[0.18em] text-blue-300/80">
+                        {project.role}
+                    </p>
+                )}
+
                 <div className="flex flex-wrap gap-1.5 mt-4">
                     {project.techStack.slice(0, 3).map((tech) => (
                         <span key={tech} className="text-xs text-gray-400 bg-white/5 px-2 py-1 rounded border border-white/5">

@@ -36,11 +36,14 @@ export default function Footer() {
         <p className="text-gray-400 mb-3">
           Crafting digital experiences that drive results
         </p>
-        <div className="mb-4">
-          <Link 
-            href="/plugin-support" 
-            className="text-gray-400 hover:text-white transition-colors text-sm underline underline-offset-4"
-          >
+        <div className="mb-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm">
+          <Link href="/industries" className="text-gray-400 hover:text-white transition-colors underline underline-offset-4">
+            Industries
+          </Link>
+          <Link href="/portfolio" className="text-gray-400 hover:text-white transition-colors underline underline-offset-4">
+            Portfolio
+          </Link>
+          <Link href="/plugin-support" className="text-gray-400 hover:text-white transition-colors underline underline-offset-4">
             Plugin Support
           </Link>
         </div>
@@ -50,4 +53,4 @@ export default function Footer() {
       </div>
     </footer>
   );
-} 
+}

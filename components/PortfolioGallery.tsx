@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { projects, Project } from '../data/projects';
 import ProjectCard from './ProjectCard';
 import FilterBar from './FilterBar';
@@ -58,8 +59,14 @@ export default function PortfolioGallery() {
                         Our Work
                     </h1>
                     <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                        Explore our portfolio of high-performance websites, custom plugins, and enterprise solutions.
+                        Explore working websites, Nandann-owned products, custom plugins, and enterprise solutions.
                     </p>
+                    <Link
+                        href="/industries"
+                        className="mt-5 inline-flex text-blue-300 hover:text-blue-200 font-medium transition-colors"
+                    >
+                        View our industry experience →
+                    </Link>
                 </div>
 
                 {/* Filter Bar */}

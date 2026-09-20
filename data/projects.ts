@@ -10,6 +10,7 @@ export interface Project {
     images: string[];
     link?: string;
     hostingProvider?: string;
+    role?: string;
     isLive: boolean;
     isConfidential?: boolean;
     date: string;
@@ -271,24 +272,60 @@ export const projects: Project[] = [
         title: "Aquadrive USA",
         clientName: "Aquadrive USA",
         category: 'website',
-        techStack: ["WordPress", "WooCommerce", "PHP"],
-        description: "E-commerce platform for marine propulsion systems.",
+        techStack: ["WordPress", "PHP", "Responsive Design"],
+        description: "A product website explaining Aquadrive marine anti-vibration systems, their technical advantages, and available models.",
+        challenge: "Aquadrive needed to make a specialized marine engineering system understandable to boat owners, builders, dealers, and technical buyers.",
+        solution: "Built the site from scratch around a clear explanation of the system, a structured model catalogue, customer proof, and direct product enquiries.",
         images: [], // No image due to IP agreement
         link: "https://www.aquadriveusa.com/",
+        role: "Built from scratch",
         isLive: true,
         date: "2024-03-22"
+    },
+    {
+        id: 'mack-boring',
+        title: "Mack Boring & Parts Co.",
+        clientName: "Mack Boring & Parts Co.",
+        category: 'website',
+        techStack: ["WordPress", "Product Catalogue", "Dealer Resources"],
+        description: "Website development for a marine and industrial engine distributor with a large multi-brand product catalogue.",
+        challenge: "Customers and dealers need to navigate engines, electric propulsion systems, generators, powertrain products, training, and support resources.",
+        solution: "Improved the established website experience and organized product and dealer pathways without rebuilding the site from scratch.",
+        images: [],
+        link: "https://mackboring.com/",
+        role: "Website development",
+        isLive: true,
+        date: "2026-01-01"
     },
     {
         id: 'super-boss-studio',
         title: "Super Boss Studio",
         clientName: "Super Boss Studio",
         category: 'website',
-        techStack: ["React", "Three.js", "GSAP"],
-        description: "Creative portfolio for a design studio featuring immersive 3D interactions.",
+        techStack: ["Next.js", "Responsive Design", "Booking Journey"],
+        description: "A visual website for a 16,000-square-foot Dubai film-production, photography, event, and studio-rental facility.",
+        challenge: "The business needed to present multiple studios, equipment, props, events, and creative use cases without overwhelming prospective renters.",
+        solution: "Built the site from scratch with clear space descriptions, visual exploration, and a direct online booking journey.",
         images: ["/images/superboss-studio.webp"],
         link: "https://superbossstudio.com",
+        role: "Built from scratch",
         isLive: true,
         date: "2024-08-10"
+    },
+    {
+        id: 'birch-house',
+        title: "Birch House",
+        clientName: "Birch House",
+        category: 'website',
+        techStack: ["Next.js", "Hospitality", "Reservation Journey"],
+        description: "A luxury hospitality website for an intimate five-suite property near Fort Lauderdale Beach and Las Olas Marina.",
+        challenge: "The digital experience needed to communicate privacy, calm, and residential-scale hospitality while making suite selection and reservations straightforward.",
+        solution: "Built the website from scratch around the property story, suite details, photography, location information, and availability journey.",
+        images: [],
+        link: "https://birchhouseclub.com/",
+        role: "Built from scratch",
+        isLive: true,
+        date: "2026-01-01"
     },
     {
         id: 'pillars-hotel',
@@ -304,15 +341,48 @@ export const projects: Project[] = [
     },
     {
         id: 'ligne-carre',
-        title: "Ligne Carre",
-        clientName: "Ligne Carre",
+        title: "Ligne Carré",
+        clientName: "Ligne Carré",
         category: 'website',
-        techStack: ["Vue.js", "Nuxt", "Shopify Headless"],
-        description: "Minimalist fashion e-commerce store with a focus on visual storytelling.",
+        techStack: ["Next.js", "Bilingual Content", "Project Portfolio"],
+        description: "A bilingual website for a Montréal architecture and project-management practice with international experience.",
+        challenge: "The practice needed to present more than 25 years of architectural experience, several service lines, and a detailed international project portfolio in English and French.",
+        solution: "Built the site from scratch with bilingual service content, structured project pages, professional credentials, and consultation pathways.",
         images: ["/images/ligne-carre.webp"],
         link: "https://lignecarre.com",
+        role: "Built from scratch",
         isLive: true,
         date: "2024-04-18"
+    },
+    {
+        id: 'ai-brand-exhibit',
+        title: "AI Brand Exhibit",
+        clientName: "AI Brand Exhibit",
+        category: 'website',
+        techStack: ["Next.js", "B2B Services", "Responsive Design"],
+        description: "A B2B website for an events and experiential-marketing company delivering projects across India.",
+        challenge: "The company needed to organize corporate events, exhibitions, concerts, product launches, activations, MICE services, branding, and video production into one clear offer.",
+        solution: "Built the site from scratch with focused service pages, client proof, and direct enquiry paths for prospective partners.",
+        images: [],
+        link: "https://aibrandexhibit.com/",
+        role: "Built from scratch",
+        isLive: true,
+        date: "2026-01-01"
+    },
+    {
+        id: 'monkbot',
+        title: "Monkbot",
+        clientName: "Nandann Creative Agency",
+        category: ['website', 'backend'],
+        techStack: ["Agentic AI", "WordPress", "MCP", "WooCommerce"],
+        description: "Nandann's AI operations product for managing WordPress content, plugins, comments, orders, and site tasks through natural-language commands.",
+        challenge: "WordPress agencies lose time switching between dashboards and repeating routine content, maintenance, and WooCommerce operations across many sites.",
+        solution: "Designed and built Monkbot as a natural-language operations layer with secure, logged execution and support for agency workflows.",
+        images: [],
+        link: "https://monkbot.app/",
+        role: "Nandann product",
+        isLive: true,
+        date: "2026-01-01"
     },
     {
         id: 'orila-center',
@@ -331,12 +401,30 @@ export const projects: Project[] = [
         title: "Prakhar Psychological Test",
         clientName: "Prakhar Psychological Test",
         category: 'website',
-        techStack: ["React", "Node.js", "MongoDB"],
-        description: "Online psychological assessment platform with automated scoring and reporting.",
+        techStack: ["Next.js", "Product Catalogue", "E-commerce"],
+        description: "An ecommerce catalogue of professional psychological assessments for researchers, clinicians, and educational institutions.",
+        challenge: "Detailed assessment information needed to remain easy to explore across purposes, age groups, languages, and price points.",
+        solution: "Built the website from scratch with structured product information, catalogue browsing, and a straightforward purchase journey.",
         images: ["/images/portfolio/psych-test.webp"], // Placeholder path
         link: "https://www.prakharpsychologicaltest.com/",
+        role: "Built from scratch",
         isLive: true,
         date: "2024-07-12"
+    },
+    {
+        id: 'prakhar-bhatia-cv',
+        title: "Prakhar Bhatia",
+        clientName: "Prakhar Bhatia",
+        category: 'website',
+        techStack: ["Next.js", "Personal Brand", "Technical Portfolio"],
+        description: "Prakhar Bhatia's CV and portfolio website covering full-stack engineering, agentic AI, WordPress, fintech, and Web3.",
+        challenge: "Two decades of technical work needed a focused narrative that could serve both consulting prospects and agency buyers.",
+        solution: "Built the site from scratch as a concise personal portfolio with selected work, speaking experience, technical positioning, and a path to Nandann.",
+        images: [],
+        link: "https://prakharbhatia.com/",
+        role: "Founder CV website",
+        isLive: true,
+        date: "2026-01-01"
     },
     {
         id: 'gale-family-remodeling',

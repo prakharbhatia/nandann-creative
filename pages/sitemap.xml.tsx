@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next';
 import { blogPosts, getAllCategories, getAllTags } from '../data/blogPosts';
+import { industries } from '../data/industries';
 import { slugify } from '../lib/slugify';
 
 function Sitemap() {
@@ -26,6 +27,8 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     '/nextjs/nextjs-image-optimization-techniques',
     '/approach',
     '/portfolio',
+    '/industries',
+    ...industries.map((industry) => `/industries/${industry.slug}`),
     '/reset-file-and-folder-permissions',
     '/contact',
     '/rapid-same-day-website-delivery',
@@ -188,6 +191,8 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
       return { priority: '0.7', changefreq: 'monthly', lastmod: recentPost };
     if (['/services', '/approach', '/about', '/portfolio'].includes(page))
       return { priority: '0.9', changefreq: 'monthly', lastmod: '2025-10-01' };
+    if (page.startsWith('/industries'))
+      return { priority: page === '/industries' ? '0.9' : '0.8', changefreq: 'monthly', lastmod: '2026-09-20' };
     if (['/contact', '/rapid-same-day-website-delivery'].includes(page))
       return { priority: '0.8', changefreq: 'monthly', lastmod: '2025-08-01' };
     if (page.startsWith('/nextjs')) return { priority: '0.7', changefreq: 'monthly', lastmod: '2025-11-01' };

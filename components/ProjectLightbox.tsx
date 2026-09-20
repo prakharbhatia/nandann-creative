@@ -77,6 +77,11 @@ export default function ProjectLightbox({ project, onClose }: ProjectLightboxPro
                                     {project.clientName && !project.isConfidential && (
                                         <p className="text-lg text-gray-400">{project.clientName}</p>
                                     )}
+                                    {project.role && (
+                                        <p className="mt-2 text-sm font-medium uppercase tracking-[0.18em] text-blue-300">
+                                            {project.role}
+                                        </p>
+                                    )}
                                 </div>
 
                                 {/* Tech Stack & Hosting */}

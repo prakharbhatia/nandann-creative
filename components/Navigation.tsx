@@ -24,7 +24,7 @@ export default function Navigation() {
     { href: '/services', label: 'Services' },
     { href: '/blog', label: 'Blog' },
     { href: '/nextjs', label: 'Next.js' },
-    { href: '/approach', label: 'Approach' },
+    { href: '/industries', label: 'Industries' },
     { href: '/portfolio', label: 'Portfolio' },
     { href: '/about', label: 'About' },
     { href: '/contact', label: 'Contact' }
@@ -444,4 +444,4 @@ export default function Navigation() {
       </div>
     </nav>
   )
-} 
+}
