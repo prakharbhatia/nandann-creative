@@ -12,6 +12,7 @@ interface IndustryRouteProps {
 
 export default function IndustryRoute({ industry, featuredProjects }: IndustryRouteProps) {
   const canonical = `https://www.nandann.com/industries/${industry.slug}`;
+  const socialImage = `https://www.nandann.com${industry.bannerImage}`;
   const schema = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -68,11 +69,12 @@ export default function IndustryRoute({ industry, featuredProjects }: IndustryRo
         <meta property="og:url" content={canonical} />
         <meta property="og:title" content={industry.metaTitle} />
         <meta property="og:description" content={industry.metaDescription} />
-        <meta property="og:image" content="https://www.nandann.com/images/nandann-social-card.png" />
+        <meta property="og:image" content={socialImage} />
+        <meta property="og:image:alt" content={industry.bannerAlt} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={industry.metaTitle} />
         <meta name="twitter:description" content={industry.metaDescription} />
-        <meta name="twitter:image" content="https://www.nandann.com/images/nandann-social-card.png" />
+        <meta name="twitter:image" content={socialImage} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       </Head>
 

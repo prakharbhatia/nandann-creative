@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { ExternalLink } from 'lucide-react';
+import Image from 'next/image';
+import { Check, ExternalLink } from 'lucide-react';
 import Navigation from './Navigation';
 import Footer from './Footer';
 import type { IndustryPage } from '../data/industries';
@@ -26,19 +27,32 @@ export default function IndustryPageLayout({ industry, featuredProjects }: Indus
               ← Industries
             </Link>
 
-            <div className="mt-10 max-w-4xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-300">
-                {industry.eyebrow}
-              </p>
-              <h1 className="mt-5 text-4xl md:text-6xl font-bold leading-tight">
-                {industry.title}
-              </h1>
-              <p className="mt-7 text-xl md:text-2xl leading-relaxed text-gray-300">
-                {industry.introduction}
-              </p>
-              <p className="mt-5 text-base md:text-lg leading-relaxed text-gray-400">
-                {industry.audience}
-              </p>
+            <div className="mt-10 grid items-center gap-10 lg:grid-cols-[1.02fr_0.98fr]">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-300">
+                  {industry.eyebrow}
+                </p>
+                <h1 className="mt-5 text-4xl md:text-6xl font-bold leading-tight">
+                  {industry.title}
+                </h1>
+                <p className="mt-7 text-xl md:text-2xl leading-relaxed text-gray-300">
+                  {industry.introduction}
+                </p>
+                <p className="mt-5 text-base md:text-lg leading-relaxed text-gray-400">
+                  {industry.audience}
+                </p>
+              </div>
+              <div className="relative aspect-[16/10] overflow-hidden rounded-3xl border border-white/10 bg-black/30 shadow-2xl shadow-purple-950/30">
+                <Image
+                  src={industry.bannerImage}
+                  alt={industry.bannerAlt}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 48vw, 100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-950/45 via-transparent to-transparent" />
+              </div>
             </div>
           </div>
         </section>
@@ -75,6 +89,30 @@ export default function IndustryPageLayout({ industry, featuredProjects }: Indus
         <section className="py-20">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-300">Industry deliverables</p>
+              <h2 className="mt-4 text-3xl md:text-4xl font-bold">What we deliver for {industry.label.toLowerCase()} teams</h2>
+            </div>
+            <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {industry.deliverables.map((deliverable) => (
+                <article key={deliverable.title} className="rounded-2xl border border-white/10 bg-white/[0.04] p-6">
+                  <div className="flex items-start gap-4">
+                    <span className="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-500/15 text-blue-300">
+                      <Check size={17} aria-hidden="true" />
+                    </span>
+                    <div>
+                      <h3 className="text-lg font-semibold">{deliverable.title}</h3>
+                      <p className="mt-2 text-sm leading-relaxed text-gray-400">{deliverable.description}</p>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20 bg-black/20 border-y border-white/10">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl">
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-300">Relevant work</p>
               <h2 className="mt-4 text-3xl md:text-4xl font-bold">Experience behind the recommendation</h2>
               <p className="mt-4 text-lg leading-relaxed text-gray-400">
@@ -84,24 +122,47 @@ export default function IndustryPageLayout({ industry, featuredProjects }: Indus
 
             <div className={`mt-10 grid gap-6 ${featuredProjects.length > 1 ? 'md:grid-cols-2' : 'max-w-2xl'}`}>
               {featuredProjects.map((project) => (
-                <article key={project.id} className="glass rounded-2xl border border-white/10 p-7">
-                  <div className="flex flex-wrap items-center gap-3">
-                    <span className="rounded-full bg-blue-500/10 border border-blue-400/20 px-3 py-1 text-xs font-medium uppercase tracking-wider text-blue-300">
-                      {project.role || 'Selected work'}
-                    </span>
-                  </div>
-                  <h3 className="mt-5 text-2xl font-bold">{project.title}</h3>
-                  <p className="mt-3 leading-relaxed text-gray-300">{project.description}</p>
-                  {project.link && project.link !== '#' && (
+                <article key={project.id} className="glass group overflow-hidden rounded-2xl border border-white/10">
+                  {project.images[0] ? (
                     <a
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-6 inline-flex items-center gap-2 text-blue-300 hover:text-blue-200 font-medium transition-colors"
+                      className="relative block aspect-[16/10] overflow-hidden border-b border-white/10 bg-black/30"
+                      aria-label={`Open ${project.title} website`}
                     >
-                      Visit website <ExternalLink size={15} />
+                      <Image
+                        src={project.images[0]}
+                        alt={`${project.title} website homepage`}
+                        fill
+                        sizes="(min-width: 768px) 50vw, 100vw"
+                        className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.025]"
+                      />
                     </a>
+                  ) : (
+                    <div className="flex aspect-[16/7] items-center justify-center border-b border-white/10 bg-gradient-to-br from-blue-500/10 to-purple-500/10 px-8 text-center">
+                      <span className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-200/80">{project.title}</span>
+                    </div>
                   )}
+                  <div className="p-7">
+                    <div className="flex flex-wrap items-center gap-3">
+                    <span className="rounded-full bg-blue-500/10 border border-blue-400/20 px-3 py-1 text-xs font-medium uppercase tracking-wider text-blue-300">
+                      {project.role || 'Selected work'}
+                    </span>
+                    </div>
+                    <h3 className="mt-5 text-2xl font-bold">{project.title}</h3>
+                    <p className="mt-3 leading-relaxed text-gray-300">{project.description}</p>
+                    {project.link && project.link !== '#' && (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-6 inline-flex items-center gap-2 text-blue-300 hover:text-blue-200 font-medium transition-colors"
+                      >
+                        Visit website <ExternalLink size={15} />
+                      </a>
+                    )}
+                  </div>
                 </article>
               ))}
             </div>

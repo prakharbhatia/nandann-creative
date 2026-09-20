@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image';
 import Navigation from '../../components/Navigation';
 import Footer from '../../components/Footer';
 import { industries } from '../../data/industries';
@@ -50,17 +51,29 @@ export default function IndustriesPage() {
 
             <div className="mt-16 grid gap-6 md:grid-cols-2">
               {industries.map((industry) => (
-                <article key={industry.slug} className="glass rounded-3xl border border-white/10 p-8 hover-lift">
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-300">{industry.label}</p>
-                  <h2 className="mt-4 text-2xl md:text-3xl font-bold">{industry.title}</h2>
-                  <p className="mt-4 leading-relaxed text-gray-300">{industry.introduction}</p>
-                  <p className="mt-4 text-sm leading-relaxed text-gray-400">{industry.audience}</p>
-                  <Link
-                    href={`/industries/${industry.slug}`}
-                    className="mt-7 inline-flex font-medium text-blue-300 hover:text-blue-200 transition-colors"
-                  >
-                    View experience →
+                <article key={industry.slug} className="glass group overflow-hidden rounded-3xl border border-white/10 hover-lift">
+                  <Link href={`/industries/${industry.slug}`} className="relative block aspect-[16/8] overflow-hidden border-b border-white/10">
+                    <Image
+                      src={industry.bannerImage}
+                      alt={industry.bannerAlt}
+                      fill
+                      sizes="(min-width: 768px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.025]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-950/55 via-transparent to-transparent" />
                   </Link>
+                  <div className="p-8">
+                    <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-300">{industry.label}</p>
+                    <h2 className="mt-4 text-2xl md:text-3xl font-bold">{industry.title}</h2>
+                    <p className="mt-4 leading-relaxed text-gray-300">{industry.introduction}</p>
+                    <p className="mt-4 text-sm leading-relaxed text-gray-400">{industry.audience}</p>
+                    <Link
+                      href={`/industries/${industry.slug}`}
+                      className="mt-7 inline-flex font-medium text-blue-300 hover:text-blue-200 transition-colors"
+                    >
+                      View experience →
+                    </Link>
+                  </div>
                 </article>
               ))}
             </div>

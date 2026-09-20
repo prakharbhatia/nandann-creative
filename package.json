@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "seo:check": "node scripts/verify-seo.mjs",
+    "portfolio:screenshots": "node scripts/capture-portfolio-screenshots.mjs",
     "start": "next start",
     "lint": "next lint",
     "heroku-postbuild": "npm run build",
