@@ -118,10 +118,16 @@ import post_rust_crate_maintainer_fake_job_call_attacks from './posts/rust-crate
 import post_cloudflare_workers_ai_reject_if_busy from './posts/cloudflare-workers-ai-reject-if-busy';
 import post_node_js_26_9_new_features from './posts/node-js-26-9-new-features';
 import post_wordpress_7_2_dataform_editor_inspector from './posts/wordpress-7-2-dataform-editor-inspector';
+import post_cloudflare_worker_previews_coding_agents from './posts/cloudflare-worker-previews-coding-agents';
+import post_fastapi_cloudflare_python_workers from './posts/fastapi-cloudflare-python-workers';
+import post_github_ssh_2026_rsa_sha1_mlkem_migration from './posts/github-ssh-2026-rsa-sha1-mlkem-migration';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_github_ssh_2026_rsa_sha1_mlkem_migration,
+  post_fastapi_cloudflare_python_workers,
+  post_cloudflare_worker_previews_coding_agents,
   post_wordpress_7_2_dataform_editor_inspector,
   post_node_js_26_9_new_features,
   post_cloudflare_workers_ai_reject_if_busy,
