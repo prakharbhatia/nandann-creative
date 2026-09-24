@@ -121,10 +121,18 @@ import post_wordpress_7_2_dataform_editor_inspector from './posts/wordpress-7-2-
 import post_cloudflare_worker_previews_coding_agents from './posts/cloudflare-worker-previews-coding-agents';
 import post_fastapi_cloudflare_python_workers from './posts/fastapi-cloudflare-python-workers';
 import post_github_ssh_2026_rsa_sha1_mlkem_migration from './posts/github-ssh-2026-rsa-sha1-mlkem-migration';
+import post_github_copilot_local_sandboxing_for_coding_agents from './posts/github-copilot-local-sandboxing-for-coding-agents';
+import post_vercel_sandbox_drives_for_persistent_agent_workspaces from './posts/vercel-sandbox-drives-for-persistent-agent-workspaces';
+import post_github_actions_node_24_migration_guide from './posts/github-actions-node-24-migration-guide';
+import post_secure_tanstack_ai_mcp_oauth_with_vercel_connect from './posts/secure-tanstack-ai-mcp-oauth-with-vercel-connect';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_secure_tanstack_ai_mcp_oauth_with_vercel_connect,
+  post_github_actions_node_24_migration_guide,
+  post_vercel_sandbox_drives_for_persistent_agent_workspaces,
+  post_github_copilot_local_sandboxing_for_coding_agents,
   post_github_ssh_2026_rsa_sha1_mlkem_migration,
   post_fastapi_cloudflare_python_workers,
   post_cloudflare_worker_previews_coding_agents,
