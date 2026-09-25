@@ -125,10 +125,16 @@ import post_github_copilot_local_sandboxing_for_coding_agents from './posts/gith
 import post_vercel_sandbox_drives_for_persistent_agent_workspaces from './posts/vercel-sandbox-drives-for-persistent-agent-workspaces';
 import post_github_actions_node_24_migration_guide from './posts/github-actions-node-24-migration-guide';
 import post_secure_tanstack_ai_mcp_oauth_with_vercel_connect from './posts/secure-tanstack-ai-mcp-oauth-with-vercel-connect';
+import post_branchable_backends_preview_environments from './posts/branchable-backends-preview-environments';
+import post_react_19_3_browser_ssr_components from './posts/react-19-3-browser-ssr-components';
+import post_skills_vs_mcp_vs_agent_plugins from './posts/skills-vs-mcp-vs-agent-plugins';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_skills_vs_mcp_vs_agent_plugins,
+  post_react_19_3_browser_ssr_components,
+  post_branchable_backends_preview_environments,
   post_secure_tanstack_ai_mcp_oauth_with_vercel_connect,
   post_github_actions_node_24_migration_guide,
   post_vercel_sandbox_drives_for_persistent_agent_workspaces,
