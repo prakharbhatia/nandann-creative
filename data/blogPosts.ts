@@ -130,10 +130,12 @@ import post_react_19_3_browser_ssr_components from './posts/react-19-3-browser-s
 import post_skills_vs_mcp_vs_agent_plugins from './posts/skills-vs-mcp-vs-agent-plugins';
 import post_cloudflare_web_search_api_ai_agents from './posts/cloudflare-web-search-api-ai-agents';
 import post_go_1_27_portable_simd from './posts/go-1-27-portable-simd';
+import post_rust_1_99_c_variadic_functions from './posts/rust-1-99-c-variadic-functions';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_rust_1_99_c_variadic_functions,
   post_go_1_27_portable_simd,
   post_cloudflare_web_search_api_ai_agents,
   post_skills_vs_mcp_vs_agent_plugins,
