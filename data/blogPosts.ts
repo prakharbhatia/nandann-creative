@@ -132,10 +132,12 @@ import post_cloudflare_web_search_api_ai_agents from './posts/cloudflare-web-sea
 import post_go_1_27_portable_simd from './posts/go-1-27-portable-simd';
 import post_rust_1_99_c_variadic_functions from './posts/rust-1-99-c-variadic-functions';
 import post_python_3_10_eol_migration_guide from './posts/python-3-10-eol-migration-guide';
+import post_nextjs_16_3_8_security_update from './posts/nextjs-16-3-8-security-update';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_nextjs_16_3_8_security_update,
   post_python_3_10_eol_migration_guide,
   post_rust_1_99_c_variadic_functions,
   post_go_1_27_portable_simd,
