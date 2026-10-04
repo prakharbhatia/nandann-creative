@@ -133,10 +133,14 @@ import post_go_1_27_portable_simd from './posts/go-1-27-portable-simd';
 import post_rust_1_99_c_variadic_functions from './posts/rust-1-99-c-variadic-functions';
 import post_python_3_10_eol_migration_guide from './posts/python-3-10-eol-migration-guide';
 import post_nextjs_16_3_8_security_update from './posts/nextjs-16-3-8-security-update';
+import post_rust_ownership_borrowing_practical_guide from './posts/rust-ownership-borrowing-practical-guide';
+import post_python_type_hints_gradual_typing_api_safety from './posts/python-type-hints-gradual-typing-api-safety';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_python_type_hints_gradual_typing_api_safety,
+  post_rust_ownership_borrowing_practical_guide,
   post_nextjs_16_3_8_security_update,
   post_python_3_10_eol_migration_guide,
   post_rust_1_99_c_variadic_functions,
