@@ -135,10 +135,12 @@ import post_python_3_10_eol_migration_guide from './posts/python-3-10-eol-migrat
 import post_nextjs_16_3_8_security_update from './posts/nextjs-16-3-8-security-update';
 import post_rust_ownership_borrowing_practical_guide from './posts/rust-ownership-borrowing-practical-guide';
 import post_python_type_hints_gradual_typing_api_safety from './posts/python-type-hints-gradual-typing-api-safety';
+import post_pgbouncer_1_26_1_security_upgrade from './posts/pgbouncer-1-26-1-security-upgrade';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_pgbouncer_1_26_1_security_upgrade,
   post_python_type_hints_gradual_typing_api_safety,
   post_rust_ownership_borrowing_practical_guide,
   post_nextjs_16_3_8_security_update,
