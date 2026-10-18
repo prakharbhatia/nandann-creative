@@ -136,10 +136,16 @@ import post_nextjs_16_3_8_security_update from './posts/nextjs-16-3-8-security-u
 import post_rust_ownership_borrowing_practical_guide from './posts/rust-ownership-borrowing-practical-guide';
 import post_python_type_hints_gradual_typing_api_safety from './posts/python-type-hints-gradual-typing-api-safety';
 import post_pgbouncer_1_26_1_security_upgrade from './posts/pgbouncer-1-26-1-security-upgrade';
+import post_chrome_155_unload_migration from './posts/chrome-155-unload-migration';
+import post_postgresql_19_rc1_upgrade_rehearsal from './posts/postgresql-19-rc1-upgrade-rehearsal';
+import post_bazel_build_graph_ownership from './posts/bazel-build-graph-ownership';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_bazel_build_graph_ownership,
+  post_postgresql_19_rc1_upgrade_rehearsal,
+  post_chrome_155_unload_migration,
   post_pgbouncer_1_26_1_security_upgrade,
   post_python_type_hints_gradual_typing_api_safety,
   post_rust_ownership_borrowing_practical_guide,
