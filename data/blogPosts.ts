@@ -139,10 +139,12 @@ import post_pgbouncer_1_26_1_security_upgrade from './posts/pgbouncer-1-26-1-sec
 import post_chrome_155_unload_migration from './posts/chrome-155-unload-migration';
 import post_postgresql_19_rc1_upgrade_rehearsal from './posts/postgresql-19-rc1-upgrade-rehearsal';
 import post_bazel_build_graph_ownership from './posts/bazel-build-graph-ownership';
+import post_php_critical_rce_update_october_2026 from './posts/php-critical-rce-update-october-2026';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_php_critical_rce_update_october_2026,
   post_bazel_build_graph_ownership,
   post_postgresql_19_rc1_upgrade_rehearsal,
   post_chrome_155_unload_migration,
