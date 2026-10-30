@@ -111,6 +111,10 @@ for (const field of required) {
 const { slug, title, description, date, readTime, category, coverImage } = meta;
 const tags = Array.isArray(meta.tags) ? meta.tags : [meta.tags];
 const faqs = meta.faqs || [];
+const coverMetadata = ['coverImageAlt', 'coverImageAspectRatio']
+  .filter(key => meta[key])
+  .map(key => `  ${key}: ${JSON.stringify(meta[key])},\n`)
+  .join('');
 
 // ── 3. Markdown → HTML ────────────────────────────────────────────────────────
 function mdToHtml(md) {
@@ -256,7 +260,7 @@ const post: BlogPost = {
   category: ${JSON.stringify(category)},
   tags: ${JSON.stringify(tags)}${faqsField},
   coverImage: ${JSON.stringify(coverImage)},
-  contentHtml: ${JSON.stringify(contentHtml)},
+${coverMetadata}  contentHtml: ${JSON.stringify(contentHtml)},
 };
 
 export default post;

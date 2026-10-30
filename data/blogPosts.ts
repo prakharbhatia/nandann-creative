@@ -13,6 +13,8 @@ export type BlogPost = {
   category: string;
   tags: string[];
   coverImage?: string;
+  coverImageAlt?: string;
+  coverImageAspectRatio?: string;
   contentHtml: string; // pre-rendered HTML string
   faqs?: { question: string; answer: string }[];
   howTo?: {
@@ -140,10 +142,18 @@ import post_chrome_155_unload_migration from './posts/chrome-155-unload-migratio
 import post_postgresql_19_rc1_upgrade_rehearsal from './posts/postgresql-19-rc1-upgrade-rehearsal';
 import post_bazel_build_graph_ownership from './posts/bazel-build-graph-ownership';
 import post_php_critical_rce_update_october_2026 from './posts/php-critical-rce-update-october-2026';
+import post_wordpress_7_1_4_security_update from './posts/wordpress-7-1-4-security-update';
+import post_nodejs_26_lts_migration_guide from './posts/nodejs-26-lts-migration-guide';
+import post_rspack_2_3_build_performance_upgrade from './posts/rspack-2-3-build-performance-upgrade';
+import post_touch_on_mac_interface_design_audit from './posts/touch-on-mac-interface-design-audit';
 
 
 // ── Master array (order = newest-first after getAllPosts()) ──
 export const blogPosts: BlogPost[] = [
+  post_touch_on_mac_interface_design_audit,
+  post_rspack_2_3_build_performance_upgrade,
+  post_nodejs_26_lts_migration_guide,
+  post_wordpress_7_1_4_security_update,
   post_php_critical_rce_update_october_2026,
   post_bazel_build_graph_ownership,
   post_postgresql_19_rc1_upgrade_rehearsal,
